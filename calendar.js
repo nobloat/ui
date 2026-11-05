@@ -142,14 +142,14 @@
   const wrap = $('#calwrap');
   if (wrap && cal) {
     // the week fills the window below its top (at least 6 hours): a tall screen shows more of the day
-    const fit = () => wrap.style.setProperty('--calh', Math.max(innerHeight - wrap.getBoundingClientRect().top - scrollY - 8, $('.day', cal).offsetHeight / 4) + 'px');
+    const fit = () => wrap.style.setProperty('--calh', Math.max(innerHeight - wrap.getBoundingClientRect().top - scrollY - 8, $('.hours', cal).offsetHeight / 4) + 'px');
     fit();
     addEventListener('resize', fit);
     const day = location.hash.length > 1 && $(`.day[data-date="${location.hash.slice(1)}"]`, cal);
     if (day) { cal.querySelectorAll('.cur').forEach(el => el.classList.remove('cur')); day.classList.add('cur'); $(`.hd[data-date="${day.dataset.date}"]`, cal)?.classList.add('cur'); }
     const s = $('.ev.sel', cal);
     if (s) { sel = s; s.scrollIntoView({block: 'center'}); }
-    else wrap.scrollTop = (+(wrap.dataset.daystart || 480) / 1440) * $('.day', cal).getBoundingClientRect().height;
+    else wrap.scrollTop = (+(wrap.dataset.daystart || 480) / 1440) * $('.hours', cal).getBoundingClientRect().height; // .hours: a hidden phone day measures 0
     label();
   }
 }

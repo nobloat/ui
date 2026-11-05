@@ -35,7 +35,7 @@ const proc = spawn(chrome, ['--headless', '--disable-gpu', '--hide-scrollbars', 
   `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'nbui-'))}`, 'about:blank'], {stdio: 'ignore'});
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let target;
-for (let i = 0; i < 50 && !target; i++) { await sleep(200); target = await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, {method: 'PUT'}).then(r => r.json()).catch(() => null); }
+for (let i = 0; i < 150 && !target; i++) { await sleep(200); target = await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, {method: 'PUT'}).then(r => r.json()).catch(() => null); }
 if (!target) { console.error('Chrome did not start'); proc.kill(); process.exit(2); }
 const ws = new WebSocket(target.webSocketDebuggerUrl);
 await new Promise(r => ws.onopen = r);

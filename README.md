@@ -73,7 +73,7 @@ go test -update ./...  # regenerate examples/*.html
 node check.mjs         # every example page × graphite/paper × light/dark × 320–430, 768, 1280 px (+ open menu, custom logo, long data):
                        # layout (no sideways scroll, nothing sticking out, no wrapping or clipped labels) and
                        # accessibility (contrast, names, labels, alt, ids, landmarks, target size, focus), money parsing
-node check.mjs http://localhost:8080/ /customers   # the same for an app's pages
+node check.mjs http://localhost:8080/ /customers   # the same for an app's pages (Git Bash on Windows: MSYS_NO_PATHCONV=1, or it rewrites the paths)
 ./screenshots.sh       # screenshots/*.png, needs Chrome (CHROME=…)
 ```
 
