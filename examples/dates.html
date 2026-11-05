@@ -23,13 +23,14 @@
 <span class="prefs"><span><a href="/lang/de?rd=%2fdates.html">de</a> · <a href="/lang/en?rd=%2fdates.html" class="on" aria-current="true">en</a></span>
 <button type="button" id="theme" class="round" hidden>◐</button></span>
 <a class="who" href="settings.html">peter</a>
-<a class="round" href="settings.html" title="Settings" aria-label="Settings">⚙</a>
+<a class="round ico cog" href="settings.html" title="Settings" aria-label="Settings"></a>
 <a class="round" href="login.html" title="Log out" aria-label="Log out">⏻</a>
 <button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
 </span>
 </header>
 <nav class="app" id="nav">
 <a href="index.html" data-g="a">Gallery</a>
+<a href="dashboard.html" data-g="b">Dashboard</a>
 <a href="list.html" data-g="c">Customers</a>
 <a href="detail.html" data-g="d">Detail</a>
 <a href="form.html" data-g="f">Form</a>
@@ -90,8 +91,10 @@
 <table>
 <thead><tr><th>rule</th><th class="num">example</th></tr></thead>
 <tbody>
-<tr><td>right aligned, tabular digits, never wrapped</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
-<tr><td>negative: a real minus, not red (red means a problem)</td><td class="num"><data class="money" value="-30000">−300,00 €</data></td></tr>
+<tr><td>always with the currency; right aligned, tabular digits, never wrapped</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
+<tr><td>no sign: neutral (prices, totals, balances)</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
+<tr><td>explicit plus: green, a real + sign (money in)</td><td class="num"><data class="money pos" value="124000">+1.240,00 €</data></td></tr>
+<tr><td>explicit minus: red, a real − sign, not a hyphen (money out)</td><td class="num"><data class="money neg" value="-30000">−300,00 €</data></td></tr>
 <tr><td>overdue or failing: red, plus a word or icon</td><td class="num over"><data class="money" value="98000">980,00 €</data> overdue</td></tr>
 <tr><td>totals: in the table footer, same column</td><td class="num"><b><data class="money" value="363500">3.635,00 €</data></b></td></tr>
 <tr><td>other currency: code, not symbol, when mixed</td><td class="num"><data class="money" value="135000">1,350.00 USD</data></td></tr>
@@ -132,7 +135,7 @@
 <dialog id="help" aria-labelledby="help-h">
 <h2 id="help-h">Keyboard shortcuts</h2>
 <table>
-<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>b</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> </td><td>go to page</td></tr>
 <tr><td><kbd>/</kbd></td><td>search</td></tr>
 <tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
 <tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>

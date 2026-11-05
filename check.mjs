@@ -17,12 +17,12 @@ import {pathToFileURL} from 'node:url';
   const cases = [['1.240,00', 124000], ['1,240.50', 124050], ['1240', 124000], ['1240.5', 124050], ['-12', -1200], ['−3,5', -350],
     ['1.234.567,89', 123456789], ['1 240,00 €', 124000], ['12,3456', NaN], ['1.2.3', NaN], ['abc', NaN]];
   const bad = cases.filter(([s, c]) => !Object.is(money.parse(s), c)).concat(
-    [[124050, '1.234,56', '1.240,50'], [123456789, '1,234.56', '1,234,567.89'], [-30000, '1.234,56', '−300,00'], [5, '1234.56', '0.05']]
-      .filter(([c, ex, want]) => money.format(c, ex) !== want));
+    [[124050, '1.234,56', '1.240,50'], [123456789, '1,234.56', '1,234,567.89'], [-30000, '1.234,56', '−300,00'], [5, '1234.56', '0.05'], [124000, '1.234,56', '+1.240,00', true], [0, '1.234,56', '0,00', true]]
+      .filter(([c, ex, want, signed]) => money.format(c, ex, signed) !== want));
   if (bad.length) { console.log('✕ money:', JSON.stringify(bad)); process.exit(1); }
 }
 
-const pages = ['index', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
+const pages = ['index', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
 const designs = ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);
@@ -70,7 +70,8 @@ const probe = () => {
     return (Math.max(...rs.map(r => r.bottom)) - Math.min(...rs.map(r => r.top))) / lh;
   };
   const oneLine = 'button, .btn, .chip, .tag, kbd, nav.app a, .tabs a, th, .seg label, .pager a, .logo, .who, td.num, .st, .results .sub, .calhead .btn, .cal .hd b, .month .c > span:first-child, .dayhead b, .foot b';
-  for (const el of all.filter(e => e.matches(oneLine))) if (lines(el) > 1.6) add('layout', `wraps onto ${Math.round(lines(el))} lines: "${el.textContent.trim().slice(0, 30)}"`, el);
+  for (const el of all.filter(e => e.matches(oneLine) && parseFloat(getComputedStyle(e).fontSize) > 0)) // font-size 0: icon-only on purpose
+  if (lines(el) > 1.6) add('layout', `wraps onto ${Math.round(lines(el))} lines: "${el.textContent.trim().slice(0, 30)}"`, el);
   for (const el of all) { // clipped text without an ellipsis (calendar entries clip by design)
     const s = getComputedStyle(el);
     if (s.overflowX === 'hidden' && s.clipPath === 'none' && el.scrollWidth > el.clientWidth + 1 && s.textOverflow !== 'ellipsis' && !el.closest('.ev, .stack') && el.textContent.trim())
@@ -108,7 +109,7 @@ const probe = () => {
     if (r < 4.5 - .005) add('a11y', `placeholder contrast ${r.toFixed(2)}:1 < 4.5:1`, el);
   }
   // state graphics 3:1 (a rim counts), field edges 3:1 (border or fill)
-  for (const el of all.filter(e => e.matches('.dot, .st, .bar, .stack i'))) {
+  for (const el of all.filter(e => e.matches('.dot, .st, .bar, .stack i, .bars .b, .meter i, .chart .col path'))) {
     const s = getComputedStyle(el), bg = bgOf(el.parentElement), rim = s.boxShadow.match(/(rgba?|color)\([^)]*\)/)?.[0];
     const c = el.matches('.st') ? rgb(s.color) : rgb(rim && rgb(rim).a ? rim : s.backgroundColor);
     if (c.a && ratio(over(c, bg), bg) < 3 - .005) add('a11y', `state graphic contrast ${ratio(over(c, bg), bg).toFixed(2)}:1 < 3:1`, el);

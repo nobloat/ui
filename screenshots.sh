@@ -16,7 +16,7 @@ for d in plain nordic; do
   shot "gallery-$d-light" 1280 2250 index.html "$q&theme=light"
   shot "gallery-$d-dark" 1280 2250 index.html "$q&theme=dark"
 done
-for p in list detail form dates week month settings status login; do
+for p in dashboard list detail form dates week month settings status login; do
   shot "$p-desktop" 1280 1000 $p.html "design=&brand=&logo=&theme=light"
   shot "$p-phone-dark" 500 1100 $p.html "design=&brand=&logo=&theme=dark"
 done

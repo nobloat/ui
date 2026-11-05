@@ -1,0 +1,47 @@
+{{template "nb-layout" .}}
+{{define "main"}}
+<div class="pagehead"><h1>Dashboard</h1><span class="muted">Thursday, 5 November 2026</span></div>
+
+<div class="tiles">
+<a class="tile" href="list.html?state=open"><span class="label">Open receivables</span><span class="value">3.792,50 €</span><span class="delta" style="--c:var(--red)">▲ 12 % vs October</span>{{spark 2900 3100 2800 3300 3050 3400 3200 3500 3380 3600 3450 3792}}</a>
+<a class="tile" href="list.html?state=overdue"><span class="label">Overdue</span><span class="value">980,00 €</span><span class="delta" style="--c:var(--red)">1 invoice, 21 days</span></a>
+<a class="tile" href="week.html"><span class="label">Hours this week</span><span class="value">26:05</span><span class="delta" style="--c:var(--grey)">of 38:30 · Thursday</span><span class="meter" role="meter" aria-label="hours this week" aria-valuenow="26.1" aria-valuemin="0" aria-valuemax="38.5"><i style="--v:68%"></i></span></a>
+<a class="tile" href="status.html"><span class="label">Uptime, 30 days</span><span class="value">99,98 %</span><span class="delta" style="--c:var(--green)">▲ 0,03 pp vs 30 days before</span>{{spark 99.9 99.95 99.97 99.92 99.99 99.98 100 99.96 99.99 99.98 100 99.98}}</a>
+</div>
+
+<h2>Needs attention</h2>
+<table>
+<thead><tr><th></th><th>what</th><th class="hide-phone">id</th><th class="hide-phone">since</th><th></th></tr></thead>
+<tbody>
+<tr data-href="detail.html"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td>Invoice 2026-0017 to Globex AG is overdue</td><td class="hide-phone"><code class="id">inv_2026-0017</code></td><td class="hide-phone muted">21 days</td><td class="num"><a class="btn" href="detail.html">Remind</a></td></tr>
+<tr data-href="status.html"><td><span class="dot pend" role="img" aria-label="degraded"></span></td><td>Mail delivery is delayed</td><td class="hide-phone"><code class="id">mon_mail</code></td><td class="hide-phone muted">10:15</td><td class="num"><a class="btn" href="status.html">Open</a></td></tr>
+<tr data-href="month.html"><td><span class="dot run" role="img" aria-label="to do"></span></td><td>October is not closed in track</td><td class="hide-phone"><code class="id">per_2026-10</code></td><td class="hide-phone muted">5 days</td><td class="num"><a class="btn" href="month.html">Close</a></td></tr>
+</tbody>
+</table>
+
+<div class="panels">
+<section>
+<h2>Revenue per month</h2>
+{{columns "Revenue per month, June to November 2026" "Jun Jul Aug Sep Oct Nov" "2400 3100 2850 3600 4120 3635"}}
+</section>
+<section>
+<h2>Hours by project, this month</h2>
+<ul class="bars">
+<li><span>ACME GmbH</span><span class="b" style="--v:100%"></span><span class="num">24:30</span></li>
+<li><span>Globex AG</span><span class="b" style="--v:71%"></span><span class="num">17:20</span></li>
+<li><span>Hooli e.U.</span><span class="b" style="--v:57%"></span><span class="num">14:00</span></li>
+<li><span>internal</span><span class="b" style="--v:31%"></span><span class="num">7:35</span></li>
+</ul>
+</section>
+</div>
+
+<h2>Recent</h2>
+<ul class="audit" style="list-style:none;padding:0;font-size:1em">
+<li>09:12 · peter · payment <data class="money pos" value="124000">+1.240,00 €</data> for <code class="id">inv_2026-0042</code></li>
+<li>08:40 · peter · credit note <data class="money neg" value="-30000">−300,00 €</data> for <code class="id">inv_2026-0027</code></li>
+<li>yesterday 17:40 · peter · sent <code class="id">inv_2026-0042</code> to office@acme.example</li>
+<li>yesterday 11:02 · anna · created <code class="id">cus_0051</code> Hooli e.U.</li>
+</ul>
+{{end}}
+{{define "keys"}} · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>Enter</kbd> open{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

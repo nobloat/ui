@@ -51,8 +51,10 @@
 <table>
 <thead><tr><th>rule</th><th class="num">example</th></tr></thead>
 <tbody>
-<tr><td>right aligned, tabular digits, never wrapped</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
-<tr><td>negative: a real minus, not red (red means a problem)</td><td class="num"><data class="money" value="-30000">−300,00 €</data></td></tr>
+<tr><td>always with the currency; right aligned, tabular digits, never wrapped</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
+<tr><td>no sign: neutral (prices, totals, balances)</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
+<tr><td>explicit plus: green, a real + sign (money in)</td><td class="num"><data class="money pos" value="124000">+1.240,00 €</data></td></tr>
+<tr><td>explicit minus: red, a real − sign, not a hyphen (money out)</td><td class="num"><data class="money neg" value="-30000">−300,00 €</data></td></tr>
 <tr><td>overdue or failing: red, plus a word or icon</td><td class="num over"><data class="money" value="98000">980,00 €</data> overdue</td></tr>
 <tr><td>totals: in the table footer, same column</td><td class="num"><b><data class="money" value="363500">3.635,00 €</data></b></td></tr>
 <tr><td>other currency: code, not symbol, when mixed</td><td class="num"><data class="money" value="135000">1,350.00 USD</data></td></tr>

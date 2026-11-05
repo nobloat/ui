@@ -53,7 +53,7 @@ The page value (dot) needs:
 <span class="right">
 {{template "nb-langtheme" .}}
 {{with .User}}{{if $.UserURL}}<a class="who" href="{{$.UserURL}}">{{.}}</a>{{else}}<span class="who">{{.}}</span>{{end}}{{end}}
-{{with .SettingsURL}}<a class="round" href="{{.}}" title="{{$.T "nav.settings"}}" aria-label="{{$.T "nav.settings"}}">⚙</a>{{end}}
+{{with .SettingsURL}}<a class="round ico cog" href="{{.}}" title="{{$.T "nav.settings"}}" aria-label="{{$.T "nav.settings"}}"></a>{{end}}
 {{with .LogoutURL}}<a class="round" href="{{.}}" title="{{$.T "nav.logout"}}" aria-label="{{$.T "nav.logout"}}">⏻</a>{{end}}
 {{if .Nav}}<button type="button" id="menu" class="round" aria-label="{{.T "nav.menu"}}" aria-expanded="false">☰</button>{{end}}
 </span>

@@ -36,7 +36,8 @@
 <button>Duplicate <kbd>y</kbd></button><a href="#">Download PDF</a>
 <form method="post" action="/archive" data-confirm="Archive ACME GmbH?"><button class="danger">Archive…</button></form>
 </div></details>
-<button data-copy="sk_live_3f2a9c">Copy key</button>
+<button class="copy" data-copy="sk_live_3f2a9c">Copy key</button>
+<button class="round ico copy" data-copy="cus_0042" aria-label="copy id" title="copy id"></button>
 </div>
 
 <h2>Messages</h2>
@@ -107,11 +108,11 @@
 <table>
 <thead><tr><th></th><th>name</th><th class="hide-phone">tags</th><th class="num">open</th><th class="num hide-phone">share</th></tr></thead>
 <tbody>
-<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="ok"></span></td><td><a href="detail.html">ACME GmbH</a></td><td class="hide-phone"><a class="tag" href="#">retainer</a></td><td class="num">1.240,00</td><td class="num hide-phone"><span class="bar" style="width:4rem"></span></td></tr>
-<tr data-href="detail.html" class="sel"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td><a href="detail.html">Globex AG</a></td><td class="hide-phone"><a class="tag" href="#">eu</a></td><td class="num over">980,00</td><td class="num hide-phone"><span class="bar" style="width:3rem"></span></td></tr>
-<tr data-href="detail.html"><td><span class="dot off" role="img" aria-label="archived"></span></td><td><a href="detail.html">Initech</a></td><td class="hide-phone"></td><td class="num">0,00</td><td class="num hide-phone"><span class="bar" style="width:.2rem"></span></td></tr>
+<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="ok"></span></td><td><a href="detail.html">ACME GmbH</a></td><td class="hide-phone"><a class="tag" href="#">retainer</a></td><td class="num"><data class="money" value="124000">1.240,00 €</data></td><td class="num hide-phone"><span class="bar" style="width:4rem"></span></td></tr>
+<tr data-href="detail.html" class="sel"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td><a href="detail.html">Globex AG</a></td><td class="hide-phone"><a class="tag" href="#">eu</a></td><td class="num over"><data class="money" value="98000">980,00 €</data></td><td class="num hide-phone"><span class="bar" style="width:3rem"></span></td></tr>
+<tr data-href="detail.html"><td><span class="dot off" role="img" aria-label="archived"></span></td><td><a href="detail.html">Initech</a></td><td class="hide-phone"></td><td class="num"><data class="money" value="0">0,00 €</data></td><td class="num hide-phone"><span class="bar" style="width:.2rem"></span></td></tr>
 </tbody>
-<tfoot><tr><td></td><td>Σ 3</td><td class="hide-phone"></td><td class="num">2.220,00</td><td class="hide-phone"></td></tr></tfoot>
+<tfoot><tr><td></td><td>Σ 3</td><td class="hide-phone"></td><td class="num"><data class="money" value="222000">2.220,00 €</data></td><td class="hide-phone"></td></tr></tfoot>
 </table>
 <nav class="pager" aria-label="pages"><a rel="prev" href="#" class="off">← prev <kbd>[</kbd></a><span>1–50 of 128</span><a rel="next" href="#">next → <kbd>]</kbd></a></nav>
 <div class="empty"><span>No invoices yet.</span><a class="btn pri new" href="list.html">Create the first <kbd>c</kbd></a></div>

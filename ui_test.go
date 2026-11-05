@@ -10,9 +10,11 @@ import (
 	"flag"
 	"fmt"
 	"html/template"
+	"math"
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -89,8 +91,16 @@ func TestExamples(t *testing.T) {
 	}
 	for _, p := range pages {
 		name := filepath.Base(p)
-		tpl := template.Must(template.Must(template.ParseFiles("partials.html")).ParseFiles(p))
-		nav := []Link{{"index.html", "Gallery", "a", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
+		funcs := template.FuncMap{"spark": Spark, "columns": func(title, labels, vals string) template.HTML { // the examples pass lists as strings
+			var v []float64
+			for _, f := range strings.Fields(vals) {
+				x, _ := strconv.ParseFloat(f, 64)
+				v = append(v, x)
+			}
+			return Columns(title, strings.Fields(labels), v, eur)
+		}}
+		tpl := template.Must(template.Must(template.New("").Funcs(funcs).ParseFiles("partials.html")).ParseFiles(p))
+		nav := []Link{{"index.html", "Gallery", "a", false}, {"dashboard.html", "Dashboard", "b", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
 			{"form.html", "Form", "f", false}, {"dates.html", "Formats", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false}}
 		for i := range nav {
 			nav[i].On = nav[i].Href == name
@@ -106,7 +116,7 @@ func TestExamples(t *testing.T) {
 			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
 			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
 		}[name]
-		page.Title = map[string]string{"index.html": "Gallery", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
+		page.Title = map[string]string{"index.html": "Gallery", "dashboard.html": "Dashboard", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
 			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
@@ -127,6 +137,16 @@ func TestExamples(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
+}
+
+// eur formats like the examples' configured money format "1.234,56 €"
+func eur(x float64) string {
+	c := int64(math.Round(x * 100))
+	s := strconv.FormatInt(c/100, 10)
+	for i := len(s) - 3; i > 0; i -= 3 {
+		s = s[:i] + "." + s[i:]
+	}
+	return fmt.Sprintf("%s,%02d €", s, c%100)
 }
 
 func TestBrand(t *testing.T) {

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ demo · Dashboard</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../ui.css">
+
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="app">
+<a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
+<form class="gsearch" action="list.html" role="search" data-api="/api/search">
+<input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
+<div class="results" id="results" hidden></div>
+</form>
+<button type="button" id="palbtn" class="palbtn" title="Commands" aria-label="Commands" hidden><span aria-hidden="true">⌘</span><kbd>Ctrl K</kbd></button>
+<span class="right">
+<span class="prefs"><span><a href="/lang/de?rd=%2fdashboard.html">de</a> · <a href="/lang/en?rd=%2fdashboard.html" class="on" aria-current="true">en</a></span>
+<button type="button" id="theme" class="round" hidden>◐</button></span>
+<a class="who" href="settings.html">peter</a>
+<a class="round ico cog" href="settings.html" title="Settings" aria-label="Settings"></a>
+<a class="round" href="login.html" title="Log out" aria-label="Log out">⏻</a>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
+</span>
+</header>
+<nav class="app" id="nav">
+<a href="index.html" data-g="a">Gallery</a>
+<a href="dashboard.html" data-g="b" class="on" aria-current="page">Dashboard</a>
+<a href="list.html" data-g="c">Customers</a>
+<a href="detail.html" data-g="d">Detail</a>
+<a href="form.html" data-g="f">Form</a>
+<a href="dates.html" data-g="t">Formats</a>
+<a href="week.html" data-g="w">Week</a>
+<a href="month.html" data-g="m">Month</a>
+<span class="g"><kbd>g</kbd> + letter</span>
+</nav>
+<main id="main">
+<div class="pagehead"><h1>Dashboard</h1><span class="muted">Thursday, 5 November 2026</span></div>
+
+<div class="tiles">
+<a class="tile" href="list.html?state=open"><span class="label">Open receivables</span><span class="value">3.792,50 €</span><span class="delta" style="--c:var(--red)">▲ 12 % vs October</span><svg class="spark" viewBox="-3 0 126 32" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,26.4 10.9,21.1 21.8,29.0 32.7,15.9 43.6,22.4 54.5,13.3 65.5,18.5 76.4,10.7 87.3,13.8 98.2,8.0 109.1,12.0 120.0,3.0"/><circle cx="120.0" cy="3.0" r="3"/></svg></a>
+<a class="tile" href="list.html?state=overdue"><span class="label">Overdue</span><span class="value">980,00 €</span><span class="delta" style="--c:var(--red)">1 invoice, 21 days</span></a>
+<a class="tile" href="week.html"><span class="label">Hours this week</span><span class="value">26:05</span><span class="delta" style="--c:var(--grey)">of 38:30 · Thursday</span><span class="meter" role="meter" aria-label="hours this week" aria-valuenow="26.1" aria-valuemin="0" aria-valuemax="38.5"><i style="--v:68%"></i></span></a>
+<a class="tile" href="status.html"><span class="label">Uptime, 30 days</span><span class="value">99,98 %</span><span class="delta" style="--c:var(--green)">▲ 0,03 pp vs 30 days before</span><svg class="spark" viewBox="-3 0 126 32" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,29.0 10.9,16.0 21.8,10.8 32.7,23.8 43.6,5.6 54.5,8.2 65.5,3.0 76.4,13.4 87.3,5.6 98.2,8.2 109.1,3.0 120.0,8.2"/><circle cx="120.0" cy="8.2" r="3"/></svg></a>
+</div>
+
+<h2>Needs attention</h2>
+<table>
+<thead><tr><th></th><th>what</th><th class="hide-phone">id</th><th class="hide-phone">since</th><th></th></tr></thead>
+<tbody>
+<tr data-href="detail.html"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td>Invoice 2026-0017 to Globex AG is overdue</td><td class="hide-phone"><code class="id">inv_2026-0017</code></td><td class="hide-phone muted">21 days</td><td class="num"><a class="btn" href="detail.html">Remind</a></td></tr>
+<tr data-href="status.html"><td><span class="dot pend" role="img" aria-label="degraded"></span></td><td>Mail delivery is delayed</td><td class="hide-phone"><code class="id">mon_mail</code></td><td class="hide-phone muted">10:15</td><td class="num"><a class="btn" href="status.html">Open</a></td></tr>
+<tr data-href="month.html"><td><span class="dot run" role="img" aria-label="to do"></span></td><td>October is not closed in track</td><td class="hide-phone"><code class="id">per_2026-10</code></td><td class="hide-phone muted">5 days</td><td class="num"><a class="btn" href="month.html">Close</a></td></tr>
+</tbody>
+</table>
+
+<div class="panels">
+<section>
+<h2>Revenue per month</h2>
+<figure class="chart"><svg viewBox="0 0 336 162" width="336" height="162" role="img" aria-label="Revenue per month, June to November 2026"><line class="base" x1="0" x2="336" y1="144" y2="144"/><g class="col" tabindex="0" data-tip="Jun · 2.400,00 €"><title>Jun · 2.400,00 €</title><path d="M10.0 144.0v-65.9q0 -4.0 4.0 -4.0h28.0q4.0 0 4.0 4.0v65.9z"/><rect class="hit" x="0.0" y="0" width="56" height="144"/><text x="28.0" y="158" text-anchor="middle">Jun</text></g><g class="col" tabindex="0" data-tip="Jul · 3.100,00 €"><title>Jul · 3.100,00 €</title><path d="M66.0 144.0v-86.3q0 -4.0 4.0 -4.0h28.0q4.0 0 4.0 4.0v86.3z"/><rect class="hit" x="56.0" y="0" width="56" height="144"/><text x="84.0" y="158" text-anchor="middle">Jul</text></g><g class="col" tabindex="0" data-tip="Aug · 2.850,00 €"><title>Aug · 2.850,00 €</title><path d="M122.0 144.0v-79.0q0 -4.0 4.0 -4.0h28.0q4.0 0 4.0 4.0v79.0z"/><rect class="hit" x="112.0" y="0" width="56" height="144"/><text x="140.0" y="158" text-anchor="middle">Aug</text></g><g class="col" tabindex="0" data-tip="Sep · 3.600,00 €"><title>Sep · 3.600,00 €</title><path d="M178.0 144.0v-100.9q0 -4.0 4.0 -4.0h28.0q4.0 0 4.0 4.0v100.9z"/><rect class="hit" x="168.0" y="0" width="56" height="144"/><text x="196.0" y="158" text-anchor="middle">Sep</text></g><g class="col" tabindex="0" data-tip="Oct · 4.120,00 €"><title>Oct · 4.120,00 €</title><path d="M234.0 144.0v-116.0q0 -4.0 4.0 -4.0h28.0q4.0 0 4.0 4.0v116.0z"/><rect class="hit" x="224.0" y="0" width="56" height="144"/><text x="252.0" y="158" text-anchor="middle">Oct</text></g><g class="col cur" tabindex="0" data-tip="Nov · 3.635,00 €"><title>Nov · 3.635,00 €</title><path d="M290.0 144.0v-101.9q0 -4.0 4.0 -4.0h28.0q4.0 0 4.0 4.0v101.9z"/><rect class="hit" x="280.0" y="0" width="56" height="144"/><text x="308.0" y="158" text-anchor="middle">Nov</text><text class="val" x="326.0" y="14" text-anchor="end">3.635,00 €</text></g></svg><details><summary>Revenue per month, June to November 2026</summary><table class="keep"><tbody><tr><td>Jun</td><td class="num">2.400,00 €</td></tr><tr><td>Jul</td><td class="num">3.100,00 €</td></tr><tr><td>Aug</td><td class="num">2.850,00 €</td></tr><tr><td>Sep</td><td class="num">3.600,00 €</td></tr><tr><td>Oct</td><td class="num">4.120,00 €</td></tr><tr><td>Nov</td><td class="num">3.635,00 €</td></tr></tbody></table></details></figure>
+</section>
+<section>
+<h2>Hours by project, this month</h2>
+<ul class="bars">
+<li><span>ACME GmbH</span><span class="b" style="--v:100%"></span><span class="num">24:30</span></li>
+<li><span>Globex AG</span><span class="b" style="--v:71%"></span><span class="num">17:20</span></li>
+<li><span>Hooli e.U.</span><span class="b" style="--v:57%"></span><span class="num">14:00</span></li>
+<li><span>internal</span><span class="b" style="--v:31%"></span><span class="num">7:35</span></li>
+</ul>
+</section>
+</div>
+
+<h2>Recent</h2>
+<ul class="audit" style="list-style:none;padding:0;font-size:1em">
+<li>09:12 · peter · payment <data class="money pos" value="124000">+1.240,00 €</data> for <code class="id">inv_2026-0042</code></li>
+<li>08:40 · peter · credit note <data class="money neg" value="-30000">−300,00 €</data> for <code class="id">inv_2026-0027</code></li>
+<li>yesterday 17:40 · peter · sent <code class="id">inv_2026-0042</code> to office@acme.example</li>
+<li>yesterday 11:02 · anna · created <code class="id">cus_0051</code> Hooli e.U.</li>
+</ul>
+</main>
+<p class="keys"><kbd>?</kbd> help · <kbd>/</kbd> search · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>Enter</kbd> open</p>
+<footer class="foot">
+<b>][◆ nobloat/demo</b>
+<span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h">Keyboard shortcuts</h2>
+<table>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>b</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>/</kbd></td><td>search</td></tr>
+<tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
+<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next page</td></tr>
+<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
+
+</table>
+<form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
+</dialog>
+<dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script src="../ui.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
+
+
+

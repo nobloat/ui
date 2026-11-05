@@ -148,10 +148,10 @@ window.money = {
     const cents = +m[1].replace(/[.,]/g, '') * 100 + +(m[4] || '0').padEnd(2, '0');
     return neg ? -cents : cents;
   },
-  format: (cents, ex = '1.234,56') => {
+  format: (cents, ex = '1.234,56', signed = false) => { // signed: +1.240,00 / −1.240,00 (with .money.pos / .neg)
     const group = ex.match(/^1(\D?)234/)[1], dec = ex.match(/4(\D)56$/)[1];
     const a = Math.abs(cents), int = String(Math.floor(a / 100)).replace(/\B(?=(\d{3})+(?!\d))/g, group);
-    return (cents < 0 ? '−' : '') + int + dec + String(a % 100).padStart(2, '0');
+    return (cents < 0 ? '−' : signed && cents > 0 ? '+' : '') + int + dec + String(a % 100).padStart(2, '0');
   },
 };
 document.addEventListener('change', e => { // capture: runs before autosave sends the form
@@ -317,12 +317,29 @@ document.querySelectorAll('main table:not(.keep)').forEach(t => {
   }, true);
 }
 
+// chart tooltips: any [data-tip] inside .chart shows its text on hover and keyboard focus (the table view has the same values)
+{
+  let tip;
+  const show = e => {
+    const el = e.target.closest?.('.chart [data-tip]');
+    if (!el) { tip?.remove(); tip = null; return; }
+    tip ??= document.body.appendChild(Object.assign(document.createElement('div'), {className: 'tip'}));
+    tip.textContent = el.dataset.tip;
+    const r = el.getBoundingClientRect();
+    tip.style.left = Math.max(8, Math.min(innerWidth - tip.offsetWidth - 8, r.left + r.width / 2 - tip.offsetWidth / 2)) + 'px';
+    tip.style.top = Math.max(8, r.top - tip.offsetHeight - 6) + 'px';
+  };
+  document.addEventListener('pointerover', show);
+  document.addEventListener('focusin', show);
+  document.addEventListener('focusout', () => { tip?.remove(); tip = null; });
+}
+
 // dialogs: [data-open=id] opens, [data-close] closes (Escape is native); [data-copy=text] copies; .nojs hides fallbacks
 document.addEventListener('click', async e => {
   const o = e.target.closest('[data-open]'), c = e.target.closest('[data-copy]');
   if (o) $('#' + o.dataset.open)?.showModal();
   else if (e.target.closest('[data-close]')) e.target.closest('dialog').close();
-  else if (c) { await navigator.clipboard.writeText(c.dataset.copy); const t = c.textContent; c.textContent = '✓'; setTimeout(() => c.textContent = t, 1200); }
+  else if (c) { await navigator.clipboard.writeText(c.dataset.copy).catch(() => {}); c.classList.add('done'); setTimeout(() => c.classList.remove('done'), 1200); } // the icon turns into a check
 });
 document.querySelectorAll('.nojs').forEach(b => b.hidden = true);
 
