@@ -25,6 +25,19 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 
 **How to use it, and every rule (layout, light/dark, mobile, accessibility, navigation, forms, money, ids, charts, keyboard):** [`skill/SKILL.md`](skill/SKILL.md). It is an [Agent Skill](https://agentskills.io) named `nobloat-ui`, so coding agents follow the same rules: link it like the other nobloat skills (`ln -s ~/git/nobloat/ui/skill ~/.claude/skills/nobloat-ui`, or `.agents/skills/nobloat-ui` per project), or tell agents without skill support to read `../ui/skill/SKILL.md`.
 
+## Design samples
+
+Candidates for the second design next to plain (switch them live in the gallery or the preview). One stays; the others go.
+
+| design | dashboard | list, dark | form, phone |
+|---|---|---|---|
+| plain (now) | ![plain](screenshots/design-plain-dashboard.png) | ![plain dark](screenshots/design-plain-list-dark.png) | ![plain phone](screenshots/design-plain-form-phone.png) |
+| nordic (now) | ![nordic](screenshots/design-nordic-dashboard.png) | ![nordic dark](screenshots/design-nordic-list-dark.png) | ![nordic phone](screenshots/design-nordic-form-phone.png) |
+| **A · panels**: surfaces instead of lines | ![panels](screenshots/design-panels-dashboard.png) | ![panels dark](screenshots/design-panels-list-dark.png) | ![panels phone](screenshots/design-panels-form-phone.png) |
+| **B · ink**: maximum contrast | ![ink](screenshots/design-ink-dashboard.png) | ![ink dark](screenshots/design-ink-list-dark.png) | ![ink phone](screenshots/design-ink-form-phone.png) |
+| **C · compact**: density | ![compact](screenshots/design-compact-dashboard.png) | ![compact dark](screenshots/design-compact-list-dark.png) | ![compact phone](screenshots/design-compact-form-phone.png) |
+| **D · paper**: a printout | ![paper](screenshots/design-paper-dashboard.png) | ![paper dark](screenshots/design-paper-list-dark.png) | ![paper phone](screenshots/design-paper-form-phone.png) |
+
 ## Files
 
 | file | what | in an app |

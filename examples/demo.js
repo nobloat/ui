@@ -7,7 +7,7 @@
   try { s = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
   const params = new URLSearchParams(location.search);
   for (const [k, v] of params) if (['design', 'brand', 'logo'].includes(k)) s[k] = v;
-  const defaults = {'': '#0969da', nordic: '#3b6e94'};
+  const defaults = {'': '#0969da', nordic: '#3b6e94', panels: '#3b6e94', ink: '#0047b3', compact: '#0969da', paper: '#2c4a7c'};
   const logoHTML = document.querySelector('.logo')?.innerHTML;
   const apply = () => {
     s.design ? root.dataset.design = s.design : delete root.dataset.design;
@@ -24,7 +24,7 @@
   panel.setAttribute('aria-label', 'demo settings');
   panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:70;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;padding:.5rem .7rem;font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:0 6px 24px rgb(0 0 0 / .15)';
   panel.innerHTML = `<span class="muted">demo</span>
-    <select name="design" aria-label="design"><option value="">plain</option><option value="nordic">nordic</option></select>
+    <select name="design" aria-label="design"><option value="">plain</option><option value="nordic">nordic</option><option value="panels">A · panels</option><option value="ink">B · ink</option><option value="compact">C · compact</option><option value="paper">D · paper</option></select>
     <input type="color" name="brand" aria-label="brand color" title="--brand" style="padding:0;width:2rem;height:1.6rem">
     <button type="button" name="reset" title="design default color">↺</button>
     <label><input type="checkbox" name="logo"> custom logo</label>`;

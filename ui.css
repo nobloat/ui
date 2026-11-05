@@ -23,6 +23,30 @@
   --line: light-dark(#e6e6e1, #2a2d32); --chip: light-dark(#f1f1ed, #1e2125);
   --r: 6px; --r-lg: 12px; --maxw: 64rem;
 }
+/* ---- design samples (one will stay as the second design) ---------------------------------------------- */
+:where([data-design="panels"]) { /* A: surfaces instead of lines: tinted page, content on raised panels */
+  --brand: #3b6e94;
+  --bg: light-dark(#f2f2ef, #0e0f11); --surface: light-dark(#fff, #18191c); --fg: light-dark(#16181b, #e8e8ea); --muted: light-dark(#5f636a, #9a9ea6);
+  --line: light-dark(#e6e6e1, #27282c); --chip: light-dark(#ececE8, #222327);
+  --r: 8px; --r-lg: 14px; --maxw: 76rem;
+  --sel: color-mix(in srgb, var(--accent) 6%, var(--surface));
+}
+:where([data-design="ink"]) { /* B: maximum contrast: black and white, heavy rules, square, AAA text */
+  --brand: #0047b3;
+  --bg: light-dark(#fff, #000); --fg: light-dark(#000, #fff); --muted: light-dark(#4a4a4a, #c4c4c4);
+  --line: light-dark(#b8b8b8, #5a5a5a); --chip: light-dark(#f0f0f0, #161616);
+  --r: 0; --r-lg: 0;
+}
+:where([data-design="paper"]) { /* D: a printout: paper and ink, double and dashed rules, green-bar rows, [ bracket ] buttons */
+  --brand: #2c4a7c; --brand-dark: #93abd6;
+  --bg: light-dark(#f6f3ea, #1c1b19); --fg: light-dark(#23211d, #d9d4c6); --muted: light-dark(#5c584f, #a39d8e);
+  --line: light-dark(#bdb7a8, #4a463e); --chip: light-dark(#ece8dc, #252420);
+  --bar: light-dark(#ecebdf, #22211e); /* the green-bar stripe of continuous printer paper */
+  --r: 0; --r-lg: 0;
+}
+:where([data-design="compact"]) { /* C: density: smaller type, tight rows, zebra, sticky table heads, full width */
+  --maxw: none;
+}
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"] { color-scheme: dark; }
 
@@ -473,7 +497,7 @@ input[type=date], input[type=time], input[type=datetime-local], input[type=month
 .month .c.closed { background: repeating-linear-gradient(45deg, transparent 0 6px, color-mix(in srgb, var(--muted) 12%, transparent) 6px 8px); }
 .month .c.sel { box-shadow: inset 0 0 0 2px var(--accent); }
 .stack { display: flex; height: .45rem; border-radius: 2px; overflow: hidden; }
-.stack i { display: block; background: var(--c); }
+.stack i { display: block; background: var(--c); box-shadow: inset 0 0 0 1px light-dark(color-mix(in srgb, var(--c) 62%, black), transparent); } /* rim: light colors stay visible on light paper */
 
 /* ---- dashboard: stat tiles, ranked bars, meter, charts (chart.go draws the SVG) --------------------- */
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 1rem; margin-top: 1.2rem; }
@@ -563,6 +587,98 @@ dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
 [data-design="nordic"] main h2:not(dialog h2, .card h2) { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-top: 2.6rem; }
 [data-design="nordic"] th, [data-design="nordic"] td { padding: .7rem .75rem; }
 
+/* A · panels */
+[data-design="panels"] header.app { background: var(--surface); border: 0; border-radius: var(--r-lg); padding: .6rem 1rem; box-shadow: 0 0 0 1px var(--line); }
+[data-design="panels"] nav.app { padding: .7rem 0 0; gap: .4rem; }
+[data-design="panels"] nav.app a { padding: .25rem .8rem; border-radius: 999px; }
+[data-design="panels"] nav.app a.on { border: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
+[data-design="panels"] .gsearch input { background: var(--bg); }
+[data-design="panels"] :is(main > table, section > table, .form, .info, .tile, .card, .bars, .chart, .calwrap, .month, .empty, details.audit, .filters, .cards > li, .drop, .iconset li) {
+  background: var(--surface); border: 0; border-radius: var(--r-lg); box-shadow: 0 0 0 1px var(--line), 0 1px 3px rgb(0 0 0 / .04); }
+[data-design="panels"] :is(.form, .info, .bars, .chart, details.audit, .filters) { padding: 1.1rem 1.2rem; }
+[data-design="panels"] .form { max-width: none; }
+[data-design="panels"] .chips { margin-top: 1rem; }
+[data-design="panels"] table { border-collapse: separate; border-spacing: 0; overflow: hidden; }
+[data-design="panels"] th { background: var(--surface); }
+[data-design="panels"] tbody tr:last-child td, [data-design="panels"] tfoot td { border-bottom: 0; }
+[data-design="panels"] :is(input, select, textarea) { background: var(--surface); }
+[data-design="panels"] .form :is(input, select, textarea) { background: var(--bg); border-color: transparent; }
+[data-design="panels"] .form :is(input, select, textarea):focus { background: var(--surface); }
+[data-design="panels"] button, [data-design="panels"] .btn { background: var(--surface); }
+[data-design="panels"] :is(button, .btn).pri { background: var(--accent); color: light-dark(#fff, #0e0f11); border-color: var(--accent); box-shadow: none; }
+[data-design="panels"] :is(button, .btn).pri:hover { background: color-mix(in srgb, var(--accent) 85%, var(--fg)); }
+[data-design="panels"] :is(button, .btn).pri kbd { color: inherit; border-color: currentColor; opacity: .7; }
+[data-design="panels"] h1 { font-size: 1.5rem; font-weight: 600; }
+[data-design="panels"] main h2:not(dialog h2, .card h2) { color: var(--fg); font-weight: 600; margin-top: 2rem; }
+[data-design="panels"] .foot { border: 0; }
+/* B · ink */
+[data-design="ink"] header.app { border-bottom: 3px solid var(--fg); }
+[data-design="ink"] nav.app a { color: var(--fg); padding: .2rem .6rem; margin-bottom: .3rem; }
+[data-design="ink"] nav.app a.on { background: var(--fg); color: var(--bg); border: 0; }
+[data-design="ink"] h1 { font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+[data-design="ink"] main h2:not(dialog h2, .card h2) { color: var(--fg); font-weight: 800; text-transform: uppercase; font-size: .8rem; letter-spacing: .12em; border-bottom: 2px solid var(--fg); padding-bottom: .3rem; }
+[data-design="ink"] th { color: var(--fg); font-weight: 800; text-transform: uppercase; font-size: .72em; letter-spacing: .1em; border-bottom: 2px solid var(--fg); }
+[data-design="ink"] :is(button:not(.round), .btn, input, select, textarea) { border: 2px solid var(--fg); }
+[data-design="ink"] :is(button, .btn).pri { background: var(--fg); color: var(--bg); box-shadow: none; }
+[data-design="ink"] :is(button, .btn).pri kbd { color: inherit; border-color: currentColor; }
+[data-design="ink"] :is(button:not(.round), .btn):hover { background: var(--chip); }
+[data-design="ink"] :is(button, .btn).pri:hover { background: var(--accent); border-color: var(--accent); }
+[data-design="ink"] .chip { border: 2px solid var(--fg); border-radius: 0; }
+[data-design="ink"] .chip.on { background: var(--fg); color: var(--bg); box-shadow: none; }
+[data-design="ink"] .chip.on .n { color: inherit; }
+[data-design="ink"] .tag:not([style*="--c"]) { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+[data-design="ink"] :is(.form > label, .form > .lab, .info > span:nth-child(odd), .filters .lab) { color: var(--fg); text-transform: uppercase; font-size: .75em; letter-spacing: .08em; font-weight: 700; }
+[data-design="ink"] :focus-visible { outline-width: 3px; }
+[data-design="ink"] .seg { border: 2px solid var(--fg); border-radius: 0; }
+[data-design="ink"] :is(.card, .tile, .empty, .drop) { border: 2px solid var(--fg); }
+[data-design="ink"] .foot { border-top: 3px solid var(--fg); }
+/* D · paper */
+[data-design="paper"] header.app { border-bottom: 3px double var(--fg); }
+[data-design="paper"] .foot { border-top: 3px double var(--fg); }
+[data-design="paper"] nav.app a.on { border-bottom: 1px solid var(--fg); }
+[data-design="paper"] nav.app a.on::before { content: "> "; }
+[data-design="paper"] h1 { text-transform: uppercase; letter-spacing: .06em; }
+[data-design="paper"] main h2:not(dialog h2, .card h2) { color: var(--fg); text-transform: uppercase; font-size: .85rem; letter-spacing: .1em; border-bottom: 1px dashed var(--fg); padding-bottom: .25rem; }
+[data-design="paper"] th { color: var(--fg); text-transform: uppercase; font-size: .78em; letter-spacing: .08em; border-bottom: 3px double var(--fg); }
+[data-design="paper"] td { border-bottom: 1px dashed var(--line); }
+[data-design="paper"] tbody tr:nth-child(even) td { background: var(--bar); }
+[data-design="paper"] tbody tr.sel td { background: var(--sel); }
+/* [ bracket ] buttons: side lines plus four short ticks, like the ][ mark */
+[data-design="paper"] :is(button:not(.round), .btn, summary.btn) { border: 0; border-left: 1px solid var(--fg); border-right: 1px solid var(--fg); border-radius: 0; padding: .2rem .8rem;
+  background: linear-gradient(var(--fg) 0 0) left top / 6px 1px no-repeat, linear-gradient(var(--fg) 0 0) left bottom / 6px 1px no-repeat,
+    linear-gradient(var(--fg) 0 0) right top / 6px 1px no-repeat, linear-gradient(var(--fg) 0 0) right bottom / 6px 1px no-repeat, var(--bg); }
+[data-design="paper"] :is(button:not(.round), .btn, summary.btn):hover { background-color: var(--chip); }
+[data-design="paper"] :is(button, .btn).pri { box-shadow: none; border-left-width: 2px; border-right-width: 2px; font-weight: bold; }
+[data-design="paper"] :is(button, .btn).pri:hover { background-color: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+[data-design="paper"] :is(button, .btn).danger, [data-design="paper"] :is(button, .btn).del { border-color: var(--c-text); }
+/* fill-in lines instead of boxes */
+[data-design="paper"] :is(input:not([type=checkbox]):not([type=radio]):not([type=color]), select, textarea) { border: 0; border-bottom: 1px solid var(--fg); border-radius: 0; background: transparent; }
+[data-design="paper"] textarea { border: 1px dashed var(--fg); }
+[data-design="paper"] :is(input:not([type=checkbox]):not([type=radio]):not([type=color]), select, textarea):focus { border-bottom: 2px solid var(--accent); box-shadow: none; }
+[data-design="paper"] .gsearch input { background: var(--chip); }
+[data-design="paper"] :is(.chip, .seg, .tag[style*="--c"]) { border-radius: 0; }
+[data-design="paper"] .chip { border-style: dashed; border-color: var(--fg); }
+[data-design="paper"] .chip.on { border-style: solid; }
+[data-design="paper"] :is(.card, .tile, .empty, .drop, dialog, .bulkbar) { border: 1px dashed var(--fg); border-radius: 0; box-shadow: none; }
+[data-design="paper"] .tag:not([style*="--c"]) { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+[data-design="paper"] :is(.flash, .warn, .banner) { border-radius: 0; border-style: dashed; border-left-style: solid; }
+/* C · compact */
+[data-design="compact"] body { font-size: 13px; line-height: 1.45; padding: .6rem 14px 1.5rem; }
+[data-design="compact"] th, [data-design="compact"] td { padding: .28rem .5rem; }
+[data-design="compact"] tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--fg) 3.5%, var(--bg)); }
+[data-design="compact"] tbody tr.sel td { background: var(--sel); }
+[data-design="compact"] thead th { position: sticky; top: 0; z-index: 2; background: var(--bg); box-shadow: inset 0 -1px var(--line); }
+[data-design="compact"] :is(input, select, textarea, button, .btn) { padding: .15rem .5rem; }
+[data-design="compact"] .form { gap: .45rem .9rem; margin-top: 1rem; grid-template-columns: 8rem minmax(0, 1fr); }
+[data-design="compact"] h2 { margin: 1.1rem 0 .4rem; }
+[data-design="compact"] .pagehead { margin-top: 1rem; }
+[data-design="compact"] .chips { margin-top: .7rem; gap: .35rem; }
+[data-design="compact"] .chip { padding: 0 .6rem; }
+[data-design="compact"] .tiles { gap: .6rem; } [data-design="compact"] .tile { padding: .5rem .7rem; }
+[data-design="compact"] .tile .value { font-size: 1.3rem; }
+[data-design="compact"] nav.app { gap: 1.1rem; padding-top: .5rem; }
+[data-design="compact"] header.app { padding-bottom: .6rem; }
+
 /* ---- small screens, touch, motion ------------------------------------------------------------ */
 @media (hover: none) { kbd, .keys { display: none; } }
 @media (max-width: 40rem) {
@@ -596,6 +712,9 @@ dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
   /* tables become one card per row, one line per column: "label … value" (labels from the header, set by ui.js); .keep opts out */
   main table:not(.keep), main table:not(.keep) :is(tbody, tfoot, tr) { display: block; }
   main table:not(.keep) thead { display: none; }
+  [data-design="panels"] main table:not(.keep) { background: none; box-shadow: none; overflow: visible; }
+  [data-design="panels"] main table:not(.keep) tr { background: var(--surface); border: 0; box-shadow: 0 0 0 1px var(--line); }
+  [data-design="compact"] body { font-size: 14px; }
   main table:not(.keep) tr { border: 1px solid var(--line); border-radius: var(--r-lg); padding: .45rem .8rem; margin-bottom: .6rem; }
   main table:not(.keep) tfoot tr { border-style: dashed; }
   /* a label column of 7rem: text values align left and wrap under themselves, numbers align right */

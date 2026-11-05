@@ -23,4 +23,10 @@ done
 shot brand-light 1280 900 list.html "design=nordic&brand=%237c3aed&logo=1&theme=light"
 shot brand-dark 1280 900 list.html "design=nordic&brand=%237c3aed&logo=1&theme=dark"
 shot brand-login 500 800 login.html "design=nordic&brand=%237c3aed&logo=1&theme=light"
+for d in plain nordic panels ink compact paper; do
+  q="design=$( [ $d = plain ] || echo $d )&brand=&logo="
+  shot "design-$d-dashboard" 1280 900 dashboard.html "$q&theme=light"
+  shot "design-$d-list-dark" 1280 760 list.html "$q&theme=dark"
+  shot "design-$d-form-phone" 500 1000 form.html "$q&theme=light"
+done
 shot preview 1600 1000 preview.html "page=list.html&design=nordic&theme=dark"
