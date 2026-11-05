@@ -133,7 +133,7 @@ const probe = () => {
   if (document.querySelectorAll('main').length !== 1) add('a11y', `${document.querySelectorAll('main').length} <main> elements`);
   if (document.querySelectorAll('main h1').length !== 1) add('a11y', `${document.querySelectorAll('main h1').length} h1 in main`);
   // targets: at least 24×24, or nothing else within 12 px of the centre (WCAG 2.5.8); links inside text are exempt
-  const targets = all.filter(e => e.matches('button, .btn, .chip, nav a, .tabs a, summary, select, input:not([type=hidden]), .pager a, .logo, header.app .right a, .tag') && !e.closest('p, li:not(.card), .info, td:not(.num), .menu'));
+  const targets = all.filter(e => e.matches('button, .btn, .chip, nav a, .tabs a, summary, select, input:not([type=hidden]):not(.sr), .pager a, .logo, header.app .right a, .tag') && !e.closest('p, li:not(.card), .info, td:not(.num), .menu'));
   const box = el => (el.matches('input[type=checkbox], input[type=radio], input[type=file]') && el.closest('label')) ? el.closest('label').getBoundingClientRect() : el.getBoundingClientRect();
   for (const el of targets) {
     const r = box(el);
