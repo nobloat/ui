@@ -31,7 +31,7 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 | file | what | in an app |
 |---|---|---|
 | `ui.css` | tokens, two designs, every component | `web/static/ui.css`, unchanged |
-| `ui.js` | theme, shortcuts, command palette, search, autocomplete, dialogs, autosave and field errors, money input, toasts, phone tables, chart tooltips, morph | `web/static/ui.js`, unchanged |
+| `ui.js` | theme, shortcuts, command palette, search, autocomplete and pill picker, dialogs, autosave and field errors, money input, toasts, phone tables, chart tooltips, morph | `web/static/ui.js`, unchanged |
 | `partials.html` | `nb-layout`, `nb-bare`, `nb-head`, `nb-header`, `nb-crumbs`, `nb-prefs`, `nb-logo`, `nb-mark`, `nb-flash`, `nb-foot` | `web/partials.html`, unchanged |
 | `calendar.js` | optional: week calendar (draw, move, resize, keys, swipe) and month day cursor; fires `cal:*` events | `web/static/calendar.js`, only on calendar pages |
 | `chart.go` | optional: `Spark` and `Columns` as server-rendered SVG | copy, change the package line |

@@ -199,6 +199,23 @@ for (const design of designs) for (const theme of themes) for (const w of widths
     }
   }
 }
+// pill picker (input[data-pick]) on the form page: type and pick, type a new value, Backspace, ×, leave with typed text
+if (!app.length) {
+  const loaded = new Promise(r => loads.push(r));
+  await cmd('Page.navigate', {url: `${base}form.html?nopanel`});
+  await loaded; await sleep(150);
+  const key = async (key, code = key, text) => { for (const type of ['keyDown', 'keyUp']) await cmd('Input.dispatchKeyEvent', {type, key, code, text: type === 'keyDown' ? text : undefined, windowsVirtualKeyCode: {Enter: 13, Backspace: 8, ' ': 32}[key]}); };
+  const val = () => evaluate(`document.getElementById('f-tags').value`);
+  const got = [];
+  await evaluate(`document.querySelector('label[for=f-tags]').click()`);
+  await cmd('Input.insertText', {text: 'trav'}); await key('Enter', 'Enter', '\r'); got.push(await val());
+  await cmd('Input.insertText', {text: '#new'}); await key(' ', 'Space', ' '); got.push(await val());
+  await key('Backspace'); got.push(await val());
+  await evaluate(`document.querySelector('.pill button').click()`); got.push(await val());
+  await cmd('Input.insertText', {text: '#left'}); await evaluate(`document.activeElement.blur()`); await sleep(300); got.push(await val());
+  const want = ['#consulting #eu #travel', '#consulting #eu #travel #new', '#consulting #eu #travel', '#eu #travel', '#eu #travel #left'];
+  if (JSON.stringify(got) !== JSON.stringify(want)) seen.set(`picker: got ${JSON.stringify(got)}, want ${JSON.stringify(want)}`, ['form']);
+}
 for (const [msg, where] of seen) console.log(`✕ ${msg}\n    ${where.length > 3 ? where.slice(0, 3).join(', ') + ` … (${where.length}×)` : where.join(', ')}`);
 console.log(`${runs} page loads, ${seen.size} distinct problems`);
 ws.close(); proc.kill();

@@ -49,7 +49,7 @@
 <span class="err" id="f-vat-err" role="alert">Not a valid VAT id<span class="valid">ATU and 8 digits, e.g. ATU12345678</span></span>
 <label for="f-email">email</label><input id="f-email" name="email" type="email" placeholder="office@example.org" title="like office@example.org">
 <label for="f-country">country</label><input id="f-country" name="country" list="countries" value="AT" pattern="[A-Z]{2}" title="two letters, e.g. AT, DE">
-<label for="f-tags">tags</label><input id="f-tags" name="tags" data-pick="tags" autocomplete="off" placeholder="#">
+<label for="f-tags">tags</label><input id="f-tags" name="tags" data-pick="tags" value="#consulting #eu" autocomplete="off" placeholder="#">
 <span class="lab">language</span><span class="seg"><label><input type="radio" name="lang" value="de" checked>de</label><label><input type="radio" name="lang" value="en">en</label></span>
 <label for="f-terms">terms</label><select id="f-terms" name="terms"><option>7 days</option><option selected>14 days</option><option>30 days</option></select>
 <h2 class="full">Address</h2>
@@ -92,7 +92,7 @@
 <form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
 </dialog>
 <dialog id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-text"><h2 id="confirm-title" hidden></h2><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
-<script type="application/json" id="texts">{"js.close":"close","js.drop.refused":"not supported","js.drop.release":"release to add {n} files","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.required":"required","js.saved":"saved","js.saving":"saving…","js.selected":"{n} selected","js.session.ended":"Your session has ended. This page keeps your input; sign in again to save.","js.session.login":"Sign in","js.session.renew":"Stay signed in","js.session.soon":"Your session ends in {n} min.","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script type="application/json" id="texts">{"js.close":"close","js.drop.refused":"not supported","js.drop.release":"release to add {n} files","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.remove":"remove","js.required":"required","js.saved":"saved","js.saving":"saving…","js.selected":"{n} selected","js.session.ended":"Your session has ended. This page keeps your input; sign in again to save.","js.session.login":"Sign in","js.session.renew":"Stay signed in","js.session.soon":"Your session ends in {n} min.","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
 <script src="../ui.js"></script>
 <script src="demo.js"></script>
 </body>
