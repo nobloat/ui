@@ -100,7 +100,7 @@ const probe = () => {
   const faded = el => { for (let e = el; e; e = e.parentElement) if (+getComputedStyle(e).opacity < 1) return true; return false; };
   // text contrast: every element with its own text
   for (const el of all) {
-    if (![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()) || el.closest(':disabled, [aria-disabled=true], .mark, svg, option') || faded(el)) continue;
+    if (![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()) || el.closest(':disabled, [aria-disabled=true], .mark, svg, option, progress') || faded(el)) continue;
     const s = getComputedStyle(el), fg = rgb(s.color), bg = bgOf(el), size = parseFloat(s.fontSize), bold = +s.fontWeight >= 700;
     const need = size >= 24 || (bold && size >= 18.66) ? 3 : 4.5, r = ratio(over(fg, bg), bg);
     if (r < need - .005) add('a11y', `text contrast ${r.toFixed(2)}:1 < ${need}:1 "${el.textContent.trim().slice(0, 24)}"`, el);

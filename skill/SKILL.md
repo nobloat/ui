@@ -103,6 +103,8 @@ Lists where users act on many objects get a checkbox column: `th.pick` with `inp
 - **Dates**: native inputs only (`date`, `time step="900"`, `datetime-local`, `month`, `week`), ISO on the wire. Lists show ISO dates; recent events relative with the exact time in `title`; durations `h:mm`. Ranges: preset chips (links) plus a from–to form.
 - **Tags**: `a.tag`; a user-chosen color is `style="--c:#…"` (tinted pill, text keeps full contrast), picked from `.swatches` (preset colors safe on light and dark, plus custom).
 - **Status**: `.dot.ok/.pend/.bad/.run/.off` or `.st` glyphs, always labeled.
+- **Messages**: `.flash` (error), `.flash.ok`, `.warn`, `.banner` (info); one sentence, or `<strong>title</strong>` plus text when it needs both; the icon comes from the class. Server flashes become toasts; saving never shows one.
+- **Progress**: a task that takes time shows `<label class="progress">what runs · 312 of 1.200<progress value max></progress></label>`; unknown length is `<progress>` without value. A short wait is the button spinner (`aria-busy`), not a bar.
 
 ## Charts
 

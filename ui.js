@@ -313,7 +313,7 @@ document.querySelectorAll('main table:not(.keep)').forEach(t => {
   const pal = document.createElement('dialog');
   pal.className = 'palette';
   pal.setAttribute('aria-label', T['palette.title'] || 'commands');
-  pal.innerHTML = `<input aria-label="${esc(T['palette.title'] || 'commands')}" placeholder="${esc(T['palette.placeholder'] || 'command…')}" autocomplete="off"><ul role="listbox"></ul>`;
+  pal.innerHTML = `<span class="prompt"><input aria-label="${esc(T['palette.title'] || 'commands')}" placeholder="${esc(T['palette.placeholder'] || 'command…')}" autocomplete="off"></span><ul role="listbox"></ul>`;
   document.body.append(pal);
   const inp = $('input', pal), ul = $('ul', pal);
   let cmds = [], hits = [], sel = 0;
@@ -458,7 +458,7 @@ window.morph = (a, b) => {
 // toasts: the page's flash messages float bottom right (full width on phones); successes fade after 5s, errors stay until closed.
 // Without JS they stay where the page put them.
 {
-  const ps = document.querySelectorAll('main p.flash');
+  const ps = document.querySelectorAll('main .flash:is(p, div)');
   if (ps.length) {
     const box = document.createElement('div');
     box.className = 'toasts';

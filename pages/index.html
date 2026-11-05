@@ -1,8 +1,12 @@
 {{template "nb-layout" .}}
 {{define "main"}}
 <div class="pagehead"><h1>Gallery</h1><span class="muted">every component, in the design, theme and brand chosen bottom right · <a href="preview.html">desktop + phone side by side</a></span></div>
+<nav class="toc" aria-label="sections"><a class="chip" href="#foundations">Foundations</a><a class="chip" href="#actions">Actions</a><a class="chip" href="#feedback">Feedback</a><a class="chip" href="#inputs">Inputs</a><a class="chip" href="#data">Data</a><a class="chip" href="#navigation">Navigation</a></nav>
+<div class="gallery">
 
-<h2 id="brand">Logo and brand</h2>
+<section id="foundations">
+<h2>Foundations</h2>
+<h3>Logo and brand</h3>
 <p>The <code>][</code> mark plus one character in <code>--brand</code>; a custom brand replaces it with an image and an optional dark variant.</p>
 <div class="row">
 <span class="logo">{{template "nb-mark" "€"}}<span class="name">bill</span></span>
@@ -13,8 +17,8 @@
 <span class="sep"></span>
 <span class="logo"><img class="light" src="acme.svg" alt="ACME"><img class="dark" src="acme-dark.svg" alt="ACME"></span>
 </div>
-<div class="row" style="margin-top:1rem">
-<span class="muted">tokens</span>
+<h3>Tokens</h3>
+<div class="row">
 <span class="chip"><span class="swatch" style="--c:var(--accent)"></span>--accent</span>
 <span class="chip"><span class="swatch" style="--c:var(--fg)"></span>--fg</span>
 <span class="chip"><span class="swatch" style="--c:var(--muted)"></span>--muted</span>
@@ -23,7 +27,14 @@
 <span class="chip"><span class="swatch" style="--c:var(--chip)"></span>--chip</span>
 </div>
 
-<h2>Buttons</h2>
+<h3>Icons</h3>
+<p class="row" style="font-size:1.25rem"><i class="icon-plus" aria-hidden="true"></i><i class="icon-edit" aria-hidden="true"></i><i class="icon-trash" aria-hidden="true"></i><i class="icon-copy" aria-hidden="true"></i><i class="icon-search" aria-hidden="true"></i><i class="icon-calendar" aria-hidden="true"></i><i class="icon-mail" aria-hidden="true"></i><i class="icon-download" aria-hidden="true"></i><i class="icon-cog" aria-hidden="true"></i><i class="icon-user" aria-hidden="true"></i><i class="icon-tag" aria-hidden="true"></i><i class="icon-warning" aria-hidden="true"></i></p>
+<p><a href="icons.html">All icons, colors and sizes <i class="icon-arrow-right" aria-hidden="true"></i></a></p>
+</section>
+
+<section id="actions">
+<h2>Actions</h2>
+<h3>Buttons</h3>
 <div class="row">
 <button class="pri new">Create <kbd>c</kbd></button>
 <button class="edit">Edit <kbd>e</kbd></button>
@@ -31,23 +42,43 @@
 <button class="del">Delete</button>
 <button disabled>Disabled</button>
 <button aria-busy="true">Sending</button>
-<button class="round" aria-label="refresh" title="refresh">↻</button>
+<button class="round" aria-label="refresh" title="refresh"><i class="icon-refresh" aria-hidden="true"></i></button>
 <details class="more"><summary class="btn">More <i class="icon-chevron-down" aria-hidden="true"></i></summary><div class="menu">
-<button>Duplicate <kbd>y</kbd></button><a href="#">Download PDF</a>
-<form method="post" action="/archive" data-confirm="Archive ACME GmbH?"><button class="danger">Archive…</button></form>
+<button><i class="icon-copy" aria-hidden="true"></i> Duplicate <kbd>y</kbd></button><a href="#"><i class="icon-download" aria-hidden="true"></i> Download PDF</a>
+<form method="post" action="/archive" data-confirm="Archive ACME GmbH?"><button class="danger"><i class="icon-archive" aria-hidden="true"></i> Archive…</button></form>
 </div></details>
 <button class="copy" data-copy="sk_live_3f2a9c">Copy key</button>
 <button class="round copy" data-copy="cus_0042" aria-label="copy id" title="copy id"></button>
 </div>
 
-<h2>Messages</h2>
-<p class="flash" role="alert">Could not save: the customer was changed by someone else.</p>
-<p class="flash ok" role="status">Invoice 2026-0042 sent.</p>
-<p class="warn">⚠ The month is not closed yet; hours may still change.</p>
-<p class="banner">Maintenance tonight 22:00–23:00.</p>
-<p class="muted"><small>With JS the two flash messages above move to the bottom right as toasts: success fades after 5 s, errors stay until closed.</small></p>
+<h3>Dialogs and confirmation</h3>
+<div class="row">
+<form method="post" action="/delete" data-confirm="Delete ACME GmbH? This cannot be undone."><button class="del">Delete…</button></form>
+<button data-open="dlg-demo">Open a dialog</button>
+<button data-open="help">Shortcuts <kbd>?</kbd></button>
+</div>
+<dialog id="dlg-demo" aria-labelledby="dlg-demo-h">
+<h2 id="dlg-demo-h">Record payment</h2>
+<form method="post" action="/pay" class="form" style="margin-top:0">
+<label for="d-amt">amount</label><input id="d-amt" name="amount" inputmode="decimal" value="1.240,00">
+<label for="d-date">date</label><input id="d-date" name="date" type="date" value="2026-11-05">
+<div class="full row end"><button type="button" data-close>Cancel <kbd>Esc</kbd></button><button class="pri">Save <kbd>Enter</kbd></button></div>
+</form>
+</dialog>
+</section>
 
-<h2>Status lights</h2>
+<section id="feedback">
+<h2>Feedback</h2>
+<h3>Messages</h3>
+<div class="flash" role="alert"><strong>Could not save</strong>The customer was changed by someone else. Reload to see the changes.</div>
+<p class="flash ok" role="status">Invoice 2026-0042 sent.</p>
+<p class="warn">The month is not closed yet; hours may still change.</p>
+<div class="banner"><strong>Maintenance tonight</strong>22:00–23:00; the app is read-only meanwhile.</div>
+<p class="muted"><small>With JS the two flash messages above move to the bottom right as toasts: success fades after 5 s, errors stay until closed.</small></p>
+<h3>Progress</h3>
+<label class="progress">Importing bank statement · 312 of 1.200 rows<progress value="312" max="1200">26 %</progress><small>about 1 minute left</small></label>
+<label class="progress">Uploading 2 files<progress aria-label="uploading"></progress></label>
+<h3>Status lights</h3>
 <p>Glyph or dot plus color, never color alone; <code>aria-label</code> carries the word.</p>
 <div class="row">
 <span><span class="dot ok" role="img" aria-label="up"></span>up</span>
@@ -64,17 +95,25 @@
 <span class="spin" role="img" aria-label="loading"></span>
 </div>
 
-<h2>Filters: chips, tags</h2>
-<div class="filters">
-<span class="lab">state</span>
-<div class="chips"><a class="chip on" href="#">all<span class="n">128</span></a><a class="chip" href="#"><span class="dot ok"></span>paid<span class="n">97</span></a><a class="chip" href="#"><span class="dot bad still"></span>overdue<span class="n">4</span></a><span class="sep"></span><a class="chip" href="#">archived<span class="n">12</span></a></div>
-<span class="lab">tags</span>
-<div class="chips"><a class="tag" href="#">consulting</a><a class="tag" href="#">retainer</a><a class="tag" href="#">eu</a></div>
-<span class="lab">range</span>
-<span class="seg"><label><input type="radio" name="r" checked>month</label><label><input type="radio" name="r">quarter</label><label><input type="radio" name="r">year</label></span>
-</div>
+<h3>Session</h3>
+<p>Five minutes before the sign-in ends a bar offers to stay signed in; after it ended, the page keeps its input.</p>
+<div class="row"><button type="button" onclick="document.body.dataset.sessionEnd = new Date(Date.now() + 4 * 60000).toISOString(); document.body.dataset.sessionRenew = '#'; sessionCheck()">Session ends soon</button><button type="button" onclick="document.body.dataset.sessionEnd = new Date(0).toISOString(); sessionCheck()">Session ended</button></div>
+</section>
 
-<h2>Tag colors</h2>
+<section id="inputs">
+<h2>Inputs</h2>
+<p class="muted">Whole forms with autosave and errors: <a href="form.html">form</a> · dates, durations, money, ids: <a href="dates.html">formats</a>.</p>
+<h3>Autocomplete</h3>
+<div class="form">
+<label for="g-tags">tags</label><input id="g-tags" data-pick="tags" placeholder="#" autocomplete="off" value="#consulting ">
+<span class="hint">several values: <code>data-pick</code>, type to filter, Tab or Enter picks</span>
+<label for="g-country">country</label><input id="g-country" list="countries" placeholder="AT">
+<span class="hint">one value: a native <code>&lt;datalist&gt;</code>, no JS</span>
+</div>
+<datalist id="tags"><option value="#consulting" label="Consulting"><option value="#retainer" label="Monthly retainer"><option value="#eu" label="EU reverse charge"><option value="#travel" label="Travel"><option value="#hosting" label="Hosting"></datalist>
+<datalist id="countries"><option value="AT"><option value="DE"><option value="CH"><option value="IT"></datalist>
+
+<h3>Tag colors</h3>
 <p>Tags are accent-colored by default; a user-chosen color (<code>style="--c:#…"</code>) turns the tag into a tinted pill whose text keeps full contrast.</p>
 <div class="chips"><a class="tag" href="#">plain</a><a class="tag" href="#" style="--c:#2563eb">consulting</a><a class="tag" href="#" style="--c:#16a34a">retainer</a><a class="tag" href="#" style="--c:#ca8a04">travel</a><a class="tag" href="#" style="--c:#db2777">eu</a><a class="tag" href="#" style="--c:#64748b">internal</a></div>
 <form class="form" method="post" action="/tags/eu" data-autosave>
@@ -94,17 +133,7 @@
 <div class="full row end"><span class="saved" aria-live="polite"></span><button class="pri nojs">Save</button></div>
 </form>
 
-<h2>Autocomplete</h2>
-<div class="form">
-<label for="g-tags">tags</label><input id="g-tags" data-pick="tags" placeholder="#" autocomplete="off" value="#consulting ">
-<span class="hint">several values: <code>data-pick</code>, type to filter, Tab or Enter picks</span>
-<label for="g-country">country</label><input id="g-country" list="countries" placeholder="AT">
-<span class="hint">one value: a native <code>&lt;datalist&gt;</code>, no JS</span>
-</div>
-<datalist id="tags"><option value="#consulting" label="Consulting"><option value="#retainer" label="Monthly retainer"><option value="#eu" label="EU reverse charge"><option value="#travel" label="Travel"><option value="#hosting" label="Hosting"></datalist>
-<datalist id="countries"><option value="AT"><option value="DE"><option value="CH"><option value="IT"></datalist>
-
-<h2>Upload</h2>
+<h3>Upload</h3>
 <p>A drop zone with the supported files, and a plain button. Drag a file over this window: the zone lights up; over it, it says what will happen.</p>
 <form class="form" method="post" action="/upload" enctype="multipart/form-data">
 <span class="lab">documents</span>
@@ -118,7 +147,21 @@
 <span class="row"><label class="btn"><i class="icon-upload" aria-hidden="true"></i> Upload logo <input type="file" name="logo" accept=".svg,.png"></label><small class="muted">SVG or PNG, square, up to 1 MB</small></span>
 </form>
 
-<h2>Table, pager, empty state</h2>
+</section>
+
+<section id="data">
+<h2>Data</h2>
+<h3>Filters, chips, tags</h3>
+<div class="filters">
+<span class="lab">state</span>
+<div class="chips"><a class="chip on" href="#">all<span class="n">128</span></a><a class="chip" href="#"><span class="dot ok"></span>paid<span class="n">97</span></a><a class="chip" href="#"><span class="dot bad still"></span>overdue<span class="n">4</span></a><span class="sep"></span><a class="chip" href="#">archived<span class="n">12</span></a></div>
+<span class="lab">tags</span>
+<div class="chips"><a class="tag" href="#">consulting</a><a class="tag" href="#">retainer</a><a class="tag" href="#">eu</a></div>
+<span class="lab">range</span>
+<span class="seg"><label><input type="radio" name="r" checked>month</label><label><input type="radio" name="r">quarter</label><label><input type="radio" name="r">year</label></span>
+</div>
+
+<h3>Table and pager</h3>
 <table>
 <thead><tr><th></th><th aria-sort="ascending"><a href="?sort=name&amp;dir=desc">name</a></th><th class="hide-phone">tags</th><th class="num"><a href="?sort=open&amp;dir=desc">open</a></th><th class="num hide-phone">share</th></tr></thead>
 <tbody>
@@ -129,36 +172,30 @@
 <tfoot><tr><td></td><td>Σ 3</td><td class="hide-phone"></td><td class="num"><data class="money" value="222000">2.220,00 €</data></td><td class="hide-phone"></td></tr></tfoot>
 </table>
 <nav class="pager" aria-label="pages"><a rel="prev" href="#" class="off"><i class="icon-chevron-left" aria-hidden="true"></i> prev <kbd>p</kbd></a><span>1–50 of 128</span><a rel="next" href="#">next <i class="icon-chevron-right" aria-hidden="true"></i> <kbd>n</kbd></a></nav>
+<h3>Empty state</h3>
 <div class="empty"><span>No invoices yet.</span><a class="btn pri new" href="list.html">Create the first <kbd>c</kbd></a></div>
 
-<h2>Tabs</h2>
-<nav class="tabs"><a href="#" class="on" aria-current="page">General</a><a href="#">Users</a><a href="#">API keys</a></nav>
-
-<h2>Cards</h2>
+<h3>Cards</h3>
 <ul class="cards">
 <li class="card ok"><h2><span class="dot ok"></span>api.example.org</h2><p>200 in 84 ms · 99.98 % 30 d</p></li>
 <li class="card pend"><h2><span class="dot pend"></span>mail</h2><p>queue 120, slow since 10:42</p></li>
 <li class="card bad"><h2><span class="dot bad"></span>backup</h2><p>last success 2 days ago</p></li>
 </ul>
 
-<h2>Dialog</h2>
-<div class="row">
-<form method="post" action="/delete" data-confirm="Delete ACME GmbH? This cannot be undone."><button class="del">Delete…</button></form>
-<button data-open="dlg-demo">Open a dialog</button>
-<button data-open="help">Shortcuts <kbd>?</kbd></button>
+<p class="muted">Bulk selection: <a href="list.html">customers</a> · charts and stat tiles: <a href="dashboard.html">dashboard</a> · calendars: <a href="week.html">week</a>, <a href="month.html">month</a>.</p>
+</section>
+
+<section id="navigation">
+<h2>Navigation</h2>
+<h3>Tabs</h3>
+<nav class="tabs"><a href="#" class="on" aria-current="page">General</a><a href="#">Users</a><a href="#">API keys</a></nav>
+
+<h3>Breadcrumbs</h3>
+<nav class="crumbs" aria-label="example breadcrumbs"><ol><li><a href="list.html">Customers</a></li><li><a href="detail.html">ACME GmbH</a></li><li><span aria-current="page">Edit</span></li></ol></nav>
+<h3>Pages</h3>
+<p>Public: <a href="status.html">status page</a> · <a href="login.html">login</a> · errors: <a href="404.html">404</a> · <a href="403.html">403</a> · <a href="500.html">500</a></p>
+</section>
 </div>
-<dialog id="dlg-demo" aria-labelledby="dlg-demo-h">
-<h2 id="dlg-demo-h">Record payment</h2>
-<form method="post" action="/pay" class="form" style="margin-top:0">
-<label for="d-amt">amount</label><input id="d-amt" name="amount" inputmode="decimal" value="1.240,00">
-<label for="d-date">date</label><input id="d-date" name="date" type="date" value="2026-11-05">
-<div class="full row end"><button type="button" data-close>Cancel <kbd>Esc</kbd></button><button class="pri">Save <kbd>Enter</kbd></button></div>
-</form>
-</dialog>
-<h2>Session</h2>
-<p>Five minutes before the sign-in ends a bar offers to stay signed in; after it ended, the page keeps its input.</p>
-<div class="row"><button type="button" onclick="document.body.dataset.sessionEnd = new Date(Date.now() + 4 * 60000).toISOString(); document.body.dataset.sessionRenew = '#'; sessionCheck()">Session ends soon</button><button type="button" onclick="document.body.dataset.sessionEnd = new Date(0).toISOString(); sessionCheck()">Session ended</button></div>
-<p class="muted">Public pages: <a href="status.html">status page</a> · <a href="login.html">login</a> · Error pages: <a href="404.html">404</a> · <a href="403.html">403</a> · <a href="500.html">500</a></p>
 {{end}}
 {{define "keys"}} · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>1</kbd>…<kbd>9</kbd> chip{{end}}
 {{define "scripts"}}<script src="demo.js"></script>{{end}}
