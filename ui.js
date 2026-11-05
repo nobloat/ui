@@ -184,6 +184,15 @@ document.addEventListener('submit', async e => {
   }, true);
 }
 
+// custom color: in .swatches, <label style="--c:#…"><input type="radio" name="color" value="custom"></label><input type="color" name="custom">;
+// the server takes "custom" when that radio is checked. Picking a color checks it and paints its swatch (without JS: pick, then click it).
+document.addEventListener('input', e => {
+  const c = e.target;
+  if (!c.matches?.('.swatches input[type=color]')) return;
+  const r = c.closest('.swatches').querySelector('input[type=radio][value=custom]');
+  if (r) { r.checked = true; r.parentElement.style.setProperty('--c', c.value); }
+});
+
 // money: <input data-money="1.234,56"> takes both conventions (1.234,56 · 1,234.56 · 1234.5 · -12) and rewrites the value
 // in the format of the example before it is sent; nothing else is accepted. money.parse(s) → cents or NaN, money.format(cents, example).
 window.money = {
