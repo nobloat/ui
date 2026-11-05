@@ -18,7 +18,10 @@ Before writing a page, open the nearest example in `../ui/pages/` (gallery `inde
 
 ## Look and theming
 
-- Monospace, thin rules, generous space, color only where it means something. Two designs, set on `<html data-design>`: none = **plain** (default), `nordic` (more air, softer tones). No others: fewer designs, each finished in light, dark and on phones.
+- Monospace, thin rules, color only where it means something. Two designs, set on `<html data-design>`:
+  - **graphite** (no attribute): pencil on drafting paper. Dense lists with hairline rows, neutral pencil greys, large semibold titles, small uppercase section labels, surfaces only where they group (tiles, cards, charts, dialogs, `.panel`), one filled primary button. The default for every app.
+  - **paper** (`data-design="paper"`): a form on paper, drawn and filled in by hand, tidy. Pen strokes instead of printed rules (gently wobbling lines), outlines with uneven corners, green-bar rows, pen blue, a highlighter on the active and selected, wavy underlines, chips circled with the pen.
+  No other designs; both are finished in light, dark and on phones.
 - One knob per app: `--brand` (`Brand.Color`). Dark mode derives its own shade; `--brand-dark` overrides. `--brand` needs 4.5:1 on the light background, its dark shade on the dark one.
 - Custom brand: `Brand.Logo` plus `Brand.LogoDark` (CSS shows the dark one whenever the page is dark, also when pinned), `Brand.Name` for title and label. The footer always credits `nobloat/<app>`.
 - Colors only through tokens (`--fg --muted --line --chip --sel --accent --bg`) or `light-dark()`. A bare hex in `app.css` is a bug. Never `prefers-color-scheme` in CSS (ignores the pinned theme). State colors `--green --yellow --red --blue --grey` mean state and nothing else; as text use `color: var(--c-text)` with `--c` set.

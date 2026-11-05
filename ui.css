@@ -4,51 +4,28 @@
 /* ---- tokens ---------------------------------------------------------------------------------- */
 :where(:root) {
   color-scheme: light dark; /* auto follows the OS, data-theme pins it */
-  --brand: #0969da; /* primary color: the only value most apps set */
+  --brand: #0a5fc7; /* primary color: the only value most apps set */
   /* --brand-dark: optional; by default dark mode lightens --brand (70% brand, 30% white) */
   --accent: light-dark(var(--brand), var(--brand-dark, color-mix(in srgb, var(--brand) 70%, white)));
-  --bg: light-dark(#fff, #111); --fg: light-dark(#111418, #e6e6e6); --muted: light-dark(#6b6b6b, #8f8f8f);
-  --line: light-dark(#e3e3e3, #2e2e2e); --chip: light-dark(#f2f2f2, #222);
-  --sel: color-mix(in srgb, var(--accent) 8%, var(--bg)); /* selected row, follows the brand; light enough for accent text on it */
+  /* graphite: pencil greys, neutral with a hair of warmth (not brown, not blue-cold); softer than pure white and black */
+  --bg: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --fg: light-dark(#1b1c1e, #e5e5e4); --muted: light-dark(#5c5e62, #9c9da0);
+  --line: light-dark(#e1e1df, #2e2f32); --chip: light-dark(#ececea, #252629);
+  --sel: color-mix(in srgb, var(--accent) 7%, var(--bg)); /* selected row, follows the brand; light enough for accent text on it */
   /* state colors: one value for both themes, same in favicons, logos, mails */
   --green: #22c55e; --yellow: #eab308; --red: #ef4444; --blue: #3b82f6; --grey: #8b8b94;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --r: 4px; --r-lg: 8px; /* control and panel radius */
-  --maxw: 80rem;
+  --r: 6px; --r-lg: 12px; /* control and panel radius */
+  --maxw: 76rem;
 }
-/* designs: one attribute on <html>, only tokens plus a few typographic rules */
-:where([data-design="nordic"]) { /* from up: paper white and deep slate, more air, one cool accent */
-  --brand: #3b6e94;
-  --bg: light-dark(#fafaf8, #15171a); --muted: light-dark(#636973, #8b919a); /* 4.5:1 on bg and chip */
-  --line: light-dark(#e6e6e1, #2a2d32); --chip: light-dark(#f1f1ed, #1e2125);
-  --r: 6px; --r-lg: 12px; --maxw: 64rem;
-}
-/* ---- design samples (one will stay as the second design) ---------------------------------------------- */
-:where([data-design="panels"]) { /* A: surfaces instead of lines: tinted page, content on raised panels */
-  --brand: #3b6e94;
-  --bg: light-dark(#f2f2ef, #0e0f11); --surface: light-dark(#fff, #18191c); --fg: light-dark(#16181b, #e8e8ea); --muted: light-dark(#5f636a, #9a9ea6);
-  --line: light-dark(#e6e6e1, #27282c); --chip: light-dark(#ececE8, #222327);
-  --r: 8px; --r-lg: 14px; --maxw: 76rem;
-  --sel: color-mix(in srgb, var(--accent) 6%, var(--surface));
-}
-:where([data-design="ink"]) { /* B: pen on paper: open, light, hand-drawn; chalk on slate in the dark */
-  --brand: #1f4fa3; --brand-dark: #f2d16b;
-  --bg: light-dark(#fdfcf8, #1e2326); --fg: light-dark(#1d2433, #ecebe4); --muted: light-dark(#596173, #aeb3ab);
-  --line: light-dark(#c9cfd9, #4b5357); --chip: light-dark(#f2f1ea, #283035);
-  --r: 6px; --r-lg: 12px; --maxw: 70rem;
-  --sketch: 255px 14px 225px 14px / 14px 225px 14px 255px; /* uneven corners: drawn, not stamped */
-  --sketch-sm: 12px 5px 14px 4px / 4px 13px 5px 12px;
-  --sel: color-mix(in srgb, var(--accent) 6%, var(--bg));
-}
-:where([data-design="paper"]) { /* D: a printout: paper and ink, double and dashed rules, green-bar rows, [ bracket ] buttons */
-  --brand: #2c4a7c; --brand-dark: #93abd6;
-  --bg: light-dark(#f6f3ea, #1c1b19); --fg: light-dark(#23211d, #d9d4c6); --muted: light-dark(#5c584f, #a39d8e);
+/* the second design: <html data-design="paper">, a printed form filled in by hand */
+:where([data-design="paper"]) {
+  --brand: #1f4fa3; --brand-dark: #e8c766; /* pen blue; a highlighter yellow at night */
+  --bg: light-dark(#f6f3ea, #1c1b19); --surface: var(--bg); --fg: light-dark(#23211d, #d9d4c6); --muted: light-dark(#5c584f, #a39d8e);
   --line: light-dark(#bdb7a8, #4a463e); --chip: light-dark(#ece8dc, #252420);
   --bar: light-dark(#ecebdf, #22211e); /* the green-bar stripe of continuous printer paper */
+  --sketch: 255px 14px 225px 14px / 14px 225px 14px 255px; /* uneven corners: drawn by hand, not printed */
+  --sketch-sm: 12px 5px 14px 4px / 4px 13px 5px 12px;
   --r: 0; --r-lg: 0;
-}
-:where([data-design="compact"]) { /* C: density: smaller type, tight rows, zebra, sticky table heads, full width */
-  --maxw: none;
 }
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"] { color-scheme: dark; }
@@ -556,7 +533,7 @@ progress:indeterminate::-moz-progress-bar { background: transparent; }
 .chart .col:focus-visible { outline: none; }
 .chart details { margin-top: .4rem; font-size: .85em; color: var(--muted); }
 .tip { position: fixed; z-index: 90; pointer-events: none; background: var(--fg); color: var(--bg); padding: .2rem .5rem; border-radius: var(--r); font-size: .85em; white-space: nowrap; }
-.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr)); gap: 0 2rem; }
+.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr)); gap: 0 2rem; }
 
 /* gallery: sections with a table of contents */
 .toc { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
@@ -584,114 +561,63 @@ dialog.palette li .sub { color: var(--muted); font-size: .85em; white-space: now
 dialog.palette li mark { background: none; color: var(--accent); font-weight: bold; }
 dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
 
-/* ---- design accents beyond tokens ------------------------------------------------------------ */
-[data-design="nordic"] body { padding: 2.5rem 2rem; line-height: 1.7; }
-[data-design="nordic"] main h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: -.01em; }
-[data-design="nordic"] main h2:not(dialog h2, .card h2) { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-top: 2.6rem; }
-[data-design="nordic"] th, [data-design="nordic"] td { padding: .7rem .75rem; }
+/* ---- graphite (no data-design needed): pencil on drafting paper; dense lists, calm warm tones, a clear hierarchy, surfaces only where they group ---- */
+body { padding: 1.5rem 20px 2.5rem; line-height: 1.65; }
+main h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -.01em; }
+main h2:not(dialog h2, .card h2) { font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 2.4rem; }
+/* surfaces only where grouping helps; tables stay flat */
+:is(.tile, .card, .chart, .bars, details.audit, .panel, dialog) { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+:is(.chart, .bars, .panel) { padding: 1rem 1.2rem; }
+details.audit { padding: .6rem 1rem; }
+.empty, .drop { background: var(--surface); }
+:is(input, select, textarea, button:not(.round), .btn) { background-color: var(--surface); }
+/* one unmistakable action: the primary button is filled */
+:is(button, .btn).pri { background: var(--accent); color: light-dark(#fff, #0f1115); border-color: var(--accent); box-shadow: none; }
+:is(button, .btn).pri:hover { background: color-mix(in srgb, var(--accent) 85%, var(--fg)); border-color: transparent; }
+:is(button, .btn).pri kbd { color: inherit; border-color: currentColor; opacity: .75; }
 
-/* A · panels */
-[data-design="panels"] header.app { background: var(--surface); border: 0; border-radius: var(--r-lg); padding: .6rem 1rem; box-shadow: 0 0 0 1px var(--line); }
-[data-design="panels"] nav.app { padding: .7rem 0 0; gap: .4rem; }
-[data-design="panels"] nav.app a { padding: .25rem .8rem; border-radius: 999px; }
-[data-design="panels"] nav.app a.on { border: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
-[data-design="panels"] .gsearch input { background: var(--bg); }
-[data-design="panels"] :is(main > table, section > table, .form, .info, .tile, .card, .bars, .chart, .calwrap, .month, .empty, details.audit, .filters, .cards > li, .drop, .iconset li) {
-  background: var(--surface); border: 0; border-radius: var(--r-lg); box-shadow: 0 0 0 1px var(--line), 0 1px 3px rgb(0 0 0 / .04); }
-[data-design="panels"] :is(.form, .info, .bars, .chart, details.audit, .filters) { padding: 1.1rem 1.2rem; }
-[data-design="panels"] .form { max-width: none; }
-[data-design="panels"] .chips { margin-top: 1rem; }
-[data-design="panels"] table { border-collapse: separate; border-spacing: 0; overflow: hidden; }
-[data-design="panels"] th { background: var(--surface); }
-[data-design="panels"] tbody tr:last-child td, [data-design="panels"] tfoot td { border-bottom: 0; }
-[data-design="panels"] :is(input, select, textarea) { background: var(--surface); }
-[data-design="panels"] .form :is(input, select, textarea) { background: var(--bg); border-color: transparent; }
-[data-design="panels"] .form :is(input, select, textarea):focus { background: var(--surface); }
-[data-design="panels"] button, [data-design="panels"] .btn { background: var(--surface); }
-[data-design="panels"] :is(button, .btn).pri { background: var(--accent); color: light-dark(#fff, #0e0f11); border-color: var(--accent); box-shadow: none; }
-[data-design="panels"] :is(button, .btn).pri:hover { background: color-mix(in srgb, var(--accent) 85%, var(--fg)); }
-[data-design="panels"] :is(button, .btn).pri kbd { color: inherit; border-color: currentColor; opacity: .7; }
-[data-design="panels"] h1 { font-size: 1.5rem; font-weight: 600; }
-[data-design="panels"] main h2:not(dialog h2, .card h2) { color: var(--fg); font-weight: 600; margin-top: 2rem; }
-[data-design="panels"] .foot { border: 0; }
-/* B · ink: pen on paper */
-[data-design="ink"] body { line-height: 1.75; }
-[data-design="ink"] header.app { border-bottom: 1px solid var(--line); padding-bottom: 1.1rem; }
-[data-design="ink"] nav.app { gap: 1.8rem; padding-top: 1rem; }
-[data-design="ink"] nav.app a.on { border: 0; color: var(--fg);
-  background: linear-gradient(transparent 52%, color-mix(in srgb, var(--accent) 22%, transparent) 52% 88%, transparent 88%) no-repeat 0 0 / 100% 100%; } /* highlighter stroke */
-[data-design="ink"] h1 { font-weight: 600; font-size: 1.45rem; text-decoration: underline wavy color-mix(in srgb, var(--accent) 55%, transparent); text-decoration-thickness: 1.5px; text-underline-offset: .45em; }
-[data-design="ink"] main h2:not(dialog h2, .card h2) { color: var(--fg); font-weight: 600; margin-top: 2.4rem; }
-[data-design="ink"] main a:not(.btn, .chip, .tag, .up, nav a, .tile, .c) { text-decoration: underline wavy; text-decoration-thickness: 1px; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 3px; }
-[data-design="ink"] th { color: var(--muted); }
-[data-design="ink"] td { border-bottom-color: color-mix(in srgb, var(--line) 70%, transparent); }
-[data-design="ink"] :is(button:not(.round), .btn, summary.btn) { border: 1.25px solid var(--fg); border-radius: var(--sketch-sm); padding: .3rem .9rem; background: transparent; }
-[data-design="ink"] :is(button:not(.round), .btn, summary.btn):nth-child(even) { border-radius: 5px 13px 4px 14px / 13px 4px 12px 5px; }
-[data-design="ink"] :is(button:not(.round), .btn):hover { background: color-mix(in srgb, var(--accent) 7%, transparent); transform: rotate(-.6deg); }
-[data-design="ink"] :is(button, .btn).pri { border-color: var(--accent); color: var(--accent); box-shadow: none; border-width: 1.75px; }
-[data-design="ink"] :is(button, .btn).pri kbd { color: inherit; }
-[data-design="ink"] :is(input, select, textarea) { border-radius: var(--sketch-sm); border-color: color-mix(in srgb, var(--fg) 55%, var(--bg)); background: transparent; }
-[data-design="ink"] .gsearch input { background: var(--chip); border-radius: var(--sketch-sm); }
-[data-design="ink"] :is(.card, .tile, .empty, .drop, .bars, .chart, details.audit) { border: 1.25px solid color-mix(in srgb, var(--fg) 40%, var(--bg)); border-radius: var(--sketch); }
-[data-design="ink"] .tile:nth-child(even) { border-radius: 14px 225px 14px 255px / 255px 14px 225px 14px; }
-[data-design="ink"] :is(.bars, .chart) { padding: 1rem 1.2rem; }
-[data-design="ink"] .chip { border-radius: var(--sketch-sm); background: transparent; border-color: color-mix(in srgb, var(--fg) 45%, var(--bg)); }
-[data-design="ink"] .chip.on { border-color: var(--accent); box-shadow: none; background: color-mix(in srgb, var(--accent) 10%, transparent); }
-[data-design="ink"] .seg { border-radius: var(--sketch-sm); }
-[data-design="ink"] :is(.flash, .warn, .banner) { border-radius: var(--sketch-sm); border-left-width: 1px; }
-[data-design="ink"] dialog { border-radius: var(--sketch); border: 1.25px solid var(--fg); box-shadow: 0 10px 30px rgb(0 0 0 / .12); }
-[data-design="ink"] .foot { border-top-color: color-mix(in srgb, var(--line) 70%, transparent); }
-/* D · paper */
-[data-design="paper"] header.app { border-bottom: 3px double var(--fg); }
-[data-design="paper"] .foot { border-top: 3px double var(--fg); }
-[data-design="paper"] nav.app a.on { border-bottom: 1px solid var(--fg); }
-[data-design="paper"] nav.app a.on::before { content: "> "; }
-[data-design="paper"] h1 { text-transform: uppercase; letter-spacing: .06em; }
-[data-design="paper"] main h2:not(dialog h2, .card h2) { color: var(--fg); text-transform: uppercase; font-size: .85rem; letter-spacing: .1em; border-bottom: 1px dashed var(--fg); padding-bottom: .25rem; }
-[data-design="paper"] th { color: var(--fg); text-transform: uppercase; font-size: .78em; letter-spacing: .08em; border-bottom: 3px double var(--fg); }
-[data-design="paper"] td { border-bottom: 1px dashed var(--line); }
+/* ---- paper: a form on paper, filled in and drawn by hand, tidy: pen strokes instead of printed rules (a gently wobbling
+   line, drawn in the text color), outlines with uneven corners, green-bar rows, a highlighter, chips circled with the pen ---- */
+[data-design="paper"] { --pen: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='6'><path d='M0 3C30 1.6 60 4.4 90 3.2S150 1.4 180 3.1 225 4.2 240 3' fill='none' stroke='black' stroke-width='1.3' stroke-linecap='round'/></svg>"); }
+[data-design="paper"] :is(header.app, main h2:not(dialog h2, .card h2), .foot) { position: relative; border: 0; }
+[data-design="paper"] :is(header.app, main h2:not(dialog h2, .card h2))::after, [data-design="paper"] .foot::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 6px; background: var(--fg); mask: var(--pen) 0 0 / 240px 6px repeat-x; pointer-events: none; }
+[data-design="paper"] header.app::after, [data-design="paper"] main h2:not(dialog h2, .card h2)::after { bottom: -3px; }
+[data-design="paper"] .foot::before { top: -3px; }
+[data-design="paper"] main h2:not(dialog h2, .card h2) { color: var(--fg); font-weight: normal; font-size: .85rem; letter-spacing: .1em; padding-bottom: .35rem; }
+[data-design="paper"] nav.app a.on { border: 0; color: var(--fg);
+  background: linear-gradient(transparent 52%, color-mix(in srgb, var(--accent) 24%, transparent) 52% 88%, transparent 88%) no-repeat; } /* highlighter stroke */
+[data-design="paper"] main h1 { font-weight: normal; text-transform: uppercase; letter-spacing: .06em; position: relative; display: inline-block; padding-bottom: .3rem; }
+[data-design="paper"] main h1::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 6px; background: var(--accent); mask: var(--pen) 0 0 / 240px 6px repeat-x; } /* one pen stroke under the title */
+[data-design="paper"] main a:not(.btn, .chip, .tag, .up, nav a, .tile, .c) { text-decoration-thickness: 1px; text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); text-underline-offset: 3px; }
+[data-design="paper"] th { color: var(--fg); text-transform: uppercase; font-size: .78em; letter-spacing: .08em; border-bottom: 1.5px solid var(--fg); }
+[data-design="paper"] td { border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent); }
 [data-design="paper"] tbody tr:nth-child(even) td { background: var(--bar); }
-[data-design="paper"] tbody tr.sel td { background: var(--sel); }
-/* [ bracket ] buttons: side lines plus four short ticks, like the ][ mark */
-[data-design="paper"] :is(button:not(.round), .btn, summary.btn) { border: 0; border-left: 1px solid var(--fg); border-right: 1px solid var(--fg); border-radius: 0; padding: .2rem .8rem;
-  background: linear-gradient(var(--fg) 0 0) left top / 6px 1px no-repeat, linear-gradient(var(--fg) 0 0) left bottom / 6px 1px no-repeat,
-    linear-gradient(var(--fg) 0 0) right top / 6px 1px no-repeat, linear-gradient(var(--fg) 0 0) right bottom / 6px 1px no-repeat, var(--bg); }
-[data-design="paper"] :is(button:not(.round), .btn, summary.btn):hover { background-color: var(--chip); }
-[data-design="paper"] :is(button, .btn).pri { box-shadow: none; border-left-width: 2px; border-right-width: 2px; font-weight: bold; }
-[data-design="paper"] :is(button, .btn).pri:hover { background-color: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
-[data-design="paper"] :is(button, .btn).danger, [data-design="paper"] :is(button, .btn).del { border-color: var(--c-text); }
-/* fill-in lines instead of boxes */
-[data-design="paper"] :is(input:not([type=checkbox]):not([type=radio]):not([type=color]), select, textarea) { border: 0; border-bottom: 1px solid var(--fg); border-radius: 0; background: transparent; }
-[data-design="paper"] textarea { border: 1px dashed var(--fg); }
-[data-design="paper"] :is(input:not([type=checkbox]):not([type=radio]):not([type=color]), select, textarea):focus { border-bottom: 2px solid var(--accent); box-shadow: none; }
-[data-design="paper"] .gsearch input { background: var(--chip); }
-[data-design="paper"] :is(.chip, .seg, .tag[style*="--c"]) { border-radius: 0; }
-[data-design="paper"] .chip { border-style: dashed; border-color: var(--fg); }
-[data-design="paper"] .chip.on { border-style: solid; }
-[data-design="paper"] :is(.card, .tile, .empty, .drop, dialog, .bulkbar) { border: 1px dashed var(--fg); border-radius: 0; box-shadow: none; }
-[data-design="paper"] .tag:not([style*="--c"]) { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
-[data-design="paper"] :is(.flash, .warn, .banner) { border-radius: 0; border-style: dashed; border-left-style: solid; }
-/* C · compact */
-[data-design="compact"] body { font-size: 13px; line-height: 1.45; padding: .6rem 14px 1.5rem; }
-[data-design="compact"] th, [data-design="compact"] td { padding: .28rem .5rem; }
-[data-design="compact"] tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--fg) 3.5%, var(--bg)); }
-[data-design="compact"] tbody tr.sel td { background: var(--sel); }
-[data-design="compact"] thead th { position: sticky; top: 0; z-index: 2; background: var(--bg); box-shadow: inset 0 -1px var(--line); }
-[data-design="compact"] :is(input, select, textarea, button, .btn) { padding: .15rem .5rem; }
-[data-design="compact"] .form { gap: .45rem .9rem; margin-top: 1rem; grid-template-columns: 8rem minmax(0, 1fr); }
-[data-design="compact"] h2 { margin: 1.1rem 0 .4rem; }
-[data-design="compact"] .pagehead { margin-top: 1rem; }
-[data-design="compact"] .chips { margin-top: .7rem; gap: .35rem; }
-[data-design="compact"] .chip { padding: 0 .6rem; }
-[data-design="compact"] .tiles { gap: .6rem; } [data-design="compact"] .tile { padding: .5rem .7rem; }
-[data-design="compact"] .tile .value { font-size: 1.3rem; }
-[data-design="compact"] nav.app { gap: 1.1rem; padding-top: .5rem; }
-[data-design="compact"] header.app { padding-bottom: .6rem; }
+[data-design="paper"] tbody tr.sel td { background: linear-gradient(transparent 12%, color-mix(in srgb, var(--accent) 16%, transparent) 12% 88%, transparent 88%), var(--bg); } /* highlighted line */
+/* outlines drawn by hand: uneven corners, alternating so nothing looks stamped */
+[data-design="paper"] :where(button:not(.round), .btn, summary.btn, input:not([type=checkbox]):not([type=radio]):not([type=color]), select, textarea, .seg, .chip) { /* :where: selected, hover and focus states win */
+  border: 1.25px solid color-mix(in srgb, var(--fg) 60%, var(--bg)); border-radius: var(--sketch-sm); background-color: transparent; box-shadow: none; }
+[data-design="paper"] :where(button:not(.round), .btn, summary.btn, .chip):nth-child(even) { border-radius: 5px 13px 4px 14px / 13px 4px 12px 5px; }
+[data-design="paper"] :is(button:not(.round), .btn, summary.btn) { padding: .25rem .85rem; color: var(--fg); }
+[data-design="paper"] :is(button:not(.round), .btn):hover { background-color: color-mix(in srgb, var(--accent) 8%, transparent); transform: rotate(-.6deg); }
+[data-design="paper"] :is(button, .btn).pri { color: var(--accent); background: transparent; border: 1.75px solid var(--accent); font-weight: bold; } /* an outline in pen blue, not graphite's filled button */
+[data-design="paper"] :is(button, .btn).pri:hover { background-color: color-mix(in srgb, var(--accent) 12%, transparent); }
+[data-design="paper"] :is(button, .btn).pri kbd { color: inherit; opacity: 1; }
+[data-design="paper"] :is(button, .btn):is(.danger, .del) { color: var(--c-text); border-color: var(--c-text); }
+[data-design="paper"] :is(input, select, textarea):focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+[data-design="paper"] .gsearch input { background: var(--chip); border-color: transparent; }
+[data-design="paper"] .chip.on { border: 1.75px solid var(--accent); }
+[data-design="paper"] :is(.card, .tile, .empty, .drop, dialog, .bulkbar, .chart, .bars, details.audit, .panel) {
+  border: 1.25px solid color-mix(in srgb, var(--fg) 45%, var(--bg)); border-radius: var(--sketch); box-shadow: none; background: var(--bg); }
+[data-design="paper"] :is(.tile, .card):nth-child(even) { border-radius: 14px 225px 14px 255px / 255px 14px 225px 14px; }
+[data-design="paper"] :is(.empty, .drop) { border-style: dashed; }
+[data-design="paper"] .tag:not([style*="--c"]) { color: var(--accent); }
+[data-design="paper"] :is(.flash, .warn, .banner) { border-radius: var(--sketch-sm); }
 
 /* ---- small screens, touch, motion ------------------------------------------------------------ */
 @media (hover: none) { kbd, .keys { display: none; } }
 @media (max-width: 40rem) {
-  body, [data-design="nordic"] body { padding: .6rem 16px 2rem; }
+  body { padding: .6rem 16px 2rem; }
   header.app { gap: .6rem; }
   header.app .right .who, header.app .logo .name, nav.app .g { display: none; }
   #menu { display: inline; }
@@ -721,10 +647,7 @@ dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
   /* tables become one card per row, one line per column: "label … value" (labels from the header, set by ui.js); .keep opts out */
   main table:not(.keep), main table:not(.keep) :is(tbody, tfoot, tr) { display: block; }
   main table:not(.keep) thead { display: none; }
-  [data-design="panels"] main table:not(.keep) { background: none; box-shadow: none; overflow: visible; }
-  [data-design="panels"] main table:not(.keep) tr { background: var(--surface); border: 0; box-shadow: 0 0 0 1px var(--line); }
-  [data-design="compact"] body { font-size: 14px; }
-  main table:not(.keep) tr { border: 1px solid var(--line); border-radius: var(--r-lg); padding: .45rem .8rem; margin-bottom: .6rem; }
+  main table:not(.keep) tr { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: .45rem .8rem; margin-bottom: .6rem; }
   main table:not(.keep) tfoot tr { border-style: dashed; }
   /* a label column of 7rem: text values align left and wrap under themselves, numbers align right */
   main table:not(.keep) td { display: block; border: 0; padding: .2rem 0 .2rem 7.5rem; text-align: left; overflow-wrap: anywhere; }

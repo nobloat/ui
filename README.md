@@ -6,9 +6,10 @@ The shared look of nobloat apps (bill, track, tax, up, auth) as a **reference to
 
 ![preview: desktop and phone side by side](screenshots/preview.png)
 
-| plain (bill, track, tax) | nordic (up) |
+| **graphite**: pencil on drafting paper, precise and calm (the default) | **paper**: a form on paper, drawn and filled in by hand |
 |---|---|
-| ![plain](screenshots/gallery-plain-light.png) | ![nordic](screenshots/gallery-nordic-dark.png) |
+| ![graphite](screenshots/gallery-graphite-light.png) | ![paper](screenshots/gallery-paper-light.png) |
+| ![graphite dark](screenshots/gallery-graphite-dark.png) | ![paper dark](screenshots/gallery-paper-dark.png) |
 
 Desktop and phone (500 px, dark):
 
@@ -24,19 +25,6 @@ Desktop and phone (500 px, dark):
 Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](screenshots/brand-light.png) ![brand dark](screenshots/brand-dark.png)
 
 **How to use it, and every rule (layout, light/dark, mobile, accessibility, navigation, forms, money, ids, charts, keyboard):** [`skill/SKILL.md`](skill/SKILL.md). It is an [Agent Skill](https://agentskills.io) named `nobloat-ui`, so coding agents follow the same rules: link it like the other nobloat skills (`ln -s ~/git/nobloat/ui/skill ~/.claude/skills/nobloat-ui`, or `.agents/skills/nobloat-ui` per project), or tell agents without skill support to read `../ui/skill/SKILL.md`.
-
-## Design samples
-
-Candidates for the second design next to plain (switch them live in the gallery or the preview). One stays; the others go.
-
-| design | dashboard | list, dark | form, phone |
-|---|---|---|---|
-| plain (now) | ![plain](screenshots/design-plain-dashboard.png) | ![plain dark](screenshots/design-plain-list-dark.png) | ![plain phone](screenshots/design-plain-form-phone.png) |
-| nordic (now) | ![nordic](screenshots/design-nordic-dashboard.png) | ![nordic dark](screenshots/design-nordic-list-dark.png) | ![nordic phone](screenshots/design-nordic-form-phone.png) |
-| **A · panels**: surfaces instead of lines | ![panels](screenshots/design-panels-dashboard.png) | ![panels dark](screenshots/design-panels-list-dark.png) | ![panels phone](screenshots/design-panels-form-phone.png) |
-| **B · ink**: pen on paper | ![ink](screenshots/design-ink-dashboard.png) | ![ink dark](screenshots/design-ink-list-dark.png) | ![ink phone](screenshots/design-ink-form-phone.png) |
-| **C · compact**: density | ![compact](screenshots/design-compact-dashboard.png) | ![compact dark](screenshots/design-compact-list-dark.png) | ![compact phone](screenshots/design-compact-form-phone.png) |
-| **D · paper**: a printout | ![paper](screenshots/design-paper-dashboard.png) | ![paper dark](screenshots/design-paper-list-dark.png) | ![paper phone](screenshots/design-paper-form-phone.png) |
 
 ## Files
 
@@ -58,7 +46,7 @@ Candidates for the second design next to plain (switch them live in the gallery 
 
 ## Compared with the apps today
 
-This is distilled from bill (base), up (nordic, lights, cards) and track (tag picker). Differences to watch for when migrating:
+This is distilled from bill (base), up (lights, cards) and track (tag picker). Differences to watch for when migrating:
 
 - New: breadcrumbs, settings behind ⚙ (with account and preferences), autosave on every edit form with inline field errors, icons on create/edit/delete/copy, type-prefixed ids, signed money, the dashboard and `chart.go`, tables as cards on phones, the layout and accessibility check; the command palette, `calendar.js` as events instead of track's saving code, the dates page, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `p`/`n` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
 - Renamed: status classes are `ok/pend/bad/run/off` instead of app states (`paid`, `overdue`, `green`, `red`); up's `.searchbox`/`.foot` markup → `.gsearch`/`nb-foot`; track's `data-tagpick` → `data-pick` (without track's project filter and create-new-tag option, which stay app code).
@@ -82,7 +70,7 @@ The set has one style, **precise**: thin lines, square ends, sharp corners, draw
 ```sh
 go test ./...          # examples match pages/ + partials.html, i18n keys complete, brand rendering
 go test -update ./...  # regenerate examples/*.html
-node check.mjs         # every example page × plain/nordic × light/dark × 320/390/768/1280 px (+ open menu, custom logo):
+node check.mjs         # every example page × graphite/paper × light/dark × 320–430, 768, 1280 px (+ open menu, custom logo, long data):
                        # layout (no sideways scroll, nothing sticking out, no wrapping or clipped labels) and
                        # accessibility (contrast, names, labels, alt, ids, landmarks, target size, focus), money parsing
 node check.mjs http://localhost:8080/ /customers   # the same for an app's pages

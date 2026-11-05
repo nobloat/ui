@@ -297,6 +297,10 @@ document.addEventListener('change', async e => {
   document.addEventListener('change', e => { const z = e.target.closest?.('label.drop'); if (z && e.isTrusted) take(z, e.target.files); });
 }
 
+// overflow menus close on a click anywhere else and on Esc (a <details> stays open by itself)
+document.addEventListener('click', e => document.querySelectorAll('details.more[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; const d = document.querySelector('details.more[open]'); if (d) { d.open = false; d.querySelector('summary').focus(); e.stopImmediatePropagation(); } }, true);
+
 // overflow menus open towards the side with room
 document.addEventListener('toggle', e => {
   const d = e.target, m = d.matches?.('details.more') && d.open && $('.menu', d);

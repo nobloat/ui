@@ -206,14 +206,14 @@ func iconNames() []string {
 
 func TestBrand(t *testing.T) {
 	tpl := template.Must(template.ParseFiles("partials.html"))
-	p := Page{Brand: Brand{App: "bill", Char: "€", Name: "ACME", Color: "#7c3aed", ColorDark: "#a78bfa", Logo: "/brand/logo", LogoDark: "/brand/logo-dark", Design: "nordic"}}
+	p := Page{Brand: Brand{App: "bill", Char: "€", Name: "ACME", Color: "#7c3aed", ColorDark: "#a78bfa", Logo: "/brand/logo", LogoDark: "/brand/logo-dark", Design: "paper"}}
 	var b bytes.Buffer
 	for _, n := range []string{"nb-head", "nb-logo"} {
 		if err := tpl.ExecuteTemplate(&b, n, p); err != nil {
 			t.Fatal(err)
 		}
 	}
-	for _, want := range []string{`data-design="nordic"`, `--brand: #7c3aed; --brand-dark: #a78bfa;`, `<title>ACME</title>`,
+	for _, want := range []string{`data-design="paper"`, `--brand: #7c3aed; --brand-dark: #a78bfa;`, `<title>ACME</title>`,
 		`<img class="light" src="/brand/logo" alt="">`, `<img class="dark" src="/brand/logo-dark" alt="">`, `aria-label="ACME"`} {
 		if !strings.Contains(b.String(), want) {
 			t.Errorf("missing %s in\n%s", want, b.String())

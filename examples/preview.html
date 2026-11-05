@@ -34,9 +34,9 @@
 <option value="index.html">gallery</option><option value="dashboard.html">dashboard</option><option value="icons.html">icons</option><option value="list.html">list</option><option value="detail.html">detail</option>
 <option value="form.html">form</option><option value="dates.html">dates</option><option value="week.html">week calendar</option><option value="month.html">month calendar</option><option value="settings.html">settings</option><option value="status.html">status (public)</option><option value="login.html">login</option>
 </select></label>
-<label>design <select name="design"><option value="">plain</option><option value="nordic">nordic</option><option value="panels">A · panels</option><option value="ink">B · ink</option><option value="compact">C · compact</option><option value="paper">D · paper</option></select></label>
+<label>design <select name="design"><option value="">graphite</option><option value="paper">paper</option></select></label>
 <span class="lab">theme</span> <span class="seg"><label><input type="radio" name="theme" value="" checked>auto</label><label><input type="radio" name="theme" value="light">light</label><label><input type="radio" name="theme" value="dark">dark</label></span>
-<label>brand <input type="color" name="brand" value="#0969da"> <button type="button" id="reset" title="design default color">↺</button></label>
+<label>brand <input type="color" name="brand" value="#0a5fc7"> <button type="button" id="reset" title="design default color">↺</button></label>
 <label><input type="checkbox" name="logo"> custom logo</label>
 <label><input type="checkbox" name="sync" checked> sync scroll</label>
 <label><input type="checkbox" name="fit" checked> fit phone to height</label>
@@ -48,7 +48,7 @@
 <script>
 {
   const f = document.getElementById('ctl'), desk = document.getElementById('desk'), mob = document.getElementById('mob'), phone = document.getElementById('phone');
-  const defaults = {'': '#0969da', nordic: '#3b6e94', panels: '#3b6e94', ink: '#1f4fa3', compact: '#0969da', paper: '#2c4a7c'};
+  const defaults = {'': '#0a5fc7', graphite: '#0a5fc7', paper: '#1f4fa3'};
   const q = new URLSearchParams(location.search);
   let page = q.get('page') || 'index.html', brand = q.get('brand') || '';
   f.design.value = q.get('design') || '';
