@@ -34,7 +34,7 @@
 <option value="index.html">gallery</option><option value="list.html">list</option><option value="detail.html">detail</option>
 <option value="form.html">form</option><option value="dates.html">dates</option><option value="week.html">week calendar</option><option value="month.html">month calendar</option><option value="settings.html">settings</option><option value="status.html">status (public)</option><option value="login.html">login</option>
 </select></label>
-<label>design <select name="design"><option value="">plain</option><option value="nordic">nordic</option><option value="ink">ink</option><option value="bw">b/w</option><option value="terminal">terminal</option><option value="modern">modern</option></select></label>
+<label>design <select name="design"><option value="">plain</option><option value="nordic">nordic</option></select></label>
 <span class="lab">theme</span> <span class="seg"><label><input type="radio" name="theme" value="" checked>auto</label><label><input type="radio" name="theme" value="light">light</label><label><input type="radio" name="theme" value="dark">dark</label></span>
 <label>brand <input type="color" name="brand" value="#0969da"> <button type="button" id="reset" title="design default color">↺</button></label>
 <label><input type="checkbox" name="logo"> custom logo</label>
@@ -48,7 +48,7 @@
 <script>
 {
   const f = document.getElementById('ctl'), desk = document.getElementById('desk'), mob = document.getElementById('mob'), phone = document.getElementById('phone');
-  const defaults = {'': '#0969da', nordic: '#3b6e94', ink: '#c2410c', bw: '#000000', terminal: '#b45309', modern: '#4f46e5'};
+  const defaults = {'': '#0969da', nordic: '#3b6e94'};
   const q = new URLSearchParams(location.search);
   let page = q.get('page') || 'index.html', brand = q.get('brand') || '';
   f.design.value = q.get('design') || '';

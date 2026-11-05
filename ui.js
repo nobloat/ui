@@ -272,7 +272,7 @@ window.morph = (a, b) => {
   ac.slice(bc.length).forEach(n => n.remove());
 };
 
-// toasts: the page's flash messages float top right; successes fade after 5s, errors stay until closed.
+// toasts: the page's flash messages float bottom right (full width on phones); successes fade after 5s, errors stay until closed.
 // Without JS they stay where the page put them.
 {
   const ps = document.querySelectorAll('main p.flash');

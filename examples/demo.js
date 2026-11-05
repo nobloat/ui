@@ -1,5 +1,5 @@
 // Demo only, not part of nobloat/ui: the design / theme / brand / logo switcher and a fake backend,
-// so the examples work as plain files. URL parameters (?design=ink&theme=dark&brand=%23c2410c&logo=1)
+// so the examples work as plain files. URL parameters (?design=nordic&theme=dark&brand=%23c2410c&logo=1)
 // override and are remembered across pages; screenshots.sh and preview.html use them.
 {
   const root = document.documentElement, KEY = 'nb-demo';
@@ -7,7 +7,7 @@
   try { s = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
   const params = new URLSearchParams(location.search);
   for (const [k, v] of params) if (['design', 'brand', 'logo'].includes(k)) s[k] = v;
-  const defaults = {'': '#0969da', nordic: '#3b6e94', ink: '#c2410c', bw: '#000000', terminal: '#b45309', modern: '#4f46e5'};
+  const defaults = {'': '#0969da', nordic: '#3b6e94'};
   const logoHTML = document.querySelector('.logo')?.innerHTML;
   const apply = () => {
     s.design ? root.dataset.design = s.design : delete root.dataset.design;
@@ -24,7 +24,7 @@
   panel.setAttribute('aria-label', 'demo settings');
   panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:70;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;padding:.5rem .7rem;font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:0 6px 24px rgb(0 0 0 / .15)';
   panel.innerHTML = `<span class="muted">demo</span>
-    <select name="design" aria-label="design"><option value="">plain</option><option value="nordic">nordic</option><option value="ink">ink</option><option value="bw">b/w</option><option value="terminal">terminal</option><option value="modern">modern</option></select>
+    <select name="design" aria-label="design"><option value="">plain</option><option value="nordic">nordic</option></select>
     <input type="color" name="brand" aria-label="brand color" title="--brand" style="padding:0;width:2rem;height:1.6rem">
     <button type="button" name="reset" title="design default color">↺</button>
     <label><input type="checkbox" name="logo"> custom logo</label>`;

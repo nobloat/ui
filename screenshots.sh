@@ -11,7 +11,7 @@ shot() { # name width height page query
     --window-size="$2,$3" --screenshot="$PWD/screenshots/$1.png" "$base/$4?nopanel&$5" >/dev/null 2>&1
   echo "screenshots/$1.png"
 }
-for d in plain nordic ink bw terminal modern; do
+for d in plain nordic; do
   q="design=$( [ $d = plain ] || echo $d )&brand=&logo="
   shot "gallery-$d-light" 1280 2250 index.html "$q&theme=light"
   shot "gallery-$d-dark" 1280 2250 index.html "$q&theme=dark"
@@ -22,5 +22,5 @@ for p in list detail form dates week month settings status login; do
 done
 shot brand-light 1280 900 list.html "design=nordic&brand=%237c3aed&logo=1&theme=light"
 shot brand-dark 1280 900 list.html "design=nordic&brand=%237c3aed&logo=1&theme=dark"
-shot brand-login 500 800 login.html "design=ink&brand=%237c3aed&logo=1&theme=light"
-shot preview 1600 1000 preview.html "page=list.html&design=modern&theme=dark"
+shot brand-login 500 800 login.html "design=nordic&brand=%237c3aed&logo=1&theme=light"
+shot preview 1600 1000 preview.html "page=list.html&design=nordic&theme=dark"

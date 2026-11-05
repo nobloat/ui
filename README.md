@@ -6,11 +6,9 @@ The shared look of nobloat apps (bill, track, tax, up, auth) as a **reference to
 
 ![preview: desktop and phone side by side](screenshots/preview.png)
 
-| plain (bill, track, tax) | nordic (up) | ink |
-|---|---|---|
-| ![plain](screenshots/gallery-plain-light.png) | ![nordic](screenshots/gallery-nordic-dark.png) | ![ink](screenshots/gallery-ink-light.png) |
-| **b/w** | **terminal** | **modern** |
-| ![bw](screenshots/gallery-bw-light.png) | ![terminal](screenshots/gallery-terminal-dark.png) | ![modern](screenshots/gallery-modern-light.png) |
+| plain (bill, track, tax) | nordic (up) |
+|---|---|
+| ![plain](screenshots/gallery-plain-light.png) | ![nordic](screenshots/gallery-nordic-dark.png) |
 
 Desktop and phone (500 px, dark):
 
@@ -67,18 +65,14 @@ Phones are first-class: everything works at **360–500 px** without horizontal 
 - **Forms:** `.form` and `.filters` turn into a single column; labels go above the fields. Inputs keep full width.
 - **Actions:** primary actions stay visible; secondary ones move into `details.more`. Icon-only buttons (`.round`) always carry `aria-label`.
 - **Keyboard hints:** `kbd` hints and the keys line are hidden on touch devices (`@media (hover: none)`); every shortcut has a visible button or link, so nothing is keyboard-only.
-- **Dialogs and toasts** fit the screen (`max-width: calc(100vw - 32px)`). Toasts sit top right over the header: successes fade after 5 s, errors stay until closed with ×.
+- **Dialogs and toasts** fit the screen (`max-width: calc(100vw - 32px)`). Toasts sit at the bottom (full width on phones), so they never cover the header: successes fade after 5 s, errors stay until closed with ×.
 - Check with DevTools device mode at 360 and 500 px (Chrome's minimum headless width, used by `screenshots.sh`).
 
 ## Theming
 
-- **Design:** `data-design` on `<html>`. A design changes tokens (colors, `--font`, `--r`, `--r-lg`, `--rule`, `--maxw`) plus a few accent rules; markup never changes.
-  - none: **plain**, bill/track/tax.
-  - `nordic`: up; paper white and slate, more air.
-  - `ink`: print; warm paper, square, heavy rules, vermilion.
-  - `bw`: minimal black and white; **ignores `--brand`**, only state colors stay colored.
-  - `terminal`: green phosphor text, amber accent, `$` and `>` prompts, inverted selection, block caret.
-  - `modern`: system sans-serif (`--font`; numbers, `kbd` and code stay monospace), soft panels, filled primary buttons. The one design that leaves the monospace nobloat look.
+- **Design:** `data-design` on `<html>`, two on purpose: few designs, each finished in light, dark and on phones. A design changes tokens (colors, `--r`, `--r-lg`, `--maxw`) plus a few heading rules; markup never changes.
+  - none: **plain**, the default (bill, track, tax): monospace, hairline rules, color only where it means something.
+  - `nordic` (up): the same system with more air, softer paper and slate tones, larger titles.
 - **Primary color:** `--brand`, the one value most apps set. Dark mode lightens it automatically (70% brand + 30% white); set `--brand-dark` to override. `--accent` (links, tags, focus, primary buttons, the mark character, the selected row tint `--sel`) derives from it. All tokens have specificity 0, so an app's `:root { --brand }` always wins over the design's.
 - **Logo:** by default the `][` mark plus the app's character (`Brand.Char`) drawn in `--brand`, plus the app name. A custom brand sets `Brand.Logo` and optionally `Brand.LogoDark`; CSS shows the dark one whenever the page is dark (OS dark unless pinned light, or pinned dark), without JS. `Brand.Name` replaces `][€ bill` in the title and the logo label. The footer always credits `nobloat/<app>`.
 - **Light/dark:** auto by default; `#theme` cycles ◐ auto → ☀ light → ☾ dark, stored in `localStorage`, applied in `<head>` before first paint.
@@ -93,7 +87,7 @@ Phones are first-class: everything works at **360–500 px** without horizontal 
 | buttons | `button`, `.btn` (link), `.pri`, `.danger`, `.round` (icon), `:disabled`, `<kbd>` hint | gallery |
 | busy | `aria-busy="true"`, set by `ui.js` on the submit button; `.spin` standalone | gallery |
 | overflow menu | `details.more > summary.btn + .menu` | detail |
-| messages | `p.flash` (error), `p.flash.ok`, `p.warn`, `p.banner`; flashes become toasts | gallery, form |
+| messages | `p.flash` (error), `p.flash.ok`, `p.warn`, `p.banner`; flashes become toasts, bottom right | gallery, form |
 | status | `.dot.ok/.pend/.bad/.run/.off` (lights, `.bad` pulses unless `.still`), `.st.<state>` (glyph); always `role="img" aria-label` | list, detail |
 | filters | `.chips > a.chip(.on) > .n` counts, `.sep`, `a.tag`; `.filters` label grid for several rows; `.seg` radio pill | list, gallery |
 | autocomplete | one value: native `<input list>`; several (tags): `<input data-pick="id">` + `<datalist id>` | form, gallery |
@@ -139,7 +133,7 @@ The top of [`partials.html`](partials.html) lists the fields the page value need
 
 This is distilled from bill (base), up (nordic, lights, cards) and track (tag picker). Differences to watch for when migrating:
 
-- New: the command palette, `calendar.js` as events instead of track's saving code, the dates page; `ink`, `bw`, `terminal` and `modern` designs, the `--font` token, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `[`/`]` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
+- New: the command palette, `calendar.js` as events instead of track's saving code, the dates page, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `[`/`]` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
 - Renamed: status classes are `ok/pend/bad/run/off` instead of app states (`paid`, `overdue`, `green`, `red`); up's `.searchbox`/`.foot` markup → `.gsearch`/`nb-foot`; track's `data-tagpick` → `data-pick` (without track's project filter and create-new-tag option, which stay app code).
 - `--sel` follows the brand instead of a fixed blue.
 
