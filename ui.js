@@ -16,9 +16,10 @@ window.confirmDlg = text => new Promise(res => {
 document.addEventListener('submit', async e => {
   const f = e.target;
   if (f.method === 'dialog') return;
-  if (f.dataset.confirm && !f.dataset.confirmed) {
+  const ask = e.submitter?.dataset.confirm || f.dataset.confirm; // a button may carry its own question (bulk bar)
+  if (ask && !f.dataset.confirmed) {
     e.preventDefault();
-    if (await confirmDlg(f.dataset.confirm)) { f.dataset.confirmed = 1; f.requestSubmit(e.submitter); }
+    if (await confirmDlg(ask)) { f.dataset.confirmed = 1; f.requestSubmit(e.submitter); }
     return;
   }
   delete f.dataset.confirmed;
@@ -195,6 +196,10 @@ document.addEventListener('change', async e => {
     el.classList.add('was-saved'); setTimeout(() => el.classList.remove('was-saved'), 1200);
     if (s) { s.textContent = '✓ ' + (T['js.saved'] || 'saved') + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}); s.classList.remove('err'); }
     f.dispatchEvent(new CustomEvent('saved', {detail: j}));
+  } else if (r?.status === 401) { // signed out meanwhile: keep the input, say so once
+    document.body.dataset.sessionEnd = new Date(0).toISOString();
+    window.sessionCheck();
+    if (s) s.textContent = '';
   } else {
     const msg = T['err.' + j.error] || j.error || T['js.error'] || 'error';
     fieldError(f.elements[j.field] || el, msg, j.hint);
@@ -234,7 +239,7 @@ document.addEventListener('change', async e => {
       Enter: () => { if (r[sel]) location = r[sel].dataset.href; },
       h: () => go(tabs[cur - 1]), l: () => go(tabs[cur + 1]),
       '[': () => go($('.pager a[rel=prev]')), ']': () => go($('.pager a[rel=next]')),
-      Escape: () => go([...document.querySelectorAll('a.up')].pop()), // one breadcrumb up
+      Escape: () => { const on = [...document.querySelectorAll('td.pick input:checked')]; if (on.length) { on.forEach(b => b.checked = false); on[0].dispatchEvent(new Event('change', {bubbles: true})); } else go([...document.querySelectorAll('a.up')].pop()); }, // clear the selection, else one breadcrumb up
     };
     const chip = /^[1-9]$/.test(e.key) && visible('main .chips a.chip')[+e.key - 1];
     const el = visible(`[data-key="${CSS.escape(e.key)}"]`)[0];
@@ -336,6 +341,48 @@ document.querySelectorAll('main table:not(.keep)').forEach(t => {
   document.addEventListener('focusout', () => { tip?.remove(); tip = null; });
 }
 
+// bulk: td.pick checkboxes belong to <form id="bulk" class="bulkbar"> (form="bulk"); th.pick input[data-all] selects all;
+// x toggles the cursor row; the bar shows "{n} selected" and hides while nothing is; data-confirm may say {n}
+{
+  const bar = document.querySelector('form.bulkbar');
+  if (bar) {
+    const boxes = () => [...document.querySelectorAll(`td.pick input[form="${bar.id}"]`)];
+    const sync = () => {
+      const n = boxes().filter(b => b.checked).length, all = $('th.pick input[data-all]');
+      bar.hidden = !n;
+      $('.n', bar).textContent = (T['js.selected'] || '{n} selected').replace('{n}', n);
+      bar.querySelectorAll('[data-confirm-n]').forEach(b => b.dataset.confirm = b.dataset.confirmN.replace('{n}', n));
+      if (all) { all.checked = n && n === boxes().length; all.indeterminate = n > 0 && n < boxes().length; }
+    };
+    document.addEventListener('change', e => {
+      if (e.target.matches('th.pick input[data-all]')) boxes().forEach(b => b.checked = e.target.checked);
+      if (e.target.closest('td.pick, th.pick')) sync();
+    });
+    window.pageKeys = Object.assign({x: () => { const b = $('tr.sel td.pick input'); if (!b) return false; b.checked = !b.checked; sync(); }}, window.pageKeys || {});
+    sync();
+  }
+}
+
+// session: <body data-session-end="RFC 3339" data-session-renew="url">: 5 minutes before the end a bar offers to stay signed in
+// (GET renew, answer {end}); after the end it says so and keeps the page, so nothing typed is lost; autosave answers 401 the same way
+window.sessionCheck = () => {
+  const b = document.body, end = Date.parse(b.dataset.sessionEnd || ''), left = Math.round((end - Date.now()) / 60000);
+  let bar = $('.session');
+  if (Number.isNaN(end) || left > 5) { bar?.remove(); return; } // no session info, or more than 5 minutes left
+  if (!bar) { bar = document.createElement('div'); bar.className = 'session'; bar.setAttribute('role', 'alert'); document.body.prepend(bar); }
+  const renew = b.dataset.sessionRenew;
+  bar.classList.toggle('ended', left <= 0);
+  bar.innerHTML = left > 0
+    ? `<span>${esc((T['js.session.soon'] || 'Your session ends in {n} min.').replace('{n}', left))}</span>` + (renew ? `<button type="button" class="pri">${esc(T['js.session.renew'] || 'Stay signed in')}</button>` : '')
+    : `<span>${esc(T['js.session.ended'] || 'Your session has ended. This page keeps your input; sign in again to save.')}</span>` + (renew ? `<a class="btn pri" href="${esc(renew)}" target="_blank" rel="noopener">${esc(T['js.session.login'] || 'Sign in')}</a>` : '');
+  $('button', bar)?.addEventListener('click', async () => {
+    const r = await fetch(renew, {headers: {Accept: 'application/json'}}).catch(() => null), j = await r?.json().catch(() => ({})) || {};
+    if (r?.ok && j.end) { b.dataset.sessionEnd = j.end; window.sessionCheck(); }
+  });
+};
+window.sessionCheck();
+setInterval(window.sessionCheck, 30000);
+
 // dialogs: [data-open=id] opens, [data-close] closes (Escape is native); [data-copy=text] copies; .nojs hides fallbacks.
 // An open dialog is part of the URL (#new): a link to /customers#new opens it, closing removes the hash.
 const openDlg = id => { const d = document.getElementById(id); if (d?.tagName !== 'DIALOG' || d.open) return; d.showModal(); history.replaceState(history.state, '', '#' + id); };
@@ -346,6 +393,7 @@ document.querySelectorAll('form[data-prefill]').forEach(f => { for (const [k, v]
 document.addEventListener('click', async e => {
   const o = e.target.closest('[data-open]'), c = e.target.closest('[data-copy]');
   if (o) { e.preventDefault(); openDlg(o.dataset.open); }
+  else if (e.target.closest('[data-palette]')) window.openPalette();
   else if (e.target.closest('[data-close]')) e.target.closest('dialog').close();
   else if (c) { await navigator.clipboard.writeText(c.dataset.copy).catch(() => {}); c.classList.add('done'); setTimeout(() => c.classList.remove('done'), 1200); } // the icon turns into a check
 });

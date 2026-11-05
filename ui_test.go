@@ -33,6 +33,7 @@ type Page struct {
 	Search, SearchAPI                          string
 	User, UserURL, LogoutURL, SettingsURL      string
 	Crumbs                                     []Link
+	SessionEnd, SessionRenew                   string
 	Texts                                      map[string]string
 	texts                                      map[string]string
 }
@@ -116,7 +117,7 @@ func TestExamples(t *testing.T) {
 			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
 			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
 		}[name]
-		page.Title = map[string]string{"index.html": "Gallery", "dashboard.html": "Dashboard", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
+		page.Title = map[string]string{"index.html": "Gallery", "dashboard.html": "Dashboard", "404.html": "Not found", "403.html": "No access", "500.html": "Error", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
 			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {

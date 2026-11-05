@@ -24,7 +24,7 @@ import {pathToFileURL} from 'node:url';
 }
 
 const app = process.argv.slice(2);
-const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
+const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', '404', '403', '500', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
 const designs = app.length ? [''] : ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);

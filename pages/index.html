@@ -141,7 +141,10 @@
 <div class="full row end"><button type="button" data-close>Cancel <kbd>Esc</kbd></button><button class="pri">Save <kbd>Enter</kbd></button></div>
 </form>
 </dialog>
-<p class="muted">Public pages: <a href="status.html">status page</a> · <a href="login.html">login</a></p>
+<h2>Session</h2>
+<p>Five minutes before the sign-in ends a bar offers to stay signed in; after it ended, the page keeps its input.</p>
+<div class="row"><button type="button" onclick="document.body.dataset.sessionEnd = new Date(Date.now() + 4 * 60000).toISOString(); document.body.dataset.sessionRenew = '#'; sessionCheck()">Session ends soon</button><button type="button" onclick="document.body.dataset.sessionEnd = new Date(0).toISOString(); sessionCheck()">Session ended</button></div>
+<p class="muted">Public pages: <a href="status.html">status page</a> · <a href="login.html">login</a> · Error pages: <a href="404.html">404</a> · <a href="403.html">403</a> · <a href="500.html">500</a></p>
 {{end}}
 {{define "keys"}} · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>1</kbd>…<kbd>9</kbd> chip{{end}}
 {{define "scripts"}}<script src="demo.js"></script>{{end}}

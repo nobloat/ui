@@ -76,12 +76,23 @@ Every object a user can find or open has an id with a type prefix: `cus_0042`, `
 - A primary action per page (`.pri`), at most one. Every submit shows a spinner (`aria-busy`, automatic).
 - Shortcuts: `c` create, `e` edit, `Del` delete where it makes sense, shown as `<kbd>` in the button and in the keys line (`{{define "keys"}} · …{{end}}`).
 
+## Bulk actions
+
+Lists where users act on many objects get a checkbox column: `th.pick` with `input[data-all]`, `td.pick` with `input name="ids" value="cus_…" form="bulk"`, and `<form id="bulk" class="bulkbar" method="post">` with one button per action (`name="do" value="archive"`). ui.js hides the bar until something is selected, shows "{n} selected", `x` toggles the cursor row, `Esc` clears; destructive buttons carry `data-confirm-n="Archive {n} customers? …"`. Without JS the bar is always there and posts the checked ids.
+
 ## Forms
 
 - **Edit forms autosave**: `form[data-autosave]`, every change is posted (JSON answer `{rev}` or 4xx `{error, field, hint}`). Saved state is quiet: the field edge flashes once and `.saved` says "✓ saved 14:02"; never a toast. The submit button is `.nojs` (the no-JS path). Concurrent edits use a `rev` field.
 - **Create** cannot autosave (no object yet): a small form (dialog or page) with only the required fields and one `+ Create` button, then the user continues on the autosaving edit form.
 - **Errors** sit right under the field: the field gets `aria-invalid`, and `<span class="err">what is wrong<span class="hint">what is valid, with an example</span></span>`. The server renders the same markup without JS; ui.js shows the browser's own checks (`required`, `pattern` + `title`, `type`, `min`/`max`) the same way. Every pattern has a `title` that names a valid example.
 - Single choice: `.seg` radios or `select`; several values: `data-pick` with a `datalist`; one value with suggestions: native `list`.
+
+## Errors and the session
+
+- Error pages keep the app's header and nav (`nb-layout`) so the user can go on: the code small, the message as `h1` in plain words, what happened to their work, and buttons for what to do next (`pages/404.html`, `403.html`, `500.html`). Never a stack trace.
+- 404 for objects that do not exist **and** for objects the user may not see (no hint that they exist); 403 only for pages or sections the role cannot use, naming the signed-in user, their groups and who can grant access.
+- 500: say whether the last change was saved, and show a reference id (`err_…`, also in the log) with a copy button.
+- Session: `SessionEnd` (and `SessionRenew`, a GET that extends it and answers `{end}`) on the page; ui.js shows a bar 5 minutes before the end ("Stay signed in") and after it ("sign in again to save", in a new tab). The page keeps all input; autosave answers 401 the same way instead of a field error.
 
 ## Data display
 

@@ -11,6 +11,7 @@ The page value (dot) needs:
   .Search string (search form action, "" = none)  .SearchAPI string (live search endpoint, optional)
   .User .UserURL .LogoutURL .SettingsURL string  (⚙ next to logout; settings hold account, preferences, app settings)
   .Crumbs []{Href, Label string}               breadcrumbs above the title, the last one is the current page (no Href)
+  .SessionEnd .SessionRenew string             RFC 3339 end of the sign-in and a GET url that extends it (answer {end}); optional
   .Texts map[string]string (the js.*, search.* and palette.* texts)
   .T(key string, args ...any) string
 */}}
@@ -81,6 +82,7 @@ The page value (dot) needs:
 <tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>{{.T "help.hl"}}</td></tr>
 <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>{{.T "help.pages"}}</td></tr>
 <tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>{{.T "help.chips"}}</td></tr>
+<tr><td><kbd>x</kbd></td><td>{{.T "help.x"}}</td></tr>
 <tr><td><kbd>Esc</kbd></td><td>{{.T "help.esc"}}</td></tr>
 {{block "help" .}}{{end}}
 </table>
@@ -92,7 +94,7 @@ The page value (dot) needs:
 {{block "scripts" .}}{{end}}{{end}}
 
 {{define "nb-layout"}}{{template "nb-head" .}}
-<body>
+<body{{with .SessionEnd}} data-session-end="{{.}}"{{end}}{{with .SessionRenew}} data-session-renew="{{.}}"{{end}}>
 <a class="skip" href="#main">{{.T "nav.skip"}}</a>
 {{template "nb-header" .}}
 <main id="main">{{template "nb-crumbs" .}}{{template "nb-flash" .}}{{template "main" .}}</main>

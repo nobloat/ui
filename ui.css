@@ -216,6 +216,23 @@ code.id { white-space: nowrap; }
 .pager { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; justify-content: space-between; margin-top: 1rem; color: var(--muted); }
 .pager a { text-decoration: none; }
 .pager .off { visibility: hidden; }
+/* bulk: a checkbox column (td.pick, inputs with form="bulk") and a bar with the count and the actions; ui.js hides the bar
+   while nothing is selected (without JS it is always there and still works) */
+th.pick, td.pick { width: 2rem; padding-right: 0; }
+tr:has(td.pick :checked) td { background: color-mix(in srgb, var(--accent) 5%, var(--bg)); }
+tr:has(td.pick :checked) td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+.bulkbar { position: sticky; bottom: 1rem; z-index: 15; display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: 1rem; padding: .5rem .8rem;
+  background: var(--bg); border: 1px solid var(--accent); border-radius: var(--r-lg); box-shadow: 0 6px 24px rgb(0 0 0 / .12); }
+.bulkbar .n { margin-right: auto; }
+/* session: a bar on top before the sign-in ends and after it ended (ui.js, from data-session-end on <body>) */
+.session { position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; padding: .5rem 1rem; margin: 0 -16px .6rem;
+  --c: var(--yellow); background: color-mix(in srgb, var(--c) 18%, var(--bg)); border-bottom: 2px solid var(--c); }
+.session.ended { --c: var(--red); }
+/* error pages: the code small, the message as the title, what to do next as buttons */
+.error { margin-top: 3rem; max-width: 40rem; }
+.error .code { color: var(--muted); font-size: .9em; letter-spacing: .1em; }
+.error h1 { margin: .3rem 0 1rem; }
+.error .row { margin-top: 1.5rem; }
 .empty { border: 1px dashed var(--line); border-radius: var(--r-lg); padding: 2rem; text-align: center; color: var(--muted); margin-top: 1.2rem; display: grid; gap: 1rem; justify-items: center; }
 .tabs { display: flex; flex-wrap: wrap; gap: 1.4rem; border-bottom: 1px solid var(--line); margin-top: 1.4rem; }
 .tabs a { padding-bottom: .5rem; color: var(--muted); text-decoration: none; }
@@ -398,10 +415,13 @@ dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
   main table:not(.keep) td.num { text-align: right; }
   main table:not(.keep) td.hide-phone { display: block !important; }
   main table:not(.keep) td::before { content: attr(data-label); float: left; width: 7rem; margin-left: -7.5rem; color: var(--muted); text-align: left; overflow-wrap: normal; }
-  main table:not(.keep) td:first-child[data-label=""] + td { padding-left: 0; font-weight: bold; } /* after the state column: the row's title */
-  main table:not(.keep) td:first-child[data-label=""] + td::before { content: none; }
+  main table:not(.keep) :is(td:first-child[data-label=""], td.pick + td[data-label=""]) + td { padding-left: 0; padding-right: 2rem; font-weight: bold; } /* after the state column: the row's title */
+  main table:not(.keep) :is(td:first-child[data-label=""], td.pick + td[data-label=""]) + td::before { content: none; }
   main table:not(.keep) td:empty { display: none !important; }
-  main table:not(.keep) td:first-child[data-label=""] { float: left; padding: .2rem .5rem 0 0; }
+  main table:not(.keep) td:first-child[data-label=""], main table:not(.keep) td.pick + td[data-label=""] { float: left; padding: .2rem .5rem 0 0; }
+  main table:not(.keep) tr:has(td.pick) { position: relative; }
+  main table:not(.keep) td.pick { position: absolute; right: .6rem; top: .35rem; width: auto; padding: 0; box-shadow: none !important; } /* the checkbox sits top right of the card */
+  main table:not(.keep) tr:has(td.pick :checked) { border-color: var(--accent); }
   main table:not(.keep) td[data-label=""]:not(:first-child) { padding-left: 0; }
   main table:not(.keep) td[data-label=""]::before { content: none; } /* unlabeled state column sits before the first line */
   main table:not(.keep) tr.sel { background: var(--sel); }
