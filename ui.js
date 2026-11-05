@@ -193,6 +193,18 @@ document.addEventListener('change', async e => {
   });
 }
 
+// overflow menus open towards the side with room
+document.addEventListener('toggle', e => {
+  const d = e.target, m = d.matches?.('details.more') && d.open && $('.menu', d);
+  if (m) { m.classList.remove('left'); if (m.getBoundingClientRect().left < 0) m.classList.add('left'); }
+}, true);
+
+// tables: each cell gets its column header as data-label, which phones show as "label … value" lines
+document.querySelectorAll('main table:not(.keep)').forEach(t => {
+  const heads = [...t.querySelectorAll('thead th')].map(th => th.textContent.trim());
+  t.querySelectorAll('tbody tr, tfoot tr').forEach(tr => [...tr.cells].forEach((td, i) => td.dataset.label = heads[i] ?? ''));
+});
+
 // command palette: Ctrl+K (anywhere) or : opens it. Commands: the nav (g+letter), every visible [data-key] button or link,
 // theme, shortcuts help, the app's window.commands = [{label, sub, run}], and a search fallback.
 {

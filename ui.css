@@ -9,7 +9,7 @@
   --accent: light-dark(var(--brand), var(--brand-dark, color-mix(in srgb, var(--brand) 70%, white)));
   --bg: light-dark(#fff, #111); --fg: light-dark(#111418, #e6e6e6); --muted: light-dark(#6b6b6b, #8f8f8f);
   --line: light-dark(#e3e3e3, #2e2e2e); --chip: light-dark(#f2f2f2, #222);
-  --sel: color-mix(in srgb, var(--accent) 12%, var(--bg)); /* selected row, follows the brand */
+  --sel: color-mix(in srgb, var(--accent) 8%, var(--bg)); /* selected row, follows the brand; light enough for accent text on it */
   /* state colors: one value for both themes, same in favicons, logos, mails */
   --green: #22c55e; --yellow: #eab308; --red: #ef4444; --blue: #3b82f6; --grey: #8b8b94;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -19,7 +19,7 @@
 /* designs: one attribute on <html>, only tokens plus a few typographic rules */
 :where([data-design="nordic"]) { /* from up: paper white and deep slate, more air, one cool accent */
   --brand: #3b6e94;
-  --bg: light-dark(#fafaf8, #15171a); --muted: light-dark(#80868f, #8b919a);
+  --bg: light-dark(#fafaf8, #15171a); --muted: light-dark(#636973, #8b919a); /* 4.5:1 on bg and chip */
   --line: light-dark(#e6e6e1, #2a2d32); --chip: light-dark(#f1f1ed, #1e2125);
   --r: 6px; --r-lg: 12px; --maxw: 64rem;
 }
@@ -30,6 +30,9 @@
 * { box-sizing: border-box; }
 body { margin: 0 auto; max-width: var(--maxw); padding: 1rem 16px 2rem; font: 14px/1.6 var(--mono); background: var(--bg); color: var(--fg); overflow-wrap: break-word; }
 a { color: inherit; }
+/* keyboard focus: always visible, one style; fields show it with their border instead */
+:is(a, button, summary, [tabindex]):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::placeholder { color: var(--muted); opacity: 1; }
 h1 { font-size: 1.1rem; margin: 0; font-weight: normal; }
 h2 { font-size: 1rem; margin: 1.6rem 0 .6rem; font-weight: normal; color: var(--muted); }
 .muted { color: var(--muted); }
@@ -91,9 +94,9 @@ textarea { width: 100%; }
 button, .btn { cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; border: 1px solid var(--line); border-radius: var(--r); padding: .25rem .75rem; background: var(--bg); line-height: inherit; }
 button:hover, .btn:hover { border-color: var(--muted); }
 button.pri, .btn.pri { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-button.danger, .btn.danger { color: var(--red); }
+button.danger, .btn.danger { --c: var(--red); color: var(--c-text); }
 button:disabled { opacity: .5; cursor: not-allowed; }
-.round { border: 0; background: none; padding: 0 .2rem; font-size: 1.1em; cursor: pointer; color: var(--muted); }
+.round { border: 0; background: none; padding: 0; width: 1.75rem; height: 1.75rem; display: inline-grid; place-items: center; font-size: 1.1em; line-height: 1; cursor: pointer; color: var(--muted); } /* fixed box: ◐ ☀ ☾ ☰ ✕ differ in height */
 .round:hover { color: var(--fg); }
 kbd { font: .78em var(--mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3px; padding: 0 .3em; color: var(--muted); }
 button kbd, .btn kbd { margin-left: .4em; }
@@ -115,9 +118,10 @@ a.up { color: var(--muted); text-decoration: none; }
 details.more { position: relative; display: inline-block; }
 details.more summary { list-style: none; cursor: pointer; }
 details.more summary::-webkit-details-marker { display: none; }
-details.more .menu { position: absolute; right: 0; z-index: 10; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-lg); padding: .4rem; display: grid; gap: .3rem; min-width: 16rem; box-shadow: 0 10px 30px rgb(0 0 0 / .15); }
+details.more .menu { position: absolute; right: 0; /* .left: ui.js flips it when the button sits at the left */ z-index: 10; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-lg); padding: .4rem; display: grid; gap: .3rem; min-width: 16rem; box-shadow: 0 10px 30px rgb(0 0 0 / .15); }
 details.more .menu button, details.more .menu a { width: 100%; text-align: left; border: 0; }
 details.more .menu form { display: block; }
+details.more .menu.left { right: auto; left: 0; }
 .copy { padding: 0 .4rem; }
 
 /* ---- messages: flash (inline), toasts (ui.js), warn, banner -------------------------------- */
@@ -130,8 +134,8 @@ details.more .menu form { display: block; }
 .toasts .flash .x { margin-left: auto; border: 0; background: none; padding: 0 .2rem; line-height: 1.6; color: var(--muted); }
 .toasts .flash.out { opacity: 0; transition: opacity .4s; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(.5rem); } }
-.saved { color: var(--green); font-size: .88em; }
-.saved.err { color: var(--red); }
+.saved { --c: var(--green); color: var(--c-text); font-size: .88em; }
+.saved.err { --c: var(--red); }
 
 /* ---- chips, tags, dots, status lights ------------------------------------------------------ */
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: 1.1rem; }
@@ -142,12 +146,16 @@ details.more .menu form { display: block; }
 .sep { width: 1px; height: 1.4em; background: var(--line); margin: 0 .3rem; display: inline-block; }
 .tag { color: var(--accent); white-space: nowrap; margin-right: .45em; text-decoration: none; }
 .tag::before { content: "#"; }
-.dot { display: inline-block; width: .65em; height: .65em; border-radius: 50%; background: var(--c, var(--grey)); margin-right: .45em; }
+/* --c-text: a state color as text, darker in light mode so it reaches 4.5:1 (state colors are bright, for lights) */
+:where(*) { --c-text: light-dark(color-mix(in srgb, var(--c, var(--grey)) 58%, black), color-mix(in srgb, var(--c, var(--grey)) 80%, white)); }
+.dot { display: inline-block; width: .65em; height: .65em; border-radius: 50%; background: var(--c, var(--grey)); margin-right: .45em;
+  --rim: inset 0 0 0 1px light-dark(color-mix(in srgb, var(--c, var(--grey)) 62%, black), transparent); box-shadow: var(--rim); } /* the rim keeps light dots at 3:1 on white */
+.swatch { display: inline-block; width: .9em; height: .9em; border-radius: 3px; background: var(--c); border: 1px solid var(--muted); vertical-align: -.1em; margin-right: .45em; } /* a color sample, not a state */
 /* status: a glyph plus color, never color alone; aria-label carries the word */
-.st { display: inline-block; width: 1.2em; text-align: center; color: var(--c, var(--grey)); }
+.st { display: inline-block; width: 1.2em; text-align: center; color: var(--c-text); }
 .ok { --c: var(--green); } .bad { --c: var(--red); } .pend { --c: var(--yellow); } .run { --c: var(--blue); } .off { --c: var(--grey); } /* ok, failing, waiting, in progress, inactive */
 .dot.bad:not(.still) { animation: pulse 2s ease-out infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 .45em transparent; } }
+@keyframes pulse { 0% { box-shadow: var(--rim), 0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent); } 70%, 100% { box-shadow: var(--rim), 0 0 0 .45em transparent; } }
 
 /* ---- tables, lists, pager, tabs ------------------------------------------------------------ */
 table { width: 100%; border-collapse: collapse; margin: 1.2rem 0 0; font-variant-numeric: tabular-nums; }
@@ -158,7 +166,7 @@ tr.sel td { background: var(--sel); }
 tr[data-href] { cursor: pointer; }
 tbody tr[data-href]:hover td { background: color-mix(in srgb, var(--sel) 50%, transparent); }
 tfoot td { border-bottom: 0; color: var(--muted); }
-.over { color: var(--red); } /* overdue, negative */
+.over { --c: var(--red); color: var(--c-text); } /* overdue, failing */
 .bar { display: inline-block; height: .7em; background: var(--accent); border-radius: 1px; vertical-align: middle; }
 .pager { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; justify-content: space-between; margin-top: 1rem; color: var(--muted); }
 .pager a { text-decoration: none; }
@@ -228,10 +236,10 @@ input[type=date], input[type=time], input[type=datetime-local], input[type=month
   repeating-linear-gradient(to bottom, transparent 0 calc(var(--hour) - 1px), var(--line) calc(var(--hour) - 1px) var(--hour)); }
 /* an entry: top/height in % of the day (minute / 14.4), --c its color */
 .ev { position: absolute; left: 3px; right: 3px; border-radius: var(--r); padding: .15rem .4rem; font-size: .92em; line-height: 1.3; overflow: hidden; text-decoration: none;
-  border-left: 3px solid var(--c, var(--accent)); background: color-mix(in srgb, var(--c, var(--accent)) 16%, var(--bg)); cursor: grab; user-select: none; display: block; }
+  border-left: 3px solid var(--c, var(--accent)); background: color-mix(in srgb, var(--c, var(--accent)) 12%, var(--bg)); cursor: grab; user-select: none; display: block; }
 .ev[data-ro] { cursor: pointer; }
-.ev small { color: var(--muted); display: block; }
-.ev .tag { font-size: .9em; }
+.ev small { display: block; } /* full text color: muted on the tinted box would fall below 4.5:1 */
+.ev .tag, .ev .muted { color: inherit; font-size: .9em; }
 .ev.sel { box-shadow: 0 0 0 2px var(--accent); z-index: 2; }
 .ev.draw { border: 1px dashed var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); z-index: 2; pointer-events: none; }
 .ev .grip { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; cursor: ns-resize; }
@@ -289,6 +297,19 @@ dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
   .month .c small { display: none; }
   .form, .filters { grid-template-columns: 1fr; }
   .form .hint { grid-column: 1; }
+  details.more .menu { position: fixed; left: 16px; right: 16px; bottom: 16px; min-width: 0; z-index: 40; } /* bottom sheet */
+  /* tables become one card per row, one line per column: "label … value" (labels from the header, set by ui.js); .keep opts out */
+  main table:not(.keep), main table:not(.keep) :is(tbody, tfoot, tr) { display: block; }
+  main table:not(.keep) thead { display: none; }
+  main table:not(.keep) tr { border: 1px solid var(--line); border-radius: var(--r-lg); padding: .45rem .8rem; margin-bottom: .6rem; }
+  main table:not(.keep) tfoot tr { border-style: dashed; }
+  main table:not(.keep) td { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border: 0; padding: .2rem 0; text-align: right; min-width: 0; }
+  main table:not(.keep) td.hide-phone { display: flex !important; }
+  main table:not(.keep) td::before { content: attr(data-label); color: var(--muted); text-align: left; flex: none; }
+  main table:not(.keep) td:empty { display: none !important; }
+  main table:not(.keep) td[data-label=""] { float: left; padding-right: .5rem; } /* unlabeled state column sits before the first line */
+  main table:not(.keep) tr.sel { background: var(--sel); }
+  main table:not(.keep) tr.sel td { background: none; }
   .toasts { left: 16px; right: 16px; width: auto; }
   th, td { padding: .5rem .4rem; }
 }
