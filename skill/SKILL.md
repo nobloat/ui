@@ -115,7 +115,7 @@ Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by 
 
 ## Before a page is done
 
-- Started from an example page; no component restyled in `app.css`; no bare colors.
+- Started from an example page; no component restyled in `app.css` (not `body` either: the designs set its padding and win); no bare colors.
 - Checked desktop and phone, light and dark (`examples/preview.html` style, or the app at 390 px in DevTools).
 - `node ../ui/check.mjs <app urls>` reports 0 problems.
 - Works without JS (forms post, links filter); keyboard only works too.
