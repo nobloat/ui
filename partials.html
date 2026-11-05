@@ -88,7 +88,7 @@ The page value (dot) needs:
 </table>
 <form method="dialog" class="row end"><button>{{.T "btn.close"}} <kbd>Esc</kbd></button></form>
 </dialog>
-<dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">{{.T "btn.cancel"}} <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>{{.T "btn.ok"}} <kbd>Enter</kbd></button></form></dialog>
+<dialog id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-text"><h2 id="confirm-title" hidden></h2><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">{{.T "btn.cancel"}} <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>{{.T "btn.ok"}} <kbd>Enter</kbd></button></form></dialog>
 <script type="application/json" id="texts">{{.Texts}}</script>
 <script src="/static/ui.js"></script>
 {{block "scripts" .}}{{end}}{{end}}

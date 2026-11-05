@@ -4,11 +4,13 @@ const $ = (s, el = document) => el.querySelector(s);
 window.T = JSON.parse(document.getElementById('texts')?.textContent || '{}');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
 
-// confirmation for destructive or public actions: <form data-confirm="Delete X?">; the submit button shows a spinner
-window.confirmDlg = text => new Promise(res => {
+// confirmation for destructive or public actions: <form data-confirm="text" data-confirm-title="Delete X?">
+// (or on the submit button); the title is optional; the submit button shows a spinner
+window.confirmDlg = (text, title) => new Promise(res => {
   const d = $('#confirm');
-  if (!d) return res(confirm(text));
+  if (!d) return res(confirm((title ? title + ': ' : '') + text));
   $('#confirm-text').textContent = text;
+  const h = $('#confirm-title'); h.textContent = title || ''; h.hidden = !title;
   d.returnValue = '';
   d.onclose = () => res(d.returnValue === 'yes');
   d.showModal();
@@ -19,7 +21,7 @@ document.addEventListener('submit', async e => {
   const ask = e.submitter?.dataset.confirm || f.dataset.confirm; // a button may carry its own question (bulk bar)
   if (ask && !f.dataset.confirmed) {
     e.preventDefault();
-    if (await confirmDlg(ask)) { f.dataset.confirmed = 1; f.requestSubmit(e.submitter); }
+    if (await confirmDlg(ask, e.submitter?.dataset.confirmTitle || f.dataset.confirmTitle)) { f.dataset.confirmed = 1; f.requestSubmit(e.submitter); }
     return;
   }
   delete f.dataset.confirmed;
