@@ -51,6 +51,15 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 - Command palette on every page (built into ui.js): `Ctrl+K` / `⌘K` / `:`. It lists nav, header links, every visible `[data-key]` action of the page, theme and help; apps add commands with `window.commands = [{label, sub, run}]`; unknown input falls back to search.
 - Search: `/` focuses it; with `SearchAPI` it searches live, grouped by type; an exact id opens the object.
 
+## Deep links: the URL is the UI state
+
+Everything a user can set up or open is in the URL, so reload, Back, a bookmark or a link sent to a colleague shows exactly the same view. Not in the URL: personal preferences (theme, language: settings), secrets, passing things (hover, focus).
+- **Query (server renders it, works without JS):** search `q`, filters (`state`, `tag`, chips are links), sort (`sort`, `dir`), page, tab, period/range, calendar week and month, chart range. Every control that changes the view is a link or a GET form, never a JS-only toggle. Defaults are omitted (`?sort=name` only when it is not the default).
+- **Prefill:** create forms take their fields from the query: `/customers?name=ACME&email=…#new` opens "New customer" filled in. The server renders the values; `form[data-prefill]` covers dialogs and static pages. Other apps and mails link this way instead of copying data.
+- **Hash (ui.js keeps it in sync with `history.replaceState`, no extra history entries):** the open dialog (`#new`, closing removes it), the selected row (`#cus_0042`: rows carry their object id as `id`), the day shown on a phone in the week calendar (`#2026-11-05`), an anchor in a long page.
+- **Sortable columns:** the header is a link (`<th aria-sort="ascending"><a href="?sort=name&dir=desc">name</a></th>`); one click sorts, a second reverses; the current column shows ↑/↓.
+- Objects have one canonical URL with their id (`/customers/cus_0042`); a POST answers with a redirect to a URL that shows the result (no "resubmit?").
+
 ## Ids
 
 Every object a user can find or open has an id with a type prefix: `cus_0042`, `inv_2026-0042`, `prj_website`, `usr_7f3a9c`, `key_9c1a`. Shown as `<code class="id">` with a copy button, used in URLs, search results, logs, mails. Legal or human numbers (invoice number 2026-0042) are separate fields.
@@ -99,3 +108,4 @@ Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by 
 - Checked desktop and phone, light and dark (`examples/preview.html` style, or the app at 390 px in DevTools).
 - `node ../ui/check.mjs <app urls>` reports 0 problems.
 - Works without JS (forms post, links filter); keyboard only works too.
+- Every state of the page survives a reload and a copied link (deep links).

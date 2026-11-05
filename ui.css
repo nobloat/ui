@@ -191,6 +191,10 @@ details.more .menu.left { right: auto; left: 0; }
 table { width: 100%; border-collapse: collapse; margin: 1.2rem 0 0; font-variant-numeric: tabular-nums; }
 th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
 th { font-weight: normal; color: var(--muted); font-size: .9em; white-space: nowrap; }
+/* sortable columns: the header is a link with ?sort=…&dir=…; the current one has aria-sort and an arrow */
+th a { text-decoration: none; } th a:hover { color: var(--fg); }
+th[aria-sort] { color: var(--fg); }
+th[aria-sort=ascending] a::after { content: " ↑"; } th[aria-sort=descending] a::after { content: " ↓"; }
 td.num, th.num { text-align: right; white-space: nowrap; }
 tr.sel td { background: var(--sel); }
 tr[data-href] { cursor: pointer; }

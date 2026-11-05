@@ -101,6 +101,7 @@
     cal.querySelectorAll('.cur').forEach(el => el.classList.remove('cur'));
     days[i].classList.add('cur');
     $(`.hd[data-date="${days[i].dataset.date}"]`, cal)?.classList.add('cur');
+    history.replaceState(history.state, '', '#' + days[i].dataset.date); // the day shown on a phone is part of the URL
     label();
   };
   const label = () => { const h = $('.hd.cur', cal), l = $('#daylabel'); if (h && l) l.textContent = [...h.children].map(c => c.textContent.trim()).filter(Boolean).join(' · '); };
@@ -140,6 +141,8 @@
   // start: scroll the week to the working day (data-daystart, minutes) or the selected entry
   const wrap = $('#calwrap');
   if (wrap && cal) {
+    const day = location.hash.length > 1 && $(`.day[data-date="${location.hash.slice(1)}"]`, cal);
+    if (day) { cal.querySelectorAll('.cur').forEach(el => el.classList.remove('cur')); day.classList.add('cur'); $(`.hd[data-date="${day.dataset.date}"]`, cal)?.classList.add('cur'); }
     const s = $('.ev.sel', cal);
     if (s) { sel = s; s.scrollIntoView({block: 'center'}); }
     else wrap.scrollTop = (+(wrap.dataset.daystart || 480) / 1440) * $('.day', cal).getBoundingClientRect().height;

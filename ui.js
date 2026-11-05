@@ -207,7 +207,9 @@ document.addEventListener('change', async e => {
 {
   let g = false, sel = -1;
   const rows = () => [...document.querySelectorAll('main tr[data-href]')];
-  const mark = () => rows().forEach((r, i) => r.classList.toggle('sel', i === sel));
+  // the selected row is part of the URL (#cus_0042, the row's id), so reload, Back and a shared link show the same selection
+  const mark = () => { rows().forEach((r, i) => r.classList.toggle('sel', i === sel)); const id = rows()[sel]?.id; if (id) history.replaceState(history.state, '', '#' + id); };
+  { const i = location.hash.length > 1 ? rows().findIndex(r => r.id === decodeURIComponent(location.hash.slice(1))) : -1; if (i >= 0) { sel = i; rows()[i].classList.add('sel'); rows()[i].scrollIntoView({block: 'center'}); } }
   const visible = s => [...document.querySelectorAll(s)].filter(el => el.offsetParent !== null);
   const go = el => { if (el) location = el.href; };
   const keyName = e => (e.ctrlKey || e.metaKey ? 'C-' : '') + (e.altKey ? 'A-' : '') + (e.altKey ? e.code.replace(/^Key/, '').toLowerCase() : e.key);
@@ -334,10 +336,16 @@ document.querySelectorAll('main table:not(.keep)').forEach(t => {
   document.addEventListener('focusout', () => { tip?.remove(); tip = null; });
 }
 
-// dialogs: [data-open=id] opens, [data-close] closes (Escape is native); [data-copy=text] copies; .nojs hides fallbacks
+// dialogs: [data-open=id] opens, [data-close] closes (Escape is native); [data-copy=text] copies; .nojs hides fallbacks.
+// An open dialog is part of the URL (#new): a link to /customers#new opens it, closing removes the hash.
+const openDlg = id => { const d = document.getElementById(id); if (d?.tagName !== 'DIALOG' || d.open) return; d.showModal(); history.replaceState(history.state, '', '#' + id); };
+document.addEventListener('close', e => { if (location.hash === '#' + e.target.id) history.replaceState(history.state, '', location.pathname + location.search); }, true);
+if (location.hash.length > 1) openDlg(decodeURIComponent(location.hash.slice(1)));
+// prefill: <form data-prefill> takes ?name=…&email=… for its empty fields (the server should render them too; this covers dialogs and static pages)
+document.querySelectorAll('form[data-prefill]').forEach(f => { for (const [k, v] of new URLSearchParams(location.search)) { const el = f.elements[k]; if (el && 'value' in el && !el.value && el.type !== 'hidden') el.value = v; } });
 document.addEventListener('click', async e => {
   const o = e.target.closest('[data-open]'), c = e.target.closest('[data-copy]');
-  if (o) $('#' + o.dataset.open)?.showModal();
+  if (o) { e.preventDefault(); openDlg(o.dataset.open); }
   else if (e.target.closest('[data-close]')) e.target.closest('dialog').close();
   else if (c) { await navigator.clipboard.writeText(c.dataset.copy).catch(() => {}); c.classList.add('done'); setTimeout(() => c.classList.remove('done'), 1200); } // the icon turns into a check
 });
