@@ -1,0 +1,11 @@
+{{template "nb-bare" .}}
+{{define "main"}}
+<h1><span class="dot pend" role="img" aria-label="degraded"></span>Partially degraded</h1>
+<p class="muted">updated 10:42 · refreshes every 30 s</p>
+<ul class="cards" style="grid-template-columns:1fr">
+<li class="card ok"><h2><span class="dot ok" role="img" aria-label="up"></span>Website</h2><p>operational · 99.98 % in 30 days</p></li>
+<li class="card pend"><h2><span class="dot pend" role="img" aria-label="degraded"></span>Mail</h2><p>delayed delivery since 10:15</p></li>
+<li class="card off"><h2><span class="dot off" role="img" aria-label="paused"></span>Backup</h2><p>paused: database maintenance until 12:00</p></li>
+</ul>
+{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

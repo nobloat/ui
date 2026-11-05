@@ -1,0 +1,126 @@
+{{template "nb-layout" .}}
+{{define "main"}}
+<div class="pagehead"><h1>Gallery</h1><span class="muted">every component, in the design, theme and brand chosen bottom right · <a href="preview.html">desktop + phone side by side</a></span></div>
+
+<h2 id="brand">Logo and brand</h2>
+<p>The <code>][</code> mark plus one character in <code>--brand</code>; a custom brand replaces it with an image and an optional dark variant.</p>
+<div class="row">
+<span class="logo">{{template "nb-mark" "€"}}<span class="name">bill</span></span>
+<span class="logo">{{template "nb-mark" "⏱"}}<span class="name">track</span></span>
+<span class="logo">{{template "nb-mark" "§"}}<span class="name">tax</span></span>
+<span class="logo">{{template "nb-mark" "•"}}<span class="name">up</span></span>
+<span class="logo">{{template "nb-mark" "*"}}<span class="name">auth</span></span>
+<span class="sep"></span>
+<span class="logo"><img class="light" src="acme.svg" alt="ACME"><img class="dark" src="acme-dark.svg" alt="ACME"></span>
+</div>
+<div class="row" style="margin-top:1rem">
+<span class="muted">tokens</span>
+<span class="chip"><span class="dot" style="--c:var(--accent)"></span>--accent</span>
+<span class="chip"><span class="dot" style="--c:var(--fg)"></span>--fg</span>
+<span class="chip"><span class="dot" style="--c:var(--muted)"></span>--muted</span>
+<span class="chip"><span class="dot" style="--c:var(--line)"></span>--line</span>
+<span class="chip"><span class="dot" style="--c:var(--sel)"></span>--sel</span>
+<span class="chip"><span class="dot" style="--c:var(--chip)"></span>--chip</span>
+</div>
+
+<h2>Buttons</h2>
+<div class="row">
+<button class="pri">Create <kbd>c</kbd></button>
+<button>Edit <kbd>e</kbd></button>
+<a class="btn" href="detail.html">Link as button</a>
+<button class="danger">Delete</button>
+<button disabled>Disabled</button>
+<button aria-busy="true">Sending</button>
+<button class="round" aria-label="refresh" title="refresh">↻</button>
+<details class="more"><summary class="btn">More ▾</summary><div class="menu">
+<button>Duplicate <kbd>y</kbd></button><a href="#">Download PDF</a>
+<form method="post" action="/archive" data-confirm="Archive ACME GmbH?"><button class="danger">Archive…</button></form>
+</div></details>
+<button data-copy="sk_live_3f2a9c">Copy key</button>
+</div>
+
+<h2>Messages</h2>
+<p class="flash" role="alert">Could not save: the customer was changed by someone else.</p>
+<p class="flash ok" role="status">Invoice 2026-0042 sent.</p>
+<p class="warn">⚠ The month is not closed yet; hours may still change.</p>
+<p class="banner">Maintenance tonight 22:00–23:00.</p>
+<p class="muted"><small>With JS the two flash messages above move to the top right as toasts: success fades after 5 s, errors stay until closed.</small></p>
+
+<h2>Status lights</h2>
+<p>Glyph or dot plus color, never color alone; <code>aria-label</code> carries the word.</p>
+<div class="row">
+<span><span class="dot ok" role="img" aria-label="up"></span>up</span>
+<span><span class="dot pend" role="img" aria-label="degraded"></span>degraded</span>
+<span><span class="dot bad" role="img" aria-label="down"></span>down</span>
+<span><span class="dot run" role="img" aria-label="checking"></span>checking</span>
+<span><span class="dot off" role="img" aria-label="paused"></span>paused</span>
+<span class="sep"></span>
+<span><span class="st off" role="img" aria-label="draft">○</span>draft</span>
+<span><span class="st run" role="img" aria-label="sent">◐</span>sent</span>
+<span><span class="st ok" role="img" aria-label="paid">✓</span>paid</span>
+<span><span class="st pend" role="img" aria-label="partial">◒</span>partial</span>
+<span><span class="st bad" role="img" aria-label="overdue">!</span>overdue</span>
+<span class="spin" role="img" aria-label="loading"></span>
+</div>
+
+<h2>Filters: chips, tags</h2>
+<div class="filters">
+<span class="lab">state</span>
+<div class="chips"><a class="chip on" href="#">all<span class="n">128</span></a><a class="chip" href="#"><span class="dot ok"></span>paid<span class="n">97</span></a><a class="chip" href="#"><span class="dot bad still"></span>overdue<span class="n">4</span></a><span class="sep"></span><a class="chip" href="#">archived<span class="n">12</span></a></div>
+<span class="lab">tags</span>
+<div class="chips"><a class="tag" href="#">consulting</a><a class="tag" href="#">retainer</a><a class="tag" href="#">eu</a></div>
+<span class="lab">range</span>
+<span class="seg"><label><input type="radio" name="r" checked>month</label><label><input type="radio" name="r">quarter</label><label><input type="radio" name="r">year</label></span>
+</div>
+
+<h2>Autocomplete</h2>
+<div class="form">
+<label for="g-tags">tags</label><input id="g-tags" data-pick="tags" placeholder="#" autocomplete="off" value="#consulting ">
+<span class="hint">several values: <code>data-pick</code>, type to filter, Tab or Enter picks</span>
+<label for="g-country">country</label><input id="g-country" list="countries" placeholder="AT">
+<span class="hint">one value: a native <code>&lt;datalist&gt;</code>, no JS</span>
+</div>
+<datalist id="tags"><option value="#consulting" label="Consulting"><option value="#retainer" label="Monthly retainer"><option value="#eu" label="EU reverse charge"><option value="#travel" label="Travel"><option value="#hosting" label="Hosting"></datalist>
+<datalist id="countries"><option value="AT"><option value="DE"><option value="CH"><option value="IT"></datalist>
+
+<h2>Table, pager, empty state</h2>
+<table>
+<thead><tr><th></th><th>name</th><th class="hide-phone">tags</th><th class="num">open</th><th class="num hide-phone">share</th></tr></thead>
+<tbody>
+<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="ok"></span></td><td><a href="detail.html">ACME GmbH</a></td><td class="hide-phone"><a class="tag" href="#">retainer</a></td><td class="num">1.240,00</td><td class="num hide-phone"><span class="bar" style="width:4rem"></span></td></tr>
+<tr data-href="detail.html" class="sel"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td><a href="detail.html">Globex AG</a></td><td class="hide-phone"><a class="tag" href="#">eu</a></td><td class="num over">980,00</td><td class="num hide-phone"><span class="bar" style="width:3rem"></span></td></tr>
+<tr data-href="detail.html"><td><span class="dot off" role="img" aria-label="archived"></span></td><td><a href="detail.html">Initech</a></td><td class="hide-phone"></td><td class="num">0,00</td><td class="num hide-phone"><span class="bar" style="width:.2rem"></span></td></tr>
+</tbody>
+<tfoot><tr><td></td><td>Σ 3</td><td class="hide-phone"></td><td class="num">2.220,00</td><td class="hide-phone"></td></tr></tfoot>
+</table>
+<nav class="pager" aria-label="pages"><a rel="prev" href="#" class="off">← prev <kbd>[</kbd></a><span>1–50 of 128</span><a rel="next" href="#">next → <kbd>]</kbd></a></nav>
+<div class="empty"><span>No invoices yet.</span><a class="btn pri" href="form.html">Create the first <kbd>c</kbd></a></div>
+
+<h2>Tabs</h2>
+<nav class="tabs"><a href="#" class="on" aria-current="page">General</a><a href="#">Users</a><a href="#">API keys</a></nav>
+
+<h2>Cards</h2>
+<ul class="cards">
+<li class="card ok"><h2><span class="dot ok"></span>api.example.org</h2><p>200 in 84 ms · 99.98 % 30 d</p></li>
+<li class="card pend"><h2><span class="dot pend"></span>mail</h2><p>queue 120, slow since 10:42</p></li>
+<li class="card bad"><h2><span class="dot bad"></span>backup</h2><p>last success 2 days ago</p></li>
+</ul>
+
+<h2>Dialog</h2>
+<div class="row">
+<form method="post" action="/delete" data-confirm="Delete ACME GmbH? This cannot be undone."><button class="danger">Delete…</button></form>
+<button data-open="dlg-demo">Open a dialog</button>
+<button data-open="help">Shortcuts <kbd>?</kbd></button>
+</div>
+<dialog id="dlg-demo" aria-labelledby="dlg-demo-h">
+<h2 id="dlg-demo-h">Record payment</h2>
+<form method="post" action="/pay" class="form" style="margin-top:0">
+<label for="d-amt">amount</label><input id="d-amt" name="amount" inputmode="decimal" value="1.240,00">
+<label for="d-date">date</label><input id="d-date" name="date" type="date" value="2026-11-05">
+<div class="full row end"><button type="button" data-close>Cancel <kbd>Esc</kbd></button><button class="pri">Save <kbd>Enter</kbd></button></div>
+</form>
+</dialog>
+<p class="muted">Public pages: <a href="status.html">status page</a> · <a href="login.html">login</a></p>
+{{end}}
+{{define "keys"}} · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>1</kbd>…<kbd>9</kbd> chip{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

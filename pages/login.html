@@ -1,0 +1,11 @@
+{{template "nb-bare" .}}
+{{define "main"}}
+<p class="flash" role="alert">Wrong username or password.</p>
+<form method="post" action="/login" class="form">
+<label>username<input name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus></label>
+<label>password<input type="password" name="password" autocomplete="current-password" required></label>
+<button class="pri">Log in <kbd>Enter</kbd></button>
+</form>
+<p class="muted"><small><a href="#">Forgot password?</a></small></p>
+{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

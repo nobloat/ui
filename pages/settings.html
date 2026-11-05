@@ -1,0 +1,32 @@
+{{template "nb-layout" .}}
+{{define "main"}}
+<div class="pagehead"><h1>Settings</h1></div>
+<nav class="tabs"><a href="#" class="on" aria-current="page">General</a><a href="#">Users</a><a href="#">API keys</a></nav>
+<form method="post" action="/settings" class="form" data-autosave>
+<label for="s-company">company</label><input id="s-company" name="company" value="Example e.U.">
+<label for="s-iban">IBAN</label><input id="s-iban" name="iban" value="AT61 1904 3002 3457 3201">
+<label for="s-format">number format</label><input id="s-format" name="format" value="YYYY-NNNN" aria-describedby="s-format-h">
+<span class="hint" id="s-format-h">YYYY year, NNNN running number per year</span>
+<label for="s-color">brand color</label><input id="s-color" name="color" type="color" value="#0969da">
+<span class="lab">mail invoices</span><label><input type="checkbox" name="mail" checked> attach the PDF</label>
+<div class="full row end"><span class="saved" aria-live="polite"></span><button class="pri nojs">Save</button></div>
+</form>
+<h2>Users</h2>
+<table>
+<thead><tr><th>user</th><th>role</th><th class="hide-phone">last login</th><th></th></tr></thead>
+<tbody>
+<tr><td>peter</td><td>admin</td><td class="hide-phone muted">today 09:12</td><td class="num"></td></tr>
+<tr><td>anna</td><td>editor</td><td class="hide-phone muted">2026-11-02</td><td class="num"><form class="inline" method="post" action="/users/anna/delete" data-confirm="Remove anna? Access ends immediately."><button class="danger">Remove</button></form></td></tr>
+</tbody>
+</table>
+<h2>API keys</h2>
+<table>
+<thead><tr><th>name</th><th>key</th><th class="hide-phone">created</th><th></th></tr></thead>
+<tbody>
+<tr><td>tax import</td><td><code>sk_…9c1a</code></td><td class="hide-phone muted">2026-06-01</td><td class="num"><form class="inline" method="post" action="/keys/1/revoke" data-confirm="Revoke key tax import? Clients using it stop working."><button class="danger">Revoke</button></form></td></tr>
+</tbody>
+</table>
+<form method="post" action="/keys" class="row" style="margin-top:1rem"><input name="name" placeholder="key name" aria-label="key name" required><button>Create key</button></form>
+{{end}}
+{{define "keys"}} · <kbd>h</kbd>/<kbd>l</kbd> tab{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

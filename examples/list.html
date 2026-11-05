@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ demo · Customers</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../ui.css">
+
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+
+</head>
+<body>
+<header class="app">
+<a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
+<form class="gsearch" action="list.html" role="search" data-api="/api/search">
+<input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
+<div class="results" id="results" hidden></div>
+</form>
+<span class="right">
+<span><a href="/lang/de?rd=%2flist.html">de</a> · <a href="/lang/en?rd=%2flist.html" class="on" aria-current="true">en</a></span>
+<button type="button" id="theme" class="round" hidden>◐</button>
+<a class="who" href="settings.html">peter</a>
+<a href="login.html" title="Log out" aria-label="Log out">⏻</a>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
+</span>
+</header>
+<nav class="app" id="nav">
+<a href="index.html" data-g="a">Gallery</a>
+<a href="list.html" data-g="c" class="on" aria-current="page">Customers</a>
+<a href="detail.html" data-g="d">Detail</a>
+<a href="form.html" data-g="f">Form</a>
+<a href="settings.html" data-g="s">Settings</a>
+<span class="g"><kbd>g</kbd> + letter</span>
+</nav>
+<main>
+<div class="pagehead"><h1>Customers</h1><a class="btn pri" href="form.html" data-key="c">New customer <kbd>c</kbd></a></div>
+<div class="chips">
+<a class="chip on" href="?">active<span class="n">42</span></a>
+<a class="chip" href="?state=overdue"><span class="dot bad still"></span>overdue<span class="n">3</span></a>
+<a class="chip" href="?state=archived">archived<span class="n">7</span></a>
+<span class="sep"></span>
+<a class="tag" href="?tag=retainer">retainer</a><a class="tag" href="?tag=eu">eu</a><a class="tag" href="?tag=consulting">consulting</a>
+</div>
+<table>
+<thead><tr><th></th><th>name</th><th class="hide-phone">tags</th><th class="hide-phone">last invoice</th><th class="num">open</th></tr></thead>
+<tbody>
+<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="paid"></span></td><td><a href="detail.html">ACME GmbH</a></td><td class="hide-phone"><a class="tag" href="?tag=retainer">retainer</a></td><td class="hide-phone muted">2026-10-31</td><td class="num">0,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td><a href="detail.html">Globex AG</a></td><td class="hide-phone"><a class="tag" href="?tag=eu">eu</a></td><td class="hide-phone muted">2026-09-15</td><td class="num over">980,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot pend" role="img" aria-label="partial"></span></td><td><a href="detail.html">Initech</a></td><td class="hide-phone"><a class="tag" href="?tag=consulting">consulting</a> <a class="tag" href="?tag=eu">eu</a></td><td class="hide-phone muted">2026-10-20</td><td class="num">412,50</td></tr>
+<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="paid"></span></td><td><a href="detail.html">Umbrella KG</a></td><td class="hide-phone"></td><td class="hide-phone muted">2026-08-02</td><td class="num">0,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot run" role="img" aria-label="sent"></span></td><td><a href="detail.html">Hooli e.U.</a></td><td class="hide-phone"><a class="tag" href="?tag=retainer">retainer</a></td><td class="hide-phone muted">2026-11-01</td><td class="num">2.400,00</td></tr>
+</tbody>
+<tfoot><tr><td></td><td>Σ 5</td><td class="hide-phone"></td><td class="hide-phone"></td><td class="num">3.792,50</td></tr></tfoot>
+</table>
+<nav class="pager" aria-label="pages"><a rel="prev" href="?page=1">← prev <kbd>[</kbd></a><span>51–55 of 55</span><a rel="next" href="#" class="off">next → <kbd>]</kbd></a></nav>
+</main>
+<p class="keys"><kbd>?</kbd> help · <kbd>/</kbd> search · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>Enter</kbd> open · <kbd>c</kbd> new · <kbd>1</kbd>…<kbd>9</kbd> filter</p>
+<footer class="foot">
+<b>][◆ nobloat/demo</b>
+<span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h">Keyboard shortcuts</h2>
+<table>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>s</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>/</kbd></td><td>search</td></tr>
+<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next page</td></tr>
+<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
+
+</table>
+<form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
+</dialog>
+<dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.saved":"saved","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script src="../ui.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
+
+
+

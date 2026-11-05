@@ -1,0 +1,46 @@
+{{template "nb-layout" .}}
+{{define "main"}}
+<div class="pagehead">
+<h1><a class="up" href="list.html" title="back (Esc)">Customers /</a> ACME GmbH <span class="st ok" role="img" aria-label="paid" title="paid">✓</span></h1>
+<span class="row">
+<a class="btn" href="form.html" data-key="e">Edit <kbd>e</kbd></a>
+<button class="pri" data-open="pay" data-key="p">Payment <kbd>p</kbd></button>
+<details class="more"><summary class="btn">More ▾</summary><div class="menu">
+<form method="post" action="/customers/acme/clone"><button>Duplicate</button></form>
+<form method="post" action="/customers/acme/archive" data-confirm="Archive ACME GmbH? It disappears from lists, invoices stay."><button class="danger">Archive…</button></form>
+</div></details>
+</span>
+</div>
+<p class="chips"><a class="tag" href="list.html?tag=retainer">retainer</a><a class="tag" href="list.html?tag=eu">eu</a></p>
+<div class="info">
+<span>number</span><span>K-0042</span>
+<span>address</span><span>Hauptstraße 1, 1010 Wien</span>
+<span>VAT id</span><span>ATU12345678 <button class="copy round" data-copy="ATU12345678" title="copy" aria-label="copy">⧉</button></span>
+<span>email</span><span><a href="mailto:office@acme.example">office@acme.example</a></span>
+<span>terms</span><span>14 days</span>
+</div>
+<nav class="tabs"><a href="#" class="on" aria-current="page">Invoices</a><a href="#">Quotes</a><a href="#">Hours</a></nav>
+<table>
+<thead><tr><th></th><th>number</th><th class="hide-phone">date</th><th class="num">amount</th></tr></thead>
+<tbody>
+<tr data-href="#"><td><span class="st ok" role="img" aria-label="paid">✓</span></td><td>2026-0042</td><td class="hide-phone muted">2026-10-31</td><td class="num">1.240,00</td></tr>
+<tr data-href="#"><td><span class="st ok" role="img" aria-label="paid">✓</span></td><td>2026-0031</td><td class="hide-phone muted">2026-09-30</td><td class="num">1.240,00</td></tr>
+<tr data-href="#"><td><span class="st off" role="img" aria-label="cancelled">↺</span></td><td>2026-0027</td><td class="hide-phone muted">2026-09-02</td><td class="num muted">−300,00</td></tr>
+</tbody>
+</table>
+<details class="audit"><summary>history (3)</summary><ul>
+<li>2026-11-01 09:12 · peter · payment 1.240,00 for 2026-0042</li>
+<li>2026-10-31 17:40 · peter · invoice 2026-0042 sent to office@acme.example</li>
+<li>2026-03-02 10:05 · anna · created</li>
+</ul></details>
+<dialog id="pay" aria-labelledby="pay-h">
+<h2 id="pay-h">Payment for ACME GmbH</h2>
+<form method="post" action="/customers/acme/pay" class="form" style="margin-top:0">
+<label for="p-amt">amount</label><input id="p-amt" name="amount" inputmode="decimal" required autofocus>
+<label for="p-date">date</label><input id="p-date" name="date" type="date" value="2026-11-05">
+<div class="full row end"><button type="button" data-close>Cancel <kbd>Esc</kbd></button><button class="pri">Save <kbd>Enter</kbd></button></div>
+</form>
+</dialog>
+{{end}}
+{{define "keys"}} · <kbd>e</kbd> edit · <kbd>p</kbd> payment · <kbd>h</kbd>/<kbd>l</kbd> tab · <kbd>Esc</kbd> back{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

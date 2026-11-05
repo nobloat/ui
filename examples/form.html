@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ demo · New customer</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../ui.css">
+
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+
+</head>
+<body>
+<header class="app">
+<a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
+<form class="gsearch" action="list.html" role="search" data-api="/api/search">
+<input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
+<div class="results" id="results" hidden></div>
+</form>
+<span class="right">
+<span><a href="/lang/de?rd=%2fform.html">de</a> · <a href="/lang/en?rd=%2fform.html" class="on" aria-current="true">en</a></span>
+<button type="button" id="theme" class="round" hidden>◐</button>
+<a class="who" href="settings.html">peter</a>
+<a href="login.html" title="Log out" aria-label="Log out">⏻</a>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
+</span>
+</header>
+<nav class="app" id="nav">
+<a href="index.html" data-g="a">Gallery</a>
+<a href="list.html" data-g="c">Customers</a>
+<a href="detail.html" data-g="d">Detail</a>
+<a href="form.html" data-g="f" class="on" aria-current="page">Form</a>
+<a href="settings.html" data-g="s">Settings</a>
+<span class="g"><kbd>g</kbd> + letter</span>
+</nav>
+<main>
+<p class="flash" role="alert">VAT id ATU1234 is not valid: 8 digits after ATU.</p>
+<div class="pagehead"><h1><a class="up" href="list.html" title="back (Esc)">Customers /</a> New customer</h1></div>
+<form method="post" action="/customers" class="form">
+<label for="f-name">name</label><input id="f-name" name="name" required value="Globex AG">
+<label for="f-vat">VAT id</label><input id="f-vat" name="vat" value="ATU1234" pattern="ATU\d{8}" aria-describedby="f-vat-h">
+<span class="hint" id="f-vat-h">ATU and 8 digits; checked against VIES on save</span>
+<label for="f-email">email</label><input id="f-email" name="email" type="email" placeholder="office@example.org">
+<label for="f-country">country</label><input id="f-country" name="country" list="countries" value="AT">
+<label for="f-tags">tags</label><input id="f-tags" name="tags" data-pick="tags" autocomplete="off" placeholder="#">
+<span class="lab">language</span><span class="seg"><label><input type="radio" name="lang" value="de" checked>de</label><label><input type="radio" name="lang" value="en">en</label></span>
+<label for="f-terms">terms</label><select id="f-terms" name="terms"><option>7 days</option><option selected>14 days</option><option>30 days</option></select>
+<h2 class="full">Address</h2>
+<label for="f-street">street</label><input id="f-street" name="street">
+<label for="f-city">city</label><input id="f-city" name="city">
+<label for="f-note">note</label><textarea id="f-note" name="note" rows="3"></textarea>
+<label for="f-num">number</label><input id="f-num" value="assigned on save" readonly>
+<div class="full row end"><a class="btn" href="list.html">Cancel</a><button class="pri">Create <kbd>Ctrl Enter</kbd></button></div>
+</form>
+<datalist id="tags"><option value="#consulting" label="Consulting"><option value="#retainer" label="Monthly retainer"><option value="#eu" label="EU reverse charge"><option value="#travel" label="Travel"></datalist>
+<datalist id="countries"><option value="AT"><option value="DE"><option value="CH"><option value="IT"></datalist>
+</main>
+<p class="keys"><kbd>?</kbd> help · <kbd>/</kbd> search · <kbd>Ctrl</kbd>+<kbd>Enter</kbd> save · <kbd>Esc</kbd> leave field, back</p>
+<footer class="foot">
+<b>][◆ nobloat/demo</b>
+<span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h">Keyboard shortcuts</h2>
+<table>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>s</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>/</kbd></td><td>search</td></tr>
+<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next page</td></tr>
+<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
+
+</table>
+<form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
+</dialog>
+<dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.saved":"saved","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script src="../ui.js"></script>
+<script>window.pageKeys = {'C-Enter': () => document.querySelector('main form.form').requestSubmit()};</script>
+<script src="demo.js"></script>
+</body>
+</html>
+
+
+
