@@ -7,7 +7,7 @@
 <link rel="icon" href="../favicon.svg">
 <link rel="stylesheet" href="../ui.css">
 
-<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<script>try { const r = document.documentElement, t = localStorage.getItem('theme'), d = localStorage.getItem('design'); if (t) r.dataset.theme = t; if (d === 'paper') r.dataset.design = d; else if (d) delete r.dataset.design; } catch {}</script>
 
 </head>
 <body>
@@ -62,6 +62,7 @@
 <div class="form">
 <span class="lab">language</span><span class="seg"><a href="/lang/de?rd=%2fsettings.html">deutsch</a><a href="/lang/en?rd=%2fsettings.html" class="on" aria-current="true">english</a></span>
 <span class="lab">theme</span><span class="seg" id="theme-seg"><label><input type="radio" name="nb-theme" value="" checked>auto</label><label><input type="radio" name="nb-theme" value="light">light</label><label><input type="radio" name="nb-theme" value="dark">dark</label></span>
+<span class="lab">design</span><span class="seg" id="design-seg"><label><input type="radio" name="nb-design" value="graphite" checked>graphite</label><label><input type="radio" name="nb-design" value="paper">paper</label></span>
 </div>
 
 <h2 id="app">Company</h2>

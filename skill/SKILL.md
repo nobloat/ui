@@ -21,7 +21,7 @@ Before writing a page, open the nearest example in `../ui/pages/` (gallery `inde
 - Monospace, thin rules, color only where it means something. Two designs, set on `<html data-design>`:
   - **graphite** (no attribute): pencil on drafting paper. Dense lists with hairline rows, neutral pencil greys, large semibold titles, small uppercase section labels, surfaces only where they group (tiles, cards, charts, dialogs, `.panel`), one filled primary button. The default for every app.
   - **paper** (`data-design="paper"`): a form on paper, drawn and filled in by hand, tidy. Pen strokes instead of printed rules (gently wobbling lines), outlines with uneven corners, green-bar rows, pen blue, a highlighter on the active and selected, wavy underlines, chips circled with the pen.
-  No other designs; both are finished in light, dark and on phones.
+  No other designs; both are finished in light, dark and on phones. `Brand.Design` (the app's `design` setting) is the default; every user can pick the other one on the settings page (`nb-prefs`) or in the palette, stored in `localStorage` like the theme.
 - One knob per app: `--brand` (`Brand.Color`). Dark mode derives its own shade; `--brand-dark` overrides. `--brand` needs 4.5:1 on the light background, its dark shade on the dark one.
 - Custom brand: `Brand.Logo` plus `Brand.LogoDark` (CSS shows the dark one whenever the page is dark, also when pinned), `Brand.Name` for title and label. The footer always credits `nobloat/<app>`.
 - Colors only through tokens (`--fg --muted --line --chip --sel --accent --bg`) or `light-dark()`. A bare hex in `app.css` is a bug. Never `prefers-color-scheme` in CSS (ignores the pinned theme). State colors `--green --yellow --red --blue --grey` mean state and nothing else; as text use `color: var(--c-text)` with `--c` set.
@@ -56,7 +56,7 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 
 ## Deep links: the URL is the UI state
 
-Everything a user can set up or open is in the URL, so reload, Back, a bookmark or a link sent to a colleague shows exactly the same view. Not in the URL: personal preferences (theme, language: settings), secrets, passing things (hover, focus).
+Everything a user can set up or open is in the URL, so reload, Back, a bookmark or a link sent to a colleague shows exactly the same view. Not in the URL: personal preferences (theme, design, language: settings), secrets, passing things (hover, focus).
 - **Query (server renders it, works without JS):** search `q`, filters (`state`, `tag`, chips are links), sort (`sort`, `dir`), page, tab, period/range, calendar week and month, chart range. Every control that changes the view is a link or a GET form, never a JS-only toggle. Defaults are omitted (`?sort=name` only when it is not the default).
 - **Prefill:** create forms take their fields from the query: `/customers?name=ACME&email=…#new` opens "New customer" filled in. The server renders the values; `form[data-prefill]` covers dialogs and static pages. Other apps and mails link this way instead of copying data.
 - **Hash (ui.js keeps it in sync with `history.replaceState`, no extra history entries):** the open dialog (`#new`, closing removes it), the selected row (`#CUS-0042`: rows carry their object id as `id`), the day shown on a phone in the week calendar (`#2026-11-05`), an anchor in a long page.
@@ -71,7 +71,7 @@ Every object a user can find or open has an id as a ticket key: a type key of 3 
 
 - `.pagehead`: `h1` and the page's primary action. Lists: chips with counts and colored tags above, table, `.pager` (`p`/`n`) or filters, `.empty` with the create action when empty. Detail: crumbs, title with state, actions (primary visible, rest in `details.more`), tags, `.info` grid with copyable ids, tabs, history in `details.audit`.
 - Dashboard (`dashboard` example): stat tiles first (`.tiles > a.tile`: label, value, delta, sparkline or meter; each tile links to its list), then "needs attention" (actionable rows with a button), then one or two charts, then recent activity. Only what the user acts on; no decoration.
-- Settings (`⚙`): account from the sign-in (name, username, email, groups, role, IdP, session, user id, link to manage the account, logout), preferences (`nb-prefs`: language, theme), then app settings, users, keys.
+- Settings (`⚙`): account from the sign-in (name, username, email, groups, role, IdP, session, user id, link to manage the account, logout), preferences (`nb-prefs`: language, theme, design), then app settings, users, keys.
 
 ## Actions and icons
 
