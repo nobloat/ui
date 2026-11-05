@@ -45,18 +45,18 @@
 <a class="chip" href="?state=overdue"><span class="dot bad still"></span>overdue<span class="n">3</span></a>
 <a class="chip" href="?state=archived">archived<span class="n">7</span></a>
 <span class="sep"></span>
-<a class="tag" href="?tag=retainer">retainer</a><a class="tag" href="?tag=eu">eu</a><a class="tag" href="?tag=consulting">consulting</a>
+<a class="tag" href="?tag=retainer" style="--c:#16a34a">retainer</a><a class="tag" href="?tag=eu" style="--c:#db2777">eu</a><a class="tag" href="?tag=consulting" style="--c:#2563eb">consulting</a>
 </div>
 <table>
-<thead><tr><th></th><th>name</th><th class="hide-phone">tags</th><th class="hide-phone">last invoice</th><th class="num">open</th></tr></thead>
+<thead><tr><th></th><th>name</th><th class="hide-phone">id</th><th class="hide-phone">tags</th><th class="hide-phone">last invoice</th><th class="num">open</th></tr></thead>
 <tbody>
-<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="paid"></span></td><td><a href="detail.html">ACME GmbH</a></td><td class="hide-phone"><a class="tag" href="?tag=retainer">retainer</a></td><td class="hide-phone muted">2026-10-31</td><td class="num">0,00</td></tr>
-<tr data-href="detail.html"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td><a href="detail.html">Globex AG</a></td><td class="hide-phone"><a class="tag" href="?tag=eu">eu</a></td><td class="hide-phone muted">2026-09-15</td><td class="num over">980,00</td></tr>
-<tr data-href="detail.html"><td><span class="dot pend" role="img" aria-label="partial"></span></td><td><a href="detail.html">Initech</a></td><td class="hide-phone"><a class="tag" href="?tag=consulting">consulting</a> <a class="tag" href="?tag=eu">eu</a></td><td class="hide-phone muted">2026-10-20</td><td class="num">412,50</td></tr>
-<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="paid"></span></td><td><a href="detail.html">Umbrella KG</a></td><td class="hide-phone"></td><td class="hide-phone muted">2026-08-02</td><td class="num">0,00</td></tr>
-<tr data-href="detail.html"><td><span class="dot run" role="img" aria-label="sent"></span></td><td><a href="detail.html">Hooli e.U.</a></td><td class="hide-phone"><a class="tag" href="?tag=retainer">retainer</a></td><td class="hide-phone muted">2026-11-01</td><td class="num">2.400,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="paid"></span></td><td><a href="detail.html">ACME GmbH</a></td><td class="hide-phone"><code class="id">cus_0042</code></td><td class="hide-phone"><a class="tag" href="?tag=retainer">retainer</a></td><td class="hide-phone muted">2026-10-31</td><td class="num">0,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot bad still" role="img" aria-label="overdue"></span></td><td><a href="detail.html">Globex AG</a></td><td class="hide-phone"><code class="id">cus_0017</code></td><td class="hide-phone"><a class="tag" href="?tag=eu">eu</a></td><td class="hide-phone muted">2026-09-15</td><td class="num over">980,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot pend" role="img" aria-label="partial"></span></td><td><a href="detail.html">Initech</a></td><td class="hide-phone"><code class="id">cus_0031</code></td><td class="hide-phone"><a class="tag" href="?tag=consulting">consulting</a> <a class="tag" href="?tag=eu">eu</a></td><td class="hide-phone muted">2026-10-20</td><td class="num">412,50</td></tr>
+<tr data-href="detail.html"><td><span class="dot ok" role="img" aria-label="paid"></span></td><td><a href="detail.html">Umbrella KG</a></td><td class="hide-phone"><code class="id">cus_0008</code></td><td class="hide-phone"></td><td class="hide-phone muted">2026-08-02</td><td class="num">0,00</td></tr>
+<tr data-href="detail.html"><td><span class="dot run" role="img" aria-label="sent"></span></td><td><a href="detail.html">Hooli e.U.</a></td><td class="hide-phone"><code class="id">cus_0051</code></td><td class="hide-phone"><a class="tag" href="?tag=retainer">retainer</a></td><td class="hide-phone muted">2026-11-01</td><td class="num">2.400,00</td></tr>
 </tbody>
-<tfoot><tr><td></td><td>Σ 5</td><td class="hide-phone"></td><td class="hide-phone"></td><td class="num">3.792,50</td></tr></tfoot>
+<tfoot><tr><td></td><td>Σ 5</td><td class="hide-phone"></td><td class="hide-phone"></td><td class="hide-phone"></td><td class="num">3.792,50</td></tr></tfoot>
 </table>
 <dialog id="new" aria-labelledby="new-h">
 <h2 id="new-h">New customer</h2>
@@ -91,7 +91,7 @@
 <form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
 </dialog>
 <dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
-<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
 <script src="../ui.js"></script>
 <script src="demo.js"></script>
 </body>

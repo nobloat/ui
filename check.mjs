@@ -10,6 +10,18 @@ import {tmpdir} from 'node:os';
 import {join, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 
+// money parsing and formatting from ui.js, checked without a browser
+{
+  const src = (await import('node:fs')).readFileSync(new URL('./ui.js', import.meta.url), 'utf8');
+  const money = new Function(src.match(/window\.money = (\{[\s\S]*?\n\});/)[0].replace('window.money =', 'return'))();
+  const cases = [['1.240,00', 124000], ['1,240.50', 124050], ['1240', 124000], ['1240.5', 124050], ['-12', -1200], ['−3,5', -350],
+    ['1.234.567,89', 123456789], ['1 240,00 €', 124000], ['12,3456', NaN], ['1.2.3', NaN], ['abc', NaN]];
+  const bad = cases.filter(([s, c]) => !Object.is(money.parse(s), c)).concat(
+    [[124050, '1.234,56', '1.240,50'], [123456789, '1,234.56', '1,234,567.89'], [-30000, '1.234,56', '−300,00'], [5, '1234.56', '0.05']]
+      .filter(([c, ex, want]) => money.format(c, ex) !== want));
+  if (bad.length) { console.log('✕ money:', JSON.stringify(bad)); process.exit(1); }
+}
+
 const pages = ['index', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
 const designs = ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',

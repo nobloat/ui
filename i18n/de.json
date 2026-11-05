@@ -16,6 +16,7 @@
  "js.close": "schließen",
  "js.error": "Fehler",
  "js.invalid": "ungültig",
+ "js.money.hint": "ein Betrag wie",
  "js.saved": "gespeichert",
  "js.saving": "speichert…",
  "js.theme": "Farbschema",

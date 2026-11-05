@@ -16,6 +16,7 @@
  "js.close": "close",
  "js.error": "error",
  "js.invalid": "not valid",
+ "js.money.hint": "an amount like",
  "js.saved": "saved",
  "js.saving": "saving…",
  "js.theme": "theme",

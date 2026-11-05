@@ -39,7 +39,7 @@
 <span class="g"><kbd>g</kbd> + letter</span>
 </nav>
 <main id="main">
-<div class="pagehead"><h1>Formats</h1><span class="muted">native inputs only: the browser's picker, keyboard entry, locale order, dark mode via color-scheme</span></div>
+<div class="pagehead"><h1>Formats</h1><span class="muted">dates and times with native inputs, durations, money, ids</span></div>
 
 <h2>Single values</h2>
 <form class="form" method="get" action="/x">
@@ -80,6 +80,37 @@
 <button>Show</button>
 </form>
 
+<h2>Money</h2>
+<p class="muted">Amounts are integer cents on the server; the format is configured by example (<code>1.234,56</code>, <code>{amount} {symbol}</code>) and applied in one helper.</p>
+<form class="form" method="post" action="/x" data-autosave>
+<label for="m-amt">amount</label><span class="affix"><input id="m-amt" name="amount" data-money="1.234,56" inputmode="decimal" value="1.240,00" aria-describedby="m-amt-h"><span>€</span></span>
+<span class="hint" id="m-amt-h">type 1240, 1.240,5 or 1,240.50: it becomes 1.240,50; anything else is refused with an example</span>
+<label for="m-usd">in USD</label><span class="affix"><input id="m-usd" name="usd" data-money="1,234.56" inputmode="decimal" value="1,350.00"><span>$</span></span>
+</form>
+<table>
+<thead><tr><th>rule</th><th class="num">example</th></tr></thead>
+<tbody>
+<tr><td>right aligned, tabular digits, never wrapped</td><td class="num"><data class="money" value="124000">1.240,00 €</data></td></tr>
+<tr><td>negative: a real minus, not red (red means a problem)</td><td class="num"><data class="money" value="-30000">−300,00 €</data></td></tr>
+<tr><td>overdue or failing: red, plus a word or icon</td><td class="num over"><data class="money" value="98000">980,00 €</data> overdue</td></tr>
+<tr><td>totals: in the table footer, same column</td><td class="num"><b><data class="money" value="363500">3.635,00 €</data></b></td></tr>
+<tr><td>other currency: code, not symbol, when mixed</td><td class="num"><data class="money" value="135000">1,350.00 USD</data></td></tr>
+</tbody>
+</table>
+
+<h2>Ids</h2>
+<p class="muted">Every object id carries a type prefix, so an id alone says what it is: in search, URLs, logs, mails and support requests. Typing a full id into search or the palette opens the object.</p>
+<table>
+<thead><tr><th>type</th><th>prefix</th><th>example</th></tr></thead>
+<tbody>
+<tr><td>customer</td><td><code>cus_</code></td><td><code class="id">cus_0042</code></td></tr>
+<tr><td>invoice</td><td><code>inv_</code></td><td><code class="id">inv_2026-0042</code> <span class="muted">(the legal number 2026-0042 stays a separate field)</span></td></tr>
+<tr><td>project</td><td><code>prj_</code></td><td><code class="id">prj_website</code></td></tr>
+<tr><td>user</td><td><code>usr_</code></td><td><code class="id">usr_7f3a9c</code></td></tr>
+<tr><td>API key</td><td><code>key_</code></td><td><code class="id">key_9c1a</code> <span class="muted">(the secret is never shown again)</span></td></tr>
+</tbody>
+</table>
+
 <h2>Showing dates</h2>
 <table>
 <thead><tr><th>where</th><th>how</th><th>example</th></tr></thead>
@@ -115,7 +146,7 @@
 <form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
 </dialog>
 <dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
-<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
 <script src="../ui.js"></script>
 <script src="demo.js"></script>
 </body>

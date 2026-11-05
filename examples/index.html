@@ -112,6 +112,26 @@
 <span class="seg"><label><input type="radio" name="r" checked>month</label><label><input type="radio" name="r">quarter</label><label><input type="radio" name="r">year</label></span>
 </div>
 
+<h2>Tag colors</h2>
+<p>Tags are accent-colored by default; a user-chosen color (<code>style="--c:#…"</code>) turns the tag into a tinted pill whose text keeps full contrast.</p>
+<div class="chips"><a class="tag" href="#">plain</a><a class="tag" href="#" style="--c:#2563eb">consulting</a><a class="tag" href="#" style="--c:#16a34a">retainer</a><a class="tag" href="#" style="--c:#ca8a04">travel</a><a class="tag" href="#" style="--c:#db2777">eu</a><a class="tag" href="#" style="--c:#64748b">internal</a></div>
+<form class="form" method="post" action="/tags/eu" data-autosave>
+<label for="t-name">tag</label><input id="t-name" name="name" value="eu" pattern="[a-z0-9][a-z0-9_-]{0,39}" title="lowercase letters, digits, - and _, up to 40">
+<span class="lab">color</span><span class="swatches" role="radiogroup" aria-label="tag color">
+<label style="--c:#2563eb"><input type="radio" name="color" value="#2563eb" aria-label="blue"></label>
+<label style="--c:#7c3aed"><input type="radio" name="color" value="#7c3aed" aria-label="violet"></label>
+<label style="--c:#db2777"><input type="radio" name="color" value="#db2777" aria-label="pink" checked></label>
+<label style="--c:#dc2626"><input type="radio" name="color" value="#dc2626" aria-label="red"></label>
+<label style="--c:#ea580c"><input type="radio" name="color" value="#ea580c" aria-label="orange"></label>
+<label style="--c:#ca8a04"><input type="radio" name="color" value="#ca8a04" aria-label="amber"></label>
+<label style="--c:#16a34a"><input type="radio" name="color" value="#16a34a" aria-label="green"></label>
+<label style="--c:#0d9488"><input type="radio" name="color" value="#0d9488" aria-label="teal"></label>
+<label style="--c:#64748b"><input type="radio" name="color" value="#64748b" aria-label="grey"></label>
+<input type="color" name="custom" value="#db2777" aria-label="custom color" title="custom color">
+</span>
+<div class="full row end"><span class="saved" aria-live="polite"></span><button class="pri nojs">Save</button></div>
+</form>
+
 <h2>Autocomplete</h2>
 <div class="form">
 <label for="g-tags">tags</label><input id="g-tags" data-pick="tags" placeholder="#" autocomplete="off" value="#consulting ">
@@ -183,7 +203,7 @@
 <form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
 </dialog>
 <dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
-<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
 <script src="../ui.js"></script>
 <script src="demo.js"></script>
 </body>

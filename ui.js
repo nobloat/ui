@@ -137,6 +137,32 @@ document.addEventListener('submit', async e => {
   }, true);
 }
 
+// money: <input data-money="1.234,56"> takes both conventions (1.234,56 · 1,234.56 · 1234.5 · -12) and rewrites the value
+// in the format of the example before it is sent; nothing else is accepted. money.parse(s) → cents or NaN, money.format(cents, example).
+window.money = {
+  parse: s => {
+    s = String(s).trim().replace(/[\s'€$£]|EUR|CHF|USD/g, '').replace('−', '-');
+    const neg = s.startsWith('-'); s = s.replace(/^[-+]/, '');
+    const m = s.match(/^(\d{1,3}(?:([.,])\d{3})*|\d+)(?:([.,])(\d{1,2}))?$/);
+    if (!m || (m[2] && m[3] === m[2])) return NaN;
+    const cents = +m[1].replace(/[.,]/g, '') * 100 + +(m[4] || '0').padEnd(2, '0');
+    return neg ? -cents : cents;
+  },
+  format: (cents, ex = '1.234,56') => {
+    const group = ex.match(/^1(\D?)234/)[1], dec = ex.match(/4(\D)56$/)[1];
+    const a = Math.abs(cents), int = String(Math.floor(a / 100)).replace(/\B(?=(\d{3})+(?!\d))/g, group);
+    return (cents < 0 ? '−' : '') + int + dec + String(a % 100).padStart(2, '0');
+  },
+};
+document.addEventListener('change', e => { // capture: runs before autosave sends the form
+  const el = e.target;
+  if (!el.matches?.('input[data-money]') || !el.value.trim()) return;
+  const c = money.parse(el.value), ex = el.dataset.money || '1.234,56';
+  if (Number.isNaN(c)) { el.setCustomValidity(T['js.invalid'] || 'not valid'); fieldError(el, (T['js.invalid'] || 'not valid') + ': ' + el.value, (T['js.money.hint'] || 'an amount like') + ' ' + ex); e.stopImmediatePropagation(); return; }
+  el.setCustomValidity('');
+  el.value = money.format(c, ex);
+}, true);
+
 // field errors: the field gets aria-invalid and, right under it, <span class="err">what is wrong<span class="hint">what is valid</span></span>.
 // The server renders the same markup without JS. The hint comes from the answer, data-hint or the field's title.
 window.fieldError = (el, msg, hint) => {

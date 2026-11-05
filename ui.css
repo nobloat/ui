@@ -162,6 +162,16 @@ details.more .menu.left { right: auto; left: 0; }
 .sep { width: 1px; height: 1.4em; background: var(--line); margin: 0 .3rem; display: inline-block; }
 .tag { color: var(--accent); white-space: nowrap; margin-right: .45em; text-decoration: none; }
 .tag::before { content: "#"; }
+/* a tag with its own color (style="--c:#…", chosen by the user): tinted pill, the text keeps full contrast whatever the color */
+.tag[style*="--c"] { color: var(--fg); background: color-mix(in srgb, var(--c) 16%, var(--bg)); padding: 0 .45em; border-radius: var(--r); }
+.tag[style*="--c"]::before { color: var(--c-text); }
+/* color picker: preset swatches as radios (safe on light and dark), plus a custom color */
+.swatches { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; }
+.swatches label { width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--c); cursor: pointer; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .2); position: relative; }
+.swatches input[type=radio] { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.swatches label:has(:checked) { outline: 2px solid var(--fg); outline-offset: 2px; }
+.swatches label:has(:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.swatches input[type=color] { width: 1.75rem; height: 1.75rem; padding: 0; border-radius: 50%; overflow: hidden; }
 /* --c-text: a state color as text, darker in light mode so it reaches 4.5:1 (state colors are bright, for lights) */
 :where(*) { --c-text: light-dark(color-mix(in srgb, var(--c, var(--grey)) 58%, black), color-mix(in srgb, var(--c, var(--grey)) 80%, white)); }
 .dot { display: inline-block; width: .65em; height: .65em; border-radius: 50%; background: var(--c, var(--grey)); margin-right: .45em;
@@ -183,6 +193,14 @@ tr[data-href] { cursor: pointer; }
 tbody tr[data-href]:hover td { background: color-mix(in srgb, var(--sel) 50%, transparent); }
 tfoot td { border-bottom: 0; color: var(--muted); }
 .over { --c: var(--red); color: var(--c-text); } /* overdue, failing */
+/* money: <data class="money" value="124000">1.240,00 €</data> (value in cents); tabular digits, never wrapped, a real minus sign */
+.money { font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* an input with a unit: <span class="affix"><input data-money="1.234,56" inputmode="decimal"><span>€</span></span> */
+.affix { position: relative; display: flex; }
+.affix input { flex: 1; text-align: right; padding-right: 2.2em; font-variant-numeric: tabular-nums; }
+.affix > span { position: absolute; right: .7em; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+/* ids: every object id has a type prefix (cus_, inv_, usr_ …), shown monospace and copyable */
+code.id { white-space: nowrap; }
 .bar { display: inline-block; height: .7em; background: var(--accent); border-radius: 1px; vertical-align: middle; }
 .pager { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; justify-content: space-between; margin-top: 1rem; color: var(--muted); }
 .pager a { text-decoration: none; }
@@ -327,13 +345,15 @@ dialog.palette .none { padding: .35rem 1rem; color: var(--muted); }
   main table:not(.keep) thead { display: none; }
   main table:not(.keep) tr { border: 1px solid var(--line); border-radius: var(--r-lg); padding: .45rem .8rem; margin-bottom: .6rem; }
   main table:not(.keep) tfoot tr { border-style: dashed; }
-  main table:not(.keep) td { display: block; border: 0; padding: .2rem 0; text-align: right; overflow-wrap: anywhere; }
+  /* a label column of 7rem: text values align left and wrap under themselves, numbers align right */
+  main table:not(.keep) td { display: block; border: 0; padding: .2rem 0 .2rem 7.5rem; text-align: left; overflow-wrap: anywhere; }
+  main table:not(.keep) td.num { text-align: right; }
   main table:not(.keep) td.hide-phone { display: block !important; }
-  main table:not(.keep) td::before { content: attr(data-label); float: left; margin-right: 1rem; color: var(--muted); text-align: left; }
-  main table:not(.keep) td[data-label=""] + td { text-align: left; font-weight: bold; } /* after the state column: the row's title */
+  main table:not(.keep) td::before { content: attr(data-label); float: left; width: 7rem; margin-left: -7.5rem; color: var(--muted); text-align: left; overflow-wrap: normal; }
+  main table:not(.keep) td[data-label=""] + td { padding-left: 0; font-weight: bold; } /* after the state column: the row's title */
   main table:not(.keep) td[data-label=""] + td::before { content: none; }
   main table:not(.keep) td:empty { display: none !important; }
-  main table:not(.keep) td[data-label=""] { float: left; padding-right: .5rem; } /* unlabeled state column sits before the first line */
+  main table:not(.keep) td[data-label=""] { float: left; padding: .2rem .5rem 0 0; } /* unlabeled state column sits before the first line */
   main table:not(.keep) tr.sel { background: var(--sel); }
   main table:not(.keep) tr.sel td { background: none; }
   .toasts { left: 16px; right: 16px; width: auto; }
