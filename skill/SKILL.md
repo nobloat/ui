@@ -72,7 +72,7 @@ Every object a user can find or open has an id with a type prefix: `cus_0042`, `
 
 ## Actions and icons
 
-- **Icons** come from the nobloat/ui set only (`icons/`, see the Icons example page): one class, `<i class="icon-cog" aria-hidden="true"></i>`, sized by the font, tinted by `color`. No other icon sets, no emoji, no Unicode glyphs as icons. New icons go into `icons/*.svg` in nobloat/ui (16×16, 1.5 stroke, round caps, currentColor) and `go test -update` there generates the CSS and the sprite.
+- **Icons** come from the nobloat/ui set only (`icons/`, see the Icons example page): one class, `<i class="icon-cog" aria-hidden="true"></i>`, sized by the font, tinted by `color`. No other icon sets, no emoji, no Unicode glyphs as icons. The style is "precise": 16×16, 1.25 stroke, square ends, sharp joins, currentColor. A missing icon is added to nobloat/ui first (README: Adding an icon), never drawn inside an app.
 - **Use an icon where it is faster to read than the word alone**: every action button (before the text), icon-only header and row buttons (with `aria-label`), menus, pagers and steppers (chevrons step, arrows go somewhere), links out (`icon-external` after the text), messages (`info`, `warning`, `error`, `ok`), state next to its word, units in `.affix`, empty states. Not on every chip, tab or label: an icon that does not help reading is noise. The same action has the same icon everywhere.
 - Create, edit, delete and copy buttons always carry their icon: `class="new"`, `edit`, `del`, `copy` (on `button` or `.btn`); icon-only links `class="round ico cog"` etc. with `aria-label`. `.del` is red; every delete or public action has `data-confirm="…"` naming the object and the consequence, optionally with `data-confirm-title="Delete ACME GmbH?"` as the question and the text as the consequence. Dialogs always have an `h2` title (`aria-labelledby`).
 - A primary action per page (`.pri`), at most one. Every submit shows a spinner (`aria-busy`, automatic).
@@ -108,7 +108,7 @@ Lists where users act on many objects get a checkbox column: `th.pick` with `inp
 
 ## Charts
 
-Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by the job: a single number with trend is a stat tile (`Spark`), ranked parts are `.bars` (one hue, largest first), one ratio is a `.meter`, a split is a `.stack`, a trend over time is `Columns` (past grey, current period in the accent with its value). Never a pie, never two y-axes. Every chart has a table view and a tooltip on hover and focus. More than one series: the categorical order blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, always with a legend or direct labels (two pairs are close for color-blind readers).
+Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by the job: a single number with trend is a stat tile (`Spark` plus a caption with its period: "Dec 2025 · 12 months · Nov"), ranked parts are `.bars` (one hue, largest first), one ratio is a `.meter`, a split is a `.stack`, a trend over time is `Columns` (past grey, current period in the accent with its value). Never a pie, never two y-axes. Every chart has a table view and a tooltip on hover and focus. More than one series: the categorical order blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, always with a legend or direct labels (two pairs are close for color-blind readers).
 
 ## Keyboard (vim style)
 

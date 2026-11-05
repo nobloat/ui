@@ -14,22 +14,27 @@ import (
 	"strings"
 )
 
-// Spark draws a sparkline: the series in grey, the last value as an accent dot. Height follows the font.
+// Spark draws a sparkline: a faint area under a grey line, the latest step in the accent. The vertical range is at
+// least 5 % of the value, so small wobbles (uptime 99.9 to 100 %) stay small instead of looking dramatic. Width follows
+// the container; stroke widths do not stretch (vector-effect), so nothing looks squashed. Put a caption next to it
+// ("12 months"): a sparkline without its period is unreadable.
 func Spark(vals ...float64) template.HTML {
 	if len(vals) < 2 {
 		return ""
 	}
 	lo, hi := minmax(vals)
-	const w, h = 120.0, 32.0
-	var pts []string
-	x, y := 0.0, 0.0
-	for i, v := range vals {
-		x = float64(i) * w / float64(len(vals)-1)
-		y = h - 3 - (v-lo)/span(lo, hi)*(h-6)
-		pts = append(pts, fmt.Sprintf("%.1f,%.1f", x, y))
+	if floor := math.Max(math.Abs(hi), math.Abs(lo)) * 0.05; hi-lo < floor {
+		mid := (hi + lo) / 2
+		lo, hi = mid-floor/2, mid+floor/2
 	}
-	return template.HTML(fmt.Sprintf(`<svg class="spark" viewBox="-3 0 %g %g" preserveAspectRatio="none" aria-hidden="true">`+
-		`<polyline points="%s"/><circle cx="%.1f" cy="%.1f" r="3"/></svg>`, w+6, h, strings.Join(pts, " "), x, y))
+	const w, h = 120.0, 32.0
+	pts := make([]string, len(vals))
+	for i, v := range vals {
+		pts[i] = fmt.Sprintf("%.1f,%.1f", float64(i)*w/float64(len(vals)-1), h-2-(v-lo)/span(lo, hi)*(h-4))
+	}
+	return template.HTML(fmt.Sprintf(`<svg class="spark" viewBox="0 0 %g %g" preserveAspectRatio="none" aria-hidden="true">`+
+		`<path class="area" d="M0,%g L%s L%g,%g Z"/><polyline points="%s"/><polyline class="now" points="%s"/></svg>`,
+		w, h, h, strings.Join(pts, " L"), w, h, strings.Join(pts[:len(pts)-1], " "), strings.Join(pts[len(pts)-2:], " ")))
 }
 
 // Columns draws one series over time: columns with 4px rounded tops on one baseline, past ones grey, the last

@@ -51,6 +51,19 @@ This is distilled from bill (base), up (nordic, lights, cards) and track (tag pi
 - Renamed: status classes are `ok/pend/bad/run/off` instead of app states (`paid`, `overdue`, `green`, `red`); up's `.searchbox`/`.foot` markup → `.gsearch`/`nb-foot`; track's `data-tagpick` → `data-pick` (without track's project filter and create-new-tag option, which stay app code).
 - `--sel` follows the brand instead of a fixed blue.
 
+## Adding an icon
+
+The set has one style, **precise**: thin lines, square ends, sharp corners, drawn in the text color. `go test` refuses icons that leave it.
+
+1. Check the [icons page](examples/icons.html) first: reuse an icon whose picture fits, even if its name differs (`send` also means "remind").
+2. Name it after what it shows, lowercase with dashes: `trash`, not `delete`; `arrow-left`, not `back`.
+3. Copy an existing file in `icons/` and replace only the drawing inside. The root element stays exactly
+   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">`.
+4. Draw on the 16×16 grid within 2…14 (to 1.5…14.5 for round shapes), points on whole or half coordinates; straight lines horizontal, vertical or at 45°; circles and corner radii up to 1.5 are fine. Square ends extend each line by 0.6, keep that inside the box.
+5. Lines only. The only fills are small dots (`<circle r=".9…1.1" fill="currentColor" stroke="none"/>`) for points such as the dot of `info`. No text, no perspective, one idea per icon.
+6. `go test -update ./...` writes the class `icon-<name>` into `ui.css` and the symbol into `icons.svg`. Look at it on the icons page: next to its neighbors, in every color, at 12 and 16 px.
+7. Commit the svg, `ui.css` and `icons.svg` together; apps pick it up with the next copy of `ui.css` (and `icons.svg` if they use the sprite).
+
 ## Development
 
 ```sh

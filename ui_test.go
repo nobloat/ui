@@ -92,7 +92,7 @@ func TestExamples(t *testing.T) {
 	}
 	for _, p := range pages {
 		name := filepath.Base(p)
-		funcs := template.FuncMap{"icons": iconNames, "iconsvg": iconSVG, "sizes": func() []int { return []int{12, 16, 20, 24, 32, 48} }, "spark": Spark, "columns": func(title, labels, vals string) template.HTML { // the examples pass lists as strings
+		funcs := template.FuncMap{"icons": iconNames, "sizes": func() []int { return []int{12, 16, 20, 24, 32, 48} }, "spark": Spark, "columns": func(title, labels, vals string) template.HTML { // the examples pass lists as strings
 			var v []float64
 			for _, f := range strings.Fields(vals) {
 				x, _ := strconv.ParseFloat(f, 64)
@@ -117,7 +117,7 @@ func TestExamples(t *testing.T) {
 			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
 			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
 		}[name]
-		page.Title = map[string]string{"index.html": "Gallery", "icons.html": "Icons", "icon-styles.html": "Icon styles", "dashboard.html": "Dashboard", "404.html": "Not found", "403.html": "No access", "500.html": "Error", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
+		page.Title = map[string]string{"index.html": "Gallery", "icons.html": "Icons", "dashboard.html": "Dashboard", "404.html": "Not found", "403.html": "No access", "500.html": "Error", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
 			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
@@ -150,6 +150,9 @@ func eur(x float64) string {
 	return fmt.Sprintf("%s,%02d €", s, c%100)
 }
 
+// iconStyle is the one style of the set ("precise"): thin, square ends, sharp joins, in the text color.
+const iconStyle = `fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter"`
+
 // TestIcons builds icons.svg (sprite) and the icons block in ui.css from icons/*.svg; stale output fails, -update rewrites.
 func TestIcons(t *testing.T) {
 	files, _ := filepath.Glob("icons/*.svg")
@@ -163,8 +166,8 @@ func TestIcons(t *testing.T) {
 		b, _ := os.ReadFile(f)
 		m := tag.FindStringSubmatch(string(b))
 		name := strings.TrimSuffix(filepath.Base(f), ".svg")
-		if m == nil || !strings.Contains(m[1], `viewBox="0 0 16 16"`) || !strings.Contains(m[1], "currentColor") {
-			t.Fatalf("%s: one <svg viewBox=\"0 0 16 16\"> drawn in currentColor", f)
+		if m == nil || !strings.Contains(m[1], `viewBox="0 0 16 16" `+iconStyle) || strings.Contains(m[2], "stroke-width") {
+			t.Fatalf("%s: <svg xmlns=… viewBox=\"0 0 16 16\" %s> exactly, no other stroke widths inside (README: Adding an icon)", f, iconStyle)
 		}
 		attrs := strings.Replace(m[1], `xmlns="http://www.w3.org/2000/svg" `, "", 1)
 		fmt.Fprintf(&sprite, "<symbol id=\"%s\" viewBox=\"0 0 16 16\"><g %s>%s</g></symbol>\n", name, strings.Replace(attrs, `viewBox="0 0 16 16" `, "", 1), m[2])
@@ -190,14 +193,6 @@ func TestIcons(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-}
-
-// iconSVG renders an icon inline with other stroke parameters (the icon-styles comparison page)
-func iconSVG(name, width, caps, joins string) template.HTML {
-	b, _ := os.ReadFile("icons/" + name + ".svg")
-	s := strings.NewReplacer(`stroke-width="1.5"`, `stroke-width="`+width+`"`, `stroke-linecap="round"`, `stroke-linecap="`+caps+`"`,
-		`stroke-linejoin="round"`, `stroke-linejoin="`+joins+`"`, `viewBox="0 0 16 16"`, `viewBox="0 0 16 16" width="1em" height="1em" aria-hidden="true"`).Replace(strings.TrimSpace(string(b)))
-	return template.HTML(`<span title="` + name + `">` + s + `</span>`)
 }
 
 func iconNames() []string {
