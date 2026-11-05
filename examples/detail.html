@@ -11,17 +11,20 @@
 
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="app">
 <a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
 <form class="gsearch" action="list.html" role="search" data-api="/api/search">
 <input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
 <div class="results" id="results" hidden></div>
 </form>
+<button type="button" id="palbtn" class="palbtn" title="Commands" aria-label="Commands" hidden><span aria-hidden="true">⌘</span><kbd>Ctrl K</kbd></button>
 <span class="right">
-<span><a href="/lang/de?rd=%2fdetail.html">de</a> · <a href="/lang/en?rd=%2fdetail.html" class="on" aria-current="true">en</a></span>
-<button type="button" id="theme" class="round" hidden>◐</button>
+<span class="prefs"><span><a href="/lang/de?rd=%2fdetail.html">de</a> · <a href="/lang/en?rd=%2fdetail.html" class="on" aria-current="true">en</a></span>
+<button type="button" id="theme" class="round" hidden>◐</button></span>
 <a class="who" href="settings.html">peter</a>
-<a href="login.html" title="Log out" aria-label="Log out">⏻</a>
+<a class="round" href="settings.html" title="Settings" aria-label="Settings">⚙</a>
+<a class="round" href="login.html" title="Log out" aria-label="Log out">⏻</a>
 <button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
 </span>
 </header>
@@ -30,21 +33,21 @@
 <a href="list.html" data-g="c">Customers</a>
 <a href="detail.html" data-g="d" class="on" aria-current="page">Detail</a>
 <a href="form.html" data-g="f">Form</a>
-<a href="dates.html" data-g="t">Dates</a>
+<a href="dates.html" data-g="t">Formats</a>
 <a href="week.html" data-g="w">Week</a>
 <a href="month.html" data-g="m">Month</a>
-<a href="settings.html" data-g="s">Settings</a>
 <span class="g"><kbd>g</kbd> + letter</span>
 </nav>
-<main>
+<main id="main"><nav class="crumbs" aria-label="Breadcrumbs"><ol><li><a class="up" href="list.html">Customers</a></li><li><span aria-current="page">ACME GmbH</span></li></ol></nav>
 <div class="pagehead">
-<h1><a class="up" href="list.html" title="back (Esc)">Customers /</a> ACME GmbH <span class="st ok" role="img" aria-label="paid" title="paid">✓</span></h1>
+<h1>ACME GmbH <span class="st ok" role="img" aria-label="paid" title="paid">✓</span></h1>
 <span class="row">
-<a class="btn" href="form.html" data-key="e">Edit <kbd>e</kbd></a>
+<a class="btn edit" href="form.html" data-key="e">Edit <kbd>e</kbd></a>
 <button class="pri" data-open="pay" data-key="p">Payment <kbd>p</kbd></button>
 <details class="more"><summary class="btn">More ▾</summary><div class="menu">
 <form method="post" action="/customers/acme/clone"><button>Duplicate</button></form>
 <form method="post" action="/customers/acme/archive" data-confirm="Archive ACME GmbH? It disappears from lists, invoices stay."><button class="danger">Archive…</button></form>
+<form method="post" action="/customers/acme/delete" data-confirm="Delete ACME GmbH for good? This cannot be undone."><button class="del">Delete…</button></form>
 </div></details>
 </span>
 </div>
@@ -87,7 +90,7 @@
 <dialog id="help" aria-labelledby="help-h">
 <h2 id="help-h">Keyboard shortcuts</h2>
 <table>
-<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> <kbd>s</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> </td><td>go to page</td></tr>
 <tr><td><kbd>/</kbd></td><td>search</td></tr>
 <tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
 <tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
@@ -101,7 +104,7 @@
 <form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
 </dialog>
 <dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
-<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.saved":"saved","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.invalid":"not valid","js.saved":"saved","js.saving":"saving…","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
 <script src="../ui.js"></script>
 <script src="demo.js"></script>
 </body>

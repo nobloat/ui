@@ -1,32 +1,55 @@
 {{template "nb-layout" .}}
 {{define "main"}}
-<div class="pagehead"><h1>Settings</h1></div>
-<nav class="tabs"><a href="#" class="on" aria-current="page">General</a><a href="#">Users</a><a href="#">API keys</a></nav>
+<div class="pagehead"><h1>Settings</h1><span class="saved" aria-live="polite"></span></div>
+<nav class="tabs"><a href="#account" class="on" aria-current="page">Account</a><a href="#app">Company</a><a href="#users">Users</a><a href="#keys">API keys</a></nav>
+
+<h2 id="account">Account</h2>
+<p class="muted"><small>From your sign-in at nobloat/auth (OIDC); change it there.</small></p>
+<div class="info">
+<span>name</span><span>Peter Example</span>
+<span>username</span><span><code>peter</code></span>
+<span>email</span><span>peter@example.org</span>
+<span>groups</span><span><a class="tag" href="#">acme-admin</a> <a class="tag" href="#">globex-editor</a></span>
+<span>role here</span><span>admin</span>
+<span>signed in via</span><span>auth.example.org · OIDC · 2FA</span>
+<span>session</span><span>since today 08:55 · ends <time datetime="2026-11-05T20:55">20:55</time></span>
+<span>user id</span><span><code class="id">usr_7f3a9c</code> <button class="copy round" data-copy="usr_7f3a9c" title="copy" aria-label="copy user id">⧉</button></span>
+</div>
+<div class="row" style="margin-top:1rem"><a class="btn" href="#">Manage account at auth ↗</a><a class="btn" href="login.html">⏻ Log out</a></div>
+
+<h2>Preferences</h2>
+<div class="form">
+{{template "nb-prefs" .}}
+</div>
+
+<h2 id="app">Company</h2>
 <form method="post" action="/settings" class="form" data-autosave>
-<label for="s-company">company</label><input id="s-company" name="company" value="Example e.U.">
-<label for="s-iban">IBAN</label><input id="s-iban" name="iban" value="AT61 1904 3002 3457 3201">
+<label for="s-company">company</label><input id="s-company" name="company" value="Example e.U." required>
+<label for="s-iban">IBAN</label><input id="s-iban" name="iban" value="AT61 1904 3002 3457 3201" pattern="[A-Z]{2}[0-9]{2}[ 0-9A-Z]{10,32}" title="two letters, two digits, then the account, e.g. AT61 1904 3002 3457 3201">
 <label for="s-format">number format</label><input id="s-format" name="format" value="YYYY-NNNN" aria-describedby="s-format-h">
 <span class="hint" id="s-format-h">YYYY year, NNNN running number per year</span>
 <label for="s-color">brand color</label><input id="s-color" name="color" type="color" value="#0969da">
 <span class="lab">mail invoices</span><label><input type="checkbox" name="mail" checked> attach the PDF</label>
-<div class="full row end"><span class="saved" aria-live="polite"></span><button class="pri nojs">Save</button></div>
+<div class="full row end"><button class="pri nojs">Save</button></div>
 </form>
-<h2>Users</h2>
+
+<h2 id="users">Users</h2>
 <table>
 <thead><tr><th>user</th><th>role</th><th class="hide-phone">last login</th><th></th></tr></thead>
 <tbody>
 <tr><td>peter</td><td>admin</td><td class="hide-phone muted">today 09:12</td><td class="num"></td></tr>
-<tr><td>anna</td><td>editor</td><td class="hide-phone muted">2026-11-02</td><td class="num"><form class="inline" method="post" action="/users/anna/delete" data-confirm="Remove anna? Access ends immediately."><button class="danger">Remove</button></form></td></tr>
+<tr><td>anna</td><td>editor</td><td class="hide-phone muted">2026-11-02</td><td class="num"><form class="inline" method="post" action="/users/anna/delete" data-confirm="Remove anna? Access ends immediately."><button class="del">Remove</button></form></td></tr>
 </tbody>
 </table>
-<h2>API keys</h2>
+
+<h2 id="keys">API keys</h2>
 <table>
 <thead><tr><th>name</th><th>key</th><th class="hide-phone">created</th><th></th></tr></thead>
 <tbody>
-<tr><td>tax import</td><td><code>sk_…9c1a</code></td><td class="hide-phone muted">2026-06-01</td><td class="num"><form class="inline" method="post" action="/keys/1/revoke" data-confirm="Revoke key tax import? Clients using it stop working."><button class="danger">Revoke</button></form></td></tr>
+<tr><td>tax import</td><td><code>sk_…9c1a</code></td><td class="hide-phone muted">2026-06-01</td><td class="num"><form class="inline" method="post" action="/keys/1/revoke" data-confirm="Revoke key tax import? Clients using it stop working."><button class="del">Revoke</button></form></td></tr>
 </tbody>
 </table>
-<form method="post" action="/keys" class="row" style="margin-top:1rem"><input name="name" placeholder="key name" aria-label="key name" required><button>Create key</button></form>
+<form method="post" action="/keys" class="row" style="margin-top:1rem"><input name="name" placeholder="key name" aria-label="key name" required><button class="new">Create key</button></form>
 {{end}}
 {{define "keys"}} · <kbd>h</kbd>/<kbd>l</kbd> tab{{end}}
 {{define "scripts"}}<script src="demo.js"></script>{{end}}

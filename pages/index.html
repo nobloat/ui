@@ -25,10 +25,10 @@
 
 <h2>Buttons</h2>
 <div class="row">
-<button class="pri">Create <kbd>c</kbd></button>
-<button>Edit <kbd>e</kbd></button>
+<button class="pri new">Create <kbd>c</kbd></button>
+<button class="edit">Edit <kbd>e</kbd></button>
 <a class="btn" href="detail.html">Link as button</a>
-<button class="danger">Delete</button>
+<button class="del">Delete</button>
 <button disabled>Disabled</button>
 <button aria-busy="true">Sending</button>
 <button class="round" aria-label="refresh" title="refresh">↻</button>
@@ -94,7 +94,7 @@
 <tfoot><tr><td></td><td>Σ 3</td><td class="hide-phone"></td><td class="num">2.220,00</td><td class="hide-phone"></td></tr></tfoot>
 </table>
 <nav class="pager" aria-label="pages"><a rel="prev" href="#" class="off">← prev <kbd>[</kbd></a><span>1–50 of 128</span><a rel="next" href="#">next → <kbd>]</kbd></a></nav>
-<div class="empty"><span>No invoices yet.</span><a class="btn pri" href="form.html">Create the first <kbd>c</kbd></a></div>
+<div class="empty"><span>No invoices yet.</span><a class="btn pri new" href="list.html">Create the first <kbd>c</kbd></a></div>
 
 <h2>Tabs</h2>
 <nav class="tabs"><a href="#" class="on" aria-current="page">General</a><a href="#">Users</a><a href="#">API keys</a></nav>
@@ -108,7 +108,7 @@
 
 <h2>Dialog</h2>
 <div class="row">
-<form method="post" action="/delete" data-confirm="Delete ACME GmbH? This cannot be undone."><button class="danger">Delete…</button></form>
+<form method="post" action="/delete" data-confirm="Delete ACME GmbH? This cannot be undone."><button class="del">Delete…</button></form>
 <button data-open="dlg-demo">Open a dialog</button>
 <button data-open="help">Shortcuts <kbd>?</kbd></button>
 </div>

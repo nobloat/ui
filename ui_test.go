@@ -29,7 +29,8 @@ type Page struct {
 	Brand                                      Brand
 	Nav                                        []Link
 	Search, SearchAPI                          string
-	User, UserURL, LogoutURL                   string
+	User, UserURL, LogoutURL, SettingsURL      string
+	Crumbs                                     []Link
 	Texts                                      map[string]string
 	texts                                      map[string]string
 }
@@ -90,19 +91,23 @@ func TestExamples(t *testing.T) {
 		name := filepath.Base(p)
 		tpl := template.Must(template.Must(template.ParseFiles("partials.html")).ParseFiles(p))
 		nav := []Link{{"index.html", "Gallery", "a", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
-			{"form.html", "Form", "f", false}, {"dates.html", "Dates", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false},
-			{"settings.html", "Settings", "s", false}}
+			{"form.html", "Form", "f", false}, {"dates.html", "Formats", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false}}
 		for i := range nav {
 			nav[i].On = nav[i].Href == name
 		}
 		page := Page{Lang: "en", Here: "/" + name, Version: "v1 (3f2a9c1)", Texts: js, texts: texts, Nav: nav,
 			Brand:  Brand{App: "demo", Char: "◆"},
-			Search: "list.html", SearchAPI: "/api/search", User: "peter", UserURL: "settings.html", LogoutURL: "login.html"}
+			Search: "list.html", SearchAPI: "/api/search", User: "peter", UserURL: "settings.html", LogoutURL: "login.html", SettingsURL: "settings.html"}
 		if src, _ := os.ReadFile(p); bytes.Contains(src, []byte("nb-bare")) { // public pages: no nav, search or user
-			page.Nav, page.Search, page.User, page.LogoutURL = nil, "", "", ""
+			page.Nav, page.Search, page.User, page.LogoutURL, page.SettingsURL = nil, "", "", "", ""
 		}
+		page.Crumbs = map[string][]Link{
+			"detail.html": {{Href: "list.html", Label: "Customers"}, {Label: "ACME GmbH"}},
+			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
+			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
+		}[name]
 		page.Title = map[string]string{"index.html": "Gallery", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
-			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Dates", "week.html": "Week 45", "month.html": "November 2026"}[name]
+			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
 			t.Fatalf("%s: %v", name, err)

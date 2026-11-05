@@ -25,21 +25,24 @@ document.addEventListener('submit', async e => {
   if (f.target !== '_blank') e.submitter?.setAttribute('aria-busy', 'true');
 });
 
-// theme toggle cycles auto (follows the OS) -> light -> dark -> auto; the <head> script applies it before first paint
+// theme: auto (follows the OS), light or dark; the header toggle cycles, the settings page has radios (#theme-seg);
+// stored in localStorage, the <head> script applies it before first paint
 {
-  const b = $('#theme'), root = document.documentElement;
-  if (b) {
-    const names = {'': ['◐', T['js.theme.auto'] || 'auto'], light: ['☀︎', T['js.theme.light'] || 'light'], dark: ['☾', T['js.theme.dark'] || 'dark']};
-    const show = () => { const [i, n] = names[root.dataset.theme || '']; b.textContent = i; b.title = (T['js.theme'] || 'theme') + ': ' + n; b.setAttribute('aria-label', b.title); };
-    b.onclick = () => {
-      const t = ({'': 'light', light: 'dark', dark: ''})[root.dataset.theme || ''];
-      t ? root.dataset.theme = t : delete root.dataset.theme;
-      try { t ? localStorage.setItem('theme', t) : localStorage.removeItem('theme'); } catch {}
-      show();
-    };
+  const b = $('#theme'), root = document.documentElement, radios = document.querySelectorAll('input[name=nb-theme]');
+  const names = {'': ['◐', T['js.theme.auto'] || 'auto'], light: ['☀︎', T['js.theme.light'] || 'light'], dark: ['☾', T['js.theme.dark'] || 'dark']};
+  const show = () => {
+    const t = root.dataset.theme || '';
+    if (b) { b.textContent = names[t][0]; b.title = (T['js.theme'] || 'theme') + ': ' + names[t][1]; b.setAttribute('aria-label', b.title); b.hidden = false; }
+    radios.forEach(r => r.checked = r.value === t);
+  };
+  const set = t => {
+    t ? root.dataset.theme = t : delete root.dataset.theme;
+    try { t ? localStorage.setItem('theme', t) : localStorage.removeItem('theme'); } catch {}
     show();
-    b.hidden = false;
-  }
+  };
+  if (b) b.onclick = () => set(({'': 'light', light: 'dark', dark: ''})[root.dataset.theme || '']);
+  radios.forEach(r => r.onchange = () => set(r.value));
+  show();
   const m = $('#menu'), nav = $('#nav');
   if (m && nav) m.onclick = () => { const open = nav.classList.toggle('open'); m.setAttribute('aria-expanded', open); m.textContent = open ? '✕' : '☰'; };
   // nav shortcut letters: underline the first matching letter of each label
@@ -134,19 +137,43 @@ document.addEventListener('submit', async e => {
   }, true);
 }
 
-// autosave: <form data-autosave> posts on change (Accept: application/json, answer {rev?, error?}) and reports in .saved;
-// the plain submit button stays the no-JS path. Pages may listen for the "saved" event to re-render.
+// field errors: the field gets aria-invalid and, right under it, <span class="err">what is wrong<span class="hint">what is valid</span></span>.
+// The server renders the same markup without JS. The hint comes from the answer, data-hint or the field's title.
+window.fieldError = (el, msg, hint) => {
+  const id = (el.id || el.name) + '-err';
+  let e = document.getElementById(id);
+  if (!msg) { e?.remove(); el.removeAttribute('aria-invalid'); el.setAttribute('aria-describedby', (el.getAttribute('aria-describedby') || '').replace(id, '').trim()); return; }
+  if (!e) { e = document.createElement('span'); e.className = 'err'; e.id = id; e.setAttribute('role', 'alert'); (el.closest('.form > label:has(input)') || el.closest('.range, .seg') || el).after(e); }
+  e.innerHTML = esc(msg) + ((hint = hint || el.dataset.hint || el.title) ? `<span class="hint">${esc(hint)}</span>` : '');
+  el.setAttribute('aria-invalid', 'true');
+  if (!(el.getAttribute('aria-describedby') || '').includes(id)) el.setAttribute('aria-describedby', ((el.getAttribute('aria-describedby') || '') + ' ' + id).trim());
+};
+// the browser's own checks (required, pattern, type, min/max) show the same way instead of a bubble
+document.addEventListener('invalid', e => { e.preventDefault(); fieldError(e.target, e.target.validationMessage); }, true);
+document.addEventListener('input', e => { if (e.target.getAttribute?.('aria-invalid') && e.target.checkValidity()) fieldError(e.target); });
+
+// autosave: <form data-autosave> posts the form on every change (Accept: application/json). The answer is {rev?}
+// or 4xx {error, field?, hint?}. Saved: the field's edge flashes once and .saved says "✓ saved 14:02" (aria-live), no toast.
+// Invalid fields are not sent. The submit button (.nojs) stays the no-JS path. "saved" fires for pages that re-render.
 document.addEventListener('change', async e => {
-  const f = e.target.form;
+  const el = e.target, f = el.form;
   if (!f?.matches('[data-autosave]')) return;
+  if (!el.checkValidity()) return; // the invalid event above already shows why
+  const s = $('.saved', f) || $('.saved');
+  if (s) s.textContent = T['js.saving'] || 'saving…';
   const r = await fetch(f.action, {method: 'POST', body: new URLSearchParams(new FormData(f)), headers: {Accept: 'application/json'}}).catch(() => null);
   const j = await r?.json().catch(() => ({})) || {};
-  const s = $('.saved', f) || $('.saved');
   if (r?.ok) {
     if (f.elements.rev && j.rev) f.elements.rev.value = j.rev;
-    if (s) { s.textContent = '✓ ' + (T['js.saved'] || 'saved') + ' ' + new Date().toLocaleTimeString(); s.classList.remove('err'); }
+    fieldError(el);
+    el.classList.add('was-saved'); setTimeout(() => el.classList.remove('was-saved'), 1200);
+    if (s) { s.textContent = '✓ ' + (T['js.saved'] || 'saved') + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}); s.classList.remove('err'); }
     f.dispatchEvent(new CustomEvent('saved', {detail: j}));
-  } else if (s) { s.textContent = '✕ ' + (T['err.' + j.error] || j.error || T['js.error'] || 'error'); s.classList.add('err'); }
+  } else {
+    const msg = T['err.' + j.error] || j.error || T['js.error'] || 'error';
+    fieldError(f.elements[j.field] || el, msg, j.hint);
+    if (s) { s.textContent = ''; }
+  }
 });
 
 // keyboard, vim style. Page handlers first (window.pageKeys = {key: fn}, return false to fall through), then:
@@ -179,7 +206,7 @@ document.addEventListener('change', async e => {
       Enter: () => { if (r[sel]) location = r[sel].dataset.href; },
       h: () => go(tabs[cur - 1]), l: () => go(tabs[cur + 1]),
       '[': () => go($('.pager a[rel=prev]')), ']': () => go($('.pager a[rel=next]')),
-      Escape: () => go($('a.up')),
+      Escape: () => go([...document.querySelectorAll('a.up')].pop()), // one breadcrumb up
     };
     const chip = /^[1-9]$/.test(e.key) && visible('main .chips a.chip')[+e.key - 1];
     const el = visible(`[data-key="${CSS.escape(e.key)}"]`)[0];
@@ -219,6 +246,7 @@ document.querySelectorAll('main table:not(.keep)').forEach(t => {
   const gather = () => {
     const c = [];
     document.querySelectorAll('nav.app a[data-g]').forEach(a => c.push({label: text(a), sub: 'g ' + a.dataset.g, run: () => location = a.href}));
+    document.querySelectorAll('header.app .right a[aria-label]').forEach(a => c.push({label: a.getAttribute('aria-label'), sub: '', run: () => location = a.href})); // settings, logout
     document.querySelectorAll('main [data-key]').forEach(el => { if (el.offsetParent !== null) c.push({label: text(el) || el.getAttribute('aria-label') || el.title, sub: el.dataset.key, run: () => el.click()}); });
     if ($('#theme')) c.push({label: T['palette.theme'] || 'switch theme', sub: '◐', run: () => $('#theme').click()});
     if ($('#help')) c.push({label: T['palette.help'] || 'keyboard shortcuts', sub: '?', run: () => $('#help').showModal()});
@@ -244,6 +272,8 @@ document.querySelectorAll('main table:not(.keep)').forEach(t => {
     ul.querySelector('.sel')?.scrollIntoView({block: 'nearest'});
   };
   const run = i => { const h = hits[i]; if (!h) return; pal.close(); h.c.run(); };
+  const pb = $('#palbtn');
+  if (pb) { pb.hidden = false; pb.onclick = () => window.openPalette(); if (/Mac|iPhone|iPad/.test(navigator.platform)) $('kbd', pb).textContent = '⌘K'; }
   window.openPalette = () => { if (pal.open) return; cmds = gather(); inp.value = ''; sel = 0; render(); pal.showModal(); inp.focus(); };
   inp.addEventListener('input', () => { sel = 0; render(); });
   inp.addEventListener('keydown', e => {

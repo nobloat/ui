@@ -1,26 +1,25 @@
 {{template "nb-layout" .}}
 {{define "main"}}
-<p class="flash" role="alert">VAT id ATU1234 is not valid: 8 digits after ATU.</p>
-<div class="pagehead"><h1><a class="up" href="list.html" title="back (Esc)">Customers /</a> New customer</h1></div>
-<form method="post" action="/customers" class="form">
-<label for="f-name">name</label><input id="f-name" name="name" required value="Globex AG">
-<label for="f-vat">VAT id</label><input id="f-vat" name="vat" value="ATU1234" pattern="ATU\d{8}" aria-describedby="f-vat-h">
-<span class="hint" id="f-vat-h">ATU and 8 digits; checked against VIES on save</span>
-<label for="f-email">email</label><input id="f-email" name="email" type="email" placeholder="office@example.org">
-<label for="f-country">country</label><input id="f-country" name="country" list="countries" value="AT">
+<div class="pagehead"><h1>Edit ACME GmbH</h1><span class="saved" aria-live="polite">✓ saved 09:12</span></div>
+<form method="post" action="/customers/cus_0042" class="form" data-autosave>
+<input type="hidden" name="rev" value="7">
+<label for="f-name">name</label><input id="f-name" name="name" required value="ACME GmbH" data-hint="the company name as on invoices">
+<label for="f-vat">VAT id</label><input id="f-vat" name="vat" value="ATU1234" pattern="ATU\d{8}" title="ATU and 8 digits, e.g. ATU12345678" aria-invalid="true" aria-describedby="f-vat-err">
+<span class="err" id="f-vat-err" role="alert">ATU1234 is not a valid Austrian VAT id.<span class="hint">ATU and 8 digits, e.g. ATU12345678; checked against VIES</span></span>
+<label for="f-email">email</label><input id="f-email" name="email" type="email" placeholder="office@example.org" title="like office@example.org">
+<label for="f-country">country</label><input id="f-country" name="country" list="countries" value="AT" pattern="[A-Z]{2}" title="two letters, e.g. AT, DE">
 <label for="f-tags">tags</label><input id="f-tags" name="tags" data-pick="tags" autocomplete="off" placeholder="#">
 <span class="lab">language</span><span class="seg"><label><input type="radio" name="lang" value="de" checked>de</label><label><input type="radio" name="lang" value="en">en</label></span>
 <label for="f-terms">terms</label><select id="f-terms" name="terms"><option>7 days</option><option selected>14 days</option><option>30 days</option></select>
 <h2 class="full">Address</h2>
-<label for="f-street">street</label><input id="f-street" name="street">
-<label for="f-city">city</label><input id="f-city" name="city">
+<label for="f-street">street</label><input id="f-street" name="street" value="Hauptstraße 1">
+<label for="f-city">city</label><input id="f-city" name="city" value="1010 Wien">
 <label for="f-note">note</label><textarea id="f-note" name="note" rows="3"></textarea>
-<label for="f-num">number</label><input id="f-num" value="assigned on save" readonly>
-<div class="full row end"><a class="btn" href="list.html">Cancel</a><button class="pri">Create <kbd>Ctrl Enter</kbd></button></div>
+<label for="f-id">id</label><input id="f-id" value="cus_0042" readonly>
+<div class="full row end"><button class="pri nojs">Save</button></div>
 </form>
 <datalist id="tags"><option value="#consulting" label="Consulting"><option value="#retainer" label="Monthly retainer"><option value="#eu" label="EU reverse charge"><option value="#travel" label="Travel"></datalist>
 <datalist id="countries"><option value="AT"><option value="DE"><option value="CH"><option value="IT"></datalist>
 {{end}}
-{{define "keys"}} · <kbd>Ctrl</kbd>+<kbd>Enter</kbd> save · <kbd>Esc</kbd> leave field, back{{end}}
-{{define "scripts"}}<script>window.pageKeys = {'C-Enter': () => document.querySelector('main form.form').requestSubmit()};</script>
-<script src="demo.js"></script>{{end}}
+{{define "keys"}} · every change saves · <kbd>Esc</kbd> leave field, back{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

@@ -1,13 +1,14 @@
 {{template "nb-layout" .}}
 {{define "main"}}
 <div class="pagehead">
-<h1><a class="up" href="list.html" title="back (Esc)">Customers /</a> ACME GmbH <span class="st ok" role="img" aria-label="paid" title="paid">✓</span></h1>
+<h1>ACME GmbH <span class="st ok" role="img" aria-label="paid" title="paid">✓</span></h1>
 <span class="row">
-<a class="btn" href="form.html" data-key="e">Edit <kbd>e</kbd></a>
+<a class="btn edit" href="form.html" data-key="e">Edit <kbd>e</kbd></a>
 <button class="pri" data-open="pay" data-key="p">Payment <kbd>p</kbd></button>
 <details class="more"><summary class="btn">More ▾</summary><div class="menu">
 <form method="post" action="/customers/acme/clone"><button>Duplicate</button></form>
 <form method="post" action="/customers/acme/archive" data-confirm="Archive ACME GmbH? It disappears from lists, invoices stay."><button class="danger">Archive…</button></form>
+<form method="post" action="/customers/acme/delete" data-confirm="Delete ACME GmbH for good? This cannot be undone."><button class="del">Delete…</button></form>
 </div></details>
 </span>
 </div>

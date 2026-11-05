@@ -61,7 +61,7 @@ const probe = () => {
   for (const el of all.filter(e => e.matches(oneLine))) if (lines(el) > 1.6) add('layout', `wraps onto ${Math.round(lines(el))} lines: "${el.textContent.trim().slice(0, 30)}"`, el);
   for (const el of all) { // clipped text without an ellipsis (calendar entries clip by design)
     const s = getComputedStyle(el);
-    if (s.overflowX === 'hidden' && el.scrollWidth > el.clientWidth + 1 && s.textOverflow !== 'ellipsis' && !el.closest('.ev, .stack') && el.textContent.trim())
+    if (s.overflowX === 'hidden' && s.clipPath === 'none' && el.scrollWidth > el.clientWidth + 1 && s.textOverflow !== 'ellipsis' && !el.closest('.ev, .stack') && el.textContent.trim())
       add('layout', `clips its text (${el.scrollWidth} > ${el.clientWidth} px)`, el);
   }
 
