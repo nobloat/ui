@@ -446,7 +446,7 @@ input[type=date], input[type=time], input[type=datetime-local], input[type=month
 /* ---- calendar: week grid (.calwrap > .cal) and month grid (.month); behavior in calendar.js ---------- */
 .calhead { display: flex; flex-wrap: wrap; gap: .8rem 1.2rem; align-items: center; margin-top: 1.4rem; }
 .calhead .total { margin-left: auto; color: var(--muted); }
-.calwrap { --hour: 2.6rem; margin-top: 1rem; max-height: calc(var(--hour) * 11.5); overflow-y: auto; border-top: 1px solid var(--line); position: relative; }
+.calwrap { --hour: 2.6rem; margin-top: 1rem; max-height: var(--calh, calc(var(--hour) * 11.5)); /* calendar.js sets --calh: the window below the grid */ overflow-y: auto; border-top: 1px solid var(--line); position: relative; }
 .cal { display: grid; grid-template-columns: 3.6rem repeat(7, minmax(0, 1fr)); font-size: .85em; }
 .cal .hd { position: sticky; top: 0; z-index: 3; background: var(--bg); padding: .4rem .5rem .5rem; border-bottom: 1px solid var(--line); white-space: nowrap; overflow: hidden; }
 .cal .hd b { display: block; font-weight: normal; }
