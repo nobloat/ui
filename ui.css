@@ -28,6 +28,7 @@
 
 /* ---- base ------------------------------------------------------------------------------------ */
 * { box-sizing: border-box; }
+html { overflow-x: clip; } /* safety net: never a sideways scrollbar (clip keeps sticky working); check.mjs still reports any overflow */
 body { margin: 0 auto; max-width: var(--maxw); padding: 1rem 16px 2rem; font: 14px/1.6 var(--mono); background: var(--bg); color: var(--fg); overflow-wrap: break-word; }
 a { color: inherit; }
 /* keyboard focus: always visible, one style; fields show it with their border instead */
@@ -101,7 +102,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 input[type=checkbox], input[type=radio] { accent-color: var(--accent); }
 textarea { width: 100%; }
 button, .btn { cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; border: 1px solid var(--line); border-radius: var(--r); padding: .25rem .75rem; background: var(--bg); line-height: inherit; }
-button:hover, .btn:hover { border-color: var(--muted); }
+button:hover, .btn:hover { border-color: var(--muted); background: color-mix(in srgb, var(--fg) 5%, var(--bg)); }
+button.pri:hover, .btn.pri:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+.round:hover { background: none; }
 button.pri, .btn.pri { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 button.danger, .btn.danger, button.del, .btn.del { --c: var(--red); color: var(--c-text); }
 /* every create, edit, delete and copy button carries its icon (::before, from the icon set below) */
@@ -276,7 +279,7 @@ details.more .menu.left { right: auto; left: 0; }
 .banner { --c: var(--blue); }
 .toasts { position: fixed; bottom: 1rem; right: 16px; z-index: 50; display: grid; gap: .5rem; width: min(26rem, calc(100vw - 32px)); max-height: calc(100vh - 2rem); overflow: auto; }
 .toasts .flash { margin: 0; grid-template-columns: auto minmax(0, 1fr) auto; background: color-mix(in srgb, var(--c, var(--red)) 12%, var(--bg)); box-shadow: 0 4px 16px rgb(0 0 0 / .18); animation: toast-in .2s ease-out; }
-.toasts .flash .x { grid-column: 3; grid-row: 1; border: 0; background: none; padding: 0 .2rem; line-height: 1.6; color: var(--muted); }
+.toasts .flash .x { grid-column: 3; grid-row: 1; border: 0; background: none; min-width: 1.6rem; min-height: 1.6rem; margin: -.3rem -.4rem -.3rem 0; padding: 0; line-height: 1; color: var(--muted); }
 .toasts .flash.out { opacity: 0; transition: opacity .4s; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(.5rem); } }
 .saved { --c: var(--green); color: var(--c-text); font-size: .88em; }
@@ -284,13 +287,13 @@ details.more .menu.left { right: auto; left: 0; }
 
 /* ---- chips, tags, dots, status lights ------------------------------------------------------ */
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: 1.1rem; }
-.chip { display: inline-flex; align-items: center; background: var(--chip); border: 1px solid var(--line); border-radius: 999px; padding: .05rem .75rem; white-space: nowrap; text-decoration: none; }
+.chip { display: inline-flex; align-items: center; max-width: 100%; background: var(--chip); border: 1px solid var(--line); border-radius: 999px; padding: .05rem .75rem; white-space: nowrap; text-decoration: none; }
 .chip .n { color: var(--muted); margin-left: .45em; }
 .chip > [class*="icon-"] { margin-right: .35em; }
 .chip.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 .chip:hover { border-color: var(--muted); }
 .sep { width: 1px; height: 1.4em; background: var(--line); margin: 0 .3rem; display: inline-block; }
-.tag { color: var(--accent); white-space: nowrap; margin-right: .45em; text-decoration: none; }
+.tag { color: var(--accent); white-space: nowrap; margin-right: .45em; text-decoration: none; display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; } /* a long tag shortens with …; ui.js puts the full name in title */
 .tag::before { content: "#"; }
 /* a tag with its own color (style="--c:#…", chosen by the user): tinted pill, the text keeps full contrast whatever the color */
 .tag[style*="--c"] { color: var(--fg); background: color-mix(in srgb, var(--c) 16%, var(--bg)); padding: 0 .45em; border-radius: var(--r); }
@@ -316,6 +319,7 @@ details.more .menu.left { right: auto; left: 0; }
 /* ---- tables, lists, pager, tabs ------------------------------------------------------------ */
 table { width: 100%; border-collapse: collapse; margin: 1.2rem 0 0; font-variant-numeric: tabular-nums; }
 th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+td { overflow-wrap: anywhere; } /* long names, emails and ids wrap instead of widening the table */
 th { font-weight: normal; color: var(--muted); font-size: .9em; white-space: nowrap; }
 /* sortable columns: the header is a link with ?sort=…&dir=…; the current one has aria-sort and an arrow */
 th a { text-decoration: none; } th a:hover { color: var(--fg); }
@@ -490,19 +494,26 @@ a.tile:hover { border-color: var(--muted); }
 .bars .b { height: .6rem; width: var(--v); min-width: 2px; background: var(--accent); border-radius: 0 4px 4px 0; }
 .bars .num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .bars li > :first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* progress of a task: native <progress value max> (or without value: busy, unknown length) inside a label that says what runs */
-.progress { display: grid; gap: .3rem; margin-top: .8rem; }
+/* progress of a task: <label class="progress"><span>what runs</span><span class="pct">26 %</span><progress value max></progress></label>;
+   without value it is busy with unknown length. Segmented like a terminal bar, a sheen runs over the done part. */
+.progress { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .3rem .8rem; margin-top: .9rem; align-items: baseline; }
+.progress > progress, .progress > small { grid-column: 1 / -1; }
+.progress .pct { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: bold; }
 .progress small { color: var(--muted); }
-progress { appearance: none; display: block; width: 100%; height: .5rem; border: 0; border-radius: 999px; overflow: hidden; color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+progress { appearance: none; display: block; width: 100%; height: .7rem; border: 0; border-radius: 2px; overflow: hidden; color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg));
+  mask: repeating-linear-gradient(90deg, #000 0 7px, transparent 7px 9px); } /* blocks with gaps: ▮▮▮▮▯▯ */
 progress::-webkit-progress-bar { background: transparent; }
-progress::-webkit-progress-value { background: var(--accent); border-radius: 999px; transition: width .3s; }
-progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
-progress:indeterminate { background: linear-gradient(90deg, transparent 0 30%, var(--accent) 30% 60%, transparent 60%) 0 0 / 250% 100%, color-mix(in srgb, var(--accent) 18%, var(--bg));
-  animation: busy 1.2s linear infinite; }
+progress::-webkit-progress-value { transition: width .4s;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .45) 45%, transparent 60%) 0 0 / 300% 100%, var(--accent); animation: sheen 2.4s linear infinite; }
+progress::-moz-progress-bar { background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .45) 45%, transparent 60%) 0 0 / 300% 100%, var(--accent); animation: sheen 2.4s linear infinite; }
+progress[value="100"]::-webkit-progress-value, progress:not([value])::-webkit-progress-value { animation: none; }
+@keyframes sheen { from { background-position: 100% 0, 0 0; } to { background-position: -50% 0, 0 0; } }
+progress:indeterminate { background: linear-gradient(90deg, transparent 0 35%, var(--accent) 35% 65%, transparent 65%) 0 0 / 250% 100%, color-mix(in srgb, var(--accent) 16%, var(--bg));
+  animation: busy 1.4s steps(18) infinite; } /* steps: the block moves segment by segment */
 progress:indeterminate::-webkit-progress-bar { background: transparent; }
 progress:indeterminate::-moz-progress-bar { background: transparent; }
-@keyframes busy { from { background-position: 100% 0, 0 0; } to { background-position: -50% 0, 0 0; } }
+@keyframes busy { from { background-position: 100% 0, 0 0; } to { background-position: -40% 0, 0 0; } }
 /* one ratio against a limit: <span class="meter" role="meter" aria-valuenow="72" …><i style="--v:72%"></i></span> */
 .meter { display: block; height: .5rem; border-radius: 999px; background: color-mix(in srgb, var(--c, var(--accent)) 20%, var(--bg)); overflow: hidden; margin-top: .4rem; }
 .meter i { display: block; height: 100%; width: var(--v); background: var(--c, var(--accent)); border-radius: 999px; }

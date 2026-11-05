@@ -303,6 +303,9 @@ document.addEventListener('toggle', e => {
   if (m) { m.classList.remove('left'); if (m.getBoundingClientRect().left < 0) m.classList.add('left'); }
 }, true);
 
+// a tag shortened with … shows its full name on hover
+document.querySelectorAll('.tag').forEach(t => { if (!t.title && t.scrollWidth > t.clientWidth) t.title = t.textContent.trim(); });
+
 // tables: each cell gets its column header as data-label, which phones show as "label … value" lines
 document.querySelectorAll('main table:not(.keep)').forEach(t => {
   const heads = [...t.querySelectorAll('thead th')].map(th => th.textContent.trim());

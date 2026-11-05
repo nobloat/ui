@@ -25,7 +25,7 @@ import {pathToFileURL} from 'node:url';
 
 const app = process.argv.slice(2);
 const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'icons', '404', '403', '500', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
-const designs = app.length ? [''] : ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
+const designs = app.length ? [''] : ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 360, 375, 390, 414, 430, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);
 if (!chrome) { console.error('Chrome not found, set CHROME'); process.exit(2); }
@@ -172,15 +172,25 @@ for (const design of designs) for (const theme of themes) for (const w of widths
     const variants = [{}];
     if (w < 640 && !['status', 'login'].includes(p)) variants.push({menu: true});
     if (w === 320 && p === 'list' && !app.length) variants.push({logo: true});
+    if (w === 320 && theme === 'light') variants.push({stress: true}); // real data: long words, emails, ids in every text
     for (const v of variants) {
       const loaded = new Promise(r => loads.push(r));
       await cmd('Page.navigate', {url: app.length ? new URL(p, app[0]).href : `${base}${p}.html?nopanel&design=${design}&brand=&logo=${v.logo ? 1 : ''}&theme=${theme}`});
       await loaded; await sleep(150);
       if (v.menu) await evaluate(`document.getElementById('menu')?.click()`);
+      if (v.stress) await evaluate(`(() => {
+        const long = ['Donaudampfschifffahrtsgesellschaftskapitänswitwe', 'buchhaltung.oesterreich@sehr-lange-firmendomain.example', 'cus_0123456789abcdef0123'];
+        let i = 0;
+        // only where user data shows up; labels of tabs, buttons and segments come from the app and stay short
+        for (const el of document.querySelectorAll('main :is(td, h1, p, li, .chip, .tag, code, .info > span, .crumbs span, .crumbs a, .value)')) {
+          const t = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+          if (t) t.textContent += ' ' + long[i++ % long.length];
+        }
+      })()`);
       const problems = await evaluate(`(${probe})()`);
       if (!v.menu && !v.logo && w === 1280) problems.push(...await evaluate(`(${focusProbe})()`));
       runs++;
-      const where = `${p || '/'} ${app.length ? '' : (design || 'plain') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}`;
+      const where = `${p || '/'} ${app.length ? '' : (design || 'plain') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}${v.stress ? ' long data' : ''}`;
       for (const msg of problems) { // group identical problems across variants
         if (!seen.has(msg)) seen.set(msg, []);
         seen.get(msg).push(where);
