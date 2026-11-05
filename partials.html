@@ -65,6 +65,7 @@ The page value (dot) needs:
 <table>
 {{if .Nav}}<tr><td><kbd>g</kbd> {{range .Nav}}{{with .Key}}<kbd>{{.}}</kbd> {{end}}{{end}}</td><td>{{.T "help.goto"}}</td></tr>{{end}}
 {{if .Search}}<tr><td><kbd>/</kbd></td><td>{{.T "help.search"}}</td></tr>{{end}}
+<tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>{{.T "help.palette"}}</td></tr>
 <tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>{{.T "help.jk"}}</td></tr>
 <tr><td><kbd>Enter</kbd></td><td>{{.T "help.enter"}}</td></tr>
 <tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>{{.T "help.hl"}}</td></tr>

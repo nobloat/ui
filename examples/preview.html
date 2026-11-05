@@ -32,12 +32,13 @@
 <a class="logo" href="index.html"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">preview</span></a>
 <label>page <select name="page">
 <option value="index.html">gallery</option><option value="list.html">list</option><option value="detail.html">detail</option>
-<option value="form.html">form</option><option value="settings.html">settings</option><option value="status.html">status (public)</option><option value="login.html">login</option>
+<option value="form.html">form</option><option value="dates.html">dates</option><option value="week.html">week calendar</option><option value="month.html">month calendar</option><option value="settings.html">settings</option><option value="status.html">status (public)</option><option value="login.html">login</option>
 </select></label>
 <label>design <select name="design"><option value="">plain</option><option value="nordic">nordic</option><option value="ink">ink</option><option value="bw">b/w</option><option value="terminal">terminal</option><option value="modern">modern</option></select></label>
 <span class="lab">theme</span> <span class="seg"><label><input type="radio" name="theme" value="" checked>auto</label><label><input type="radio" name="theme" value="light">light</label><label><input type="radio" name="theme" value="dark">dark</label></span>
 <label>brand <input type="color" name="brand" value="#0969da"> <button type="button" id="reset" title="design default color">↺</button></label>
 <label><input type="checkbox" name="logo"> custom logo</label>
+<label><input type="checkbox" name="sync" checked> sync scroll</label>
 <label><input type="checkbox" name="fit" checked> fit phone to height</label>
 </form>
 <div class="stage">
@@ -81,16 +82,18 @@
     if (e.target.name === 'design') brand = '';
     if (e.target.name === 'brand') brand = f.brand.value === defaults[f.design.value] ? '' : f.brand.value;
     if (e.target.name === 'fit') return fit();
+    if (e.target.name === 'sync') return;
     load();
   };
   document.getElementById('reset').onclick = () => { brand = ''; load(); };
   f.onsubmit = e => e.preventDefault();
   // a frame navigated (link, shortcut, Esc): move the other frame and the page selector along
   addEventListener('message', e => {
+    const other = e.source === desk.contentWindow ? mob : desk;
+    if (typeof e.data?.scroll === 'number') { if (f.sync.checked) other.contentWindow.postMessage(e.data, '*'); return; }
     const p = e.data?.page;
     if (!p || p === page) return;
     page = p;
-    const other = e.source === desk.contentWindow ? mob : desk;
     other.src = src();
     f.page.value = page.split('?')[0];
     document.getElementById('url').textContent = page;

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ demo · November 2026</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../ui.css">
+
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+
+</head>
+<body>
+<header class="app">
+<a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
+<form class="gsearch" action="list.html" role="search" data-api="/api/search">
+<input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
+<div class="results" id="results" hidden></div>
+</form>
+<span class="right">
+<span><a href="/lang/de?rd=%2fmonth.html">de</a> · <a href="/lang/en?rd=%2fmonth.html" class="on" aria-current="true">en</a></span>
+<button type="button" id="theme" class="round" hidden>◐</button>
+<a class="who" href="settings.html">peter</a>
+<a href="login.html" title="Log out" aria-label="Log out">⏻</a>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
+</span>
+</header>
+<nav class="app" id="nav">
+<a href="index.html" data-g="a">Gallery</a>
+<a href="list.html" data-g="c">Customers</a>
+<a href="detail.html" data-g="d">Detail</a>
+<a href="form.html" data-g="f">Form</a>
+<a href="dates.html" data-g="t">Dates</a>
+<a href="week.html" data-g="w">Week</a>
+<a href="month.html" data-g="m" class="on" aria-current="page">Month</a>
+<a href="settings.html" data-g="s">Settings</a>
+<span class="g"><kbd>g</kbd> + letter</span>
+</nav>
+<main>
+<div class="calhead">
+<a class="btn" href="#" data-key="h" aria-label="previous month">← <kbd>h</kbd></a>
+<h1>November 2026</h1>
+<a class="btn" href="#" data-key="l" aria-label="next month">→ <kbd>l</kbd></a>
+<a class="btn" href="week.html" data-key="w">week <kbd>w</kbd></a>
+<span class="total"><span class="nw"><span class="dot" style="--c:#2563eb"></span>ACME GmbH</span> <span class="nw"><span class="dot" style="--c:#db2777"></span>Globex AG</span> <span class="nw"><span class="dot" style="--c:#059669"></span>internal</span> <span class="nw"><span class="dot" style="--c:#d97706"></span>Hooli e.U.</span> · Σ 63:05</span>
+</div>
+<div class="month" id="month">
+<div class="wd">Mon</div><div class="wd">Tue</div><div class="wd">Wed</div><div class="wd">Thu</div><div class="wd">Fri</div><div class="wd">Sat</div><div class="wd">Sun</div>
+<a class="c out closed" href="week.html"><span><b>26</b></span></a>
+<a class="c out closed" href="week.html"><span><b>27</b></span></a>
+<a class="c out closed" href="week.html"><span><b>28</b></span></a>
+<a class="c out closed" href="week.html"><span><b>29</b></span></a>
+<a class="c out closed" href="week.html"><span><b>30</b></span></a>
+<a class="c out closed" href="week.html"><span><b>31</b></span></a>
+<a class="c" href="week.html"><span><b>1</b></span><small class="muted">All Saints</small></a>
+<a class="c" href="week.html"><span><b>2</b> · 7:00</span><span class="stack" role="img" aria-label="ACME GmbH 5:00, internal 2:00"><i style="--c:#2563eb;width:62.5%"></i><i style="--c:#059669;width:25.0%"></i></span></a>
+<a class="c" href="week.html"><span><b>3</b> · 6:45</span><span class="stack" role="img" aria-label="Globex AG 5:00, internal 1:45"><i style="--c:#db2777;width:62.5%"></i><i style="--c:#059669;width:21.9%"></i></span></a>
+<a class="c" href="week.html"><span><b>4</b> · 7:00</span><span class="stack" role="img" aria-label="Hooli e.U. 7:00"><i style="--c:#d97706;width:87.5%"></i></span></a>
+<a class="c today" href="week.html"><span><b>5</b> · 5:20</span><span class="stack" role="img" aria-label="ACME GmbH 3:30, Globex AG 1:50"><i style="--c:#2563eb;width:43.8%"></i><i style="--c:#db2777;width:22.9%"></i></span></a>
+<a class="c" href="week.html"><span><b>6</b></span></a>
+<a class="c" href="week.html"><span><b>7</b></span></a>
+<a class="c" href="week.html"><span><b>8</b></span></a>
+<a class="c" href="week.html"><span><b>9</b> · 7:30</span><span class="stack" role="img" aria-label="ACME GmbH 7:30"><i style="--c:#2563eb;width:93.8%"></i></span></a>
+<a class="c" href="week.html"><span><b>10</b> · 6:30</span><span class="stack" role="img" aria-label="Globex AG 6:30"><i style="--c:#db2777;width:81.2%"></i></span></a>
+<a class="c" href="week.html"><span><b>11</b> · 8:00</span><span class="stack" role="img" aria-label="ACME GmbH 4:00, Globex AG 4:00"><i style="--c:#2563eb;width:50.0%"></i><i style="--c:#db2777;width:50.0%"></i></span></a>
+<a class="c" href="week.html"><span><b>12</b> · 6:00</span><span class="stack" role="img" aria-label="Hooli e.U. 6:00"><i style="--c:#d97706;width:75.0%"></i></span></a>
+<a class="c" href="week.html"><span><b>13</b> · 4:00</span><span class="stack" role="img" aria-label="internal 4:00"><i style="--c:#059669;width:50.0%"></i></span></a>
+<a class="c" href="week.html"><span><b>14</b></span></a>
+<a class="c" href="week.html"><span><b>15</b></span></a>
+<a class="c" href="week.html"><span><b>16</b></span></a>
+<a class="c" href="week.html"><span><b>17</b></span></a>
+<a class="c" href="week.html"><span><b>18</b></span></a>
+<a class="c" href="week.html"><span><b>19</b></span></a>
+<a class="c" href="week.html"><span><b>20</b></span></a>
+<a class="c" href="week.html"><span><b>21</b></span></a>
+<a class="c" href="week.html"><span><b>22</b></span></a>
+<a class="c" href="week.html"><span><b>23</b></span></a>
+<a class="c" href="week.html"><span><b>24</b></span></a>
+<a class="c" href="week.html"><span><b>25</b></span></a>
+<a class="c" href="week.html"><span><b>26</b></span></a>
+<a class="c" href="week.html"><span><b>27</b></span></a>
+<a class="c" href="week.html"><span><b>28</b></span></a>
+<a class="c" href="week.html"><span><b>29</b></span></a>
+<a class="c" href="week.html"><span><b>30</b></span></a>
+<a class="c out" href="week.html"><span><b>1</b></span></a>
+<a class="c out" href="week.html"><span><b>2</b></span></a>
+<a class="c out" href="week.html"><span><b>3</b></span></a>
+<a class="c out" href="week.html"><span><b>4</b></span></a>
+<a class="c out" href="week.html"><span><b>5</b></span></a>
+<a class="c out" href="week.html"><span><b>6</b></span></a>
+</div>
+<p class="muted"><small>hatched: closed period (October) · bars: hours per project, a full bar is 8 h</small></p>
+</main>
+<p class="keys"><kbd>?</kbd> help · <kbd>/</kbd> search · <kbd>Shift</kbd>+<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> day · <kbd>Enter</kbd> open week</p>
+<footer class="foot">
+<b>][◆ nobloat/demo</b>
+<span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h">Keyboard shortcuts</h2>
+<table>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> <kbd>s</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>/</kbd></td><td>search</td></tr>
+<tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
+<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next page</td></tr>
+<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
+
+</table>
+<form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
+</dialog>
+<dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.saved":"saved","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script src="../ui.js"></script>
+<script src="../calendar.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
+
+
+

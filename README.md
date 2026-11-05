@@ -2,7 +2,7 @@
 
 The shared look of nobloat apps (bill, track, tax, up, auth) as a **reference to copy from, not a dependency**: one CSS file, one JS file, Go template partials, and example pages that show every component in three designs. No build step, no web fonts, no icon library, no framework.
 
-Open [`examples/index.html`](examples/index.html) in a browser; the panel at the bottom right switches design, brand color and logo (it remembers your choice across pages). [`examples/preview.html`](examples/preview.html) shows any page as desktop and in a phone frame (390×844) side by side, with the same controls; navigating in one frame moves the other.
+**Live: [nobloat.github.io/ui](https://nobloat.github.io/ui/)** ([preview](https://nobloat.github.io/ui/examples/preview.html)). Locally: open [`examples/index.html`](examples/index.html) in a browser; the panel at the bottom right switches design, brand color and logo (it remembers your choice across pages). [`examples/preview.html`](examples/preview.html) shows any page as desktop and in a phone frame (390×844) side by side, with the same controls; navigating in one frame moves the other.
 
 ![preview: desktop and phone side by side](screenshots/preview.png)
 
@@ -29,13 +29,14 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 | file | what | in an app |
 |---|---|---|
 | `ui.css` | tokens, 3 designs, every component | `web/static/ui.css`, unchanged |
-| `ui.js` | theme, shortcuts, search, autocomplete, dialogs, autosave, toasts, morph | `web/static/ui.js`, unchanged |
+| `ui.js` | theme, shortcuts, command palette, search, autocomplete, dialogs, autosave, toasts, morph | `web/static/ui.js`, unchanged |
+| `calendar.js` | optional: week calendar (draw, move, resize, keys, swipe) and month day cursor; fires `cal:*` events | `web/static/calendar.js`, unchanged, only on calendar pages |
 | `partials.html` | `nb-layout`, `nb-bare`, `nb-head`, `nb-header`, `nb-logo`, `nb-mark`, `nb-flash`, `nb-foot` | `web/partials.html`, unchanged |
 | `i18n/{en,de}.json` | the texts the partials and `ui.js` use | merge into the app's i18n files |
 | `favicon.svg` | the `][` mark favicon | replace `◆` and the two colors |
 | `pages/*.html` | example page templates, each one `{{template "nb-layout" .}}` + `{{define "main"}}` | copy the markup you need |
 | `examples/*.html` | the pages rendered (generated, do not edit) | open in a browser |
-| `examples/demo.js`, `preview.html` | demo only: switcher, fake backend, desktop + phone preview | not copied |
+| `examples/demo.js`, `calendar-demo.js`, `preview.html` | demo only: switcher, fake backend, calendar event handlers, desktop + phone preview | not copied |
 
 ## Rules for apps (and agents building them)
 
@@ -108,10 +109,27 @@ Phones are first-class: everything works at **360–500 px** without horizontal 
 | standalone page | `nb-bare`: centered column for login, public status, token pages | login, status |
 | footer, keys line | `nb-foot`; page shortcuts in `{{define "keys"}} · …{{end}}` | all |
 | live updates | `morph(old, new)` keeps focus and caret; `.conn` bar while disconnected | — |
+| command palette | built by `ui.js`, `Ctrl+K` or `:`; lists nav, visible `[data-key]` actions, theme, help, `window.commands = [{label, sub, run}]`, search fallback | all |
+| dates and times | native `type=date/time/datetime-local/month/week` (`step="900"` for 15 min, `min`/`max`), duration text with `pattern` + `datalist`, range presets as chips + `.range` from–to form | dates |
+| week calendar | `.calhead`, `.calwrap > #cal.cal` (`.hd`, `.hours`, `.day[data-date]`, `a.ev` with `top`/`height` in % of the day and `--c`, `.grip`, `.now`, `[data-ro]`, `.closed`); phone shows one day (`.cur`, `.dayhead`) | week |
+| month calendar | `.month > .wd + a.c(.out .today .closed)` with `.stack > i` hours per project | month |
+
+## Calendar events
+
+`calendar.js` moves boxes and reports; the app saves (and re-renders, e.g. `location.reload()` or `morph`). Listen on `#cal`:
+
+| event | when | detail |
+|---|---|---|
+| `cal:create` | drawn, clicked on an empty slot, `c` | `{date, start, end}` (`"2026-11-05"`, `"HH:MM"`); a dashed box stays until the app removes it or re-renders |
+| `cal:change` | dragged, resized, `Shift+J/K`, `Alt+J/K` | `{id, date, start, end, el}` |
+| `cal:open` | click, `Enter` | `{id, el}`; follows the entry's `href` unless `preventDefault()` |
+| `cal:delete` | `Del`, `Backspace` | `{id, el}`; confirm with `confirmDlg()` |
+
+Without JS each entry is a link to its form, and the page links to "new": nothing depends on `calendar.js`. Snap is `data-snap` on `#cal` (minutes, default 15); the start scroll is `data-daystart` on `#calwrap` (minutes, default 480).
 
 ## Keyboard (vim style)
 
-`g`+letter nav · `/` search · `?` help · `j`/`k` row · `Enter` open · `h`/`l` tab · `[`/`]` page · `1`…`9` chip · `Esc` leave field, close, go up (`a.up`) · any `[data-key=x]` element is clicked or focused · page handlers in `window.pageKeys = {'c': fn, 'C-Enter': fn, 'A-j': fn}` run first (return `false` to fall through). Handled keys never type into inputs; hints are hidden on touch.
+`g`+letter nav · `/` search · `?` help · `Ctrl+K` or `:` command palette · `j`/`k` row · `Enter` open · `h`/`l` tab · `[`/`]` page · `1`…`9` chip · `Esc` leave field, close, go up (`a.up`) · any `[data-key=x]` element is clicked or focused · page handlers in `window.pageKeys = {'c': fn, 'C-Enter': fn, 'A-j': fn}` run first (return `false` to fall through). Handled keys never type into inputs; hints are hidden on touch.
 
 ## Partials contract
 
@@ -121,7 +139,7 @@ The top of [`partials.html`](partials.html) lists the fields the page value need
 
 This is distilled from bill (base), up (nordic, lights, cards) and track (tag picker). Differences to watch for when migrating:
 
-- New: `ink`, `bw`, `terminal` and `modern` designs, the `--font` token, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `[`/`]` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
+- New: the command palette, `calendar.js` as events instead of track's saving code, the dates page; `ink`, `bw`, `terminal` and `modern` designs, the `--font` token, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `[`/`]` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
 - Renamed: status classes are `ok/pend/bad/run/off` instead of app states (`paid`, `overdue`, `green`, `red`); up's `.searchbox`/`.foot` markup → `.gsearch`/`nb-foot`; track's `data-tagpick` → `data-pick` (without track's project filter and create-new-tag option, which stay app code).
 - `--sel` follows the brand instead of a fixed blue.
 

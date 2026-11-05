@@ -1,0 +1,66 @@
+{{template "nb-layout" .}}
+{{define "main"}}
+<div class="calhead">
+<a class="btn" href="#" data-key="h" aria-label="previous week">← <kbd>h</kbd></a>
+<h1 class="wk">Week 45 · 2.–8. Nov 2026</h1>
+<a class="btn" href="#" data-key="l" aria-label="next week">→ <kbd>l</kbd></a>
+<a class="btn" href="month.html" data-key="m">month <kbd>m</kbd></a>
+<span class="total">Σ 26:05 <span class="hide-phone">this week</span></span>
+</div>
+<div class="dayhead"><a class="btn" href="#" id="prevday" aria-label="previous day">←</a><b id="daylabel"></b><a class="btn" href="#" id="nextday" aria-label="next day">→</a></div>
+<div class="calwrap" id="calwrap" data-daystart="480">
+<div class="cal" id="cal" data-snap="15">
+<div class="hd corner" aria-hidden="true"></div>
+<div class="hd" data-date="2026-11-02"><b>Mon 02</b><span class="muted">7:00</span></div>
+<div class="hd" data-date="2026-11-03"><b>Tue 03</b><span class="muted">6:45</span></div>
+<div class="hd" data-date="2026-11-04"><b>Wed 04</b><span class="muted">7:00</span></div>
+<div class="hd today cur" data-date="2026-11-05"><b>Thu 05</b><span class="muted">5:20</span></div>
+<div class="hd" data-date="2026-11-06"><b>Fri 06</b><span class="muted">—</span></div>
+<div class="hd" data-date="2026-11-07"><b>Sat 07</b><span class="muted">—</span></div>
+<div class="hd" data-date="2026-11-08"><b>Sun 08</b><span class="muted">—</span></div>
+<div class="hours" aria-hidden="true"><div>00</div><div>01</div><div>02</div><div>03</div><div>04</div><div>05</div><div>06</div><div>07</div><div>08</div><div>09</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div></div>
+<div class="day" data-date="2026-11-02" aria-label="Mon 2026-11-02">
+<a class="ev" href="#entry-1" data-id="1" style="top:37.500%;height:14.583%;--c:#2563eb" title="09:00–12:30 ACME GmbH"><b>ACME GmbH</b><small>API review</small><span class="tag">retainer</span><span class="grip" aria-hidden="true"></span></a>
+<a class="ev" href="#entry-2" data-id="2" style="top:56.250%;height:14.583%;--c:#2563eb" title="13:30–17:00 ACME GmbH"><b>ACME GmbH</b><small>deploy pipeline</small><span class="grip" aria-hidden="true"></span></a>
+</div>
+<div class="day" data-date="2026-11-03" aria-label="Tue 2026-11-03">
+<a class="ev" href="#entry-3" data-id="3" style="top:35.417%;height:6.250%;--c:#db2777" title="08:30–10:00 Globex AG"><b>Globex AG</b><small>standup + planning</small><span class="grip" aria-hidden="true"></span></a>
+<a class="ev" href="#entry-4" data-id="4" style="top:42.708%;height:7.292%;--c:#059669" title="10:15–12:00 internal"><b>internal</b><small>invoices</small><span class="grip" aria-hidden="true"></span></a>
+<a class="ev" href="#entry-5" data-id="5" style="top:54.167%;height:20.833%;--c:#db2777" title="13:00–18:00 Globex AG"><b>Globex AG</b><small>migration</small><span class="tag">eu</span><span class="grip" aria-hidden="true"></span></a>
+</div>
+<div class="day" data-date="2026-11-04" aria-label="Wed 2026-11-04">
+<a class="ev" href="#entry-6" data-id="6" data-ro style="top:37.500%;height:12.500%;--c:#d97706" title="09:00–12:00 Hooli e.U."><b>Hooli e.U.</b> <span class="muted">€</span><small>workshop</small></a>
+<a class="ev" href="#entry-7" data-id="7" data-ro style="top:54.167%;height:16.667%;--c:#d97706" title="13:00–17:00 Hooli e.U."><b>Hooli e.U.</b> <span class="muted">€</span><small>workshop</small></a>
+</div>
+<div class="day cur" data-date="2026-11-05" aria-label="Thu 2026-11-05">
+<a class="ev sel" href="#entry-8" data-id="8" style="top:33.333%;height:14.583%;--c:#2563eb" title="08:00–11:30 ACME GmbH"><b>ACME GmbH</b><small>incident follow-up</small><span class="tag">retainer</span><span class="grip" aria-hidden="true"></span></a>
+<a class="ev running" href="#entry-9" data-id="9" style="top:52.083%;height:7.639%;--c:#db2777" title="12:30– Globex AG"><b>Globex AG</b><small>pairing</small><span class="grip" aria-hidden="true"></span></a>
+<div class="now" style="top:59.722%"></div>
+</div>
+<div class="day" data-date="2026-11-06" aria-label="Fri 2026-11-06">
+
+</div>
+<div class="day" data-date="2026-11-07" aria-label="Sat 2026-11-07">
+
+</div>
+<div class="day" data-date="2026-11-08" aria-label="Sun 2026-11-08">
+
+</div>
+</div>
+</div>
+<p class="muted"><small>drag on empty space to create · drag an entry to move it, its bottom edge to resize · click to open · € billed, read-only</small></p>
+<dialog id="ev-dlg" aria-labelledby="ev-h">
+<h2 id="ev-h">New entry</h2>
+<form method="dialog" class="form" style="margin-top:0">
+<label for="ev-date">date</label><input id="ev-date" name="date" type="date" required>
+<span class="lab">time</span><span class="range"><input name="start" type="time" step="900" aria-label="from" required>–<input name="end" type="time" step="900" aria-label="to" required></span>
+<label for="ev-desc">what</label><input id="ev-desc" name="desc" autofocus>
+<label for="ev-project">project</label><select id="ev-project" name="project"><option value="acme">ACME GmbH</option><option value="globex">Globex AG</option><option value="intern">internal</option><option value="hooli">Hooli e.U.</option></select>
+<div class="full row end"><button type="button" data-close>Discard <kbd>Esc</kbd></button><button value="save" class="pri">Save <kbd>Enter</kbd></button></div>
+</form>
+</dialog>
+{{end}}
+{{define "keys"}} · <kbd>h</kbd>/<kbd>l</kbd> week · <kbd>j</kbd>/<kbd>k</kbd> entry · <kbd>Shift</kbd>+<kbd>j</kbd>/<kbd>k</kbd> move · <kbd>Alt</kbd>+<kbd>j</kbd>/<kbd>k</kbd> resize · <kbd>c</kbd> new now · <kbd>Enter</kbd> open · <kbd>Del</kbd> delete{{end}}
+{{define "scripts"}}<script src="/static/calendar.js"></script>
+<script src="demo.js"></script>
+<script src="calendar-demo.js"></script>{{end}}

@@ -10,6 +10,7 @@
  "help.hl": "previous / next tab",
  "help.jk": "next / previous row",
  "help.pages": "previous / next page",
+ "help.palette": "command palette",
  "help.search": "search",
  "help.title": "Keyboard shortcuts",
  "js.close": "close",
@@ -24,6 +25,11 @@
  "nav.letter": "letter",
  "nav.logout": "Log out",
  "nav.menu": "Menu",
+ "palette.help": "Keyboard shortcuts",
+ "palette.placeholder": "Type a command…",
+ "palette.search": "Search",
+ "palette.theme": "Switch theme",
+ "palette.title": "Commands",
  "search.none": "no results",
  "search.placeholder": "Search"
 }

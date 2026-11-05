@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ demo · Dates</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../ui.css">
+
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+
+</head>
+<body>
+<header class="app">
+<a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
+<form class="gsearch" action="list.html" role="search" data-api="/api/search">
+<input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
+<div class="results" id="results" hidden></div>
+</form>
+<span class="right">
+<span><a href="/lang/de?rd=%2fdates.html">de</a> · <a href="/lang/en?rd=%2fdates.html" class="on" aria-current="true">en</a></span>
+<button type="button" id="theme" class="round" hidden>◐</button>
+<a class="who" href="settings.html">peter</a>
+<a href="login.html" title="Log out" aria-label="Log out">⏻</a>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false">☰</button>
+</span>
+</header>
+<nav class="app" id="nav">
+<a href="index.html" data-g="a">Gallery</a>
+<a href="list.html" data-g="c">Customers</a>
+<a href="detail.html" data-g="d">Detail</a>
+<a href="form.html" data-g="f">Form</a>
+<a href="dates.html" data-g="t" class="on" aria-current="page">Dates</a>
+<a href="week.html" data-g="w">Week</a>
+<a href="month.html" data-g="m">Month</a>
+<a href="settings.html" data-g="s">Settings</a>
+<span class="g"><kbd>g</kbd> + letter</span>
+</nav>
+<main>
+<div class="pagehead"><h1>Dates and times</h1><span class="muted">native inputs only: the browser's picker, keyboard entry, locale order, dark mode via color-scheme</span></div>
+
+<h2>Single values</h2>
+<form class="form" method="get" action="/x">
+<label for="d-date">date</label><input id="d-date" name="date" type="date" value="2026-11-05">
+<span class="hint">type="date", always ISO on the wire (2026-11-05), shown in the user's locale</span>
+<label for="d-time">time</label><input id="d-time" name="time" type="time" step="900" value="09:30">
+<span class="hint">step="900": 15-minute steps; 24 h or 12 h follows the locale</span>
+<label for="d-dt">date and time</label><input id="d-dt" name="at" type="datetime-local" step="60" value="2026-11-05T14:20">
+<span class="hint">datetime-local has no zone: the server reads it in the user's timezone</span>
+<label for="d-month">month</label><input id="d-month" name="month" type="month" value="2026-11">
+<label for="d-week">week</label><input id="d-week" name="week" type="week" value="2026-W45">
+<span class="hint">ISO week; Firefox and Safari show a text field, so accept "2026-W45" typed</span>
+<label for="d-min">bounded</label><input id="d-min" name="due" type="date" min="2026-11-05" max="2026-12-31" value="2026-11-19">
+<span class="hint">min/max: due date between today and year end; the picker greys out the rest</span>
+</form>
+
+<h2>Duration</h2>
+<form class="form" method="get" action="/x">
+<label for="d-dur">duration</label><input id="d-dur" name="for" list="durations" placeholder="1h30m" pattern="\d+d(\d+(\.\d+)?(h|m))*|(\d+(\.\d+)?(h|m))+" title="like 30m, 2h, 1h30m or 7d" value="2h">
+<span class="hint">text with a pattern (30m, 1h30m, 7d) and suggestions; parse on the server</span>
+<label for="d-hours">hours</label><input id="d-hours" name="hours" inputmode="decimal" placeholder="7:30" pattern="\d{1,2}(:[0-5]\d|[.,]\d+)?" value="7:30">
+<span class="hint">h:mm or decimal (7,5); inputmode="decimal" gives phones a number pad</span>
+</form>
+<datalist id="durations"><option value="15m"><option value="30m"><option value="1h"><option value="2h"><option value="4h"><option value="1d"><option value="7d"></datalist>
+
+<h2>Ranges</h2>
+<p class="muted">Presets are links (they work without JS and are bookmarkable); the custom range is a GET form with the same parameters.</p>
+<div class="chips">
+<a class="chip" href="?range=today">today</a>
+<a class="chip on" href="?range=this-week">this week</a>
+<a class="chip" href="?range=last-week">last week</a>
+<a class="chip" href="?range=this-month">this month</a>
+<a class="chip" href="?range=last-month">last month</a>
+<a class="chip" href="?range=this-year">this year</a>
+</div>
+<form class="row" method="get" action="/x" style="margin-top:1rem">
+<span class="range"><input name="from" type="date" value="2026-11-02" aria-label="from">–<input name="to" type="date" value="2026-11-08" aria-label="to"></span>
+<button>Show</button>
+</form>
+
+<h2>Showing dates</h2>
+<table>
+<thead><tr><th>where</th><th>how</th><th>example</th></tr></thead>
+<tbody>
+<tr><td>lists, tables</td><td>ISO date, tabular numbers</td><td>2026-11-05</td></tr>
+<tr><td>recent events</td><td>relative, exact in <code>title</code></td><td><span title="2026-11-05 09:12">today 09:12</span> · <span title="2026-11-02 17:40">3 days ago</span></td></tr>
+<tr><td>durations</td><td>h:mm, never decimals in the UI</td><td>7:30</td></tr>
+<tr><td>periods</td><td>words, then numbers</td><td>Week 45 · 2.–8. Nov 2026</td></tr>
+<tr><td>machine readable</td><td><code>&lt;time datetime&gt;</code></td><td><time datetime="2026-11-05T09:12">today 09:12</time></td></tr>
+</tbody>
+</table>
+<p class="muted">Calendar views: <a href="week.html">week</a> (drag to create, move, resize) · <a href="month.html">month</a>.</p>
+</main>
+<p class="keys"><kbd>?</kbd> help · <kbd>/</kbd> search</p>
+<footer class="foot">
+<b>][◆ nobloat/demo</b>
+<span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h">Keyboard shortcuts</h2>
+<table>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> <kbd>s</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>/</kbd></td><td>search</td></tr>
+<tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
+<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next page</td></tr>
+<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
+
+</table>
+<form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
+</dialog>
+<dialog id="confirm"><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
+<script type="application/json" id="texts">{"js.close":"close","js.error":"error","js.saved":"saved","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script src="../ui.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
+
+

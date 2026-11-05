@@ -90,7 +90,8 @@ func TestExamples(t *testing.T) {
 		name := filepath.Base(p)
 		tpl := template.Must(template.Must(template.ParseFiles("partials.html")).ParseFiles(p))
 		nav := []Link{{"index.html", "Gallery", "a", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
-			{"form.html", "Form", "f", false}, {"settings.html", "Settings", "s", false}}
+			{"form.html", "Form", "f", false}, {"dates.html", "Dates", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false},
+			{"settings.html", "Settings", "s", false}}
 		for i := range nav {
 			nav[i].On = nav[i].Href == name
 		}
@@ -101,7 +102,7 @@ func TestExamples(t *testing.T) {
 			page.Nav, page.Search, page.User, page.LogoutURL = nil, "", "", ""
 		}
 		page.Title = map[string]string{"index.html": "Gallery", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
-			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in"}[name]
+			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Dates", "week.html": "Week 45", "month.html": "November 2026"}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
 			t.Fatalf("%s: %v", name, err)

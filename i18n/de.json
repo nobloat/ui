@@ -10,6 +10,7 @@
  "help.hl": "voriger / nächster Reiter",
  "help.jk": "nächste / vorige Zeile",
  "help.pages": "vorige / nächste Seite",
+ "help.palette": "Befehlspalette",
  "help.search": "Suche",
  "help.title": "Tastenkürzel",
  "js.close": "schließen",
@@ -24,6 +25,11 @@
  "nav.letter": "Buchstabe",
  "nav.logout": "Abmelden",
  "nav.menu": "Menü",
+ "palette.help": "Tastenkürzel",
+ "palette.placeholder": "Befehl eingeben…",
+ "palette.search": "Suchen",
+ "palette.theme": "Farbschema wechseln",
+ "palette.title": "Befehle",
  "search.none": "keine Treffer",
  "search.placeholder": "Suchen"
 }

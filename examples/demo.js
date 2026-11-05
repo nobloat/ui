@@ -39,6 +39,21 @@
     const own = new URLSearchParams(location.search);
     for (const k of ['design', 'brand', 'logo', 'theme', 'nopanel']) own.delete(k);
     parent.postMessage({page: location.pathname.split('/').pop() + (own.size ? '?' + own : '')}, '*');
+    // scroll sync: report the position as a fraction of the scrollable height (desktop and phone differ),
+    // apply the other frame's position without echoing it back
+    const max = () => document.documentElement.scrollHeight - innerHeight;
+    let quiet = false;
+    addEventListener('scroll', () => {
+      if (quiet) { quiet = false; return; }
+      parent.postMessage({scroll: max() > 0 ? scrollY / max() : 0}, '*');
+    }, {passive: true});
+    addEventListener('message', e => {
+      if (typeof e.data?.scroll !== 'number') return;
+      const y = Math.round(e.data.scroll * max());
+      if (Math.abs(y - scrollY) < 2) return; // no scroll event would follow to clear quiet
+      quiet = true;
+      scrollTo(0, y);
+    });
   }
   document.body.append(panel);
   sync();
