@@ -1,4 +1,5 @@
 // Layout and accessibility check for every example page: node check.mjs (Node 22+, Chrome; CHROME=… to override).
+// An app: node check.mjs http://localhost:8080/ /customers /customers/cus_0042 (its own design; light and dark via the OS setting).
 // Loads each page in each design, theme and width (and the open burger menu on phones) and fails on:
 //   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
 //   a11y:   text contrast < 4.5:1 (3:1 large), state graphics and form field edges < 3:1, missing accessible names,
@@ -22,8 +23,9 @@ import {pathToFileURL} from 'node:url';
   if (bad.length) { console.log('✕ money:', JSON.stringify(bad)); process.exit(1); }
 }
 
-const pages = ['index', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
-const designs = ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
+const app = process.argv.slice(2);
+const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
+const designs = app.length ? [''] : ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);
 if (!chrome) { console.error('Chrome not found, set CHROME'); process.exit(2); }
@@ -164,20 +166,21 @@ const base = pathToFileURL(resolve('examples')).href + '/';
 let failed = 0, runs = 0;
 const seen = new Map();
 for (const design of designs) for (const theme of themes) for (const w of widths) {
+  await cmd('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: theme}]});
   await cmd('Emulation.setDeviceMetricsOverride', {width: w, height: 900, deviceScaleFactor: 1, mobile: w < 640});
   for (const p of pages) {
     const variants = [{}];
     if (w < 640 && !['status', 'login'].includes(p)) variants.push({menu: true});
-    if (w === 320 && p === 'list') variants.push({logo: true});
+    if (w === 320 && p === 'list' && !app.length) variants.push({logo: true});
     for (const v of variants) {
       const loaded = new Promise(r => loads.push(r));
-      await cmd('Page.navigate', {url: `${base}${p}.html?nopanel&design=${design}&brand=&logo=${v.logo ? 1 : ''}&theme=${theme}`});
+      await cmd('Page.navigate', {url: app.length ? new URL(p, app[0]).href : `${base}${p}.html?nopanel&design=${design}&brand=&logo=${v.logo ? 1 : ''}&theme=${theme}`});
       await loaded; await sleep(150);
       if (v.menu) await evaluate(`document.getElementById('menu')?.click()`);
       const problems = await evaluate(`(${probe})()`);
       if (!v.menu && !v.logo && w === 1280) problems.push(...await evaluate(`(${focusProbe})()`));
       runs++;
-      const where = `${p} ${design || 'plain'} ${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}`;
+      const where = `${p || '/'} ${app.length ? '' : (design || 'plain') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}`;
       for (const msg of problems) { // group identical problems across variants
         if (!seen.has(msg)) seen.set(msg, []);
         seen.get(msg).push(where);
