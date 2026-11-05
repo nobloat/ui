@@ -1,5 +1,5 @@
 // Layout and accessibility check for every example page: node check.mjs (Node 22+, Chrome; CHROME=… to override).
-// An app: node check.mjs http://localhost:8080/ /customers /customers/cus_0042 (its own design; light and dark via the OS setting).
+// An app: node check.mjs http://localhost:8080/ /customers /customers/CUS-0042 (its own design; light and dark via the OS setting).
 // Loads each page in each design, theme and width (and the open burger menu on phones) and fails on:
 //   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
 //   a11y:   text contrast < 4.5:1 (3:1 large), state graphics and form field edges < 3:1, missing accessible names,
@@ -179,7 +179,7 @@ for (const design of designs) for (const theme of themes) for (const w of widths
       await loaded; await sleep(150);
       if (v.menu) await evaluate(`document.getElementById('menu')?.click()`);
       if (v.stress) await evaluate(`(() => {
-        const long = ['Donaudampfschifffahrtsgesellschaftskapitänswitwe', 'buchhaltung.oesterreich@sehr-lange-firmendomain.example', 'cus_0123456789abcdef0123'];
+        const long = ['Donaudampfschifffahrtsgesellschaftskapitänswitwe', 'buchhaltung.oesterreich@sehr-lange-firmendomain.example', 'CUS-0123456789ABCDEF0123'];
         let i = 0;
         // only where user data shows up; labels of tabs, buttons and segments come from the app and stay short
         for (const el of document.querySelectorAll('main :is(td, h1, p, li, .chip, .tag, code, .info > span, .crumbs span, .crumbs a, .value)')) {

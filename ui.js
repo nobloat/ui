@@ -215,7 +215,7 @@ document.addEventListener('change', async e => {
 {
   let g = false, sel = -1;
   const rows = () => [...document.querySelectorAll('main tr[data-href]')];
-  // the selected row is part of the URL (#cus_0042, the row's id), so reload, Back and a shared link show the same selection
+  // the selected row is part of the URL (#CUS-0042, the row's id), so reload, Back and a shared link show the same selection
   const mark = () => { rows().forEach((r, i) => r.classList.toggle('sel', i === sel)); const id = rows()[sel]?.id; if (id) history.replaceState(history.state, '', '#' + id); };
   { const i = location.hash.length > 1 ? rows().findIndex(r => r.id === decodeURIComponent(location.hash.slice(1))) : -1; if (i >= 0) { sel = i; rows()[i].classList.add('sel'); rows()[i].scrollIntoView({block: 'center'}); } }
   const visible = s => [...document.querySelectorAll(s)].filter(el => el.offsetParent !== null);

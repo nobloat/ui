@@ -59,8 +59,8 @@
   sync();
 
   // fake backend: live search answers from a fixed list, every POST "succeeds"
-  const data = {customers: [['ACME GmbH', 'cus_0042'], ['Globex AG', 'cus_0017'], ['Initech', 'cus_0031'], ['Umbrella KG', 'cus_0008'], ['Hooli e.U.', 'cus_0051']],
-    invoices: [['2026-0042 · ACME GmbH', 'inv_2026-0042'], ['2026-0041 · Hooli e.U.', 'inv_2026-0041'], ['2026-0031 · ACME GmbH', 'inv_2026-0031'], ['2026-0017 · Globex AG', 'inv_2026-0017']]};
+  const data = {customers: [['ACME GmbH', 'CUS-0042'], ['Globex AG', 'CUS-0017'], ['Initech', 'CUS-0031'], ['Umbrella KG', 'CUS-0008'], ['Hooli e.U.', 'CUS-0051']],
+    invoices: [['2026-0042 · ACME GmbH', 'INV-2026-0042'], ['2026-0041 · Hooli e.U.', 'INV-2026-0041'], ['2026-0031 · ACME GmbH', 'INV-2026-0031'], ['2026-0017 · Globex AG', 'INV-2026-0017']]};
   const real = fetch;
   window.fetch = async (url, opt = {}) => {
     const u = new URL(url, 'http://x');

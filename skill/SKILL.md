@@ -14,7 +14,7 @@ Before writing a page, open the nearest example in `../ui/pages/` (gallery `inde
 1. Copy unchanged into the app: `ui.css`, `ui.js` → `web/static/`; `partials.html` → `web/`; `calendar.js` only for calendar pages; `chart.go` only for charts (change the package line, register `Spark`/`Columns` as template funcs). Merge `i18n/{en,de}.json` into the app's i18n files. Copy `favicon.svg` and replace the character and color.
 2. A diff against `../ui` must stay empty. App styles go in `web/static/app.css` (via `{{define "head"}}`), app code in `app.js` (via `{{define "scripts"}}`). A change two apps need goes into nobloat/ui first, then into both apps.
 3. Parse `partials.html` before the pages; every page is `{{template "nb-layout" .}}` + `{{define "main"}}` (public pages: `nb-bare`). The page value needs the fields listed at the top of `partials.html` (`Lang`, `Title`, `Here`, `Brand`, `Nav`, `Crumbs`, `Search`, `SearchAPI`, `User`, `UserURL`, `LogoutURL`, `SettingsURL`, `Texts`, `T(key)` …).
-4. Add the check to the app's tests or CI: `node ../ui/check.mjs http://localhost:PORT/ /customers /customers/cus_0042 …` (every page type once, with realistic data). It must report 0 problems.
+4. Add the check to the app's tests or CI: `node ../ui/check.mjs http://localhost:PORT/ /customers /customers/CUS-0042 …` (every page type once, with realistic data). It must report 0 problems.
 
 ## Look and theming
 
@@ -56,13 +56,13 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 Everything a user can set up or open is in the URL, so reload, Back, a bookmark or a link sent to a colleague shows exactly the same view. Not in the URL: personal preferences (theme, language: settings), secrets, passing things (hover, focus).
 - **Query (server renders it, works without JS):** search `q`, filters (`state`, `tag`, chips are links), sort (`sort`, `dir`), page, tab, period/range, calendar week and month, chart range. Every control that changes the view is a link or a GET form, never a JS-only toggle. Defaults are omitted (`?sort=name` only when it is not the default).
 - **Prefill:** create forms take their fields from the query: `/customers?name=ACME&email=…#new` opens "New customer" filled in. The server renders the values; `form[data-prefill]` covers dialogs and static pages. Other apps and mails link this way instead of copying data.
-- **Hash (ui.js keeps it in sync with `history.replaceState`, no extra history entries):** the open dialog (`#new`, closing removes it), the selected row (`#cus_0042`: rows carry their object id as `id`), the day shown on a phone in the week calendar (`#2026-11-05`), an anchor in a long page.
+- **Hash (ui.js keeps it in sync with `history.replaceState`, no extra history entries):** the open dialog (`#new`, closing removes it), the selected row (`#CUS-0042`: rows carry their object id as `id`), the day shown on a phone in the week calendar (`#2026-11-05`), an anchor in a long page.
 - **Sortable columns:** the header is a link (`<th aria-sort="ascending"><a href="?sort=name&dir=desc">name</a></th>`); one click sorts, a second reverses; the current column shows ↑/↓.
-- Objects have one canonical URL with their id (`/customers/cus_0042`); a POST answers with a redirect to a URL that shows the result (no "resubmit?").
+- Objects have one canonical URL with their id (`/customers/CUS-0042`); a POST answers with a redirect to a URL that shows the result (no "resubmit?").
 
 ## Ids
 
-Every object a user can find or open has an id with a type prefix: `cus_0042`, `inv_2026-0042`, `prj_website`, `usr_7f3a9c`, `key_9c1a`. Shown as `<code class="id">` with a copy button, used in URLs, search results, logs, mails. Legal or human numbers (invoice number 2026-0042) are separate fields.
+Every object a user can find or open has an id as a ticket key: a type key of 3 uppercase letters, a hyphen, the number or slug in uppercase: `CUS-0042`, `INV-2026-0042`, `PRJ-WEBSITE`, `USR-7F3A9C`, `KEY-9C1A`, `ERR-7F3A9C12`. Each type key means one thing across all nobloat apps; search matches ids case-insensitively. Shown as `<code class="id">` with a copy button, used in URLs, search results, logs, mails. Legal or human numbers (invoice number 2026-0042) are separate fields.
 
 ## Page anatomy
 
@@ -80,7 +80,7 @@ Every object a user can find or open has an id with a type prefix: `cus_0042`, `
 
 ## Bulk actions
 
-Lists where users act on many objects get a checkbox column: `th.pick` with `input[data-all]`, `td.pick` with `input name="ids" value="cus_…" form="bulk"`, and `<form id="bulk" class="bulkbar" method="post">` with one button per action (`name="do" value="archive"`). ui.js hides the bar until something is selected, shows "{n} selected", `x` toggles the cursor row, `Esc` clears; destructive buttons carry `data-confirm-n="Archive {n} customers? …"`. Without JS the bar is always there and posts the checked ids.
+Lists where users act on many objects get a checkbox column: `th.pick` with `input[data-all]`, `td.pick` with `input name="ids" value="CUS-…" form="bulk"`, and `<form id="bulk" class="bulkbar" method="post">` with one button per action (`name="do" value="archive"`). ui.js hides the bar until something is selected, shows "{n} selected", `x` toggles the cursor row, `Esc` clears; destructive buttons carry `data-confirm-n="Archive {n} customers? …"`. Without JS the bar is always there and posts the checked ids.
 
 ## Forms
 
@@ -94,7 +94,7 @@ Lists where users act on many objects get a checkbox column: `th.pick` with `inp
 
 - Error pages keep the app's header and nav (`nb-layout`) so the user can go on: the code small, the message as `h1` in plain words, what happened to their work, and buttons for what to do next (`pages/404.html`, `403.html`, `500.html`). Never a stack trace.
 - 404 for objects that do not exist **and** for objects the user may not see (no hint that they exist); 403 only for pages or sections the role cannot use, naming the signed-in user, their groups and who can grant access.
-- 500: say whether the last change was saved, and show a reference id (`err_…`, also in the log) with a copy button.
+- 500: say whether the last change was saved, and show a reference id (`ERR-…`, also in the log) with a copy button.
 - Session: `SessionEnd` (and `SessionRenew`, a GET that extends it and answers `{end}`) on the page; ui.js shows a bar 5 minutes before the end ("Stay signed in") and after it ("sign in again to save", in a new tab). The page keeps all input; autosave answers 401 the same way instead of a field error.
 
 ## Data display
