@@ -7,7 +7,7 @@
   try { s = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
   const params = new URLSearchParams(location.search);
   for (const [k, v] of params) if (['design', 'brand', 'logo'].includes(k)) s[k] = v;
-  const defaults = {'': '#0969da', nordic: '#3b6e94', panels: '#3b6e94', ink: '#0047b3', compact: '#0969da', paper: '#2c4a7c'};
+  const defaults = {'': '#0969da', nordic: '#3b6e94', panels: '#3b6e94', ink: '#1f4fa3', compact: '#0969da', paper: '#2c4a7c'};
   const logoHTML = document.querySelector('.logo')?.innerHTML;
   const apply = () => {
     s.design ? root.dataset.design = s.design : delete root.dataset.design;
