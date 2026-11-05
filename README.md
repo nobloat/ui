@@ -35,6 +35,7 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 | `calendar.js` | optional: week calendar (draw, move, resize, keys, swipe) and month day cursor; fires `cal:*` events | `web/static/calendar.js`, only on calendar pages |
 | `chart.go` | optional: `Spark` and `Columns` as server-rendered SVG | copy, change the package line |
 | `i18n/{en,de}.json` | the texts the partials and `ui.js` use | merge into the app's i18n files |
+| `icons/*.svg`, `icons.svg` | the icon set (one file per icon) and its sprite; the CSS classes are generated into `ui.css` | use `<i class="icon-cog">`; new icons go here first |
 | `favicon.svg` | the `][` mark favicon | replace `◆` and the two colors |
 | `skill/SKILL.md` | the rules, for people and agents | link as a skill |
 | `check.mjs` | layout and accessibility check (Node 22, Chrome) | run against the app's pages |
@@ -46,7 +47,7 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 
 This is distilled from bill (base), up (nordic, lights, cards) and track (tag picker). Differences to watch for when migrating:
 
-- New: breadcrumbs, settings behind ⚙ (with account and preferences), autosave on every edit form with inline field errors, icons on create/edit/delete/copy, type-prefixed ids, signed money, the dashboard and `chart.go`, tables as cards on phones, the layout and accessibility check; the command palette, `calendar.js` as events instead of track's saving code, the dates page, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `[`/`]` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
+- New: breadcrumbs, settings behind ⚙ (with account and preferences), autosave on every edit form with inline field errors, icons on create/edit/delete/copy, type-prefixed ids, signed money, the dashboard and `chart.go`, tables as cards on phones, the layout and accessibility check; the command palette, `calendar.js` as events instead of track's saving code, the dates page, `--brand`/`--brand-dark` (auth computed the dark color in Go), the `.pager` component with `p`/`n` (no app paginates yet), the `aria-busy` spinner on every submit, CSS-only dark logo (auth used `<picture media>`, which ignored the toggle).
 - Renamed: status classes are `ok/pend/bad/run/off` instead of app states (`paid`, `overdue`, `green`, `red`); up's `.searchbox`/`.foot` markup → `.gsearch`/`nb-foot`; track's `data-tagpick` → `data-pick` (without track's project filter and create-new-tag option, which stay app code).
 - `--sel` follows the brand instead of a fixed blue.
 

@@ -92,7 +92,7 @@ func TestExamples(t *testing.T) {
 	}
 	for _, p := range pages {
 		name := filepath.Base(p)
-		funcs := template.FuncMap{"spark": Spark, "columns": func(title, labels, vals string) template.HTML { // the examples pass lists as strings
+		funcs := template.FuncMap{"icons": iconNames, "sizes": func() []int { return []int{12, 16, 20, 24, 32, 48} }, "spark": Spark, "columns": func(title, labels, vals string) template.HTML { // the examples pass lists as strings
 			var v []float64
 			for _, f := range strings.Fields(vals) {
 				x, _ := strconv.ParseFloat(f, 64)
@@ -102,7 +102,7 @@ func TestExamples(t *testing.T) {
 		}}
 		tpl := template.Must(template.Must(template.New("").Funcs(funcs).ParseFiles("partials.html")).ParseFiles(p))
 		nav := []Link{{"index.html", "Gallery", "a", false}, {"dashboard.html", "Dashboard", "b", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
-			{"form.html", "Form", "f", false}, {"dates.html", "Formats", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false}}
+			{"form.html", "Form", "f", false}, {"dates.html", "Formats", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false}, {"icons.html", "Icons", "i", false}}
 		for i := range nav {
 			nav[i].On = nav[i].Href == name
 		}
@@ -117,7 +117,7 @@ func TestExamples(t *testing.T) {
 			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
 			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
 		}[name]
-		page.Title = map[string]string{"index.html": "Gallery", "dashboard.html": "Dashboard", "404.html": "Not found", "403.html": "No access", "500.html": "Error", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
+		page.Title = map[string]string{"index.html": "Gallery", "icons.html": "Icons", "dashboard.html": "Dashboard", "404.html": "Not found", "403.html": "No access", "500.html": "Error", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
 			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
@@ -148,6 +148,57 @@ func eur(x float64) string {
 		s = s[:i] + "." + s[i:]
 	}
 	return fmt.Sprintf("%s,%02d €", s, c%100)
+}
+
+// TestIcons builds icons.svg (sprite) and the icons block in ui.css from icons/*.svg; stale output fails, -update rewrites.
+func TestIcons(t *testing.T) {
+	files, _ := filepath.Glob("icons/*.svg")
+	if len(files) == 0 {
+		t.Fatal("no icons")
+	}
+	tag := regexp.MustCompile(`^<svg ([^>]*)>(.*)</svg>\s*$`)
+	var sprite, vars, classes strings.Builder
+	sprite.WriteString(`<svg xmlns="http://www.w3.org/2000/svg">` + "\n")
+	for _, f := range files {
+		b, _ := os.ReadFile(f)
+		m := tag.FindStringSubmatch(string(b))
+		name := strings.TrimSuffix(filepath.Base(f), ".svg")
+		if m == nil || !strings.Contains(m[1], `viewBox="0 0 16 16"`) || !strings.Contains(m[1], "currentColor") {
+			t.Fatalf("%s: one <svg viewBox=\"0 0 16 16\"> drawn in currentColor", f)
+		}
+		attrs := strings.Replace(m[1], `xmlns="http://www.w3.org/2000/svg" `, "", 1)
+		fmt.Fprintf(&sprite, "<symbol id=\"%s\" viewBox=\"0 0 16 16\"><g %s>%s</g></symbol>\n", name, strings.Replace(attrs, `viewBox="0 0 16 16" `, "", 1), m[2])
+		uri := strings.NewReplacer(`"`, "'", "#", "%23", "<", "%3C", ">", "%3E").Replace(strings.TrimSpace(string(b)))
+		fmt.Fprintf(&vars, "  --icon-%s: url(\"data:image/svg+xml,%s\");\n", name, uri)
+		fmt.Fprintf(&classes, ".icon-%s { --icon: var(--icon-%s); }\n", name, name)
+	}
+	sprite.WriteString("</svg>\n")
+	css, _ := os.ReadFile("ui.css")
+	re := regexp.MustCompile(`(?s)(/\* icons:begin[^\n]*\*/\n).*?(/\* icons:end \*/)`)
+	block := ":where(:root) {\n" + vars.String() + "}\n" + classes.String()
+	newCSS := re.ReplaceAllString(string(css), "${1}"+strings.ReplaceAll(block, "$", "$$")+"${2}")
+	for path, want := range map[string]string{"ui.css": newCSS, "icons.svg": sprite.String()} {
+		old, _ := os.ReadFile(path)
+		if string(old) == want {
+			continue
+		}
+		if !*update {
+			t.Errorf("%s is stale: run go test -update", path)
+			continue
+		}
+		if err := os.WriteFile(path, []byte(want), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func iconNames() []string {
+	files, _ := filepath.Glob("icons/*.svg")
+	var n []string
+	for _, f := range files {
+		n = append(n, strings.TrimSuffix(filepath.Base(f), ".svg"))
+	}
+	return n
 }
 
 func TestBrand(t *testing.T) {

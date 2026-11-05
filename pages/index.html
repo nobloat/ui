@@ -32,12 +32,12 @@
 <button disabled>Disabled</button>
 <button aria-busy="true">Sending</button>
 <button class="round" aria-label="refresh" title="refresh">↻</button>
-<details class="more"><summary class="btn">More ▾</summary><div class="menu">
+<details class="more"><summary class="btn">More <i class="icon-chevron-down" aria-hidden="true"></i></summary><div class="menu">
 <button>Duplicate <kbd>y</kbd></button><a href="#">Download PDF</a>
 <form method="post" action="/archive" data-confirm="Archive ACME GmbH?"><button class="danger">Archive…</button></form>
 </div></details>
 <button class="copy" data-copy="sk_live_3f2a9c">Copy key</button>
-<button class="round ico copy" data-copy="cus_0042" aria-label="copy id" title="copy id"></button>
+<button class="round copy" data-copy="cus_0042" aria-label="copy id" title="copy id"></button>
 </div>
 
 <h2>Messages</h2>
@@ -104,6 +104,20 @@
 <datalist id="tags"><option value="#consulting" label="Consulting"><option value="#retainer" label="Monthly retainer"><option value="#eu" label="EU reverse charge"><option value="#travel" label="Travel"><option value="#hosting" label="Hosting"></datalist>
 <datalist id="countries"><option value="AT"><option value="DE"><option value="CH"><option value="IT"></datalist>
 
+<h2>Upload</h2>
+<p>A drop zone with the supported files, and a plain button. Drag a file over this window: the zone lights up; over it, it says what will happen.</p>
+<form class="form" method="post" action="/upload" enctype="multipart/form-data">
+<span class="lab">documents</span>
+<label class="drop">
+<input type="file" name="files" multiple accept=".csv,.pdf,.png,.jpg" data-max="10485760">
+<i class="icon-upload" aria-hidden="true"></i>
+<span>Drop files here or <u>choose</u></span>
+<small>CSV, PDF, PNG or JPG · up to 10 MB each</small>
+</label>
+<span class="lab">logo</span>
+<span class="row"><label class="btn"><i class="icon-upload" aria-hidden="true"></i> Upload logo <input type="file" name="logo" accept=".svg,.png"></label><small class="muted">SVG or PNG, square, up to 1 MB</small></span>
+</form>
+
 <h2>Table, pager, empty state</h2>
 <table>
 <thead><tr><th></th><th aria-sort="ascending"><a href="?sort=name&amp;dir=desc">name</a></th><th class="hide-phone">tags</th><th class="num"><a href="?sort=open&amp;dir=desc">open</a></th><th class="num hide-phone">share</th></tr></thead>
@@ -114,7 +128,7 @@
 </tbody>
 <tfoot><tr><td></td><td>Σ 3</td><td class="hide-phone"></td><td class="num"><data class="money" value="222000">2.220,00 €</data></td><td class="hide-phone"></td></tr></tfoot>
 </table>
-<nav class="pager" aria-label="pages"><a rel="prev" href="#" class="off">← prev <kbd>[</kbd></a><span>1–50 of 128</span><a rel="next" href="#">next → <kbd>]</kbd></a></nav>
+<nav class="pager" aria-label="pages"><a rel="prev" href="#" class="off"><i class="icon-chevron-left" aria-hidden="true"></i> prev <kbd>p</kbd></a><span>1–50 of 128</span><a rel="next" href="#">next <i class="icon-chevron-right" aria-hidden="true"></i> <kbd>n</kbd></a></nav>
 <div class="empty"><span>No invoices yet.</span><a class="btn pri new" href="list.html">Create the first <kbd>c</kbd></a></div>
 
 <h2>Tabs</h2>

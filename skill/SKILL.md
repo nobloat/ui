@@ -66,12 +66,14 @@ Every object a user can find or open has an id with a type prefix: `cus_0042`, `
 
 ## Page anatomy
 
-- `.pagehead`: `h1` and the page's primary action. Lists: chips with counts and colored tags above, table, `.pager` (`[`/`]`) or filters, `.empty` with the create action when empty. Detail: crumbs, title with state, actions (primary visible, rest in `details.more`), tags, `.info` grid with copyable ids, tabs, history in `details.audit`.
+- `.pagehead`: `h1` and the page's primary action. Lists: chips with counts and colored tags above, table, `.pager` (`p`/`n`) or filters, `.empty` with the create action when empty. Detail: crumbs, title with state, actions (primary visible, rest in `details.more`), tags, `.info` grid with copyable ids, tabs, history in `details.audit`.
 - Dashboard (`dashboard` example): stat tiles first (`.tiles > a.tile`: label, value, delta, sparkline or meter; each tile links to its list), then "needs attention" (actionable rows with a button), then one or two charts, then recent activity. Only what the user acts on; no decoration.
 - Settings (`⚙`): account from the sign-in (name, username, email, groups, role, IdP, session, user id, link to manage the account, logout), preferences (`nb-prefs`: language, theme), then app settings, users, keys.
 
 ## Actions and icons
 
+- **Icons** come from the nobloat/ui set only (`icons/`, see the Icons example page): one class, `<i class="icon-cog" aria-hidden="true"></i>`, sized by the font, tinted by `color`. No other icon sets, no emoji, no Unicode glyphs as icons. New icons go into `icons/*.svg` in nobloat/ui (16×16, 1.5 stroke, round caps, currentColor) and `go test -update` there generates the CSS and the sprite.
+- **Use an icon where it is faster to read than the word alone**: every action button (before the text), icon-only header and row buttons (with `aria-label`), menus, pagers and steppers (chevrons step, arrows go somewhere), links out (`icon-external` after the text), messages (`info`, `warning`, `error`, `ok`), state next to its word, units in `.affix`, empty states. Not on every chip, tab or label: an icon that does not help reading is noise. The same action has the same icon everywhere.
 - Create, edit, delete and copy buttons always carry their icon: `class="new"`, `edit`, `del`, `copy` (on `button` or `.btn`); icon-only links `class="round ico cog"` etc. with `aria-label`. `.del` is red; every delete or public action has `data-confirm="…"` naming the object and the consequence.
 - A primary action per page (`.pri`), at most one. Every submit shows a spinner (`aria-busy`, automatic).
 - Shortcuts: `c` create, `e` edit, `Del` delete where it makes sense, shown as `<kbd>` in the button and in the keys line (`{{define "keys"}} · …{{end}}`).
@@ -84,7 +86,8 @@ Lists where users act on many objects get a checkbox column: `th.pick` with `inp
 
 - **Edit forms autosave**: `form[data-autosave]`, every change is posted (JSON answer `{rev}` or 4xx `{error, field, hint}`). Saved state is quiet: the field edge flashes once and `.saved` says "✓ saved 14:02"; never a toast. The submit button is `.nojs` (the no-JS path). Concurrent edits use a `rev` field.
 - **Create** cannot autosave (no object yet): a small form (dialog or page) with only the required fields and one `+ Create` button, then the user continues on the autosaving edit form.
-- **Errors** sit right under the field: the field gets `aria-invalid`, and `<span class="err">what is wrong<span class="hint">what is valid, with an example</span></span>`. The server renders the same markup without JS; ui.js shows the browser's own checks (`required`, `pattern` + `title`, `type`, `min`/`max`) the same way. Every pattern has a `title` that names a valid example.
+- **Errors** sit right under the field in one short line: the field gets `aria-invalid`, and `<span class="err">what is wrong<span class="valid">what is valid, with an example</span></span>` reads "Not a valid VAT id: ATU and 8 digits, e.g. ATU12345678". No second line, no explanation beyond the valid form. The server renders the same markup without JS; ui.js shows the browser's own checks (`required`, `pattern` + `title`, `type`, `min`/`max`) the same way. Every pattern has a `title` that names a valid example.
+- **Uploads**: a drop zone, `<label class="drop">` around `<input type="file" accept="…" data-max="bytes">` with an upload icon, "Drop … here or choose", and always the supported files and the size limit in `<small>`. ui.js highlights every zone while files are dragged over the window, says "release to add n files" over a zone, refuses what `accept`/`data-max` exclude with a field error, and lists the files with their sizes. A single file can be a button: `<label class="btn"><i class="icon-upload"></i> Upload logo <input type="file"></label>` with the supported files next to it. The server checks type and size again.
 - Single choice: `.seg` radios or `select`; several values: `data-pick` with a `datalist`; one value with suggestions: native `list`.
 
 ## Errors and the session
@@ -107,7 +110,7 @@ Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by 
 
 ## Keyboard (vim style)
 
-`g`+letter nav · `/` search · `Ctrl+K` or `:` palette · `?` help · `j`/`k` rows · `Enter` open · `h`/`l` tabs · `[`/`]` pages · `1`…`9` chips · `Esc` leave field, close, one breadcrumb up · `[data-key]` on any control. Page handlers: `window.pageKeys = {c: fn, 'C-Enter': fn, 'A-j': fn}` (return `false` to fall through). Handled keys never type into fields.
+`g`+letter nav · `/` search · `Ctrl+K` or `:` palette · `?` help · `j`/`k` rows · `Enter` open · `h`/`l` tabs · `p`/`n` pages · `1`…`9` chips · `Esc` leave field, close, one breadcrumb up · `[data-key]` on any control. Page handlers: `window.pageKeys = {c: fn, 'C-Enter': fn, 'A-j': fn}` (return `false` to fall through). Handled keys never type into fields. Shortcuts are letters, digits or keys that need at most Shift on a German/Austrian ISO layout (`/` `?` `:` included); never brackets, braces, backslash, `@` or anything else behind AltGr.
 
 ## Calendar
 

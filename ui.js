@@ -30,10 +30,10 @@ document.addEventListener('submit', async e => {
 // stored in localStorage, the <head> script applies it before first paint
 {
   const b = $('#theme'), root = document.documentElement, radios = document.querySelectorAll('input[name=nb-theme]');
-  const names = {'': ['◐', T['js.theme.auto'] || 'auto'], light: ['☀︎', T['js.theme.light'] || 'light'], dark: ['☾', T['js.theme.dark'] || 'dark']};
+  const names = {'': ['contrast', T['js.theme.auto'] || 'auto'], light: ['sun', T['js.theme.light'] || 'light'], dark: ['moon', T['js.theme.dark'] || 'dark']};
   const show = () => {
     const t = root.dataset.theme || '';
-    if (b) { b.textContent = names[t][0]; b.title = (T['js.theme'] || 'theme') + ': ' + names[t][1]; b.setAttribute('aria-label', b.title); b.hidden = false; }
+    if (b) { b.innerHTML = `<i class="icon-${names[t][0]}" aria-hidden="true"></i>`; b.title = (T['js.theme'] || 'theme') + ': ' + names[t][1]; b.setAttribute('aria-label', b.title); b.hidden = false; }
     radios.forEach(r => r.checked = r.value === t);
   };
   const set = t => {
@@ -45,7 +45,7 @@ document.addEventListener('submit', async e => {
   radios.forEach(r => r.onchange = () => set(r.value));
   show();
   const m = $('#menu'), nav = $('#nav');
-  if (m && nav) m.onclick = () => { const open = nav.classList.toggle('open'); m.setAttribute('aria-expanded', open); m.textContent = open ? '✕' : '☰'; };
+  if (m && nav) m.onclick = () => { const open = nav.classList.toggle('open'); m.setAttribute('aria-expanded', open); m.innerHTML = `<i class="icon-${open ? 'x' : 'menu'}" aria-hidden="true"></i>`; };
   // nav shortcut letters: underline the first matching letter of each label
   document.querySelectorAll('nav.app a[data-g]').forEach(a => {
     const t = a.textContent, i = t.toLowerCase().indexOf(a.dataset.g);
@@ -164,19 +164,20 @@ document.addEventListener('change', e => { // capture: runs before autosave send
   el.value = money.format(c, ex);
 }, true);
 
-// field errors: the field gets aria-invalid and, right under it, <span class="err">what is wrong<span class="hint">what is valid</span></span>.
+// field errors: the field gets aria-invalid and, right under it, <span class="err">what is wrong<span class="valid">what is valid</span></span>.
 // The server renders the same markup without JS. The hint comes from the answer, data-hint or the field's title.
 window.fieldError = (el, msg, hint) => {
   const id = (el.id || el.name) + '-err';
   let e = document.getElementById(id);
   if (!msg) { e?.remove(); el.removeAttribute('aria-invalid'); el.setAttribute('aria-describedby', (el.getAttribute('aria-describedby') || '').replace(id, '').trim()); return; }
   if (!e) { e = document.createElement('span'); e.className = 'err'; e.id = id; e.setAttribute('role', 'alert'); (el.closest('.form > label:has(input)') || el.closest('.range, .seg') || el).after(e); }
-  e.innerHTML = esc(msg) + ((hint = hint || el.dataset.hint || el.title) ? `<span class="hint">${esc(hint)}</span>` : '');
+  e.innerHTML = esc(msg.replace(/[.\s]+$/, '')) + ((hint = hint || el.dataset.hint || el.title) ? `<span class="valid">${esc(hint)}</span>` : ''); // one line: what is wrong: what is valid
   el.setAttribute('aria-invalid', 'true');
   if (!(el.getAttribute('aria-describedby') || '').includes(id)) el.setAttribute('aria-describedby', ((el.getAttribute('aria-describedby') || '') + ' ' + id).trim());
 };
 // the browser's own checks (required, pattern, type, min/max) show the same way instead of a bubble
-document.addEventListener('invalid', e => { e.preventDefault(); fieldError(e.target, e.target.validationMessage); }, true);
+// short words instead of the browser's long sentences when the field says what is valid (title, data-hint)
+document.addEventListener('invalid', e => { const el = e.target; e.preventDefault(); fieldError(el, el.validity.valueMissing ? (T['js.required'] || 'required') : (el.title || el.dataset.hint) ? (T['js.invalid'] || 'not valid') : el.validationMessage); }, true);
 document.addEventListener('input', e => { if (e.target.getAttribute?.('aria-invalid') && e.target.checkValidity()) fieldError(e.target); });
 
 // autosave: <form data-autosave> posts the form on every change (Accept: application/json). The answer is {rev?}
@@ -208,7 +209,7 @@ document.addEventListener('change', async e => {
 });
 
 // keyboard, vim style. Page handlers first (window.pageKeys = {key: fn}, return false to fall through), then:
-// g+letter nav · / search · ? help · Ctrl+K or : palette · j/k rows · Enter open · h/l tabs · [ ] pages · 1-9 chips · Esc up · [data-key] click
+// g+letter nav · / search · ? help · Ctrl+K or : palette · j/k rows · Enter open · h/l tabs · p/n pages · 1-9 chips · Esc up · [data-key] click
 {
   let g = false, sel = -1;
   const rows = () => [...document.querySelectorAll('main tr[data-href]')];
@@ -238,7 +239,7 @@ document.addEventListener('change', async e => {
       j: () => step(1), k: () => step(-1),
       Enter: () => { if (r[sel]) location = r[sel].dataset.href; },
       h: () => go(tabs[cur - 1]), l: () => go(tabs[cur + 1]),
-      '[': () => go($('.pager a[rel=prev]')), ']': () => go($('.pager a[rel=next]')),
+      p: () => go($('.pager a[rel=prev]:not(.off)')), n: () => go($('.pager a[rel=next]:not(.off)')), // letters: same key on every layout (no AltGr on de/ISO)
       Escape: () => { const on = [...document.querySelectorAll('td.pick input:checked')]; if (on.length) { on.forEach(b => b.checked = false); on[0].dispatchEvent(new Event('change', {bubbles: true})); } else go([...document.querySelectorAll('a.up')].pop()); }, // clear the selection, else one breadcrumb up
     };
     const chip = /^[1-9]$/.test(e.key) && visible('main .chips a.chip')[+e.key - 1];
@@ -251,6 +252,47 @@ document.addEventListener('change', async e => {
     const tr = e.target.closest('tr[data-href]');
     if (tr && !e.target.closest('a, button, input, select, label')) location = tr.dataset.href;
   });
+}
+
+// uploads: <label class="drop"> around an <input type="file" accept=… data-max=bytes>. While files are dragged over the window
+// every zone shows .ready; over a zone .over ("release to add n files"). Dropped or chosen files are checked against accept
+// and data-max (refused ones get a field error), listed with their size, and the input fires change (autosave, forms).
+{
+  const zones = () => [...document.querySelectorAll('label.drop')];
+  const size = b => b < 1024 ? b + ' B' : b < 1048576 ? Math.round(b / 1024) + ' KB' : (b / 1048576).toFixed(1) + ' MB';
+  const fits = (f, accept) => !accept || accept.split(',').map(a => a.trim().toLowerCase()).some(a =>
+    a.startsWith('.') ? f.name.toLowerCase().endsWith(a) : a.endsWith('/*') ? f.type.startsWith(a.slice(0, -1)) : f.type === a);
+  const take = (zone, files) => {
+    const inp = $('input[type=file]', zone), max = +inp.dataset.max || Infinity, dt = new DataTransfer(), bad = [];
+    for (const f of files) (fits(f, inp.accept) && f.size <= max ? dt.items.add(f) : bad.push(f.name + (f.size > max ? ' (' + size(f.size) + ')' : '')));
+    if (!inp.multiple) while (dt.items.length > 1) dt.items.remove(1);
+    inp.files = dt.files;
+    let list = $('.files', zone);
+    if (!list) { list = document.createElement('ul'); list.className = 'files'; zone.append(list); }
+    list.innerHTML = [...dt.files].map(f => `<li><i class="icon-file" aria-hidden="true"></i>${esc(f.name)} <span class="muted">${size(f.size)}</span></li>`).join('');
+    fieldError(inp, bad.length ? (T['js.drop.refused'] || 'not supported') + ': ' + bad.join(', ') : '', bad.length ? $('small', zone)?.textContent : '');
+    inp.dispatchEvent(new Event('change', {bubbles: true}));
+  };
+  let depth = 0;
+  const has = e => [...(e.dataTransfer?.types || [])].includes('Files');
+  addEventListener('dragenter', e => { if (has(e) && depth++ === 0) zones().forEach(z => z.classList.add('ready')); });
+  addEventListener('dragleave', e => { if (has(e) && --depth === 0) zones().forEach(z => z.classList.remove('ready', 'over')); });
+  addEventListener('dragover', e => {
+    if (!has(e)) return;
+    e.preventDefault(); // a drop outside a zone must not open the file
+    const z = e.target.closest?.('label.drop');
+    zones().forEach(x => x.classList.toggle('over', x === z));
+    if (z) { e.dataTransfer.dropEffect = 'copy'; const n = e.dataTransfer.items.length; $('.hint-drop', z) ?? z.append(Object.assign(document.createElement('b'), {className: 'hint-drop'})); $('.hint-drop', z).textContent = (T['js.drop.release'] || 'release to add {n} files').replace('{n}', n); }
+  });
+  addEventListener('drop', e => {
+    if (!has(e)) return;
+    e.preventDefault();
+    depth = 0;
+    const z = e.target.closest?.('label.drop');
+    zones().forEach(x => { x.classList.remove('ready', 'over'); $('.hint-drop', x)?.remove(); });
+    if (z) take(z, e.dataTransfer.files);
+  });
+  document.addEventListener('change', e => { const z = e.target.closest?.('label.drop'); if (z && e.isTrusted) take(z, e.target.files); });
 }
 
 // overflow menus open towards the side with room

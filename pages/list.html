@@ -30,11 +30,11 @@
 </dialog>
 <form id="bulk" class="bulkbar" method="post" action="/customers/bulk">
 <span class="n">select rows to act on several at once</span>
-<button name="do" value="export">Export CSV</button>
-<button name="do" value="archive" class="danger" data-confirm-n="Archive {n} customers? They disappear from lists, invoices stay.">Archive…</button>
+<button name="do" value="export"><i class="icon-download" aria-hidden="true"></i> Export CSV</button>
+<button name="do" value="archive" class="danger" data-confirm-n="Archive {n} customers? They disappear from lists, invoices stay."><i class="icon-archive" aria-hidden="true"></i> Archive…</button>
 <button name="do" value="delete" class="del" data-confirm-n="Delete {n} customers for good? This cannot be undone.">Delete…</button>
 </form>
-<nav class="pager" aria-label="pages"><a rel="prev" href="?page=1">← prev <kbd>[</kbd></a><span>51–55 of 55</span><a rel="next" href="#" class="off">next → <kbd>]</kbd></a></nav>
+<nav class="pager" aria-label="pages"><a rel="prev" href="?page=1"><i class="icon-chevron-left" aria-hidden="true"></i> prev <kbd>p</kbd></a><span>51–55 of 55</span><a rel="next" href="#" class="off">next <i class="icon-chevron-right" aria-hidden="true"></i> <kbd>n</kbd></a></nav>
 {{end}}
 {{define "keys"}} · <kbd>j</kbd>/<kbd>k</kbd> row · <kbd>x</kbd> select · <kbd>Enter</kbd> open · <kbd>c</kbd> new · <kbd>1</kbd>…<kbd>9</kbd> filter{{end}}
 {{define "scripts"}}<script src="demo.js"></script>{{end}}

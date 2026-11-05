@@ -1,0 +1,49 @@
+{{template "nb-layout" .}}
+{{define "main"}}
+<div class="pagehead"><h1>Icons</h1><span class="muted">{{len icons}} icons, 16×16, 1.5 stroke, drawn in currentColor</span></div>
+<p>Use like a font: <code>&lt;i class="icon-cog" aria-hidden="true"&gt;&lt;/i&gt;</code>. The size is the font size, the color is the text color. An icon that carries meaning alone gets <code>role="img" aria-label="…"</code>; an icon-only button gets <code>aria-label</code> on the button. Also as a sprite (<code>&lt;svg width="1em" height="1em"&gt;&lt;use href="/static/icons.svg#cog"/&gt;&lt;/svg&gt;</code>, for places without ui.css) and as single files in <code>icons/</code>.</p>
+
+<h2>All</h2>
+<ul class="iconset">
+{{range icons}}<li><i class="icon-{{.}}" aria-hidden="true"></i><code>{{.}}</code></li>
+{{end}}</ul>
+
+<h2>Colors</h2>
+<p class="muted">Text tokens for plain icons, the accent for interactive ones, state colors only for state (as <code>--c-text</code>, so they keep their contrast).</p>
+<div class="iconrows">
+<p><span class="lab">--fg</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+<p class="muted"><span class="lab">--muted</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+<p style="color:var(--accent)"><span class="lab">--accent</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+<p class="tint ok"><span class="lab">ok</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+<p class="tint pend"><span class="lab">pend</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+<p class="tint bad"><span class="lab">bad</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+<p class="tint run"><span class="lab">run</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+</div>
+
+<h2>Sizes</h2>
+<div class="iconrows">
+{{range $px := sizes}}<p style="font-size:{{$px}}px"><span class="lab" style="font-size:14px">{{$px}} px</span>{{range icons}}<i class="icon-{{.}}" aria-hidden="true"></i>{{end}}</p>
+{{end}}</div>
+
+<h2>In buttons and elsewhere</h2>
+<p class="muted">An icon goes before the text, the same size as the text; an icon alone needs <code>aria-label</code> on its button or link. Create, edit, delete and copy get their icon from the class alone (<code>.new .edit .del .copy</code>).</p>
+<table class="keep">
+<thead><tr><th>where</th><th>looks</th><th>markup</th></tr></thead>
+<tbody>
+<tr><td>primary action</td><td><button class="pri new">New customer</button></td><td><code>&lt;button class="pri new"&gt;New customer&lt;/button&gt;</code></td></tr>
+<tr><td>edit, delete, copy</td><td><span class="row"><button class="edit">Edit</button><button class="del">Delete</button><button class="copy">Copy</button></span></td><td><code>&lt;button class="edit"&gt;Edit&lt;/button&gt;</code></td></tr>
+<tr><td>any other action</td><td><span class="row"><button><i class="icon-download" aria-hidden="true"></i> Export CSV</button><button><i class="icon-send" aria-hidden="true"></i> Send</button><button><i class="icon-euro" aria-hidden="true"></i> Payment</button><button class="danger"><i class="icon-archive" aria-hidden="true"></i> Archive…</button></span></td><td><code>&lt;button&gt;&lt;i class="icon-download" aria-hidden="true"&gt;&lt;/i&gt; Export CSV&lt;/button&gt;</code></td></tr>
+<tr><td>with a shortcut</td><td><button class="pri"><i class="icon-send" aria-hidden="true"></i> Send <kbd>s</kbd></button></td><td><code>…Send &lt;kbd&gt;s&lt;/kbd&gt;</code></td></tr>
+<tr><td>icon only</td><td><span class="row"><button class="round" aria-label="refresh" title="refresh"><i class="icon-refresh" aria-hidden="true"></i></button><button class="round" aria-label="print" title="print"><i class="icon-print" aria-hidden="true"></i></button><button class="round copy" aria-label="copy id" title="copy id"></button><a class="round" href="#" aria-label="settings" title="settings"><i class="icon-cog" aria-hidden="true"></i></a></span></td><td><code>&lt;button class="round" aria-label="refresh"&gt;&lt;i class="icon-refresh"…</code></td></tr>
+<tr><td>link out</td><td><a class="btn" href="#">Open in auth <i class="icon-external" aria-hidden="true"></i></a> <a href="#">docs <i class="icon-external" aria-hidden="true"></i></a></td><td>icon after the text: it says where you go</td></tr>
+<tr><td>menu</td><td><details class="more"><summary class="btn">More <i class="icon-chevron-down" aria-hidden="true"></i></summary><div class="menu"><button><i class="icon-copy" aria-hidden="true"></i> Duplicate</button><button><i class="icon-print" aria-hidden="true"></i> Print</button><button class="danger"><i class="icon-archive" aria-hidden="true"></i> Archive…</button></div></details></td><td><code>&lt;summary class="btn"&gt;More &lt;i class="icon-chevron-down"…</code></td></tr>
+<tr><td>pager, steps</td><td><span class="row"><a class="btn" href="#" aria-label="previous"><i class="icon-chevron-left" aria-hidden="true"></i></a><a class="btn" href="#" aria-label="next"><i class="icon-chevron-right" aria-hidden="true"></i></a><a href="#"><i class="icon-arrow-left" aria-hidden="true"></i> back</a></span></td><td>chevrons step, arrows go somewhere</td></tr>
+<tr><td>chips, tabs</td><td><span class="chips" style="margin:0"><a class="chip on" href="#"><i class="icon-list" aria-hidden="true"></i> all<span class="n">42</span></a><a class="chip" href="#"><i class="icon-star" aria-hidden="true"></i> starred<span class="n">3</span></a></span></td><td>sparingly: only when the icon is the faster read</td></tr>
+<tr><td>messages</td><td><p class="warn" style="margin:0"><i class="icon-warning" aria-hidden="true"></i> October is not closed.</p></td><td>info, warning, error, ok</td></tr>
+<tr><td>state</td><td><span class="tint ok"><i class="icon-ok" aria-hidden="true"></i></span> up <span class="tint bad"><i class="icon-error" aria-hidden="true"></i></span> down <span class="tint pend"><i class="icon-clock" aria-hidden="true"></i></span> waiting</td><td><code>&lt;i class="icon-ok" role="img" aria-label="up"&gt;</code> plus a word</td></tr>
+<tr><td>input</td><td><span class="affix"><input aria-label="amount" value="1.240,00" inputmode="decimal"><span><i class="icon-euro" aria-hidden="true"></i></span></span></td><td>as the unit of an <code>.affix</code></td></tr>
+<tr><td>empty state</td><td><div class="empty" style="margin:0;padding:1rem"><span style="font-size:2rem"><i class="icon-folder" aria-hidden="true"></i></span><span>No files yet.</span></div></td><td>one large muted icon above the text</td></tr>
+</tbody>
+</table>
+{{end}}
+{{define "scripts"}}<script src="demo.js"></script>{{end}}

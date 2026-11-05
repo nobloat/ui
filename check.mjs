@@ -24,7 +24,7 @@ import {pathToFileURL} from 'node:url';
 }
 
 const app = process.argv.slice(2);
-const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', '404', '403', '500', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
+const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'icons', '404', '403', '500', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
 const designs = app.length ? [''] : ['', 'nordic'], themes = ['light', 'dark'], widths = [320, 390, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);
@@ -134,7 +134,7 @@ const probe = () => {
   if (document.querySelectorAll('main h1').length !== 1) add('a11y', `${document.querySelectorAll('main h1').length} h1 in main`);
   // targets: at least 24×24, or nothing else within 12 px of the centre (WCAG 2.5.8); links inside text are exempt
   const targets = all.filter(e => e.matches('button, .btn, .chip, nav a, .tabs a, summary, select, input:not([type=hidden]), .pager a, .logo, header.app .right a, .tag') && !e.closest('p, li:not(.card), .info, td:not(.num), .menu'));
-  const box = el => (el.matches('input[type=checkbox], input[type=radio]') && el.closest('label')) ? el.closest('label').getBoundingClientRect() : el.getBoundingClientRect();
+  const box = el => (el.matches('input[type=checkbox], input[type=radio], input[type=file]') && el.closest('label')) ? el.closest('label').getBoundingClientRect() : el.getBoundingClientRect();
   for (const el of targets) {
     const r = box(el);
     if (r.width >= 24 - .5 && r.height >= 24 - .5) continue;

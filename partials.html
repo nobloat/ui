@@ -36,7 +36,7 @@ The page value (dot) needs:
 {{define "nb-logo"}}<a href="/" class="logo" aria-label="{{template "nb-name" .}}">{{with .Brand.Logo}}<img class="light" src="{{.}}" alt="">{{with $.Brand.LogoDark}}<img class="dark" src="{{.}}" alt="">{{end}}{{else}}{{template "nb-mark" .Brand.Char}}<span class="name">{{.Brand.App}}</span>{{end}}</a>{{end}}
 
 {{define "nb-langtheme"}}<span class="prefs"><span><a href="/lang/de?rd={{.Here}}"{{if eq .Lang "de"}} class="on" aria-current="true"{{end}}>de</a> · <a href="/lang/en?rd={{.Here}}"{{if eq .Lang "en"}} class="on" aria-current="true"{{end}}>en</a></span>
-<button type="button" id="theme" class="round" hidden>◐</button></span>{{end}}
+<button type="button" id="theme" class="round" hidden><i class="icon-contrast" aria-hidden="true"></i></button></span>{{end}}
 
 {{/* language and theme as settings rows; on phones the header hides them, so the settings page must include this */}}
 {{define "nb-prefs"}}<span class="lab">{{.T "prefs.lang"}}</span><span class="seg"><a href="/lang/de?rd={{.Here}}"{{if eq .Lang "de"}} class="on" aria-current="true"{{end}}>deutsch</a><a href="/lang/en?rd={{.Here}}"{{if eq .Lang "en"}} class="on" aria-current="true"{{end}}>english</a></span>
@@ -54,9 +54,9 @@ The page value (dot) needs:
 <span class="right">
 {{template "nb-langtheme" .}}
 {{with .User}}{{if $.UserURL}}<a class="who" href="{{$.UserURL}}">{{.}}</a>{{else}}<span class="who">{{.}}</span>{{end}}{{end}}
-{{with .SettingsURL}}<a class="round ico cog" href="{{.}}" title="{{$.T "nav.settings"}}" aria-label="{{$.T "nav.settings"}}"></a>{{end}}
-{{with .LogoutURL}}<a class="round" href="{{.}}" title="{{$.T "nav.logout"}}" aria-label="{{$.T "nav.logout"}}">⏻</a>{{end}}
-{{if .Nav}}<button type="button" id="menu" class="round" aria-label="{{.T "nav.menu"}}" aria-expanded="false">☰</button>{{end}}
+{{with .SettingsURL}}<a class="round" href="{{.}}" title="{{$.T "nav.settings"}}" aria-label="{{$.T "nav.settings"}}"><i class="icon-cog" aria-hidden="true"></i></a>{{end}}
+{{with .LogoutURL}}<a class="round" href="{{.}}" title="{{$.T "nav.logout"}}" aria-label="{{$.T "nav.logout"}}"><i class="icon-power" aria-hidden="true"></i></a>{{end}}
+{{if .Nav}}<button type="button" id="menu" class="round" aria-label="{{.T "nav.menu"}}" aria-expanded="false"><i class="icon-menu" aria-hidden="true"></i></button>{{end}}
 </span>
 </header>
 {{with .Nav}}<nav class="app" id="nav">
@@ -80,7 +80,7 @@ The page value (dot) needs:
 <tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>{{.T "help.jk"}}</td></tr>
 <tr><td><kbd>Enter</kbd></td><td>{{.T "help.enter"}}</td></tr>
 <tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>{{.T "help.hl"}}</td></tr>
-<tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>{{.T "help.pages"}}</td></tr>
+<tr><td><kbd>p</kbd> <kbd>n</kbd></td><td>{{.T "help.pages"}}</td></tr>
 <tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>{{.T "help.chips"}}</td></tr>
 <tr><td><kbd>x</kbd></td><td>{{.T "help.x"}}</td></tr>
 <tr><td><kbd>Esc</kbd></td><td>{{.T "help.esc"}}</td></tr>
