@@ -72,15 +72,7 @@
     if ((opt.method || 'GET') === 'POST') return new Response('{}');
     return real(url, opt);
   };
-  const toast = text => {
-    let box = document.querySelector('.toasts');
-    if (!box) { box = document.createElement('div'); box.className = 'toasts'; document.body.append(box); }
-    const p = document.createElement('p');
-    p.className = 'flash ok';
-    p.textContent = text;
-    box.append(p);
-    setTimeout(() => p.remove(), 3000);
-  };
+  const toast = t => window.toast(t, true); // ui.js's toast, as a success
   // forms and server links have no server here: show what would happen instead
   document.addEventListener('submit', e => {
     const f = e.target;

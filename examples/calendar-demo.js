@@ -2,16 +2,8 @@
 // (location.reload() or morph); here the boxes change in place and a toast says what would be saved.
 {
   const cal = document.getElementById('cal'), dlg = document.getElementById('ev-dlg');
+  const toast = t => window.toast(t, true); // ui.js's toast, as a success
   const colors = {acme: '#2563eb', globex: '#db2777', intern: '#059669', hooli: '#d97706'};
-  const toast = text => {
-    let box = document.querySelector('.toasts');
-    if (!box) { box = document.createElement('div'); box.className = 'toasts'; document.body.append(box); }
-    const p = document.createElement('p');
-    p.className = 'flash ok';
-    p.textContent = text;
-    box.append(p);
-    setTimeout(() => p.remove(), 3000);
-  };
   const min = t => +t.slice(0, 2) * 60 + +t.slice(3);
   let n = 100;
 
