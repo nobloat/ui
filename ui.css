@@ -676,6 +676,7 @@ details.audit { padding: .6rem 1rem; }
   :is(button, .btn):is(.new, .edit, .del, .copy):not(.round, .pri):not(dialog *)::before { width: 1.05rem; height: 1.05rem; margin: 0; vertical-align: middle; }
   main :is(.pagehead, .row) > :is(button, .btn).pri:not(dialog *) { flex: 1 0 100%; text-align: center; padding-block: .5rem; }
   main :is(.pagehead, .row) > :is(button, .btn).pri:not(dialog *) kbd { display: none; }
+  main .row > .cancel:not(dialog *) { display: none; } /* a page form's Cancel: "← parent" and Back do the same; dialogs keep theirs */
   header.app .prefs { display: none; } /* language and theme live on the settings page on phones */
   .rows > li { flex-wrap: wrap; }
   .rows > li > .main { flex-basis: 0; }

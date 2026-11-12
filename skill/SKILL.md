@@ -36,7 +36,7 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 - Header: search on its own row, nav behind ☰ as a vertical list, language and theme only on the settings page.
 - Tables become one card per row with "label … value" lines (labels from `<thead>`, set by ui.js; all columns shown, numbers right). A table that must stay a table gets `class="keep"`. Short lists of objects use a row list instead (see Data display), not a table that turns into tall cards.
 - Forms one column; overflow menus become a bottom sheet; toasts full width at the bottom.
-- Create, edit, delete and copy buttons show only their icon; the text stays for screen readers. The page's primary action (`.pri`) keeps its text and spans the full width, in the page head (under the title) and at a form's end.
+- Create, edit, delete and copy buttons show only their icon; the text stays for screen readers. The page's primary action (`.pri`) keeps its text and spans the full width, in the page head (under the title) and at a form's end. A page form's Cancel (`class="cancel"`, a link to where the user came from) is hidden: "← parent" and Back do the same; a dialog keeps its Cancel.
 - `kbd` hints disappear on touch: every shortcut also has a visible control.
 
 ## Accessibility (WCAG 2.2 AA, checked)
