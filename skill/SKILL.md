@@ -34,9 +34,9 @@ Both first-class. The page follows the OS; ◐ in the header (desktop) or the th
 
 Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40rem.
 - Header: search on its own row, nav behind ☰ as a vertical list, language and theme only on the settings page.
-- Tables become one card per row with "label … value" lines (labels from `<thead>`, set by ui.js; all columns shown, numbers right). A table that must stay a table gets `class="keep"`.
+- Tables become one card per row with "label … value" lines (labels from `<thead>`, set by ui.js; all columns shown, numbers right). A table that must stay a table gets `class="keep"`. Short lists of objects use a row list instead (see Data display), not a table that turns into tall cards.
 - Forms one column; overflow menus become a bottom sheet; toasts full width at the bottom.
-- Create, edit, delete and copy buttons show only their icon; the text stays for screen readers.
+- Create, edit, delete and copy buttons show only their icon; the text stays for screen readers. The page's primary action (`.pri`) keeps its text and spans the full width, in the page head (under the title) and at a form's end.
 - `kbd` hints disappear on touch: every shortcut also has a visible control.
 
 ## Accessibility (WCAG 2.2 AA, checked)
@@ -69,7 +69,7 @@ Every object a user can find or open has an id as a ticket key: a type key of 3 
 
 ## Page anatomy
 
-- `.pagehead`: `h1` and the page's primary action. Lists: chips with counts and colored tags above, table, `.pager` (`p`/`n`) or filters, `.empty` with the create action when empty. Detail: crumbs, title with state, actions (primary visible, rest in `details.more`), tags, `.info` grid with copyable ids, tabs, history in `details.audit`.
+- `.pagehead`: `h1` and the page's actions, right of the title (on phones under it). Actions never sit alone at the bottom of a page; only a form's own submit sits at the form's end. Lists: chips with counts and colored tags above, table, `.pager` (`p`/`n`) or filters, `.empty` with the create action when empty. Detail: crumbs, title with state, actions (primary visible; a `details.more` menu only from three further actions on, one or two are plain buttons next to it), tags, `.info` grid with copyable ids (one or two self-explanatory facts, such as a link and a count, are a muted line instead of a label grid), tabs, history in `details.audit`.
 - Dashboard (`dashboard` example): stat tiles first (`.tiles > a.tile`: label, value, delta, sparkline or meter; each tile links to its list), then "needs attention" (actionable rows with a button), then one or two charts, then recent activity. Only what the user acts on; no decoration.
 - Settings (`⚙`): account from the sign-in (name, username, email, groups, role, IdP, session, user id, link to manage the account, logout), preferences (`nb-prefs`: language, theme, design), then app settings, users, keys.
 
@@ -77,7 +77,7 @@ Every object a user can find or open has an id as a ticket key: a type key of 3 
 
 - **Icons** come from the nobloat/ui set only (`icons/`, see the Icons example page): one class, `<i class="icon-cog" aria-hidden="true"></i>`, sized by the font, tinted by `color`. No other icon sets, no emoji, no Unicode glyphs as icons. The style is "precise": 16×16, 1.25 stroke, square ends, sharp joins, currentColor. A missing icon is added to nobloat/ui first (README: Adding an icon), never drawn inside an app.
 - **Use an icon where it is faster to read than the word alone**: every action button (before the text), icon-only header and row buttons (with `aria-label`), menus, pagers and steppers (chevrons step, arrows go somewhere), links out (`icon-external` after the text), messages (`info`, `warning`, `error`, `ok`), state next to its word, units in `.affix`, empty states. Not on every chip, tab or label: an icon that does not help reading is noise. The same action has the same icon everywhere.
-- Create, edit, delete and copy buttons always carry their icon: `class="new"`, `edit`, `del`, `copy` (on `button` or `.btn`); icon-only links `class="round ico cog"` etc. with `aria-label`. `.del` is red; every delete or public action has `data-confirm="…"` naming the object and the consequence, optionally with `data-confirm-title="Delete ACME GmbH?"` as the question and the text as the consequence. Dialogs always have an `h2` title (`aria-labelledby`).
+- Create, edit, delete and copy buttons always carry their icon: `class="new"`, `edit`, `del`, `copy` (on `button` or `.btn`). `.new` means "create an object"; adding a row or a value inside a form ("+ time", "Add dates") is a plain button with `<i class="icon-plus">` or a fitting icon and its text, so phones do not show several identical bare "+"; icon-only links `class="round ico cog"` etc. with `aria-label`. `.del` is red; every delete or public action has `data-confirm="…"` naming the object and the consequence, optionally with `data-confirm-title="Delete ACME GmbH?"` as the question and the text as the consequence. Dialogs always have an `h2` title (`aria-labelledby`).
 - A primary action per page (`.pri`), at most one. Every submit shows a spinner (`aria-busy`, automatic).
 - Shortcuts: `c` create, `e` edit, `Del` delete where it makes sense, shown as `<kbd>` in the button and in the keys line (`{{define "keys"}} · …{{end}}`).
 
@@ -105,6 +105,7 @@ Lists where users act on many objects get a checkbox column: `th.pick` with `inp
 - **Money**: integer cents on the server, format configured by example (`1.234,56`, `{amount} {symbol}`). Always with the currency. `<data class="money" value="cents">`. No sign: neutral (prices, totals, balances). Explicit `+` green (`.pos`), explicit `−` red (`.neg`), a real minus sign. Inputs: `.affix` with the unit and `data-money="1.234,56"` (accepts both conventions, rewrites to the example, refuses the rest with a hint).
 - **Dates**: native inputs only (`date`, `time step="900"`, `datetime-local`, `month`, `week`), ISO on the wire. Lists show ISO dates; recent events relative with the exact time in `title`; durations `h:mm`. Ranges: preset chips (links) plus a from–to form.
 - **Tags**: `a.tag`; a user-chosen color is `style="--c:#…"` (tinted pill, text keeps full contrast), picked from `.swatches` (preset colors safe on light and dark, plus a `value="custom"` radio and a native `input[type=color] name="custom"`; the server takes `custom` when that radio is checked).
+- **Lists**: a `table` when people compare values across columns (sortable, many rows, money); a row list `ul.rows` for short lists of objects with a few short facts: `<li id="PRJ-WEBSITE" data-href="…">` with a `.dot`, `a.main` (the title, shortened with …), `.meta` (muted: who · when), `.num`, row buttons. One hairline row each; on phones `.meta` moves to a second line instead of a card per row. `j`/`k`, `Enter` and the selected row (`#id`) work as in tables.
 - **Status**: `.dot.ok/.pend/.bad/.run/.off` or `.st` glyphs, always labeled.
 - **Messages**: `.flash` (error), `.flash.ok`, `.warn`, `.banner` (info); one sentence, or `<strong>title</strong>` plus text when it needs both; the icon comes from the class. Server flashes become toasts; saving never shows one.
 - **Toasts are always closable**: every toast has an × button that removes it at once; errors stay until closed, successes fade after 5 s. Client messages use ui.js's `toast(text, ok)`, never an app's own toast code, so a toast can never sit over the page with no way to dismiss it.
@@ -116,7 +117,7 @@ Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by 
 
 ## Keyboard (vim style)
 
-`g`+letter nav · `/` search · `Ctrl+K` or `:` palette · `?` help · `j`/`k` rows · `Enter` open · `h`/`l` tabs · `p`/`n` pages · `1`…`9` chips · `Esc` leave field, close, one breadcrumb up · `[data-key]` on any control. Page handlers: `window.pageKeys = {c: fn, 'C-Enter': fn, 'A-j': fn}` (return `false` to fall through). Handled keys never type into fields. Shortcuts are letters, digits or keys that need at most Shift on a German/Austrian ISO layout (`/` `?` `:` included); never brackets, braces, backslash, `@` or anything else behind AltGr.
+`g`+letter nav · `/` search · `Ctrl+K` or `:` palette · `?` help · `j`/`k` rows · `Enter` open · `h`/`l` tabs · `p`/`n` pages · `1`…`9` chips · `Esc` leave field, close, one breadcrumb up · `[data-key]` on any control. Page handlers: `window.pageKeys = {c: fn, 'C-Enter': fn, 'A-j': fn}` (return `false` to fall through). Handled keys never type into fields. Options of a form (checkboxes, radios, choices a user votes on) get no letter or digit keys: a stray key would pick one; `1`…`9` are for chips only. Shortcuts are letters, digits or keys that need at most Shift on a German/Austrian ISO layout (`/` `?` `:` included); never brackets, braces, backslash, `@` or anything else behind AltGr.
 
 ## Calendar
 
@@ -124,8 +125,8 @@ Server-rendered, minimal, from `chart.go` and CSS; no library. Pick the form by 
 
 ## Before a page is done
 
-- Started from an example page; no component restyled in `app.css` (not `body` either: the designs set its padding and win); no bare colors.
+- Started from an example page; no component restyled in `app.css` (not `body` either: the designs set its padding and win); no bare colors. App class names do not reuse ui's (`.results`, `.rows`, `.info`…). ui's section headings (`main h2`) are styled at element weight, so an app's own component can style its `h2`; `.card h2` is a flex row (spaces between its parts collapse: use a gap or separate elements).
 - Checked desktop and phone, light and dark (`examples/preview.html` style, or the app at 390 px in DevTools).
-- `node ../ui/check.mjs <app urls>` reports 0 problems.
+- `node ../ui/check.mjs <app urls>` reports 0 problems. That only rules out layout and accessibility faults: also screenshot every page at desktop and phone width and look at it (alignment, wasted space, wrapping, crowding) before it counts as done.
 - Works without JS (forms post, links filter); keyboard only works too.
 - Every state of the page survives a reload and a copied link (deep links).
