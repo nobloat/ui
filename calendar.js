@@ -5,11 +5,14 @@
 //              cal:open   {id, el}                    click or Enter on an entry (default: follow its href)
 //              cal:delete {id, el}                    Del or Backspace on the selected entry
 // call event.preventDefault() on cal:open to handle it yourself. Read-only entries: [data-ro]; closed days: [data-closed].
+// #cal[data-now] is the server's current minute of the day (its timezone, like .hd.today); c creates the entry there.
+// An entry stays inside its day: moving or nudging keeps its length and stops at 24:00.
 // Without JS every entry is a link and the page offers a "new" link: nothing depends on this file.
 {
   const $ = (s, el = document) => el.querySelector(s);
   const cal = $('#cal');
   const snap = +(cal?.dataset.snap || 15);
+  const loaded = Date.now(); // data-now plus the minutes the page has been open
   const phone = () => matchMedia('(max-width: 40rem)').matches;
   const pad = n => String(n).padStart(2, '0');
   const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);
@@ -75,7 +78,7 @@
         const day = document.elementFromPoint(e.clientX, e.clientY)?.closest('#cal .day:not([data-closed])') || drag.day;
         if (day !== drag.ev.parentElement) day.append(drag.ev);
         drag.day = day;
-        drag.start = clamp(minOf(day, e.clientY) - drag.offset, 0, 1440 - snap);
+        drag.start = clamp(minOf(day, e.clientY) - drag.offset, 0, 1440 - drag.len);
         place(drag.ev, drag.start, drag.len);
       } else {
         drag.len = Math.max(minOf(drag.day, e.clientY) - drag.start, snap);
@@ -117,7 +120,7 @@
   const mv = d => () => { ci = clamp(ci + d, 0, cells.length - 1); markDay(); };
 
   const nav = dir => { const l = all(), i = l.indexOf(sel); if (l.length) select(l[i < 0 ? (dir > 0 ? 0 : l.length - 1) : clamp(i + dir, 0, l.length - 1)]); };
-  const nudge = (ds, dl) => { if (sel && !sel.hasAttribute('data-ro')) { const s = clamp(top(sel) + ds, 0, 1440 - snap), l = Math.max(len(sel) + dl, snap); place(sel, s, l); change(sel, s, l); } };
+  const nudge = (ds, dl) => { if (sel && !sel.hasAttribute('data-ro')) { const l = clamp(len(sel) + dl, snap, 1440 - top(sel)), s = clamp(top(sel) + ds, 0, 1440 - l); place(sel, s, l); change(sel, s, l); } };
   const click = k => $(`[data-key="${k}"]`)?.click();
   window.pageKeys = Object.assign(window.pageKeys || {}, cal ? {
     j: () => nav(1), k: () => nav(-1),
@@ -129,7 +132,8 @@
     c: () => { // new entry now, in today's column (or the first open day at 9:00)
       const today = $('.hd.today', cal), day = today ? $(`.day[data-date="${today.dataset.date}"]`, cal) : $('.day:not([data-closed])', cal);
       if (!day || day.hasAttribute('data-closed')) return false;
-      const now = new Date(), s = today ? Math.floor((now.getHours() * 60 + now.getMinutes()) / snap) * snap : 540;
+      const now = new Date(), m = cal.dataset.now ? Math.min(+cal.dataset.now + Math.floor((now - loaded) / 60000), 1439) : now.getHours() * 60 + now.getMinutes(); // browser time only if the app gives none
+      const s = today ? Math.min(Math.floor(m / snap) * snap, 1380) : 540;
       create(day, s, 60);
       $('.ev.draw', cal)?.scrollIntoView({block: 'center'});
     },
@@ -145,7 +149,7 @@
     const fit = () => wrap.style.setProperty('--calh', Math.max(innerHeight - wrap.getBoundingClientRect().top - scrollY - 8, $('.hours', cal).offsetHeight / 4) + 'px');
     fit();
     addEventListener('resize', fit);
-    const day = location.hash.length > 1 && $(`.day[data-date="${location.hash.slice(1)}"]`, cal);
+    const day = location.hash.length > 1 && $(`.day[data-date="${CSS.escape(location.hash.slice(1))}"]`, cal);
     if (day) { cal.querySelectorAll('.cur').forEach(el => el.classList.remove('cur')); day.classList.add('cur'); $(`.hd[data-date="${day.dataset.date}"]`, cal)?.classList.add('cur'); }
     const s = $('.ev.sel', cal);
     if (s) { sel = s; s.scrollIntoView({block: 'center'}); }

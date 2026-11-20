@@ -16,8 +16,11 @@ import {pathToFileURL} from 'node:url';
   const src = (await import('node:fs')).readFileSync(new URL('./ui.js', import.meta.url), 'utf8');
   const money = new Function(src.match(/window\.money = (\{[\s\S]*?\n\});/)[0].replace('window.money =', 'return'))();
   const cases = [['1.240,00', 124000], ['1,240.50', 124050], ['1240', 124000], ['1240.5', 124050], ['-12', -1200], ['−3,5', -350],
-    ['1.234.567,89', 123456789], ['1 240,00 €', 124000], ['12,3456', NaN], ['1.2.3', NaN], ['abc', NaN]];
-  const bad = cases.filter(([s, c]) => !Object.is(money.parse(s), c)).concat(
+    ['1.234.567,89', 123456789], ['1 240,00 €', 124000], ['12,3456', NaN], ['1.2.3', NaN], ['abc', NaN],
+    // one separator and three digits follows the example; mixed group separators are refused
+    ['0,125', NaN], ['19,999', NaN], ['1.500', 150000], ['0.999', NaN, '1,234.56'], ['1,500', 150000, '1,234.56'], ['1,500', NaN, '1234.56'],
+    ['1.234,567.89', NaN], ['1,234.567,89', NaN], ['1.234.567', 123456700]];
+  const bad = cases.filter(([s, c, ex]) => !Object.is(money.parse(s, ex), c)).concat(
     [[124050, '1.234,56', '1.240,50'], [123456789, '1,234.56', '1,234,567.89'], [-30000, '1.234,56', '−300,00'], [5, '1234.56', '0.05'], [124000, '1.234,56', '+1.240,00', true], [0, '1.234,56', '0,00', true]]
       .filter(([c, ex, want, signed]) => money.format(c, ex, signed) !== want));
   if (bad.length) { console.log('✕ money:', JSON.stringify(bad)); process.exit(1); }
