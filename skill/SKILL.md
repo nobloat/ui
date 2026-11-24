@@ -28,16 +28,16 @@ Before writing a page, open the nearest example in `../ui/pages/` (gallery `inde
 
 ## Light and dark
 
-Both first-class. The page follows the OS; ◐ in the header (desktop) or the theme row on the settings page (`nb-prefs`) pins light or dark in `localStorage`, applied in `<head>` before first paint. Check every page in both.
+Both first-class. The page follows the OS; the theme row in the user menu or on the settings page (`nb-prefs`) pins light or dark in `localStorage`, applied in `<head>` before first paint. Check every page in both.
 
 ## Mobile
 
 Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40rem.
-- Header: search on its own row, nav behind ☰ as a vertical list, language and theme only on the settings page.
+- Header: logo, a search icon (opens the search over the header), the user menu, ☰ for the nav as a vertical list. The user menu is the same as on desktop.
 - Tables become one card per row with "label … value" lines (labels from `<thead>`, set by ui.js; all columns shown, numbers right). A table that must stay a table gets `class="keep"`. Short lists of objects use a row list instead (see Data display), not a table that turns into tall cards.
 - Forms one column; overflow menus become a bottom sheet; toasts full width at the bottom.
 - Create, edit, delete and copy buttons show only their icon; the text stays for screen readers. The page's primary action (`.pri`) keeps its text and spans the full width, in the page head (under the title) and at a form's end. A page form's Cancel (`class="cancel"`, a link to where the user came from) is hidden: "← parent" and Back do the same; a dialog keeps its Cancel.
-- `kbd` hints disappear on touch: every shortcut also has a visible control.
+- Every shortcut also has a visible control (a button, a menu item or a palette row); the palette is in the user menu.
 
 ## Accessibility (WCAG 2.2 AA, checked)
 
@@ -48,8 +48,8 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 
 ## Navigation
 
-- Header (`nb-header`): logo, search, ⌘ palette button, ⚙ settings as an icon link and ⏻ logout as an icon button in a POST form to `LogoutURL` (a GET link or image must never sign anyone out; auth accepts the POST from the apps' origins). Settings is never a nav item; a logout on the settings page is the same POST form.
-- Nav: the app's main object types, each with a `g`+letter key (`Nav[].Key`).
+- Header (`nb-header`): logo, search (its placeholder names `Ctrl K` for the palette), and the **user menu**: a round button with the user's initial that opens a menu with the name, theme (auto/light/dark), language, settings, commands (the palette), shortcuts (`?`) and sign out (a POST form to `LogoutURL`: a GET link or image must never sign anyone out; auth accepts the POST from the apps' origins). Nothing else sits loose in the header: no palette button, no language links, no theme button, no ⚙ or ⏻. Settings is never a nav item; a logout on the settings page is the same POST form.
+- Nav: the app's main object types, each with a `g`+letter key (`Nav[].Key`; listed in `?`, not under the nav). An app whose own sidebar already navigates (jot) leaves `Nav` empty: one way to get somewhere. Its sidebar gets `id="nav"` (☰ opens it on phones) and its links `data-g` keep the `g`+letter keys.
 - Breadcrumbs (`Crumbs`) on every page below the top level: parent links, the current page last without link. `Esc` goes one up; phones show "← parent".
 - Command palette on every page (built into ui.js): `Ctrl+K` / `⌘K` / `:`. It lists nav, header links, every visible `[data-key]` action of the page, theme and help; apps add commands with `window.commands = [{label, sub, run}]`; unknown input falls back to search.
 - Search: `/` focuses it; with `SearchAPI` it searches live, grouped by type; an exact id opens the object.
@@ -70,8 +70,8 @@ Every object a user can find or open has an id as a ticket key: a type key of 3 
 ## Page anatomy
 
 - `.pagehead`: `h1` and the page's actions, right of the title (on phones under it). Actions never sit alone at the bottom of a page; only a form's own submit sits at the form's end. Lists: chips with counts and colored tags above, table, `.pager` (`p`/`n`) or filters, `.empty` with the create action when empty. Detail: crumbs, title with state, actions (primary visible; a `details.more` menu only from three further actions on, one or two are plain buttons next to it), tags, `.info` grid with copyable ids (one or two self-explanatory facts, such as a link and a count, are a muted line instead of a label grid), tabs, history in `details.audit`.
-- Dashboard (`dashboard` example): stat tiles first (`.tiles > a.tile`: label, value, delta, sparkline or meter; each tile links to its list), then "needs attention" (actionable rows with a button), then one or two charts, then recent activity. Only what the user acts on; no decoration.
-- Settings (`⚙`): account from the sign-in (name, username, email, groups, role, IdP, session, user id, link to manage the account, logout), preferences (`nb-prefs`: language, theme, design), then app settings, users, keys.
+- Dashboard (`dashboard` example): stat tiles first, but only for numbers that lead to an action (`.tiles > a.tile`: label, value, delta, sparkline or meter; each tile links to its list; a tile that repeats the list below it or a count nobody acts on is left out, and an app without such numbers has no tiles), then "needs attention" (actionable rows with a button), then one or two charts, then recent activity. Only what the user acts on; no decoration.
+- Settings (user menu): account from the sign-in (name, username, email, groups, role, IdP, session, user id, link to manage the account, logout), preferences (`nb-prefs`: language, theme, design), then app settings, users, keys.
 
 ## Actions and icons
 
@@ -79,7 +79,7 @@ Every object a user can find or open has an id as a ticket key: a type key of 3 
 - **Use an icon where it is faster to read than the word alone**: every action button (before the text), icon-only header and row buttons (with `aria-label`), menus, pagers and steppers (chevrons step, arrows go somewhere), links out (`icon-external` after the text), messages (`info`, `warning`, `error`, `ok`), state next to its word, units in `.affix`, empty states. Not on every chip, tab or label: an icon that does not help reading is noise. The same action has the same icon everywhere.
 - Create, edit, delete and copy buttons always carry their icon: `class="new"`, `edit`, `del`, `copy` (on `button` or `.btn`). `.new` means "create an object"; adding a row or a value inside a form ("+ time", "Add dates") is a plain button with `<i class="icon-plus">` or a fitting icon and its text, so phones do not show several identical bare "+"; icon-only links `class="round ico cog"` etc. with `aria-label`. `.del` is red; every delete or public action has `data-confirm="…"` naming the object and the consequence, optionally with `data-confirm-title="Delete ACME GmbH?"` as the question and the text as the consequence. Dialogs always have an `h2` title (`aria-labelledby`).
 - A primary action per page (`.pri`), at most one. Every submit shows a spinner (`aria-busy`, automatic); ui.js drops a second submit of the same form within 3 s and a held `[data-key]` clicks once. Mutations that must not happen twice still need an idempotency check on the server.
-- Shortcuts: `c` create, `e` edit, `Del` delete where it makes sense, shown as `<kbd>` in the button and in the keys line (`{{define "keys"}} · …{{end}}`).
+- Shortcuts: `c` create, `e` edit, `Del` delete where it makes sense. They are listed in `?`: the page's `{{define "keys"}} · <kbd>c</kbd> new{{end}}` shows there as "On this page", extra rows with `{{define "help"}}`; palette rows and menu rows (user menu, `details.more`) show their key. A `<kbd>` inside a button, label, nav, pager, tabs or chips stays in the markup but ui.css hides it. The one hint on screen is `Ctrl K` in the search placeholder.
 
 ## Bulk actions
 

@@ -15,17 +15,24 @@
 <header class="app">
 <a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
 <form class="gsearch" action="list.html" role="search" data-api="/api/search">
-<input id="q" name="q" value="" placeholder="Search" aria-label="Search" autocomplete="off"><kbd>/</kbd>
+<input id="q" name="q" value="" placeholder="Search · Ctrl K" aria-label="Search · Ctrl K" autocomplete="off">
 <div class="results" id="results" hidden></div>
 </form>
-<button type="button" id="palbtn" class="palbtn" title="Commands" aria-label="Commands" hidden><span aria-hidden="true">⌘</span><kbd>Ctrl K</kbd></button>
 <span class="right">
-<span class="prefs"><span><a href="/lang/de?rd=%2fmonth.html">de</a> · <a href="/lang/en?rd=%2fmonth.html" class="on" aria-current="true">en</a></span>
-<button type="button" id="theme" class="round" hidden><i class="icon-contrast" aria-hidden="true"></i></button></span>
-<a class="who" href="settings.html">peter</a>
-<a class="round" href="settings.html" title="Settings" aria-label="Settings"><i class="icon-cog" aria-hidden="true"></i></a>
-<form method="post" action="login.html" class="logout"><button class="round" title="Log out" aria-label="Log out"><i class="icon-power" aria-hidden="true"></i></button></form>
-<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false"><i class="icon-menu" aria-hidden="true"></i></button>
+<button type="button" id="searchbtn" class="round" aria-label="Search · Ctrl K" hidden><i class="icon-search" aria-hidden="true"></i></button>
+<details class="usermenu">
+<summary class="round" title="Account menu" aria-label="Account menu"><i class="icon-user" aria-hidden="true"></i></summary>
+<div class="umenu">
+<p class="uname"><a href="settings.html">peter</a></p>
+<button type="button" id="theme" hidden><i class="icon-contrast" aria-hidden="true"></i> theme</button>
+<p class="ulang"><span>language</span><span><a href="/lang/de?rd=%2fmonth.html">de</a> · <a href="/lang/en?rd=%2fmonth.html" class="on" aria-current="true">en</a></span></p>
+<a href="settings.html"><i class="icon-cog" aria-hidden="true"></i> Settings</a>
+<button type="button" data-palette hidden><i class="icon-list" aria-hidden="true"></i> Commands <kbd>Ctrl K</kbd></button>
+<button type="button" data-help hidden><i class="icon-help" aria-hidden="true"></i> Keyboard shortcuts <kbd>?</kbd></button>
+<form method="post" action="login.html" class="logout"><button><i class="icon-power" aria-hidden="true"></i> Log out</button></form>
+</div>
+</details>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false" hidden><i class="icon-menu" aria-hidden="true"></i></button>
 </span>
 </header>
 <nav class="app" id="nav">
@@ -38,7 +45,6 @@
 <a href="week.html" data-g="w">Week</a>
 <a href="month.html" data-g="m" class="on" aria-current="page">Month</a>
 <a href="icons.html" data-g="i">Icons</a>
-<span class="g"><kbd>g</kbd> + letter</span>
 </nav>
 <main id="main">
 <div class="calhead">
@@ -95,7 +101,6 @@
 </div>
 <p class="muted"><small>hatched: closed period (October) · bars: hours per project, a full bar is 8 h</small></p>
 </main>
-<p class="keys"><kbd>?</kbd> help · <kbd>/</kbd> search · <kbd>Shift</kbd>+<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> day · <kbd>Enter</kbd> open week</p>
 <footer class="foot">
 <b>][◆ nobloat/demo</b>
 <span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
@@ -115,10 +120,11 @@
 <tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
 
 </table>
+<p class="keys">On this page · <kbd>Shift</kbd>+<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> day · <kbd>Enter</kbd> open week</p>
 <form method="dialog" class="row end"><button>Close <kbd>Esc</kbd></button></form>
 </dialog>
 <dialog id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-text"><h2 id="confirm-title" hidden></h2><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no">Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus>OK <kbd>Enter</kbd></button></form></dialog>
-<script type="application/json" id="texts">{"js.close":"close","js.drop.refused":"not supported","js.drop.release":"release to add {n} files","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.reload":"reload the page","js.remove":"remove","js.required":"required","js.saved":"saved","js.saving":"saving…","js.selected":"{n} selected","js.session.ended":"Your session has ended. This page keeps your input; sign in again to save.","js.session.login":"Sign in","js.session.renew":"Stay signed in","js.session.soon":"Your session ends in {n} min.","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search"}</script>
+<script type="application/json" id="texts">{"js.close":"close","js.drop.refused":"not supported","js.drop.release":"release to add {n} files","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.reload":"reload the page","js.remove":"remove","js.required":"required","js.saved":"saved","js.saving":"saving…","js.selected":"{n} selected","js.session.ended":"Your session has ended. This page keeps your input; sign in again to save.","js.session.login":"Sign in","js.session.renew":"Stay signed in","js.session.soon":"Your session ends in {n} min.","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search · Ctrl K"}</script>
 <script src="../ui.js"></script>
 <script src="../calendar.js"></script>
 <script src="demo.js"></script>
