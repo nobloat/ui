@@ -452,6 +452,7 @@ tr:has(td.pick :checked) td:first-child { box-shadow: inset 3px 0 0 var(--accent
 .error h1 { margin: .3rem 0 1rem; }
 .error .row { margin-top: 1.5rem; }
 .error .tag:last-of-type { margin-right: 0; } /* in a sentence: "(#editor)." */
+.error .groups .tag:last-of-type::after { content: ")"; color: var(--fg); } /* the bracket sticks to the last tag: never a line on its own */
 /* the code on a dot-matrix display, an LED panel in light and dark: its dots in the brand color (--accent), lit dots glow in the dark */
 .error:has(.vis > svg) { max-width: 60rem; display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 3rem; align-items: start; }
 .error .vis { display: grid; gap: 1.4rem; align-content: start; } .error .vis:empty { display: none; }
