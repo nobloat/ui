@@ -553,8 +553,8 @@ window.sessionCheck = () => {
   const renew = b.dataset.sessionRenew;
   bar.classList.toggle('ended', left <= 0);
   bar.innerHTML = left > 0
-    ? `<span>${esc((T['js.session.soon'] || 'Your session ends in {n} min.').replace('{n}', left))}</span>` + (renew ? `<button type="button" class="pri">${esc(T['js.session.renew'] || 'Stay signed in')}</button>` : '')
-    : `<span>${esc(T['js.session.ended'] || 'Your session has ended. This page keeps your input; sign in again to save.')}</span>` + (renew ? `<a class="btn pri" href="${esc(renew)}" target="_blank" rel="noopener">${esc(T['js.session.login'] || 'Sign in')}</a>` : '');
+    ? `<span>${esc((T['js.session.soon'] || 'Your session ends in {n} min.').replace('{n}', left))}</span>` + (renew ? `<button type="button" class="pri"><i class="icon-refresh" aria-hidden="true"></i> ${esc(T['js.session.renew'] || 'Stay signed in')}</button>` : '')
+    : `<span>${esc(T['js.session.ended'] || 'Your session has ended. This page keeps your input; sign in again to save.')}</span>` + (renew ? `<a class="btn pri" href="${esc(renew)}" target="_blank" rel="noopener"><i class="icon-log-in" aria-hidden="true"></i> ${esc(T['js.session.login'] || 'Sign in')}</a>` : '');
   $('button', bar)?.addEventListener('click', async () => {
     const r = await fetch(renew, {headers: {Accept: 'application/json'}}).catch(() => null), j = await r?.json().catch(() => ({})) || {};
     if (r?.ok && j.end) { b.dataset.sessionEnd = j.end; window.sessionCheck(); }

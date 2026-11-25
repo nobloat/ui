@@ -131,7 +131,8 @@ const probe = () => {
     if (!el.closest('[hidden]') && !named(el)) add('a11y', 'no accessible name', el);
   // every button, .btn, tab, pager link, chip and menu item has an icon: <i class="icon-…"> or a class that draws one (::before)
   const drawn = el => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && (b.maskImage || b.webkitMaskImage || 'none') !== 'none'; };
-  for (const el of all.filter(e => e.matches('button, .btn, summary.round, .tabs a, .pager a, a.chip, :is(.menu, .umenu) a') && !e.closest('dialog.palette')))
+  const closedDlg = [...document.querySelectorAll('dialog:not([open]):not(.palette) :is(button, .btn)')]; // a closed dialog's buttons count too
+  for (const el of [...new Set([...all, ...closedDlg])].filter(e => e.matches('button, .btn, summary.round, .tabs a, .pager a, a.chip, :is(.menu, .umenu) a') && !e.closest('dialog.palette, [hidden]:not(dialog)')))
     if (!el.matches('[class*="icon-"]') && !el.querySelector('[class*="icon-"]') && !drawn(el)) add('icon', `no icon: "${(el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 40)}"`, el);
   for (const el of document.querySelectorAll('img:not([alt])')) add('a11y', 'img without alt', el);
   const ids = {}; for (const el of document.querySelectorAll('[id]')) ids[el.id] = (ids[el.id] || 0) + 1;
