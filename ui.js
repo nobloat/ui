@@ -587,8 +587,8 @@ document.addEventListener('close', e => { if (location.hash === '#' + e.target.i
 }
 document.addEventListener('click', async e => {
   const o = e.target.closest('[data-open]'), c = e.target.closest('[data-copy]');
-  if (o) { e.preventDefault(); openDlg(o.dataset.open); }
-  else if (e.target.closest('[data-palette]')) { e.target.closest('details')?.removeAttribute('open'); window.openPalette(); }
+  if (o) { e.preventDefault(); o.dataset.open === 'help' ? window.openHelp() : openDlg(o.dataset.open); }
+  else if (e.target.closest('[data-palette]')) { e.target.closest('details')?.removeAttribute('open'); window.openPalette?.(); }
   else if (e.target.closest('[data-help]')) { e.target.closest('details')?.removeAttribute('open'); window.openHelp(); }
   else if (e.target.closest('[data-close]')) e.target.closest('dialog').close();
   else if (c) { await navigator.clipboard.writeText(c.dataset.copy).catch(() => {}); c.classList.add('done'); setTimeout(() => c.classList.remove('done'), 1200); } // the icon turns into a check
@@ -621,7 +621,7 @@ window.toast = (msg, ok) => {
   if (!box) { box = document.createElement('div'); box.className = 'toasts'; box.setAttribute('role', 'status'); document.body.append(box); }
   const p = typeof msg === 'string' ? Object.assign(document.createElement('p'), {className: 'flash' + (ok ? ' ok' : ''), textContent: msg}) : msg;
   const x = document.createElement('button');
-  x.type = 'button'; x.className = 'x'; x.textContent = '×'; x.setAttribute('aria-label', T['js.close'] || 'close');
+  x.type = 'button'; x.className = 'x'; x.innerHTML = '<i class="icon-x" aria-hidden="true"></i>'; x.setAttribute('aria-label', T['js.close'] || 'close');
   x.onclick = () => p.remove();
   p.append(x);
   box.append(p);
