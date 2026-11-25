@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ nobloat/ui · error pages</title>
+<link rel="stylesheet" href="ui.css">
+<style>
+  body { padding: 1.5rem 16px 4rem; }
+  .wrap { max-width: 1560px; margin: 0 auto; }
+  header h1 { margin: 0 0 .4rem; } header .note { margin: 0 0 1rem; padding-left: 1.2rem; color: var(--muted); font-size: .92em; }
+  .wfctl { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; padding: .6rem .8rem; margin: 0 0 1.5rem;
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-lg); font-size: .9em; }
+  .wfctl label { display: flex; gap: .4rem; align-items: center; color: var(--muted); }
+  .wfctl input[type=color] { padding: 0; width: 2.2rem; height: 1.7rem; }
+  .toc { display: flex; flex-wrap: wrap; gap: .3rem .9rem; margin: 0 0 1.5rem; font-size: .9em; }
+  section { margin: 0 0 2.5rem; scroll-margin-top: 5rem; }
+  section h2 { margin: 0 0 .2rem; } section p.cap { margin: 0 0 .7rem; color: var(--muted); font-size: .9em; max-width: 60rem; }
+  .frames { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: flex-start; }
+  .frame { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--bg); }
+  .frame iframe { display: block; border: 0; }
+  .frame.desk iframe { width: 1100px; height: 560px; } .frame.phone iframe { width: 390px; height: 780px; }
+  .frame .lab { padding: .3rem .7rem; font-size: .8em; color: var(--muted); border-top: 1px solid var(--line); }
+  @media (max-width: 1200px) { .frame.desk iframe { width: calc(100vw - 60px); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>][◆ nobloat/ui · error pages</h1>
+  <ul class="note">
+    <li>One template for every app: <code>{{define "main"}}{{template "nb-error" .}}{{end}}</code>; the app passes <code>.Error</code> (code, what, need, limit, ref, retry, actions). Texts in English and German come from ui.</li>
+    <li>Each page shows the code on a <b>dot-matrix display</b> and a <b>line drawing</b>: the nobloat mark ][◆, and what happens to it. The display follows light and dark; its dots and the drawing's highlights take the <b>primary color</b> (<code>--brand</code>, set per installation).</li>
+    <li>These frames are the real example pages (<code>examples/&lt;code&gt;.html</code>), each at desktop and phone width. 401, 410 and 503 are public pages (signed out, a link, the server starting) without the app's header.</li>
+  </ul>
+</header>
+
+<form class="wfctl" id="wfctl" aria-label="look" onsubmit="return false">
+  <label>design <select name="design"><option value="">graphite</option><option value="paper">paper</option></select></label>
+  <span class="seg" role="radiogroup" aria-label="theme">
+    <label><input type="radio" name="theme" value="" checked>auto</label>
+    <label><input type="radio" name="theme" value="light">light</label>
+    <label><input type="radio" name="theme" value="dark">dark</label>
+  </span>
+  <label>primary color <input type="color" name="brand" value="#0a5fc7"></label>
+  <button type="button" name="restore"><i class="icon-undo" aria-hidden="true"></i> design default</button>
+  <span class="seg" role="radiogroup" aria-label="frames">
+    <label><input type="radio" name="view" value="both" checked>desktop + phone</label>
+    <label><input type="radio" name="view" value="desk">desktop</label>
+    <label><input type="radio" name="view" value="phone">phone</label>
+  </span>
+  <button type="button" name="replay"><i class="icon-refresh" aria-hidden="true"></i> light up again</button>
+</form>
+
+<nav class="toc" id="toc" aria-label="error pages"></nav>
+<div id="pages"></div>
+</div>
+
+<script>
+  // the ten cases; each is examples/<code>.html, rendered by ui_test.go from pages/<code>.html through partials.html
+  const cases = [
+    [400, 'bad request', 'Something in the link or form is not as expected: the sign arrives garbled.'],
+    [401, 'signed out', 'The session ended (public page): the sign\'s place has a keyhole, the key lies ready.'],
+    [403, 'no access', 'Signed in, but this page needs another role: a gate in front of the mark. Names the user, their groups and what is needed.'],
+    [404, 'not found', 'Names what is missing: the sign\'s place is empty, a magnifier looks for it.'],
+    [409, 'changed elsewhere', 'Someone else saved first; nothing was overwritten: two versions of the sign collide.'],
+    [410, 'expired', 'A share, unsubscribe or one-time link ran out (public page): the sign crumbles.'],
+    [413, 'too large', 'An upload over the limit, which the page names: the sign is too big for its frame.'],
+    [429, 'slow down', 'Too many requests: a speedometer in the red; the page counts down and reloads itself.'],
+    [500, 'error', 'Our fault: a bracket broke and the sign fell out. A reference to send to the admin, with a copy button.'],
+    [503, 'unavailable', 'The server is starting or being updated (public page): a power symbol, booting; counts down and reloads.'],
+  ];
+  const f = document.getElementById('wfctl'), root = document.documentElement;
+  const defaults = {'': '#0a5fc7', paper: '#1f4fa3'};
+  document.getElementById('toc').innerHTML = cases.map(([c, n]) => `<a href="#e${c}">${c} ${n}</a>`).join('');
+  document.getElementById('pages').innerHTML = cases.map(([c, n, cap]) => `<section id="e${c}"><h2>${c} · ${n}</h2><p class="cap">${cap}</p>
+    <div class="frames"><div class="frame desk"><iframe title="${c} desktop" loading="lazy" data-code="${c}"></iframe><div class="lab">desktop · 1100 px</div></div>
+    <div class="frame phone"><iframe title="${c} phone" loading="lazy" data-code="${c}"></iframe><div class="lab">phone · 390 px</div></div></div></section>`).join('');
+  const apply = () => {
+    const design = f.design.value, theme = f.theme.value, brand = f.brand.dataset.set ? f.brand.value : '', view = f.view.value;
+    design ? root.dataset.design = design : delete root.dataset.design;           // this page follows the same look
+    theme ? root.dataset.theme = theme : delete root.dataset.theme;
+    brand ? root.style.setProperty('--brand', brand) : root.style.removeProperty('--brand');
+    const q = new URLSearchParams({embed: 1, design, brand}); if (theme) q.set('theme', theme);
+    document.querySelectorAll('iframe[data-code]').forEach(fr => { fr.src = `examples/${fr.dataset.code}.html?${q}`; });
+    document.querySelectorAll('.frame.desk').forEach(x => x.hidden = view === 'phone');
+    document.querySelectorAll('.frame.phone').forEach(x => x.hidden = view === 'desk');
+    try { localStorage.setItem('nb-wf-errors', JSON.stringify({design, theme, brand, view})); } catch {}
+  };
+  try { const s = JSON.parse(localStorage.getItem('nb-wf-errors')) || {};
+    f.design.value = s.design || ''; f.querySelector(`[name=theme][value="${s.theme || ''}"]`).checked = true;
+    f.querySelector(`[name=view][value="${s.view || 'both'}"]`).checked = true;
+    if (s.brand) { f.brand.value = s.brand; f.brand.dataset.set = 1; } else f.brand.value = defaults[s.design || ''];
+  } catch {}
+  f.addEventListener('change', e => {
+    if (e.target.name === 'brand') f.brand.dataset.set = 1;
+    if (e.target.name === 'design' && !f.brand.dataset.set) f.brand.value = defaults[f.design.value];
+    apply();
+  });
+  f.restore.onclick = () => { delete f.brand.dataset.set; f.brand.value = defaults[f.design.value]; apply(); };
+  f.replay.onclick = () => document.querySelectorAll('iframe[data-code]').forEach(fr => fr.src = fr.src);
+  apply();
+</script>
+</body>
+</html>

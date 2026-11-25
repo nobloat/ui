@@ -26,7 +26,20 @@ type Link struct {
 	Href, Label, Key string
 	On               bool
 }
+// Action and ErrorInfo: what an app passes as .Error to nb-error (partials.html documents the fields)
+type Action struct {
+	Href, Label, Icon, Key string
+	Palette               bool
+}
+type ErrorInfo struct {
+	Code                   int
+	What, Need, Limit, Ref string
+	Groups                 []string
+	Retry                  int
+	Actions                []Action
+}
 type Page struct {
+	Error                                      *ErrorInfo
 	Lang, Title, Here, Q, Version, Err, Notice string
 	Brand                                      Brand
 	Nav                                        []Link
@@ -117,8 +130,22 @@ func TestExamples(t *testing.T) {
 			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
 			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
 		}[name]
-		page.Title = map[string]string{"index.html": "Gallery", "icons.html": "Icons", "dashboard.html": "Dashboard", "404.html": "Not found", "403.html": "No access", "500.html": "Error", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
+		page.Title = map[string]string{"index.html": "Gallery", "icons.html": "Icons", "dashboard.html": "Dashboard", "400.html": "Bad request", "401.html": "Signed out", "403.html": "No access", "404.html": "Not found", "409.html": "Changed elsewhere", "410.html": "Link expired", "413.html": "Too large", "429.html": "Slow down", "500.html": "Error", "503.html": "Unavailable", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
 			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
+		home, account := Action{"dashboard.html", "Dashboard", "dashboard", "", false}, Action{"settings.html", "Your account", "user", "", false}
+		signin := Action{"login.html", "Sign in", "log-in", "", false}
+		page.Error = map[string]*ErrorInfo{
+			"400.html": {Code: 400, Actions: []Action{{"list.html", "Back to customers", "arrow-left", "", false}, home}},
+			"401.html": {Code: 401, Actions: []Action{signin}},
+			"403.html": {Code: 403, Need: "the admin role", Groups: []string{"acme-editor"}, Actions: []Action{home, account, {"login.html", "Sign in as someone else", "log-in", "", false}}},
+			"404.html": {Code: 404, What: "customer CUS-9999", Actions: []Action{{"list.html", "All customers", "users", "", false}, {Label: "Search", Icon: "search", Palette: true}}},
+			"409.html": {Code: 409, Actions: []Action{{"", "Reload", "refresh", "", false}, {"detail.html", "ACME GmbH", "arrow-left", "", false}}},
+			"410.html": {Code: 410, Actions: []Action{{"index.html", "Newsletter home", "mail", "", false}}},
+			"413.html": {Code: 413, Limit: "25 MB", Actions: []Action{{"form.html", "Back to the upload", "upload", "", false}}},
+			"429.html": {Code: 429, Retry: 30, Actions: []Action{{"", "Try again now", "refresh", "", false}}},
+			"500.html": {Code: 500, Ref: "ERR-7F3A9C12", Actions: []Action{{"", "Try again", "refresh", "", false}, home}},
+			"503.html": {Code: 503, Retry: 15, Actions: []Action{{"", "Try again now", "refresh", "", false}}},
+		}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
 			t.Fatalf("%s: %v", name, err)
@@ -152,6 +179,72 @@ func eur(x float64) string {
 
 // iconStyle is the one style of the set ("precise"): thin, square ends, sharp joins, in the text color.
 const iconStyle = `fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter"`
+
+// TestErrorDots writes nb-error-dots into partials.html: each error code nb-error knows, as a 5×7 dot-matrix display.
+// The font is here and only here; stale output fails, -update rewrites.
+func TestErrorDots(t *testing.T) {
+	font := map[rune][7]string{
+		'0': {"01110", "10001", "10011", "10101", "11001", "10001", "01110"},
+		'1': {"00100", "01100", "00100", "00100", "00100", "00100", "01110"},
+		'2': {"01110", "10001", "00001", "00010", "00100", "01000", "11111"},
+		'3': {"11111", "00010", "00100", "00010", "00001", "10001", "01110"},
+		'4': {"00010", "00110", "01010", "10010", "11111", "00010", "00010"},
+		'5': {"11111", "10000", "11110", "00001", "00001", "10001", "01110"},
+		'9': {"01110", "10001", "10001", "01111", "00001", "00010", "01100"},
+	}
+	const pitch = 6.0
+	var b strings.Builder
+	b.WriteString(`{{define "nb-error-dots"}}`)
+	for i, code := range []string{"400", "401", "403", "404", "409", "410", "413", "429", "500", "503"} {
+		var cols [][7]byte
+		blank := [7]byte{'0', '0', '0', '0', '0', '0', '0'}
+		cols = append(cols, blank) // margin
+		for j, ch := range code {
+			if j > 0 {
+				cols = append(cols, blank, blank) // between digits
+			}
+			for c := 0; c < 5; c++ {
+				var col [7]byte
+				for r := 0; r < 7; r++ {
+					col[r] = font[ch][r][c]
+				}
+				cols = append(cols, col)
+			}
+		}
+		cols = append(cols, blank)
+		if i == 0 {
+			fmt.Fprintf(&b, `{{if eq . %s}}`, code)
+		} else {
+			fmt.Fprintf(&b, `{{else if eq . %s}}`, code)
+		}
+		fmt.Fprintf(&b, `<svg class="dots" viewBox="0 0 %g %g" aria-hidden="true">`, float64(len(cols))*pitch, 9*pitch)
+		for x, col := range cols {
+			for y, v := range col {
+				cx, cy := float64(x)*pitch+pitch/2, float64(y+1)*pitch+pitch/2
+				if v == '1' {
+					fmt.Fprintf(&b, `<circle class="on" cx="%g" cy="%g" r="2.45" style="--i:%d"/>`, cx, cy, x)
+				} else {
+					fmt.Fprintf(&b, `<circle class="off" cx="%g" cy="%g" r="1.5"/>`, cx, cy)
+				}
+			}
+		}
+		b.WriteString(`</svg>`)
+	}
+	b.WriteString("{{end}}{{end}}\n")
+	src, _ := os.ReadFile("partials.html")
+	re := regexp.MustCompile(`(?s)(\{\{/\* dots:begin[^\n]*\*/\}\}\n).*?(\{\{/\* dots:end \*/\}\})`)
+	want := re.ReplaceAllString(string(src), "${1}"+strings.ReplaceAll(b.String(), "$", "$$")+"${2}")
+	if want == string(src) {
+		return
+	}
+	if !*update {
+		t.Error("partials.html: nb-error-dots is stale: run go test -update")
+		return
+	}
+	if err := os.WriteFile("partials.html", []byte(want), 0o644); err != nil {
+		t.Fatal(err)
+	}
+}
 
 // TestIcons builds icons.svg (sprite), the icons block in ui.css and icons.css (the icon rule and block alone, for pages
 // without ui.css: gazette's public pages) from icons/*.svg; stale output fails, -update rewrites.

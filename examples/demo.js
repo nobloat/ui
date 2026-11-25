@@ -55,7 +55,7 @@
       scrollTo(0, y);
     });
   }
-  document.body.append(panel);
+  if (!params.has("embed")) document.body.append(panel); // embedded in a wireframe: the wireframe has the controls
   sync();
 
   // fake backend: live search answers from a fixed list, every POST "succeeds"

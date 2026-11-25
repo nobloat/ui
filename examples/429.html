@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>][◆ demo · Slow down</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../ui.css">
+
+<script>try { const r = document.documentElement, t = localStorage.getItem('theme'), d = localStorage.getItem('design'); if (t) r.dataset.theme = t; if (d === 'paper') r.dataset.design = d; else if (d) delete r.dataset.design; } catch {}</script>
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="app">
+<a href="index.html" class="logo" aria-label="][◆ demo"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><span class="name">demo</span></a>
+<form class="gsearch" action="list.html" role="search" data-api="/api/search">
+<input id="q" name="q" value="" placeholder="Search · Ctrl K" aria-label="Search · Ctrl K" autocomplete="off">
+<div class="results" id="results" hidden></div>
+</form>
+<span class="right">
+<button type="button" id="searchbtn" class="round" aria-label="Search · Ctrl K" hidden><i class="icon-search" aria-hidden="true"></i></button>
+<details class="usermenu">
+<summary class="round" title="Account menu" aria-label="Account menu"><i class="icon-user" aria-hidden="true"></i></summary>
+<div class="umenu">
+<p class="uname"><a href="settings.html">peter</a></p>
+<button type="button" id="theme" hidden><i class="icon-contrast" aria-hidden="true"></i> theme</button>
+<p class="ulang"><span>language</span><span><a href="/lang/de?rd=%2f429.html">de</a> · <a href="/lang/en?rd=%2f429.html" class="on" aria-current="true">en</a></span></p>
+<a href="settings.html"><i class="icon-cog" aria-hidden="true"></i> Settings</a>
+<button type="button" data-palette hidden><i class="icon-list" aria-hidden="true"></i> Commands <kbd>Ctrl K</kbd></button>
+<button type="button" data-help hidden><i class="icon-help" aria-hidden="true"></i> Keyboard shortcuts <kbd>?</kbd></button>
+<form method="post" action="login.html" class="logout"><button><i class="icon-power" aria-hidden="true"></i> Log out</button></form>
+</div>
+</details>
+<button type="button" id="menu" class="round" aria-label="Menu" aria-expanded="false" hidden><i class="icon-menu" aria-hidden="true"></i></button>
+</span>
+</header>
+<nav class="app" id="nav">
+<a href="index.html" data-g="a">Gallery</a>
+<a href="dashboard.html" data-g="b">Dashboard</a>
+<a href="list.html" data-g="c">Customers</a>
+<a href="detail.html" data-g="d">Detail</a>
+<a href="form.html" data-g="f">Form</a>
+<a href="dates.html" data-g="t">Formats</a>
+<a href="week.html" data-g="w">Week</a>
+<a href="month.html" data-g="m">Month</a>
+<a href="icons.html" data-g="i">Icons</a>
+</nav>
+<main id="main"><div class="error"><div class="vis"><svg class="dots" viewBox="0 0 126 54" aria-hidden="true"><circle class="off" cx="3" cy="9" r="1.5"/><circle class="off" cx="3" cy="15" r="1.5"/><circle class="off" cx="3" cy="21" r="1.5"/><circle class="off" cx="3" cy="27" r="1.5"/><circle class="off" cx="3" cy="33" r="1.5"/><circle class="off" cx="3" cy="39" r="1.5"/><circle class="off" cx="3" cy="45" r="1.5"/><circle class="off" cx="9" cy="9" r="1.5"/><circle class="off" cx="9" cy="15" r="1.5"/><circle class="off" cx="9" cy="21" r="1.5"/><circle class="on" cx="9" cy="27" r="2.45" style="--i:1"/><circle class="on" cx="9" cy="33" r="2.45" style="--i:1"/><circle class="off" cx="9" cy="39" r="1.5"/><circle class="off" cx="9" cy="45" r="1.5"/><circle class="off" cx="15" cy="9" r="1.5"/><circle class="off" cx="15" cy="15" r="1.5"/><circle class="on" cx="15" cy="21" r="2.45" style="--i:2"/><circle class="off" cx="15" cy="27" r="1.5"/><circle class="on" cx="15" cy="33" r="2.45" style="--i:2"/><circle class="off" cx="15" cy="39" r="1.5"/><circle class="off" cx="15" cy="45" r="1.5"/><circle class="off" cx="21" cy="9" r="1.5"/><circle class="on" cx="21" cy="15" r="2.45" style="--i:3"/><circle class="off" cx="21" cy="21" r="1.5"/><circle class="off" cx="21" cy="27" r="1.5"/><circle class="on" cx="21" cy="33" r="2.45" style="--i:3"/><circle class="off" cx="21" cy="39" r="1.5"/><circle class="off" cx="21" cy="45" r="1.5"/><circle class="on" cx="27" cy="9" r="2.45" style="--i:4"/><circle class="on" cx="27" cy="15" r="2.45" style="--i:4"/><circle class="on" cx="27" cy="21" r="2.45" style="--i:4"/><circle class="on" cx="27" cy="27" r="2.45" style="--i:4"/><circle class="on" cx="27" cy="33" r="2.45" style="--i:4"/><circle class="on" cx="27" cy="39" r="2.45" style="--i:4"/><circle class="on" cx="27" cy="45" r="2.45" style="--i:4"/><circle class="off" cx="33" cy="9" r="1.5"/><circle class="off" cx="33" cy="15" r="1.5"/><circle class="off" cx="33" cy="21" r="1.5"/><circle class="off" cx="33" cy="27" r="1.5"/><circle class="on" cx="33" cy="33" r="2.45" style="--i:5"/><circle class="off" cx="33" cy="39" r="1.5"/><circle class="off" cx="33" cy="45" r="1.5"/><circle class="off" cx="39" cy="9" r="1.5"/><circle class="off" cx="39" cy="15" r="1.5"/><circle class="off" cx="39" cy="21" r="1.5"/><circle class="off" cx="39" cy="27" r="1.5"/><circle class="off" cx="39" cy="33" r="1.5"/><circle class="off" cx="39" cy="39" r="1.5"/><circle class="off" cx="39" cy="45" r="1.5"/><circle class="off" cx="45" cy="9" r="1.5"/><circle class="off" cx="45" cy="15" r="1.5"/><circle class="off" cx="45" cy="21" r="1.5"/><circle class="off" cx="45" cy="27" r="1.5"/><circle class="off" cx="45" cy="33" r="1.5"/><circle class="off" cx="45" cy="39" r="1.5"/><circle class="off" cx="45" cy="45" r="1.5"/><circle class="off" cx="51" cy="9" r="1.5"/><circle class="on" cx="51" cy="15" r="2.45" style="--i:8"/><circle class="off" cx="51" cy="21" r="1.5"/><circle class="off" cx="51" cy="27" r="1.5"/><circle class="off" cx="51" cy="33" r="1.5"/><circle class="off" cx="51" cy="39" r="1.5"/><circle class="on" cx="51" cy="45" r="2.45" style="--i:8"/><circle class="on" cx="57" cy="9" r="2.45" style="--i:9"/><circle class="off" cx="57" cy="15" r="1.5"/><circle class="off" cx="57" cy="21" r="1.5"/><circle class="off" cx="57" cy="27" r="1.5"/><circle class="off" cx="57" cy="33" r="1.5"/><circle class="on" cx="57" cy="39" r="2.45" style="--i:9"/><circle class="on" cx="57" cy="45" r="2.45" style="--i:9"/><circle class="on" cx="63" cy="9" r="2.45" style="--i:10"/><circle class="off" cx="63" cy="15" r="1.5"/><circle class="off" cx="63" cy="21" r="1.5"/><circle class="off" cx="63" cy="27" r="1.5"/><circle class="on" cx="63" cy="33" r="2.45" style="--i:10"/><circle class="off" cx="63" cy="39" r="1.5"/><circle class="on" cx="63" cy="45" r="2.45" style="--i:10"/><circle class="on" cx="69" cy="9" r="2.45" style="--i:11"/><circle class="off" cx="69" cy="15" r="1.5"/><circle class="off" cx="69" cy="21" r="1.5"/><circle class="on" cx="69" cy="27" r="2.45" style="--i:11"/><circle class="off" cx="69" cy="33" r="1.5"/><circle class="off" cx="69" cy="39" r="1.5"/><circle class="on" cx="69" cy="45" r="2.45" style="--i:11"/><circle class="off" cx="75" cy="9" r="1.5"/><circle class="on" cx="75" cy="15" r="2.45" style="--i:12"/><circle class="on" cx="75" cy="21" r="2.45" style="--i:12"/><circle class="off" cx="75" cy="27" r="1.5"/><circle class="off" cx="75" cy="33" r="1.5"/><circle class="off" cx="75" cy="39" r="1.5"/><circle class="on" cx="75" cy="45" r="2.45" style="--i:12"/><circle class="off" cx="81" cy="9" r="1.5"/><circle class="off" cx="81" cy="15" r="1.5"/><circle class="off" cx="81" cy="21" r="1.5"/><circle class="off" cx="81" cy="27" r="1.5"/><circle class="off" cx="81" cy="33" r="1.5"/><circle class="off" cx="81" cy="39" r="1.5"/><circle class="off" cx="81" cy="45" r="1.5"/><circle class="off" cx="87" cy="9" r="1.5"/><circle class="off" cx="87" cy="15" r="1.5"/><circle class="off" cx="87" cy="21" r="1.5"/><circle class="off" cx="87" cy="27" r="1.5"/><circle class="off" cx="87" cy="33" r="1.5"/><circle class="off" cx="87" cy="39" r="1.5"/><circle class="off" cx="87" cy="45" r="1.5"/><circle class="off" cx="93" cy="9" r="1.5"/><circle class="on" cx="93" cy="15" r="2.45" style="--i:15"/><circle class="on" cx="93" cy="21" r="2.45" style="--i:15"/><circle class="off" cx="93" cy="27" r="1.5"/><circle class="off" cx="93" cy="33" r="1.5"/><circle class="off" cx="93" cy="39" r="1.5"/><circle class="off" cx="93" cy="45" r="1.5"/><circle class="on" cx="99" cy="9" r="2.45" style="--i:16"/><circle class="off" cx="99" cy="15" r="1.5"/><circle class="off" cx="99" cy="21" r="1.5"/><circle class="on" cx="99" cy="27" r="2.45" style="--i:16"/><circle class="off" cx="99" cy="33" r="1.5"/><circle class="off" cx="99" cy="39" r="1.5"/><circle class="on" cx="99" cy="45" r="2.45" style="--i:16"/><circle class="on" cx="105" cy="9" r="2.45" style="--i:17"/><circle class="off" cx="105" cy="15" r="1.5"/><circle class="off" cx="105" cy="21" r="1.5"/><circle class="on" cx="105" cy="27" r="2.45" style="--i:17"/><circle class="off" cx="105" cy="33" r="1.5"/><circle class="off" cx="105" cy="39" r="1.5"/><circle class="on" cx="105" cy="45" r="2.45" style="--i:17"/><circle class="on" cx="111" cy="9" r="2.45" style="--i:18"/><circle class="off" cx="111" cy="15" r="1.5"/><circle class="off" cx="111" cy="21" r="1.5"/><circle class="on" cx="111" cy="27" r="2.45" style="--i:18"/><circle class="off" cx="111" cy="33" r="1.5"/><circle class="on" cx="111" cy="39" r="2.45" style="--i:18"/><circle class="off" cx="111" cy="45" r="1.5"/><circle class="off" cx="117" cy="9" r="1.5"/><circle class="on" cx="117" cy="15" r="2.45" style="--i:19"/><circle class="on" cx="117" cy="21" r="2.45" style="--i:19"/><circle class="on" cx="117" cy="27" r="2.45" style="--i:19"/><circle class="on" cx="117" cy="33" r="2.45" style="--i:19"/><circle class="off" cx="117" cy="39" r="1.5"/><circle class="off" cx="117" cy="45" r="1.5"/><circle class="off" cx="123" cy="9" r="1.5"/><circle class="off" cx="123" cy="15" r="1.5"/><circle class="off" cx="123" cy="21" r="1.5"/><circle class="off" cx="123" cy="27" r="1.5"/><circle class="off" cx="123" cy="33" r="1.5"/><circle class="off" cx="123" cy="39" r="1.5"/><circle class="off" cx="123" cy="45" r="1.5"/></svg><svg class="art" viewBox="0 0 160 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 104h148"/><g transform="translate(22 23) scale(3)"><path class="br" d="M1 5h4v22H1M12.5 5h-4v22h4"/></g><path class="w6 butt soft" d="M66.0 92.0A26 26 0 0 1 108.71 72.08"/><path class="a w6 butt" d="M108.71 72.08A26 26 0 0 1 118.0 92.0"/><path class="thin" d="M73.0 92.0L78.0 92.0M75.55 82.5L79.88 85.0M82.5 75.55L85.0 79.88M92.0 73.0L92.0 78.0M101.5 75.55L99.0 79.88M108.45 82.5L104.12 85.0M111.0 92.0L106.0 92.0"/><path d="M63 98h58"/><path class="af" d="M90.78 89.26L110.27 83.87L93.22 94.74z"/><circle class="af" cx="92" cy="92" r="4.5"/><circle class="bgf" cx="92" cy="92" r="1.6"/></svg></div><div>
+<p class="code"><i class="icon-pause" aria-hidden="true"></i> 429 · slow down</p>
+<h1>Too many requests at once</h1>
+
+<p>This address got too many requests in a short time, so it waits a little before answering again. Nothing is lost.</p>
+
+<p class="muted" data-retry="30">Trying again in 30 s.</p>
+<div class="row"><a class="btn pri" href=""><i class="icon-refresh" aria-hidden="true"></i> Try again now</a></div>
+</div></div></main>
+<footer class="foot">
+<b>][◆ nobloat/demo</b>
+<span>made by <a href="https://spiessknafl.at/peter" rel="noopener">cinemast</a> · <a href="https://nobloat.org" rel="noopener">nobloat.org</a> · <a href="https://github.com/nobloat/demo" rel="noopener">src</a> · v1 (3f2a9c1)</span>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h">Keyboard shortcuts</h2>
+<table>
+<tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>b</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> <kbd>i</kbd> </td><td>go to page</td></tr>
+<tr><td><kbd>/</kbd></td><td>search</td></tr>
+<tr data-needs="body:not([data-nopalette])"><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
+<tr data-needs="main :is(tr, .rows > li)[data-href]"><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr data-needs="main :is(tr, .rows > li)[data-href]"><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr data-needs=".tabs a"><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr data-needs=".pager"><td><kbd>p</kbd> <kbd>n</kbd></td><td>previous / next page</td></tr>
+<tr data-needs="main .chips a.chip"><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr data-needs="td.pick input"><td><kbd>x</kbd></td><td>select the row (bulk)</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
+
+</table>
+<p class="keys">On this page</p>
+<form method="dialog" class="row end"><button><i class="icon-x" aria-hidden="true"></i> Close <kbd>Esc</kbd></button></form>
+</dialog>
+<dialog id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-text"><h2 id="confirm-title" hidden></h2><p id="confirm-text"></p><form method="dialog" class="row end"><button value="no"><i class="icon-x" aria-hidden="true"></i> Cancel <kbd>Esc</kbd></button><button value="yes" class="pri" autofocus><i class="icon-check" aria-hidden="true"></i> OK <kbd>Enter</kbd></button></form></dialog>
+<script type="application/json" id="texts">{"js.close":"close","js.drop.refused":"not supported","js.drop.release":"release to add {n} files","js.error":"error","js.invalid":"not valid","js.money.hint":"an amount like","js.reload":"reload the page","js.remove":"remove","js.required":"required","js.retry":"Trying again in {n} s.","js.saved":"saved","js.saving":"saving…","js.selected":"{n} selected","js.session.ended":"Your session has ended. This page keeps your input; sign in again to save.","js.session.login":"Sign in","js.session.renew":"Stay signed in","js.session.soon":"Your session ends in {n} min.","js.theme":"theme","js.theme.auto":"auto","js.theme.dark":"dark","js.theme.light":"light","search.customers":"Customers","search.invoices":"Invoices","search.none":"no results","search.placeholder":"Search · Ctrl K"}</script>
+<script src="../ui.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
+
+

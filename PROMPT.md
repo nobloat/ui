@@ -17,3 +17,11 @@ links indicate via the g + whatever letter right? · we simply dont have [a comm
 make sure all app are then updated, let me know if we are missing icons
 
 (Decided: `<kbd>` shows on desktop in buttons, `.btn` and nav links (`g d`); phones hide every hint; round icon-only buttons keep the key in their tooltip. ui.js adds the `<kbd>` from `data-key` where the markup has none. Every button and `.btn` has an icon, no exceptions; `check.mjs` fails one without. The dice is for random names and ids, `refresh` for reload and retry. `?` hides a row whose `data-needs` selector matches nothing visible; an app turns the palette off with `<body data-nopalette>` (call). Every app gets the new copy and is released.)
+
+---
+
+## 2026-11-25 — error page templates
+
+fix these issues and let's define templates in ui for typical error pages, show me your designs on chrome · can you add some appropriate visuals? · i think B works better · make them generic for all apps, not specific ones · a dot display with the error code would be cool i guess, something that looks elegant but still a touch of geek · also maybe browse https://404s.design/ what would fit? · make sure the dot display works on light and dark · [display and drawing:] 2 · fit all in a single wireframe-errors.html, with a way to tweak the primary color · i like it commit it and introduce in all projects
+
+(Decided: `nb-error` with `.Error` for 400 401 403 404 409 410 413 429 500 503; a 5×7 dot-matrix display of the code (generated in ui_test.go) above a line drawing of the mark ][◆ per code; the display follows light and dark, its dots and the drawing's highlights in the primary color; `wireframe-errors.html` embeds the example pages with design, theme and primary color to switch.)
