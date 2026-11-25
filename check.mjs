@@ -162,9 +162,12 @@ const focusProbe = () => {
     if (seen.has(kind) || !el.getClientRects().length || el.closest('[hidden], dialog:not([open])')) continue;
     seen.add(kind);
     if (document.activeElement === el) el.blur();
-    const before = getComputedStyle(el), b = [before.outlineStyle, before.boxShadow, before.borderColor, before.backgroundColor].join();
+    // the element and its 3 nearest ancestors: a field may show focus on its frame (:focus-within), not on itself
+    const look = () => [el, el.parentElement, el.parentElement?.parentElement, el.parentElement?.parentElement?.parentElement].filter(Boolean)
+      .map(e => { const s = getComputedStyle(e); return [s.outlineStyle, s.boxShadow, s.borderColor, s.backgroundColor].join(); }).join('|');
+    const b = look();
     el.focus({focusVisible: true});
-    const after = getComputedStyle(el), a = [after.outlineStyle, after.boxShadow, after.borderColor, after.backgroundColor].join();
+    const a = look();
     if (document.activeElement === el && a === b) P.push(`a11y: no visible focus — ${el.tagName.toLowerCase()}.${el.className}`);
     el.blur();
   }
