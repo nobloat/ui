@@ -4,6 +4,7 @@
 //   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
 //   a11y:   text contrast < 4.5:1 (3:1 large), state graphics and form field edges < 3:1, missing accessible names,
 //           labels or alt, duplicate ids, missing lang/title/main/h1, targets < 24×24 px without spacing, no focus indicator
+//   icons:  a button, .btn, tab, pager link, chip or menu item without an icon
 // No dependencies: Chrome DevTools protocol over Node's built-in WebSocket.
 import {spawn} from 'node:child_process';
 import {existsSync, mkdtempSync} from 'node:fs';
@@ -128,6 +129,10 @@ const probe = () => {
     [...el.childNodes].some(n => (n.nodeType === 3 && n.textContent.trim()) || (n.nodeType === 1 && n.tagName !== 'KBD' && (n.textContent.trim() || n.alt))));
   for (const el of document.querySelectorAll('a[href], button, summary, input:not([type=hidden]), select, textarea'))
     if (!el.closest('[hidden]') && !named(el)) add('a11y', 'no accessible name', el);
+  // every button, .btn, tab, pager link, chip and menu item has an icon: <i class="icon-…"> or a class that draws one (::before)
+  const drawn = el => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && (b.maskImage || b.webkitMaskImage || 'none') !== 'none'; };
+  for (const el of all.filter(e => e.matches('button, .btn, summary.round, .tabs a, .pager a, a.chip, :is(.menu, .umenu) a') && !e.closest('dialog.palette')))
+    if (!el.matches('[class*="icon-"]') && !el.querySelector('[class*="icon-"]') && !drawn(el)) add('icon', `no icon: "${(el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 40)}"`, el);
   for (const el of document.querySelectorAll('img:not([alt])')) add('a11y', 'img without alt', el);
   const ids = {}; for (const el of document.querySelectorAll('[id]')) ids[el.id] = (ids[el.id] || 0) + 1;
   for (const [k, n] of Object.entries(ids)) if (n > 1) add('a11y', `duplicate id #${k} (${n}×)`);

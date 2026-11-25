@@ -39,7 +39,7 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 | `icons/*.svg`, `icons.svg` | the icon set (one file per icon) and its sprite; the CSS classes are generated into `ui.css` | use `<i class="icon-cog">`; new icons go here first |
 | `favicon.svg` | the `][` mark favicon | replace `◆` and the two colors |
 | `skill/SKILL.md` | the rules, for people and agents | link as a skill |
-| `check.mjs` | layout and accessibility check (Node 22, Chrome) | run against the app's pages |
+| `check.mjs` | layout and accessibility check, and every button has an icon (Node 22, Chrome) | run against the app's pages |
 | `pages/*.html` | example page templates | copy the markup you need |
 | `examples/*.html` | the pages rendered (generated, do not edit) | open in a browser |
 | `examples/demo.js`, `calendar-demo.js`, `preview.html` | demo only: switcher, fake backend, calendar handlers, desktop + phone preview | not copied |

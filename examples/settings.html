@@ -109,13 +109,13 @@
 <table>
 <tr><td><kbd>g</kbd> <kbd>a</kbd> <kbd>b</kbd> <kbd>c</kbd> <kbd>d</kbd> <kbd>f</kbd> <kbd>t</kbd> <kbd>w</kbd> <kbd>m</kbd> <kbd>i</kbd> </td><td>go to page</td></tr>
 <tr><td><kbd>/</kbd></td><td>search</td></tr>
-<tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
-<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
-<tr><td><kbd>Enter</kbd></td><td>open row</td></tr>
-<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
-<tr><td><kbd>p</kbd> <kbd>n</kbd></td><td>previous / next page</td></tr>
-<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
-<tr><td><kbd>x</kbd></td><td>select the row (bulk)</td></tr>
+<tr data-needs="body:not([data-nopalette])"><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>command palette</td></tr>
+<tr data-needs="main :is(tr, .rows > li)[data-href]"><td><kbd>j</kbd> <kbd>k</kbd></td><td>next / previous row</td></tr>
+<tr data-needs="main :is(tr, .rows > li)[data-href]"><td><kbd>Enter</kbd></td><td>open row</td></tr>
+<tr data-needs=".tabs a"><td><kbd>h</kbd> <kbd>l</kbd></td><td>previous / next tab</td></tr>
+<tr data-needs=".pager"><td><kbd>p</kbd> <kbd>n</kbd></td><td>previous / next page</td></tr>
+<tr data-needs="main .chips a.chip"><td><kbd>1</kbd>…<kbd>9</kbd></td><td>toggle filter chip n</td></tr>
+<tr data-needs="td.pick input"><td><kbd>x</kbd></td><td>select the row (bulk)</td></tr>
 <tr><td><kbd>Esc</kbd></td><td>close, leave field, back</td></tr>
 
 </table>

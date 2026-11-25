@@ -88,13 +88,13 @@ The page value (dot) needs:
 <table>
 {{if .Nav}}<tr><td><kbd>g</kbd> {{range .Nav}}{{with .Key}}<kbd>{{.}}</kbd> {{end}}{{end}}</td><td>{{.T "help.goto"}}</td></tr>{{end}}
 {{if .Search}}<tr><td><kbd>/</kbd></td><td>{{.T "help.search"}}</td></tr>{{end}}
-<tr><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>{{.T "help.palette"}}</td></tr>
-<tr><td><kbd>j</kbd> <kbd>k</kbd></td><td>{{.T "help.jk"}}</td></tr>
-<tr><td><kbd>Enter</kbd></td><td>{{.T "help.enter"}}</td></tr>
-<tr><td><kbd>h</kbd> <kbd>l</kbd></td><td>{{.T "help.hl"}}</td></tr>
-<tr><td><kbd>p</kbd> <kbd>n</kbd></td><td>{{.T "help.pages"}}</td></tr>
-<tr><td><kbd>1</kbd>…<kbd>9</kbd></td><td>{{.T "help.chips"}}</td></tr>
-<tr><td><kbd>x</kbd></td><td>{{.T "help.x"}}</td></tr>
+<tr data-needs="body:not([data-nopalette])"><td><kbd>Ctrl</kbd> <kbd>k</kbd> · <kbd>:</kbd></td><td>{{.T "help.palette"}}</td></tr>
+<tr data-needs="main :is(tr, .rows > li)[data-href]"><td><kbd>j</kbd> <kbd>k</kbd></td><td>{{.T "help.jk"}}</td></tr>
+<tr data-needs="main :is(tr, .rows > li)[data-href]"><td><kbd>Enter</kbd></td><td>{{.T "help.enter"}}</td></tr>
+<tr data-needs=".tabs a"><td><kbd>h</kbd> <kbd>l</kbd></td><td>{{.T "help.hl"}}</td></tr>
+<tr data-needs=".pager"><td><kbd>p</kbd> <kbd>n</kbd></td><td>{{.T "help.pages"}}</td></tr>
+<tr data-needs="main .chips a.chip"><td><kbd>1</kbd>…<kbd>9</kbd></td><td>{{.T "help.chips"}}</td></tr>
+<tr data-needs="td.pick input"><td><kbd>x</kbd></td><td>{{.T "help.x"}}</td></tr>
 <tr><td><kbd>Esc</kbd></td><td>{{.T "help.esc"}}</td></tr>
 {{block "help" .}}{{end}}
 </table>
