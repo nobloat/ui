@@ -118,7 +118,7 @@ The page value (dot) needs:
 
 {{/* an error page's main: {{define "main"}}{{template "nb-error" .}}{{end}} in nb-layout (signed in) or nb-bare (public).
 .Error {Code int; What, Need, Limit, Ref string; Groups []string; Retry int; Actions []{Href, Label, Icon, Key string; Palette bool}}
-  Code   the HTTP status; 400 401 403 404 409 410 413 429 500 503 have their own title and text (i18n error.<code>…)
+  Code   the HTTP status; 400 401 403 404 409 410 413 429 500 503 have their own title and text (i18n nberr.<code>…)
   What   404: what is missing ("customer CUS-9999" gives "There is no customer CUS-9999")
   Need, Groups  403: what the page needs ("the admin role") and the user's groups (tags); the user is .User
   Limit  413: the size limit ("25 MB")      Ref  500: a reference to send to the admin (with a copy button)
@@ -127,12 +127,12 @@ The page value (dot) needs:
 Each code above shows on a dot-matrix display (nb-error-dots, 5×7 digits, generated from ui_test.go) above its line drawing
 (nb-error-art: the nobloat mark ][◆, the error happens to it); other codes show neither. */}}
 {{define "nb-error"}}{{with .Error}}<div class="error"><div class="vis">{{template "nb-error-dots" .Code}}{{template "nb-error-art" .Code}}</div><div>
-<p class="code"><i class="icon-{{template "nb-error-icon" .Code}}" aria-hidden="true"></i> {{.Code}} · {{$.T (printf "error.%d" .Code)}}</p>
-<h1>{{with .What}}{{$.T "error.404.what" .}}{{else}}{{$.T (printf "error.%d.title" $.Error.Code)}}{{end}}</h1>
-{{if eq .Code 403}}<p>{{with $.User}}{{$.T "error.403.who" .}}{{with $.Error.Groups}} ({{range $i, $g := .}}{{if $i}} {{end}}<span class="tag">{{$g}}</span>{{end}}){{end}}. {{end}}{{with $.Error.Need}}{{$.T "error.403.need" .}}{{end}}</p>{{end}}
-<p>{{$.T (printf "error.%d.text" .Code)}}{{with .Limit}} {{$.T "error.413.limit" .}}{{end}}</p>
+<p class="code"><i class="icon-{{template "nb-error-icon" .Code}}" aria-hidden="true"></i> {{.Code}} · {{$.T (printf "nberr.%d" .Code)}}</p>
+<h1>{{with .What}}{{$.T "nberr.404.what" .}}{{else}}{{$.T (printf "nberr.%d.title" $.Error.Code)}}{{end}}</h1>
+{{if eq .Code 403}}<p>{{with $.User}}{{$.T "nberr.403.who" .}}{{with $.Error.Groups}} ({{range $i, $g := .}}{{if $i}} {{end}}<span class="tag">{{$g}}</span>{{end}}){{end}}. {{end}}{{with $.Error.Need}}{{$.T "nberr.403.need" .}}{{end}}</p>{{end}}
+<p>{{$.T (printf "nberr.%d.text" .Code)}}{{with .Limit}} {{$.T "nberr.413.limit" .}}{{end}}</p>
 {{with .Ref}}<p><code class="id">{{.}}</code> <button type="button" class="round copy" data-copy="{{.}}" title="{{$.T "btn.copy"}}" aria-label="{{$.T "btn.copy"}} {{.}}"></button></p>{{end}}
-{{with .Retry}}<p class="muted" data-retry="{{.}}">{{$.T "error.retry" .}}</p>{{end}}
+{{with .Retry}}<p class="muted" data-retry="{{.}}">{{$.T "nberr.retry" .}}</p>{{end}}
 {{with .Actions}}<div class="row">{{range $i, $a := .}}{{if .Palette}}<button type="button" data-palette{{with .Key}} data-key="{{.}}"{{end}}{{if not $i}} class="pri"{{end}}>{{else}}<a class="btn{{if not $i}} pri{{end}}" href="{{.Href}}"{{with .Key}} data-key="{{.}}"{{end}}>{{end}}<i class="icon-{{.Icon}}" aria-hidden="true"></i> {{.Label}}{{if .Palette}}</button>{{else}}</a>{{end}}{{end}}</div>{{end}}
 </div></div>{{end}}{{end}}
 {{define "nb-error-icon"}}{{if eq . 400}}warning{{else if eq . 401}}log-in{{else if eq . 403}}lock{{else if eq . 404}}search{{else if eq . 409}}merge{{else if eq . 410}}clock{{else if eq . 413}}upload{{else if eq . 429}}pause{{else if eq . 503}}refresh{{else}}error{{end}}{{end}}
