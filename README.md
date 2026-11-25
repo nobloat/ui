@@ -36,7 +36,7 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 | `calendar.js` | optional: week calendar (draw, move, resize, keys, swipe) and month day cursor; fires `cal:*` events | `web/static/calendar.js`, only on calendar pages |
 | `chart.go` | optional: `Spark` and `Columns` as server-rendered SVG | copy, change the package line |
 | `i18n/{en,de}.json` | the texts the partials and `ui.js` use | merge into the app's i18n files |
-| `icons/*.svg`, `icons.svg` | the icon set (one file per icon) and its sprite; the CSS classes are generated into `ui.css` | use `<i class="icon-cog">`; new icons go here first |
+| `icons/*.svg`, `icons.svg`, `icons.css` | the icon set (one file per icon), its sprite, and the icon classes alone for pages without `ui.css`; the classes are generated into `ui.css` and `icons.css` | use `<i class="icon-cog">`; new icons go here first; a page without ui.css (public pages) loads a copy of `icons.css` |
 | `favicon.svg` | the `][` mark favicon | replace `◆` and the two colors |
 | `skill/SKILL.md` | the rules, for people and agents | link as a skill |
 | `check.mjs` | layout and accessibility check, and every button has an icon (Node 22, Chrome) | run against the app's pages |

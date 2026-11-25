@@ -153,7 +153,8 @@ func eur(x float64) string {
 // iconStyle is the one style of the set ("precise"): thin, square ends, sharp joins, in the text color.
 const iconStyle = `fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter"`
 
-// TestIcons builds icons.svg (sprite) and the icons block in ui.css from icons/*.svg; stale output fails, -update rewrites.
+// TestIcons builds icons.svg (sprite), the icons block in ui.css and icons.css (the icon rule and block alone, for pages
+// without ui.css: gazette's public pages) from icons/*.svg; stale output fails, -update rewrites.
 func TestIcons(t *testing.T) {
 	files, _ := filepath.Glob("icons/*.svg")
 	if len(files) == 0 {
@@ -180,7 +181,12 @@ func TestIcons(t *testing.T) {
 	re := regexp.MustCompile(`(?s)(/\* icons:begin[^\n]*\*/\n).*?(/\* icons:end \*/)`)
 	block := ":where(:root) {\n" + vars.String() + "}\n" + classes.String()
 	newCSS := re.ReplaceAllString(string(css), "${1}"+strings.ReplaceAll(block, "$", "$$")+"${2}")
-	for path, want := range map[string]string{"ui.css": newCSS, "icons.svg": sprite.String()} {
+	rule := regexp.MustCompile(`(?m)^:is\(\[class\^="icon-"\].*\n`).FindString(string(css))
+	if rule == "" {
+		t.Fatal("ui.css: the :is([class^=\"icon-\"] …) rule is missing")
+	}
+	only := "/* nobloat/ui icons, generated from icons/*.svg by go test -update: for pages that do not load ui.css */\n" + rule + block
+	for path, want := range map[string]string{"ui.css": newCSS, "icons.svg": sprite.String(), "icons.css": only} {
 		old, _ := os.ReadFile(path)
 		if string(old) == want {
 			continue
