@@ -6,9 +6,8 @@ Rules for any agent working on the nobloat design system. Read all of it before 
 
 A reusable, sustainable design system to design new nobloat apps quickly, UI and UX.
 
-- **Working surface: `foundations.html` and `components.html`** in the repo root (tokens in `foundations.css`, components in `components.css`, the page frame in `showcase.css`/`showcase.js`), a plain HTML page (open it in a browser, nothing to build). Each foundation is a section (Colours, Typography, then Spacing, Radius and borders, Sizes, Layout, Elevation, Motion), linked from the sticky bar at the top. Components follow on the same principle once the foundations are complete.
-- **Penpot is paused.** The Penpot file nobloat-ui and the generator in `penpot/` are not developed further; the pitfalls at the end stay for reference.
-- **Source of truth:** until the foundations are complete, `skill/SKILL.md`, `README.md` and `ui.css` stay the source of truth for the apps, and `foundations.html` is the proposal. Every rule in `SKILL.md` is carried into this file, so nothing is lost. When the foundations are complete, `ui.css` is streamlined once to match `foundations.html` (old token names as temporary aliases, then every app via `make ui`), and this file becomes the source of truth.
+- **Working surface:** `foundations.html` and `components.html` in the repo root, plain HTML (open in a browser, nothing to build). Tokens in `foundations.css`, components in `components.css` and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
+- **Source of truth:** this file and the two pages for the design system; `skill/SKILL.md`, `README.md` and `ui.css` for what the apps run today. Every rule in `SKILL.md` is carried here. When the components are complete, `ui.css` is streamlined once to match (old token names as temporary aliases, then every app via `make ui`), the old gallery (`pages/`, `examples/`, `screenshots/`) goes, and this file is the only source.
 - `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of design system work unless the owner asks.
 
 ### Page rules for foundations.html
@@ -39,22 +38,18 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 
 ## Layers: each one only from the one below
 
-| # | Layer | Built only from |
-|---|---|---|
-| 0 | Foundations: colours, typography, spacing, radius and borders, sizes, layout, elevation, motion (`foundations.html`) | – |
-| 1 | Building blocks: icons, surface, divider, text styles | tokens |
-| 2 | Controls: button, icon button, field, money, checkbox, radio, segmented, chip, tag, status, badge, id, key, nav item, tab, menu item, avatar, message, toast | instances of 1 |
-| 3 | Composed parts: app header (desktop/phone), page head, breadcrumbs, card, dialog, menu panel, search, pager, table header and row, list row, info row, stat tile, empty state, chart bar, meter | instances of 1–2 |
-| 4 | Page templates: list, detail, form, dashboard, settings, login, error, overlays (desktop and phone) | instances of 3 |
-| 5 | App screens, one page per app | instances of 2–4 |
+| # | Layer | Where | Built only from |
+|---|---|---|---|
+| 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `foundations.css` | – |
+| 1 | Components: button, forms, labels, feedback, data, navigation and upload | `components.css` | tokens |
+| 2 | Composed parts: card, dialog, menu, command palette, stat tile, app header, page head | `components.css` | components |
+| 3 | Page templates: list, detail, form, dashboard, settings, login, error | the old gallery until it is replaced | composed parts |
 
-What is still missing in each layer: [To do](#to-do).
-
-- **No copies.** A higher layer contains only component instances. Never draw a styled box (fill, stroke, radius, shadow, text style) by hand on a template or screen, not even when it is bound to tokens. Only plain layout wrappers without styling (a row or column with a gap) and the screen board itself may be loose.
-- **Containers have content slots.** Card, dialog, panel, table row and list row are components whose content differs per use. Build them with slots (a placeholder instance that is swapped per use) so the container still follows its main. Test how slots behave in Penpot before building on them, and show the owner.
-- **One layer at a time.** Finish a layer, check it (below), show it to the owner, then build the next. Screens are the very last step.
-- **App screens are consumers, not the system.** Build them app by app, simplest first (auth, call), not all at once. A part enters the system (layer 2–3) when two apps need it; otherwise it stays on the app's page.
-- **Change once, everywhere.** A token or main component change must reach every template and screen. If it would not, the layer rule was broken.
+- **Only tokens.** A component uses tokens and other components, never a raw colour, size or font. A tint only one component needs is a formula inside it, not a token.
+- **Containers have content slots.** Card, dialog, panel and rows take any content; their own styling never depends on what is inside.
+- **One step at a time.** Build a part, show it with its options, let the owner choose, then build the next.
+- **A part enters the system when two apps need it;** otherwise it stays in the app.
+- **Change once, everywhere.** A token or component change reaches every page that uses it.
 
 ## Ground rules (hard)
 
@@ -80,11 +75,11 @@ What is still missing in each layer: [To do](#to-do).
 
 ### Variants and states
 
-- **Few variants:** only what a designer picks in a mockup. Hover, focus, disabled are documented once on a "States" board, not as variants.
+- **Few variants:** only what a designer picks in a mockup. Hover, focus, pressed, disabled and busy are shown once per component, not as variants.
 
 ### Icons and buttons
 
-- Icons come only from `icons/` (16×16 grid, stroke 1.25, square ends, sharp joins, current colour), imported, never drawn in Penpot. A missing icon is added to `icons/` first (`README.md`: Adding an icon).
+- Icons come only from `icons/` (16×16 grid, stroke 1.25, square ends, sharp joins, current colour), never drawn by hand. A missing icon is added to `icons/` first (`README.md`: Adding an icon).
 - **Every button has an icon, before the text, no exceptions** (actions, OK and Cancel, Close, tabs, pager, chips, menu items, icon-only buttons). Links out carry `external` after the text; messages, states, units and empty states carry theirs. Plain links in text and form labels get none.
 - The same action has the same icon everywhere. Actions: confirm/save/OK `check` · cancel/close `x` · back `arrow-left` · next `arrow-right` · new `plus` · delete `trash` · archive `archive` · edit `edit` · copy `copy` · undo/reset `undo` · retry/reload `refresh` · random name or id `dice` · upload `upload` · download/export `download` · send `send` · comment `chat` · preview `eye` · print `print` · merge `merge` · sign in `log-in` · sign out `power` · lock/unlock `lock`/`unlock` · filter `filter` · search `search` · help `help` · more `more`. Places: dashboard `dashboard` · list `list` · board `columns` · calendar `calendar` · time `clock` · person `user` · people `users` · nobody `user-x` · company `building` · project `folder` · tag `tag` · settings `cog` · keys `key` · money `euro` · document `file` · source `code` · language `globe` · reports `chart` · mail `mail` · home `home` · link `link`. Chip states: all `list` · active/done `ok` · waiting `pause` · overdue/failed `warning` · archived `archive`.
 - One primary button per page at most. Delete is red and always confirms, naming the object and the consequence. Dialogs always have a title.
@@ -122,99 +117,28 @@ Never report "built but not looked at". If a check could not run, finish it befo
 ## Working with the owner
 
 - Follow orders as given; if an order seems wrong, say so and ask, do not silently do something else.
-- Ask before decisions that change scope or structure. Report blockers plainly (for example the plugin tab asleep) instead of working around them.
+- Ask before decisions that change scope or structure. Report blockers plainly instead of working around them.
 - Keep the owner informed in short messages while long jobs run.
 - Tick off the to-do list below as items are finished and shown to the owner.
 
 ## To do
 
-**Foundations** (in `foundations.html`, one section each)
-- [x] Colours
-- [x] Typography
-- [x] Spacing
-- [x] Radius and borders
-- [x] Sizes (controls, targets, icons)
-- [x] Icons (from icons/; `off` strikes any icon through)
-- [ ] Rollout: call (mic-off, camera-off), asq and tasq/auth (user-x) switch to `icon-… off` when ui.css is copied
-- [ ] Layout (page width, breakpoint, margins)
-- [x] Elevation (one token, `shadow-overlay`, for what floats)
-- [x] Motion (duration-fast, duration-slow, ease, spin; zero with reduced motion)
-**Components** (in `components.html`, styles in `components.css`, built only from `foundations.css`)
-- [x] Button (default, primary, danger, quiet, toggle, icon-only, small, key hint, group; phone: icon only and full-width primary; states shown once)
-- [x] Field (text, select, textarea; label, hint, error; focus and error on the border; read-only dashed)
-- [x] Checkbox, radio, segmented (choice with label, whole row the target; segmented on radios)
-- [x] Labels: status (dot and word on a tint), filter chip, tag, badge, object id
+**Foundations** (`foundations.html`)
+- [x] Colours, typography, spacing, radius and borders, sizes, icons (`off`, `fw`), elevation, motion
+- [ ] Layout: page width, breakpoint, margins
 
-- [x] Feedback: message, toast, progress and meter, empty state
-- [x] Data: table, row list, info grid, ranked bars
-- [x] Navigation and upload: tabs, pager, drop zone
-- [ ] Composed parts: card, dialog, menu, command palette, stat tile
+**Components** (`components.html`)
+- [x] Button, forms (fields, date and time, choices), labels, feedback, data, navigation and upload
+- [ ] Composed parts: card, dialog, menu and bottom sheet, command palette and `?` help, stat tile
+- [ ] App frame: app header (desktop and phone), user menu, page head, breadcrumbs, session bar
+- [ ] Mark, logo and app icon: `][` in a neutral token with one character in `brand`; logo is mark plus app name or a custom image; favicon and home-screen icon are exports
+- [ ] Still missing from the apps: unit affix (%, days), saved indicator, pill input (groups, tags), colour swatches, single-file upload button, bulk bar, history (audit), charts (stack, columns, sparkline), calendar (week, month), error display (dot matrix)
 
-- [ ] Streamline `ui.css` to the foundations, roll out with `make ui`
+**Checks** (each needs the owner's go)
+- [ ] `check.mjs`: layout shift after load, motion without reduced motion
+- [ ] Touch targets: 24 px (today) or 44 px on phones
 
-Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, message, toast, menu item, nav item, tab, avatar.
-
-**Layer 1–2 (controls)**
-- [ ] Import the missing icons (8, e.g. `user-x`, `merge`; see `penpot/PROGRESS.md`)
-- [ ] Brand token (light and derived dark shade) wired into primary button, selection and highlight
-- [ ] Mark (layer 1, after the brand token): `][` in a neutral token, one character as a text slot in `brand`; one component, no per-app variants (as `favicon.svg` and `nb-mark`, whose bare hex colours become tokens)
-- [ ] Logo (layer 2): Mark plus app name, swappable for a custom logo image with a dark variant (`Brand.Logo`, `Brand.LogoDark`)
-- [ ] App icon (layer 2): Mark as favicon and home-screen icon; sizes are exports, not variants. Apps set character and brand only on their own screens (layer 5)
-- [ ] Key hint (`kbd`) inside buttons, menu rows and nav items
-- [ ] Field: hint text in the normal state, read-only, unit affix other than currency (%, days)
-- [ ] Chip with icon or dot and count
-- [ ] Badge anchored on a button
-- [ ] Code text and code block
-- [ ] Pill input (groups, tags), colour swatches with custom colour
-- [ ] Drop zone (upload), single-file upload button
-- [ ] Progress bar (known and unknown length), button spinner on the States board
-- [ ] Saved indicator ("✓ saved 14:02"), field error line (wrong + valid example)
-- [ ] Signed durations (+12:30)
-
-**Layer 3 (composed parts)**
-- [ ] App header desktop and phone, user menu, nav as vertical list on phones
-- [ ] Page head, breadcrumbs (desktop and "← parent")
-- [ ] Card, dialog, menu panel and bottom sheet, each with content slots (test slots first and show the owner)
-- [ ] Search with grouped results; command palette; `?` help
-- [ ] Pager; table header and row (sortable, footer sum, grouped rows, select column) and bulk bar; table as cards on phones
-- [ ] List row (dot, title, meta, number, row buttons)
-- [ ] Info row and info grid; history (audit)
-- [ ] Empty state
-- [ ] Charts: bars, meter, stack, columns, sparkline in a tile, two-series with legend
-- [ ] Session bar
-- [ ] Disclosure section, split button, stepper, timeline
-- [ ] Calendar grid: week (now line, overlaps), month, phone day view
-- [ ] Error display (dot matrix) and the ][◆ drawings per code
-
-**Layer 4 (templates, desktop and phone)**
-- [ ] Rebuild list, detail, form, dashboard, settings, login, error, overlays from instances only (the current ones are loose boxes)
-- [ ] Add dates, week, month and status (as in `pages/`)
-
-**Layer 5 (app screens)**
-- [ ] Change the generator's renderer (`penpot/lib.js`) to place only instances
-- [ ] auth, then call; then the others one by one, each shown to the owner
-- [ ] Delete the old loose-box pages (nomail, call, up, poll, jot)
-
-**Checks and code (ideas from ui-skills.com, not Penpot work; each needs the owner's go)**
-- [ ] `check.mjs`: layout shift after load (CLS) and motion without `prefers-reduced-motion` (Chrome runs with reduced motion forced, so the motion case is untested today)
-- [ ] `ui.css`: `text-wrap: balance` on headings, `pretty` on paragraphs (`tabular-nums` is already used)
-- [ ] Touch targets: decide 24 px (WCAG AA, today) or 44 px on phones; the call look (40 px) is close to 44
-
-**Handover**
-- [ ] Carry the decided differences into `ui.css` and `SKILL.md`; this file becomes the source of truth
-
-## Penpot (paused): plugin pitfalls
-
-- Check `penpot.currentFile.name === "nobloat-ui"` before every write: the plugin silently connects to whichever Penpot tab is in front.
-- `token.applyToShapes` **toggles**: applying a token a shape already has (also inherited from its main) removes it. Check `shape.tokens[prop]` first.
-- Never remove a token to replace it: it unbinds every shape. Edit `token.value` in place.
-- `theme.addSet` needs the set object; new sets start inactive; toggling a theme can leave none active (verify after every switch).
-- SVG import adds a `base-background` rect (remove it) and gives rect/ellipse strokes "inner" alignment (set "center").
-- Variant containers cannot hold a fill token. `resize()` resets flex sizing to fix. `setParentIndex` counts from the end in flex boards. A flex board collapsed to 0.01 px cannot be resized: rebuild it.
-- `library.components` lists one entry per variant set; use `container.variants.variantComponents()`.
-- `storage` is wiped when the plugin reconnects. `export_shape` only works on the active page. A call times out after ~30 s: run long jobs in the background in the plugin and poll in short steps. The `AsyncFunction` constructor is blocked; `new Function` with an async IIFE works.
-- The plugin tab sleeps when the browser window is hidden or covered (energy saver, background throttling). Ask the owner to keep it visible; do not try to wake or control the browser yourself.
-
-## Generator
-
-`penpot/` renders screens from JSON (`lib.js`, `parts.js`, `DSL.md`, `apps/*.json`; how to run it and its status: `penpot/PROGRESS.md`). Its screen definitions are reusable; its renderer draws parts as loose boxes and must place only instances before it is used again.
+**Rollout**
+- [ ] Streamline `ui.css` to the foundations and components; old token names as aliases; `make ui` in every app
+- [ ] Apps: `icon-mic off`, `icon-camera off` (call), `icon-user off` (asq, tasq, auth); dates as dd.mm.yyyy text fields; long operations report progress
+- [ ] Remove the old gallery (`pages/`, `examples/`, `screenshots/`, `index.html`) once nothing uses it

@@ -53,3 +53,11 @@ lets review the penpot skill, is it in accordance what is defined in the UI/UX r
 since we have so many issues with penpot, let's do this in html? · this should work standalone as plain html pages no go or anything required · ignore paper, we will just build one really good theme · [colours, typography iterated on the page] · yes lets define the missing foundations so we can then build really nice components; streamline ui.css in the end
 
 (Decided: the design system is worked out in `foundations.html` (plain HTML, loads only `ui.css`); Penpot is paused. `skill/penpot.md` becomes `skill/design-system.md` with the current decisions (colours, typography, wrapping), page rules and the foundations to-do list. `ui.css` is streamlined once when the foundations are complete.)
+
+---
+
+## 2026-11-26 — remove legacy
+
+can you delete all legacy stuff from the ui module? · do that. what is the actual skill file that now has all the valid rules?
+
+(Decided: `penpot/` and the Penpot parts of `skill/design-system.md` are removed; the file now describes the HTML working surface. The old gallery (`pages/`, `examples/`, `screenshots/`, `index.html`) stays until `ui.css` is streamlined, because the apps, `ui_test.go`, `check.mjs` and CI still use it; its removal is on the to-do list.)
