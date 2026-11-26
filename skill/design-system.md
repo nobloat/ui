@@ -138,7 +138,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [ ] Elevation
 - [x] Motion (duration-fast, duration-slow, ease, spin; zero with reduced motion)
 **Components** (in `components.html`, styles in `components.css`, built only from `foundations.css`)
-- [x] Button (default, primary, danger, icon-only, small; states shown once)
+- [x] Button (default, primary, danger, quiet, toggle, icon-only, small, key hint, group; phone: icon only and full-width primary; states shown once)
 - [ ] Field (text, select, textarea; label, hint, error)
 - [ ] Checkbox, radio, segmented
 - [ ] Status (dot and word, pill)

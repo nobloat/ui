@@ -66,3 +66,5 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .mo-demo { flex: none; width: 4.5rem; height: 2.2rem; border: var(--border); border-radius: var(--radius-control); background: linear-gradient(var(--accent), var(--accent)) left center / 1rem 1rem no-repeat; transition: background-position var(--d) var(--ease); }
 .ty-r:hover .mo-demo { background-position: right center; }
 .mo-fw { display: grid; gap: var(--space-8); margin: var(--space-16) 0; } .mo-fw i { color: var(--muted); }
+.cp-two { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: var(--space-32); align-items: start; } .cp-two > div { display: grid; gap: var(--space-8); }
+.cp-phone { padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); }

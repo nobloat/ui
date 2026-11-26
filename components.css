@@ -1,26 +1,37 @@
 /* nobloat components: built only from the tokens in foundations.css. Proposal; moves into ui.css at the streamlining. */
 
+/* Components respond to the width of their container, not the window, so a narrow column behaves like a phone. */
+main, .cp-phone { container-type: inline-size; }
+
 /* button: always an icon before the text; one primary per page; states are not variants */
 .button {
   all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
   height: var(--size-control); min-width: var(--size-control); padding: 0 var(--space-16);
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
   font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
-  transition: background-color var(--duration-fast) var(--ease);
+  transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+  --hover: color-mix(in oklab, var(--surface), var(--text) 12%); --pressed: color-mix(in oklab, var(--surface), var(--text) 20%);
 }
-.button > i { font-size: var(--size-icon); }
-.button:not(:disabled):is(:hover, .is-hover) { background: var(--line); }
-.button:not(:disabled):is(:active, .is-active) { background: color-mix(in oklab, var(--line), var(--text) 12%); }
+.button > i { font-size: 1em; } /* the icon takes the text size, so it lines up with the capitals */
+.button:not(:disabled):is(:hover, .is-hover) { background: var(--hover); }
+.button:not(:disabled):is(:active, .is-active) { background: var(--pressed); }
 .button:is(:focus-visible, .is-focus) { outline: var(--focus); outline-offset: var(--focus-offset); }
 
-.button.primary { background: var(--accent); border-color: transparent; color: var(--text-on-accent); }
-.button.primary:not(:disabled):is(:hover, .is-hover) { background: color-mix(in oklab, var(--accent), var(--text) 15%); }
-.button.primary:not(:disabled):is(:active, .is-active) { background: color-mix(in oklab, var(--accent), var(--text) 28%); }
+/* filled: one strong action; text in 600 */
+.button:is(.primary, .danger) { border-color: transparent; font-weight: 600; }
+.button.primary { background: var(--accent); color: var(--text-on-accent);
+  --hover: color-mix(in oklab, var(--accent), var(--text) 15%); --pressed: color-mix(in oklab, var(--accent), var(--text) 28%); }
+.button.danger { background: var(--danger); color: var(--text-on-danger);
+  --hover: color-mix(in oklab, var(--danger), black 15%); --pressed: color-mix(in oklab, var(--danger), black 28%); }
 
-.button.danger { background: var(--danger); border-color: transparent; color: var(--text-on-danger); }
-.button.danger:not(:disabled):is(:hover, .is-hover) { background: color-mix(in oklab, var(--danger), black 15%); }
-.button.danger:not(:disabled):is(:active, .is-active) { background: color-mix(in oklab, var(--danger), black 28%); }
+/* quiet: no frame until hovered; for secondary actions in rows and toolbars */
+.button.quiet { border-color: transparent; background: transparent; }
 
+/* toggle: aria-pressed="true" (mute, pin, favourite) */
+.button[aria-pressed="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent);
+  --hover: color-mix(in oklab, var(--selected), var(--accent) 12%); --pressed: color-mix(in oklab, var(--selected), var(--accent) 22%); }
+
+/* sizes and shape */
 .button.small { height: var(--size-control-small); min-width: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
 .button.icon-only { width: var(--size-control); padding: 0; border-radius: var(--radius-round); }
 .button.icon-only.small { width: var(--size-control-small); }
@@ -29,3 +40,19 @@
 /* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
 .button[aria-busy="true"] { cursor: progress; } .button[aria-busy="true"]::after { content: none; }
 .button[aria-busy="true"] > i { mask: none; background: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }
+
+/* key hint after the text, desktop only */
+.kbd { display: inline-grid; place-items: center; min-width: 1.5em; height: 1.5em; padding: 0 var(--space-4); box-sizing: border-box;
+  border: var(--border); border-radius: var(--space-4); font: var(--small); color: var(--muted); }
+.button > .kbd { margin-left: var(--space-4); border-color: color-mix(in oklab, currentColor 30%, transparent); color: inherit; opacity: .75; }
+
+/* a row of buttons */
+.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
+
+/* phones (narrow container): no key hints; create, edit, delete and copy show only the icon; the primary spans the width */
+@container (max-width: 40rem) {
+  .button > .kbd { display: none; }
+  .button.phone-icon > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .button.phone-icon { width: var(--size-control); padding: 0; }
+  .button.primary { flex: 1 1 100%; }
+}
