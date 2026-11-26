@@ -116,6 +116,9 @@ Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, mes
 **Layer 1–2 (controls)**
 - [ ] Import the missing icons (8, e.g. `user-x`, `merge`; see `penpot/PROGRESS.md`)
 - [ ] Brand token (light and derived dark shade) wired into primary button, selection and highlight
+- [ ] Mark (layer 1, after the brand token): `][` in a neutral token, one character as a text slot in `brand`; one component, no per-app variants (as `favicon.svg` and `nb-mark`, whose bare hex colours become tokens)
+- [ ] Logo (layer 2): Mark plus app name, swappable for a custom logo image with a dark variant (`Brand.Logo`, `Brand.LogoDark`)
+- [ ] App icon (layer 2): Mark as favicon and home-screen icon; sizes are exports, not variants. Apps set character and brand only on their own screens (layer 5)
 - [ ] Key hint (`kbd`) inside buttons, menu rows and nav items
 - [ ] Field: hint text in the normal state, read-only, unit affix other than currency (%, days)
 - [ ] Chip with icon or dot and count
