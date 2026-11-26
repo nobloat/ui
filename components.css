@@ -116,13 +116,13 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 [data-state="ok"] { --c: var(--ok); } [data-state="warn"] { --c: var(--warn); } [data-state="danger"] { --c: var(--danger); }
 [data-state="info"] { --c: var(--info); } [data-state="disabled"] { --c: var(--disabled); }
 .status { display: inline-flex; align-items: center; gap: var(--space-8); font: var(--body); color: var(--text); white-space: nowrap; }
-.status::before { content: ""; flex: none; width: .5rem; height: .5rem; border-radius: var(--radius-round); background: var(--c, var(--disabled)); }
+.status::before { content: ""; flex: none; width: .5rem; height: .5rem; border-radius: 2px; background: var(--c, var(--disabled)); }
 /* the pill: the same, on a tint of its colour, where the state is the point (a status column, a page head) */
-.status.pill { height: 1.5rem; padding: 0 var(--space-8); border-radius: var(--radius-round); background: color-mix(in oklab, var(--c, var(--disabled)) 15%, var(--background)); }
+.status.pill { height: 1.5rem; padding: 0 var(--space-8); border-radius: var(--radius-control); background: color-mix(in oklab, var(--c, var(--disabled)) 15%, var(--background)); }
 
 /* filter chip: a link that filters a list; the count is muted; the active one is selected */
 .filter-chip { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8);
-  border: var(--border); border-radius: var(--radius-round); background: var(--surface); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap;
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap;
   transition: background-color var(--duration-fast) var(--ease); }
 .filter-chip > i { font-size: 1em; } .filter-chip > .count { color: var(--muted); font-variant-numeric: tabular-nums; }
 .filter-chip:hover { background: color-mix(in oklab, var(--surface), var(--text) 8%); }
