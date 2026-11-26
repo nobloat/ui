@@ -55,7 +55,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 @media (max-width: 40rem) { .fd-modes { grid-template-columns: minmax(0,1fr); } }
 /* components page */
 .cp-ex { display: flex; align-items: center; gap: var(--space-16); flex-wrap: wrap; }
-.cp-states { display: flex; flex-wrap: wrap; gap: var(--space-16) var(--space-32); padding: var(--space-16) 0; border-bottom: var(--border); }
+.cp-states { display: flex; flex-wrap: wrap; gap: var(--space-16) var(--space-32); padding: var(--space-16) 0; }
 .cp-st { display: grid; justify-items: start; gap: var(--space-8); }
 /* icons */
 .ic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: var(--space-8); margin-top: var(--space-16); }
@@ -68,3 +68,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .mo-fw { display: grid; gap: var(--space-8); margin: var(--space-16) 0; } .mo-fw i { color: var(--muted); }
 .cp-two { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: var(--space-32); align-items: start; } .cp-two > div { display: grid; gap: var(--space-8); }
 .cp-phone { padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); }
+/* forced states for the states row only; the component itself uses :hover, :active and :focus-visible */
+.button.is-hover:not(:disabled) { background: var(--hover); } .button.is-active:not(:disabled) { background: var(--pressed); }
+.button.is-focus { outline: var(--focus); outline-offset: var(--focus-offset); }
+.ty-mock.cp-rules { columns: 2 22rem; } .cp-rules p { break-inside: avoid; }

@@ -13,9 +13,9 @@ main, .cp-phone { container-type: inline-size; }
   --hover: color-mix(in oklab, var(--surface), var(--text) 12%); --pressed: color-mix(in oklab, var(--surface), var(--text) 20%);
 }
 .button > i { font-size: 1em; } /* the icon takes the text size, so it lines up with the capitals */
-.button:not(:disabled):is(:hover, .is-hover) { background: var(--hover); }
-.button:not(:disabled):is(:active, .is-active) { background: var(--pressed); }
-.button:is(:focus-visible, .is-focus) { outline: var(--focus); outline-offset: var(--focus-offset); }
+.button:not(:disabled):hover { background: var(--hover); }
+.button:not(:disabled):active { background: var(--pressed); }
+.button:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
 
 /* filled: one strong action; the fill carries the weight, the text stays 400 */
 .button:is(.primary, .danger) { border-color: transparent; }
