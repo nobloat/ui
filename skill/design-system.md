@@ -53,8 +53,12 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 |---|---|---|---|
 | 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `foundations.css` | – |
 | 1 | Components: button, forms, labels, feedback, data, navigation and upload | `components.css` | tokens |
-| 2 | Composed parts: card, dialog, menu, command palette, stat tile, app header, page head | `components.css` | components |
-| 3 | Page templates: list, detail, form, dashboard, settings, login, error | the old gallery until it is replaced | composed parts |
+| 2 | Composed parts: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette | `components.css` | components |
+| 3 | Shell: app header (logo, search, user menu), nav, breadcrumbs and page head, session bar, phone layout | `components.css` | composed parts |
+| 4 | Page templates: list, detail, form, dashboard, settings; login and errors are the shell without nav and user menu | the old gallery until it is replaced | shell and composed parts |
+| – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
+
+- **One shell** for every app; no second frame. Apps are outside `ui/` and fill the templates.
 
 - **Only tokens.** A component uses tokens and other components, never a raw colour, size or font. A tint only one component needs is a formula inside it, not a token.
 - **Containers have content slots.** Card, dialog, panel and rows take any content; their own styling never depends on what is inside.
@@ -76,7 +80,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 
 - Contrast: text and placeholders 4.5:1 (3:1 from 24 px, or 18.66 px bold), icons, field edges and state dots 3:1, muted text included. Exception: inactive or purely decorative elements (e.g. jot's faded boxes) use `line` and are exempt (WCAG 1.4.3, 1.4.11); `line` never carries meaning, text that must be read, or an active control's edge.
 - Targets at least 24×24 px or spaced. Visible keyboard focus on every control (fields show it on their border), shown once for all controls.
-- Every icon-only control has a name (shown as the tooltip in the design).
+- Every icon-only control has a name: `aria-label` and the same text as `title`, the browser's own tooltip; no tooltip component.
 
 ### Widths
 
