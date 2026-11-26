@@ -1,0 +1,919 @@
+{
+ "app": {
+  "name": "bill",
+  "ch": "€",
+  "nav": [
+   "Dashboard",
+   "Customers",
+   "Invoices",
+   "Reports"
+  ],
+  "user": "P"
+ },
+ "screens": [
+  {
+   "name": "List",
+   "here": "Customers",
+   "kids": [
+    {
+     "head": "Customers",
+     "actions": [
+      {
+       "btn": "Export",
+       "icon": "download"
+      },
+      {
+       "btn": "New customer",
+       "kind": "primary",
+       "icon": "plus"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "chip": "All",
+       "n": "312",
+       "on": true
+      },
+      {
+       "chip": "Active",
+       "n": "280"
+      },
+      {
+       "chip": "Overdue",
+       "n": "7"
+      },
+      {
+       "chip": "Archived",
+       "n": "25"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "table": {
+      "sel": 1,
+      "cols": [
+       {
+        "h": "Id",
+        "w": 110
+       },
+       {
+        "h": "Name"
+       },
+       {
+        "h": "Tags",
+        "w": 200
+       },
+       {
+        "h": "State",
+        "w": 120
+       },
+       {
+        "h": "Open",
+        "w": 130,
+        "right": true
+       },
+       {
+        "h": "",
+        "w": 40,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "id": "CUS-0042"
+        },
+        "ACME GmbH",
+        {
+         "tag": "retail"
+        },
+        {
+         "status": "active",
+         "s": "ok"
+        },
+        {
+         "money": "1.234,56 €"
+        },
+        {
+         "ibtn": "more",
+         "size": "sm"
+        }
+       ],
+       [
+        {
+         "id": "CUS-0043"
+        },
+        "Berger & Söhne OG",
+        {
+         "tag": "wholesale",
+         "tint": true
+        },
+        {
+         "status": "overdue",
+         "s": "bad"
+        },
+        {
+         "money": "−480,00 €",
+         "sign": "neg"
+        },
+        {
+         "ibtn": "more",
+         "size": "sm"
+        }
+       ],
+       [
+        {
+         "id": "CUS-0044"
+        },
+        "Café Central",
+        {
+         "tag": "gastro"
+        },
+        {
+         "status": "pending",
+         "s": "pending"
+        },
+        {
+         "money": "0,00 €"
+        },
+        {
+         "ibtn": "more",
+         "size": "sm"
+        }
+       ],
+       [
+        {
+         "id": "CUS-0045"
+        },
+        "Donau Logistik AG",
+        {
+         "tag": "transport"
+        },
+        {
+         "status": "active",
+         "s": "ok"
+        },
+        {
+         "money": "+12.000,00 €",
+         "sign": "pos"
+        },
+        {
+         "ibtn": "more",
+         "size": "sm"
+        }
+       ]
+      ]
+     }
+    },
+    {
+     "row": [
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "pager": "1–25 of 312"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Detail",
+   "here": "Customers",
+   "crumbs": [
+    "Customers",
+    "ACME GmbH"
+   ],
+   "kids": [
+    {
+     "head": "ACME GmbH",
+     "state": {
+      "status": "active",
+      "s": "ok"
+     },
+     "actions": [
+      {
+       "btn": "Edit",
+       "icon": "edit"
+      },
+      {
+       "btn": "Delete",
+       "kind": "delete"
+      },
+      {
+       "btn": "New invoice",
+       "kind": "primary",
+       "icon": "plus"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "tag": "retail"
+      },
+      {
+       "tag": "vienna",
+       "tint": true
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "info": [
+      [
+       "Id",
+       {
+        "id": "CUS-0042"
+       }
+      ],
+      [
+       "Email",
+       "office@acme.example"
+      ],
+      [
+       "VAT id",
+       "ATU12345678"
+      ],
+      [
+       "Address",
+       "Hauptstraße 1, 1010 Wien"
+      ],
+      [
+       "Open",
+       {
+        "money": "1.234,56 €"
+       }
+      ]
+     ]
+    },
+    {
+     "tabs": [
+      "Invoices",
+      "Contacts",
+      "History"
+     ],
+     "on": 0
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Number",
+        "w": 150
+       },
+       {
+        "h": "Date",
+        "w": 120
+       },
+       {
+        "h": "State",
+        "w": 120
+       },
+       {
+        "h": "Total",
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "id": "INV-2026-0042"
+        },
+        "2026-11-05",
+        {
+         "status": "paid",
+         "s": "ok"
+        },
+        {
+         "money": "1.200,00 €"
+        }
+       ],
+       [
+        {
+         "id": "INV-2026-0038"
+        },
+        "2026-10-12",
+        {
+         "status": "overdue",
+         "s": "bad"
+        },
+        {
+         "money": "480,00 €"
+        }
+       ],
+       [
+        {
+         "id": "INV-2026-0031"
+        },
+        "2026-09-02",
+        {
+         "status": "draft",
+         "s": "off"
+        },
+        {
+         "money": "34,56 €"
+        }
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Form",
+   "here": "Customers",
+   "crumbs": [
+    "Customers",
+    "ACME GmbH",
+    "Edit"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "Edit customer",
+     "sub": {
+      "row": [
+       {
+        "icon": "check",
+        "c": "green"
+       },
+       {
+        "t": "saved 14:02",
+        "s": "small",
+        "c": "green"
+       }
+      ],
+      "gap": "2xs",
+      "hug": true
+     }
+    },
+    {
+     "field": "Name",
+     "v": "ACME GmbH"
+    },
+    {
+     "row": [
+      {
+       "field": "Email",
+       "v": "office@acme",
+       "state": "Error",
+       "msg": "Not an email: e.g. office@acme.example",
+       "grow": true
+      },
+      {
+       "field": "Country",
+       "v": "Austria",
+       "type": "Select",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "mfield": "Credit limit",
+       "v": "5.000,00",
+       "grow": true
+      },
+      {
+       "field": "VAT id",
+       "v": "ATU12345678",
+       "state": "Saved",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "Note",
+     "v": "Pays by bank transfer, 14 days.",
+     "type": "Textarea"
+    },
+    {
+     "col": [
+      {
+       "t": "Billing",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "seg": [
+        "Monthly",
+        "Quarterly",
+        "Yearly"
+       ],
+       "on": 0
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "col": [
+      {
+       "check": "Send invoices by email",
+       "on": true
+      },
+      {
+       "check": "Charge reminder fees"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "row": [
+      {
+       "btn": "Cancel",
+       "only": "d"
+      },
+      {
+       "btn": "Save",
+       "kind": "primary",
+       "icon": "check"
+      }
+     ],
+     "gap": "xs",
+     "stack": true
+    }
+   ]
+  },
+  {
+   "name": "Dashboard",
+   "here": "Dashboard",
+   "kids": [
+    {
+     "head": "Dashboard"
+    },
+    {
+     "tiles": [
+      {
+       "tile": "Open invoices",
+       "value": "12.480,00 €",
+       "delta": "+8 %",
+       "cap": "vs. October"
+      },
+      {
+       "tile": "Overdue",
+       "value": "7",
+       "delta": "+2",
+       "bad": true,
+       "cap": "since Monday"
+      },
+      {
+       "tile": "Paid this month",
+       "value": "31.200,00 €",
+       "delta": "+12 %",
+       "cap": "vs. October"
+      },
+      {
+       "tile": "Drafts",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "card": [
+      {
+       "list": [
+        {
+         "dot": "bad",
+         "main": "INV-2026-0038 · Berger & Söhne OG",
+         "meta": "overdue 14 days",
+         "num": "480,00 €",
+         "act": [
+          {
+           "btn": "Remind",
+           "sm": true,
+           "icon": "mail"
+          }
+         ]
+        },
+        {
+         "dot": "pending",
+         "main": "INV-2026-0041 · Café Central",
+         "meta": "due tomorrow",
+         "num": "220,00 €",
+         "act": [
+          {
+           "btn": "Open",
+           "sm": true
+          }
+         ]
+        },
+        {
+         "dot": "off",
+         "main": "INV-2026-0044 · Donau Logistik AG",
+         "meta": "draft since 3 days",
+         "num": "1.900,00 €",
+         "act": [
+          {
+           "btn": "Send",
+           "sm": true,
+           "icon": "send"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "title": "Needs attention"
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "columns": [
+          18,
+          22,
+          19,
+          25,
+          24,
+          28,
+          26,
+          31,
+          27,
+          33,
+          30,
+          36
+         ],
+         "cap": "Dec 2025 – Nov 2026 · Nov 31.200,00 €"
+        }
+       ],
+       "title": "Revenue",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "bars": [
+          [
+           "ACME GmbH",
+           "12.400 €",
+           1
+          ],
+          [
+           "Donau Logistik",
+           "8.100 €",
+           0.65
+          ],
+          [
+           "Café Central",
+           "3.300 €",
+           0.27
+          ],
+          [
+           "Berger & Söhne",
+           "1.900 €",
+           0.15
+          ]
+         ]
+        }
+       ],
+       "title": "Top customers",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "Recent activity",
+       "s": "h2"
+      },
+      {
+       "list": [
+        {
+         "main": "Peter sent INV-2026-0042 to ACME GmbH",
+         "meta": "2 h ago"
+        },
+        {
+         "main": "Simeon created CUS-0045 Donau Logistik AG",
+         "meta": "yesterday"
+        }
+       ]
+      }
+     ],
+     "gap": "sm"
+    }
+   ]
+  },
+  {
+   "name": "Settings",
+   "here": "",
+   "crumbs": [
+    "Settings"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "Settings"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "Name",
+         "Peter Example"
+        ],
+        [
+         "Username",
+         "peter"
+        ],
+        [
+         "Email",
+         "peter@example.org"
+        ],
+        [
+         "Groups",
+         {
+          "row": [
+           {
+            "tag": "bill-admin"
+           },
+           {
+            "tag": "track-user"
+           }
+          ],
+          "gap": "xs"
+         }
+        ],
+        [
+         "Session",
+         "ends 18:40"
+        ]
+       ]
+      },
+      {
+       "row": [
+        {
+         "btn": "Manage account",
+         "icon": "external"
+        },
+        {
+         "btn": "Sign out",
+         "icon": "power"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "title": "Account"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "Language",
+         {
+          "seg": [
+           "deutsch",
+           "english"
+          ],
+          "on": 1
+         }
+        ],
+        [
+         "Theme",
+         {
+          "seg": [
+           "Auto",
+           "Light",
+           "Dark"
+          ],
+          "on": 0
+         }
+        ]
+       ]
+      }
+     ],
+     "title": "Preferences"
+    },
+    {
+     "card": [
+      {
+       "field": "Company name",
+       "v": "Example GmbH"
+      },
+      {
+       "row": [
+        {
+         "field": "Invoice prefix",
+         "v": "INV-",
+         "grow": true
+        },
+        {
+         "mfield": "Reminder fee",
+         "v": "5,00",
+         "grow": true
+        }
+       ],
+       "gap": "md",
+       "stack": true,
+       "align": "start"
+      },
+      {
+       "check": "Number invoices per year",
+       "on": true
+      }
+     ],
+     "title": "App settings"
+    }
+   ]
+  },
+  {
+   "name": "Login",
+   "bare": true,
+   "center": true,
+   "narrow": 360,
+   "kids": [
+    {
+     "logo": "auth",
+     "ch": "*",
+     "self": "center"
+    },
+    {
+     "card": [
+      {
+       "t": "Sign in",
+       "s": "h1"
+      },
+      {
+       "field": "Username",
+       "v": "peter"
+      },
+      {
+       "field": "Password",
+       "v": "••••••••••"
+      },
+      {
+       "btn": "Sign in",
+       "kind": "primary",
+       "full": true
+      },
+      {
+       "t": "Forgot password?",
+       "c": "accent"
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Error 404",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "t": "404",
+       "c": "muted"
+      },
+      {
+       "t": "This page does not exist, or you may not see it.",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "Nothing was changed. Your last save went through.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Back to customers",
+         "kind": "primary",
+         "icon": "arrow-left"
+        },
+        {
+         "btn": "Search",
+         "icon": "search"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Overlays",
+   "here": "Customers",
+   "kids": [
+    {
+     "head": "Overlays"
+    },
+    {
+     "row": [
+      {
+       "dialog": "Delete ACME GmbH?",
+       "kids": [
+        {
+         "t": "3 invoices and 2 contacts are deleted with it. This cannot be undone.",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel"
+        },
+        {
+         "btn": "Delete",
+         "kind": "delete"
+        }
+       ]
+      },
+      {
+       "menu": [
+        "Peter Example",
+        "-",
+        [
+         "contrast",
+         "Theme: auto"
+        ],
+        [
+         "cog",
+         "Settings",
+         "g s"
+        ],
+        [
+         "search",
+         "Commands",
+         "Ctrl K"
+        ],
+        [
+         "help",
+         "Shortcuts",
+         "?"
+        ],
+        "-",
+        [
+         "power",
+         "Sign out"
+        ]
+       ]
+      },
+      {
+       "col": [
+        {
+         "toast": "Customer created",
+         "kind": "ok"
+        },
+        {
+         "toast": "Could not delete",
+         "kind": "error"
+        },
+        {
+         "msg": "3 invoices are overdue.",
+         "kind": "warning"
+        },
+        {
+         "msg": "Could not save: the server did not answer.",
+         "kind": "error"
+        }
+       ],
+       "gap": "sm",
+       "w": 420
+      }
+     ],
+     "gap": "lg",
+     "align": "start",
+     "stack": true
+    },
+    {
+     "empty": "No customers yet",
+     "icon": "users",
+     "btn": {
+      "btn": "New customer",
+      "kind": "primary",
+      "icon": "plus"
+     }
+    }
+   ]
+  }
+ ]
+}

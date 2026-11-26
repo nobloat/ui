@@ -1,0 +1,1385 @@
+{
+ "app": {
+  "name": "up",
+  "ch": "•",
+  "nav": [
+   "Monitors",
+   "Status pages"
+  ],
+  "user": "P",
+  "search": true
+ },
+ "screens": [
+  {
+   "name": "Monitors",
+   "here": "Monitors",
+   "kids": [
+    {
+     "msg": "Notifier mattermost is failing since 2026-11-05 09:12:40 CET (26 min ago): webhook: 502 Bad Gateway",
+     "kind": "warning"
+    },
+    {
+     "head": "Monitors",
+     "actions": [
+      {
+       "btn": "New monitor",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "chip": "all",
+         "n": "10",
+         "on": true
+        },
+        {
+         "chip": "up",
+         "n": "7"
+        },
+        {
+         "chip": "retrying",
+         "n": "1"
+        },
+        {
+         "chip": "down",
+         "n": "1"
+        },
+        {
+         "chip": "paused",
+         "n": "1"
+        },
+        {
+         "chip": "unknown",
+         "n": "0"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "tag": "public"
+        },
+        {
+         "tag": "asq"
+        },
+        {
+         "tag": "auth"
+        },
+        {
+         "tag": "bill"
+        },
+        {
+         "tag": "gazette"
+        },
+        {
+         "tag": "metrics"
+        },
+        {
+         "tag": "tax"
+        },
+        {
+         "tag": "track"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "State",
+        "w": 120
+       },
+       {
+        "h": "Name"
+       },
+       {
+        "h": "Type",
+        "w": 90
+       },
+       {
+        "h": "Checked",
+        "w": 170
+       },
+       {
+        "h": "Tags",
+        "w": 170
+       },
+       {
+        "h": "",
+        "w": 140,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "status": "down",
+         "s": "bad"
+        },
+        {
+         "col": [
+          {
+           "t": "tax",
+           "c": "accent"
+          },
+          {
+           "t": "tax answers",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "http",
+         "c": "muted"
+        },
+        {
+         "t": "12 s ago → in 18 s",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "tag": "tax"
+          },
+          {
+           "tag": "public"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true
+        },
+        {
+         "btn": "Check now",
+         "icon": "refresh",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "retrying",
+         "s": "pending"
+        },
+        {
+         "col": [
+          {
+           "t": "track",
+           "c": "accent"
+          },
+          {
+           "t": "track answers",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "http",
+         "c": "muted"
+        },
+        {
+         "t": "8 s ago → in 12 s",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "tag": "track"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true
+        },
+        {
+         "btn": "Check now",
+         "icon": "refresh",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "paused",
+         "s": "off"
+        },
+        {
+         "col": [
+          {
+           "t": "bill",
+           "c": "accent"
+          },
+          {
+           "t": "bill answers",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "http",
+         "c": "muted"
+        },
+        {
+         "t": "2 h ago",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "tag": "bill"
+          },
+          {
+           "tag": "public"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true
+        },
+        {
+         "btn": "Check now",
+         "icon": "refresh",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "up",
+         "s": "ok"
+        },
+        {
+         "col": [
+          {
+           "t": "website",
+           "c": "accent"
+          },
+          {
+           "t": "Home page answers with 2xx",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "http",
+         "c": "muted"
+        },
+        {
+         "t": "41 s ago → in 19 s",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "tag": "public"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true
+        },
+        {
+         "btn": "Check now",
+         "icon": "refresh",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "up",
+         "s": "ok"
+        },
+        {
+         "col": [
+          {
+           "t": "auth",
+           "c": "accent"
+          },
+          {
+           "t": "auth answers",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "http",
+         "c": "muted"
+        },
+        {
+         "t": "5 s ago → in 25 s",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "tag": "auth"
+          },
+          {
+           "tag": "public"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true
+        },
+        {
+         "btn": "Check now",
+         "icon": "refresh",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "up",
+         "s": "ok"
+        },
+        {
+         "col": [
+          {
+           "t": "metrics",
+           "c": "accent"
+          },
+          {
+           "t": "prometheus scrapes every app (min of up)",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "promql",
+         "c": "muted"
+        },
+        {
+         "t": "33 s ago → in 27 s",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "tag": "metrics"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true
+        },
+        {
+         "btn": "Check now",
+         "icon": "refresh",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "up",
+         "s": "ok"
+        },
+        {
+         "col": [
+          {
+           "t": "backup",
+           "c": "accent"
+          },
+          {
+           "t": "Nightly backup reports in",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "t": "push",
+         "c": "muted"
+        },
+        {
+         "t": "7 h ago → in 17 h",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "row": [],
+         "gap": "xs",
+         "wrap": true
+        },
+        ""
+       ]
+      ],
+      "sel": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "Monitor",
+   "here": "Monitors",
+   "crumbs": [
+    "Monitors",
+    "tax"
+   ],
+   "kids": [
+    {
+     "msg": "Notifier mattermost is failing since 2026-11-05 09:12:40 CET (26 min ago): webhook: 502 Bad Gateway",
+     "kind": "warning"
+    },
+    {
+     "head": "tax",
+     "state": {
+      "status": "down",
+      "s": "bad"
+     },
+     "actions": [
+      {
+       "btn": "Check now",
+       "icon": "refresh"
+      },
+      {
+       "btn": "Pause",
+       "icon": "pause"
+      },
+      {
+       "btn": "Edit",
+       "icon": "edit"
+      }
+     ]
+    },
+    {
+     "info": [
+      [
+       "state",
+       {
+        "t": "down: Get \"http://tax:8741/healthz\": dial tcp 172.30.87.9:8741: connect: connection refused",
+        "wrap": true
+       }
+      ],
+      [
+       "since",
+       "26 min ago"
+      ],
+      [
+       "checked",
+       "12 s ago → in 18 s · took 3ms"
+      ],
+      [
+       "uptime",
+       "99.82 % · 1h14m down"
+      ],
+      [
+       "id",
+       {
+        "id": "MON-TAX"
+       }
+      ],
+      [
+       "type",
+       "http"
+      ],
+      [
+       "description",
+       "tax answers"
+      ],
+      [
+       "tags",
+       {
+        "row": [
+         {
+          "tag": "tax"
+         },
+         {
+          "tag": "public"
+         }
+        ],
+        "gap": "xs",
+        "wrap": true
+       }
+      ],
+      [
+       "status pages",
+       {
+        "t": "Example Status",
+        "c": "accent"
+       }
+      ]
+     ]
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "url",
+         {
+          "row": [
+           {
+            "t": "http://tax:8741/healthz",
+            "s": "small"
+           },
+           {
+            "ibtn": "copy",
+            "size": "sm"
+           }
+          ],
+          "gap": "xs",
+          "wrap": true,
+          "align": "center"
+         }
+        ],
+        [
+         "interval",
+         "30s"
+        ],
+        [
+         "retry_count",
+         "2"
+        ],
+        [
+         "retry_interval",
+         "20s"
+        ],
+        [
+         "timeout",
+         "10s"
+        ],
+        [
+         "notifiers",
+         "mattermost, mail"
+        ]
+       ]
+      }
+     ],
+     "title": "Configuration"
+    },
+    {
+     "col": [
+      {
+       "t": "Audit log",
+       "s": "h2"
+      },
+      {
+       "table": {
+        "cols": [
+         {
+          "h": "",
+          "w": 60
+         },
+         {
+          "h": "Time",
+          "w": 220
+         },
+         {
+          "h": "Message"
+         }
+        ],
+        "rows": [
+         [
+          {
+           "icon": "bell",
+           "c": "muted"
+          },
+          {
+           "t": "2026-11-05 09:13:02 CET",
+           "c": "muted"
+          },
+          "notify mail: sent to ops@example.com"
+         ],
+         [
+          {
+           "icon": "error",
+           "c": "red"
+          },
+          {
+           "t": "2026-11-05 09:12:41 CET",
+           "c": "muted"
+          },
+          "notify mattermost: webhook: 502 Bad Gateway"
+         ],
+         [
+          {
+           "status": "down",
+           "s": "bad"
+          },
+          {
+           "t": "2026-11-05 09:12:40 CET",
+           "c": "muted"
+          },
+          "red: connection refused (after 2 retries)"
+         ],
+         [
+          {
+           "status": "retrying",
+           "s": "pending"
+          },
+          {
+           "t": "2026-11-05 09:12:00 CET",
+           "c": "muted"
+          },
+          "yellow: connection refused, retry 1 of 2"
+         ],
+         [
+          {
+           "icon": "play",
+           "c": "muted"
+          },
+          {
+           "t": "2026-11-04 18:30:11 CET",
+           "c": "muted"
+          },
+          "resumed by peter"
+         ],
+         [
+          {
+           "icon": "pause",
+           "c": "muted"
+          },
+          {
+           "t": "2026-11-04 18:02:47 CET",
+           "c": "muted"
+          },
+          "paused by peter: database maintenance, until 2026-11-04 18:30:00 CET"
+         ],
+         [
+          {
+           "status": "up",
+           "s": "ok"
+          },
+          {
+           "t": "2026-10-29 07:45:19 CET",
+           "c": "muted"
+          },
+          "green: 200 OK"
+         ]
+        ]
+       }
+      }
+     ],
+     "gap": "sm"
+    }
+   ]
+  },
+  {
+   "name": "Monitor paused",
+   "here": "Monitors",
+   "crumbs": [
+    "Monitors",
+    "bill"
+   ],
+   "kids": [
+    {
+     "head": "bill",
+     "state": {
+      "status": "paused",
+      "s": "off"
+     },
+     "actions": [
+      {
+       "btn": "Check now",
+       "icon": "refresh"
+      },
+      {
+       "btn": "Resume",
+       "icon": "play"
+      },
+      {
+       "btn": "Edit",
+       "icon": "edit"
+      }
+     ]
+    },
+    {
+     "msg": "Paused: database maintenance · since 2 h ago · until 2026-11-05 12:00:00 CET (in 2 h) · shown on status pages",
+     "kind": "info"
+    },
+    {
+     "row": [
+      {
+       "dialog": "Pause bill",
+       "kids": [
+        {
+         "field": "reason",
+         "v": "database maintenance",
+         "ph": "e.g. database maintenance",
+         "state": "Saved",
+         "msg": "public, shown on status pages"
+        },
+        {
+         "col": [
+          {
+           "t": "resume",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "col": [
+            {
+             "radio": "manually"
+            },
+            {
+             "row": [
+              {
+               "radio": "after",
+               "on": true
+              },
+              {
+               "field": "duration",
+               "v": "2h",
+               "sm": true,
+               "w": 90
+              }
+             ],
+             "gap": "xs",
+             "wrap": true,
+             "align": "center"
+            },
+            {
+             "row": [
+              {
+               "radio": "at"
+              },
+              {
+               "field": "time",
+               "v": "2026-11-05 12:00",
+               "sm": true,
+               "w": 170
+              }
+             ],
+             "gap": "xs",
+             "wrap": true,
+             "align": "center"
+            }
+           ],
+           "gap": "xs"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "t": "resumes 2026-11-05 12:00 (in 2 h)",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Pause",
+         "icon": "pause",
+         "kind": "primary"
+        }
+       ]
+      },
+      {
+       "dialog": "Delete monitor tax?",
+       "kids": [
+        {
+         "t": "Its audit log is kept.",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Delete…",
+         "icon": "trash",
+         "kind": "delete"
+        }
+       ]
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Edit monitor",
+   "here": "Monitors",
+   "crumbs": [
+    "Monitors",
+    "tax",
+    "Edit"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "Edit monitor tax",
+     "sub": {
+      "row": [
+       {
+        "icon": "check",
+        "c": "green"
+       },
+       {
+        "t": "saved 14:02",
+        "s": "small",
+        "c": "green"
+       }
+      ],
+      "gap": "2xs",
+      "hug": true
+     },
+     "actions": [
+      {
+       "btn": "Delete…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ]
+    },
+    {
+     "field": "configuration",
+     "v": "type = http\ndescription = tax answers\ntags = tax, public\ninterval = 30s\nretry_count = 2\nretry_interval = 20s\nnotifiers = mattermost, mail\nurl = http://tax:8741/healthz",
+     "type": "Textarea",
+     "state": "Error",
+     "msg": "line 5: retry_count: not a number: e.g. retry_count = 2"
+    },
+    {
+     "row": [
+      {
+       "t": "tags you may use:",
+       "s": "small",
+       "c": "muted"
+      },
+      {
+       "tag": "tax"
+      },
+      {
+       "tag": "public"
+      },
+      {
+       "t": ", at least one",
+       "s": "small",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "New monitor",
+   "here": "Monitors",
+   "crumbs": [
+    "Monitors",
+    "New monitor"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "New monitor"
+    },
+    {
+     "field": "type",
+     "v": "http",
+     "type": "Select",
+     "state": "Saved",
+     "msg": "starts the file from a template"
+    },
+    {
+     "field": "name",
+     "v": "api-health",
+     "state": "Saved",
+     "msg": "the file name before .monitor.conf or .page.conf; a status page answers at /status/<name>"
+    },
+    {
+     "field": "configuration",
+     "v": "type = http\ndescription = \ntags = \ninterval = 1m\nretry_count = 2\nretry_interval = 20s\nnotifiers = \nurl = https://example.com\ncert_min_valid_days = 14",
+     "type": "Textarea"
+    },
+    {
+     "t": "tags you may use: any",
+     "s": "small",
+     "c": "muted"
+    },
+    {
+     "row": [
+      {
+       "btn": "Cancel",
+       "icon": "x",
+       "only": "d"
+      },
+      {
+       "btn": "Create",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ],
+     "gap": "xs",
+     "stack": true
+    }
+   ]
+  },
+  {
+   "name": "Status pages",
+   "here": "Status pages",
+   "kids": [
+    {
+     "head": "Status pages",
+     "actions": [
+      {
+       "btn": "New status page",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "State",
+        "w": 120
+       },
+       {
+        "h": "Title"
+       },
+       {
+        "h": "Tag",
+        "w": 140
+       },
+       {
+        "h": "Monitors",
+        "w": 110,
+        "right": true
+       },
+       {
+        "h": "",
+        "w": 110,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "status": "down",
+         "s": "bad"
+        },
+        {
+         "col": [
+          {
+           "t": "Example Status",
+           "c": "accent"
+          },
+          {
+           "t": "/status/public",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "tag": "public"
+        },
+        "4",
+        {
+         "btn": "Edit",
+         "icon": "edit",
+         "sm": true
+        }
+       ],
+       [
+        {
+         "status": "up",
+         "s": "ok"
+        },
+        {
+         "col": [
+          {
+           "t": "Billing",
+           "c": "accent"
+          },
+          {
+           "t": "/status/billing",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "3xs"
+        },
+        {
+         "tag": "bill"
+        },
+        "1",
+        {
+         "btn": "Edit",
+         "icon": "edit",
+         "sm": true
+        }
+       ]
+      ]
+     }
+    },
+    {
+     "t": "Status pages are public: everyone with the link sees the monitors of their tag, without details.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Status",
+   "bare": true,
+   "narrow": 720,
+   "kids": [
+    {
+     "row": [
+      {
+       "status": "",
+       "s": "bad"
+      },
+      {
+       "t": "Example Status",
+       "s": "h1"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "t": "Some systems are down",
+     "c": "muted"
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "status": "up",
+           "s": "ok"
+          },
+          {
+           "t": "website",
+           "s": "h2"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "Home page answers with 2xx",
+         "wrap": true
+        }
+       ],
+       "gap": "xs",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "status": "up",
+           "s": "ok"
+          },
+          {
+           "t": "auth",
+           "s": "h2"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "auth answers",
+         "wrap": true
+        }
+       ],
+       "gap": "xs",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "status": "down",
+           "s": "bad"
+          },
+          {
+           "t": "tax",
+           "s": "h2"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "tax answers",
+         "wrap": true
+        }
+       ],
+       "gap": "xs",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "status": "paused",
+           "s": "off"
+          },
+          {
+           "t": "bill",
+           "s": "h2"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "bill answers",
+         "wrap": true
+        },
+        {
+         "row": [
+          {
+           "icon": "pause",
+           "c": "muted"
+          },
+          {
+           "t": "paused: database maintenance",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        }
+       ],
+       "gap": "xs",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Settings",
+   "here": "",
+   "crumbs": [
+    "Settings"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "Settings"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "user",
+         "peter"
+        ],
+        [
+         "role",
+         "admin"
+        ],
+        [
+         "tags",
+         "all monitors"
+        ],
+        [
+         "signed in via",
+         "single sign-on"
+        ]
+       ]
+      },
+      {
+       "row": [
+        {
+         "btn": "Manage account",
+         "icon": "external"
+        },
+        {
+         "btn": "Sign out",
+         "icon": "power"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "title": "Account"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "language",
+         {
+          "seg": [
+           "deutsch",
+           "english"
+          ],
+          "on": 1
+         }
+        ],
+        [
+         "theme",
+         {
+          "seg": [
+           "Auto",
+           "Light",
+           "Dark"
+          ],
+          "on": 0
+         }
+        ],
+        [
+         "design",
+         {
+          "seg": [
+           "graphite",
+           "paper"
+          ],
+          "on": 0
+         }
+        ],
+        [
+         "notifications",
+         {
+          "btn": "off",
+          "icon": "bell"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "a browser notification when a monitor turns red or recovers, while up is open in a tab",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      }
+     ],
+     "title": "Preferences"
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Download export",
+         "icon": "download"
+        }
+       ],
+       "gap": "xs"
+      },
+      {
+       "t": "A tar.gz with the config and every audit log; up restore reads it back (see the README).",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      }
+     ],
+     "title": "Backup"
+    }
+   ]
+  },
+  {
+   "name": "Error 404",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "search",
+         "c": "muted"
+        },
+        {
+         "t": "404 · not found",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "There is nothing at this address",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "It may have been deleted, the link may be mistyped, or it belongs to something you have no access to.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "All monitors",
+         "icon": "list",
+         "kind": "primary"
+        },
+        {
+         "btn": "Your account",
+         "icon": "user"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  }
+ ]
+}

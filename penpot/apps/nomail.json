@@ -1,0 +1,407 @@
+{
+ "app": {
+  "name": "nomail",
+  "ch": "@",
+  "nav": [],
+  "user": "P",
+  "search": true
+ },
+ "screens": [
+  {
+   "name": "Inbox",
+   "here": "",
+   "kids": [
+    {
+     "head": "Mail",
+     "actions": [
+      {
+       "btn": "Delete all",
+       "kind": "delete",
+       "icon": "trash"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "chip": "all",
+       "n": "5",
+       "on": true
+      },
+      {
+       "chip": "new@staticwave.example",
+       "n": "1/1"
+      },
+      {
+       "chip": "miruna@staticwave.example",
+       "n": "1/1"
+      },
+      {
+       "chip": "peter@plaintext.example",
+       "n": "1"
+      },
+      {
+       "chip": "simeon@plaintext.example",
+       "n": "1"
+      },
+      {
+       "chip": "rechnungen@plaintext.localhost / Rechnungen/plaintext",
+       "n": "1"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "",
+        "w": 100
+       },
+       {
+        "h": "subject"
+       },
+       {
+        "h": "from",
+        "w": 290
+       },
+       {
+        "h": "mailbox",
+        "w": 270
+       },
+       {
+        "h": "date",
+        "w": 150
+       }
+      ],
+      "rows": [
+       [
+        {
+         "status": "unread",
+         "s": "running"
+        },
+        "Activate your nobloat account",
+        "nobloat <auth@nobloat.localhost>",
+        {
+         "t": "new@staticwave.example",
+         "s": "body",
+         "c": "muted"
+        },
+        {
+         "t": "2026-11-26 13:02",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       [
+        {
+         "status": "unread",
+         "s": "running"
+        },
+        "Reset your password",
+        "nobloat <auth@nobloat.localhost>",
+        {
+         "t": "miruna@staticwave.example",
+         "s": "body",
+         "c": "muted"
+        },
+        {
+         "t": "2026-11-26 14:12",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       [
+        {
+         "status": "read",
+         "s": "off"
+        },
+        "An API key was created for ci (service)",
+        "nobloat <auth@nobloat.localhost>",
+        {
+         "t": "peter@plaintext.example",
+         "s": "body",
+         "c": "muted"
+        },
+        {
+         "t": "2026-11-26 10:02",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       [
+        {
+         "status": "read",
+         "s": "off"
+        },
+        "Your authenticator was reset",
+        "nobloat <auth@nobloat.localhost>",
+        {
+         "t": "simeon@plaintext.example",
+         "s": "body",
+         "c": "muted"
+        },
+        {
+         "t": "2026-11-25 14:40",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       [
+        {
+         "status": "read",
+         "s": "off"
+        },
+        "Rechnung HOS-2611-007",
+        "Hostwerk Nord GmbH <rechnung@hostwerk.example>",
+        {
+         "t": "rechnungen@plaintext.localhost / Rechnungen/plaintext",
+         "s": "body",
+         "c": "muted"
+        },
+        {
+         "t": "2026-11-02 09:12",
+         "s": "body",
+         "c": "muted"
+        }
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Inbox empty",
+   "here": "",
+   "kids": [
+    {
+     "head": "Mail",
+     "actions": [
+      {
+       "btn": "Delete all",
+       "kind": "delete",
+       "icon": "trash"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "chip": "all",
+       "n": "0",
+       "on": true
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "empty": "No mail yet. Send to smtp://localhost:1025, read with IMAP on localhost:1143.",
+     "icon": "mail"
+    }
+   ]
+  },
+  {
+   "name": "Message",
+   "here": "",
+   "kids": [
+    {
+     "head": "Rechnung HOS-2611-007",
+     "actions": [
+      {
+       "btn": "Back",
+       "icon": "arrow-left"
+      },
+      {
+       "btn": "Raw",
+       "icon": "file"
+      },
+      {
+       "btn": "Delete",
+       "kind": "delete",
+       "icon": "trash"
+      }
+     ]
+    },
+    {
+     "info": [
+      [
+       "from",
+       "Hostwerk Nord GmbH <rechnung@hostwerk.example>"
+      ],
+      [
+       "to",
+       "rechnungen@plaintext.localhost"
+      ],
+      [
+       "mailbox",
+       "rechnungen@plaintext.localhost / Rechnungen/plaintext"
+      ],
+      [
+       "date",
+       "2026-11-02 09:12"
+      ],
+      [
+       "files",
+       {
+        "row": [
+         {
+          "icon": "file",
+          "c": "accent"
+         },
+         {
+          "t": "Hostwerk-Nord-GmbH_HOS-2611-007.xml (3 KB)",
+          "s": "body",
+          "c": "accent"
+         }
+        ],
+        "gap": "2xs",
+        "align": "center"
+       }
+      ]
+     ]
+    },
+    {
+     "tabs": [
+      "HTML",
+      "Text",
+      "Headers"
+     ],
+     "on": 1
+    },
+    {
+     "t": "Anbei die Rechnung HOS-2611-007 als XRechnung (UBL).",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Message HTML",
+   "here": "",
+   "kids": [
+    {
+     "head": "Activate your nobloat account",
+     "actions": [
+      {
+       "btn": "Back",
+       "icon": "arrow-left"
+      },
+      {
+       "btn": "Raw",
+       "icon": "file"
+      },
+      {
+       "btn": "Delete",
+       "kind": "delete",
+       "icon": "trash"
+      }
+     ]
+    },
+    {
+     "info": [
+      [
+       "from",
+       "nobloat <auth@nobloat.localhost>"
+      ],
+      [
+       "to",
+       "new@staticwave.example"
+      ],
+      [
+       "mailbox",
+       "new@staticwave.example / INBOX"
+      ],
+      [
+       "date",
+       "2026-11-26 13:02"
+      ]
+     ]
+    },
+    {
+     "tabs": [
+      "HTML",
+      "Text",
+      "Headers"
+     ],
+     "on": 0
+    },
+    {
+     "card": [
+      {
+       "logo": "auth",
+       "ch": "*"
+      },
+      {
+       "t": "Hello Neu,",
+       "wrap": true
+      },
+      {
+       "t": "Peter created an account for you. Activate it until 2026-11-29 13:02:",
+       "wrap": true
+      },
+      {
+       "t": "https://auth.nobloat.localhost/activate/m3k9…",
+       "s": "body",
+       "c": "accent",
+       "wrap": true
+      },
+      {
+       "t": "You will then be able to open: track, Forgejo, Grafana, BookStack",
+       "wrap": true
+      }
+     ],
+     "gap": "sm",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Error",
+   "bare": true,
+   "center": true,
+   "narrow": 520,
+   "kids": [
+    {
+     "logo": "nomail",
+     "ch": "@",
+     "self": "center"
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "icon": "lock",
+         "c": "muted"
+        },
+        {
+         "t": "403 · no access",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "You cannot open this page",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "You are signed in as simeon@plaintext.example. This page needs the group admins.",
+       "wrap": true
+      },
+      {
+       "t": "Ask an admin, or sign in with another account.",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  }
+ ]
+}

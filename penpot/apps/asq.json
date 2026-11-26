@@ -1,0 +1,3807 @@
+{
+ "app": {
+  "name": "asq",
+  "ch": "⇄",
+  "nav": [
+   "Dashboard",
+   "Tickets",
+   "Settings"
+  ],
+  "user": "P",
+  "search": true
+ },
+ "screens": [
+  {
+   "name": "Dashboard",
+   "here": "Dashboard",
+   "kids": [
+    {
+     "head": "Dashboard",
+     "actions": [
+      {
+       "btn": "New ticket",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "tiles": [
+      {
+       "tile": "Open",
+       "value": "12",
+       "cap": "ZK 9 · PT 3"
+      },
+      {
+       "tile": "New",
+       "value": "2",
+       "cap": "1 today"
+      },
+      {
+       "tile": "Waiting for agent",
+       "value": "5",
+       "delta": "oldest 3 d",
+       "bad": true
+      },
+      {
+       "tile": "Waiting for customer",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "tiles": [
+      {
+       "tile": "Waiting",
+       "value": "2",
+       "delta": "1 overdue",
+       "bad": true
+      },
+      {
+       "tile": "Unassigned",
+       "value": "3"
+      },
+      {
+       "tile": "Mine",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "tiles": [
+        {
+         "tile": "First response · median, 30 days",
+         "value": "48 min",
+         "delta": "−12 min",
+         "cap": "vs previous 30 days"
+        },
+        {
+         "tile": "Resolution · median, 30 days",
+         "value": "1 d",
+         "delta": "+3 h",
+         "bad": true,
+         "cap": "vs previous 30 days"
+        }
+       ],
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "list": [
+          {
+           "dot": "ok",
+           "main": "ZK Zeitkapsl Support",
+           "meta": "ok · 2 min ago"
+          },
+          {
+           "dot": "bad",
+           "main": "PT plaintext Support",
+           "meta": "IMAP 09:41 error · 3 errors in a row"
+          }
+         ]
+        }
+       ],
+       "title": "Mailboxes",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "Needs attention · 4",
+       "s": "h2"
+      },
+      {
+       "table": {
+        "cols": [
+         {
+          "h": "State",
+          "w": 190
+         },
+         {
+          "h": "Id",
+          "w": 150
+         },
+         {
+          "h": "Ticket"
+         },
+         {
+          "h": "Requester",
+          "w": 150
+         },
+         {
+          "h": "Why",
+          "w": 210
+         },
+         {
+          "h": "Assignee",
+          "w": 110
+         },
+         {
+          "h": "",
+          "w": 150,
+          "right": true
+         }
+        ],
+        "rows": [
+         [
+          {
+           "status": "Waiting",
+           "s": "off"
+          },
+          {
+           "id": "PT-000000007"
+          },
+          "Invoice charged twice",
+          "Max Muster",
+          {
+           "row": [
+            {
+             "icon": "warning",
+             "c": "red"
+            },
+            {
+             "t": "due 2026-11-03 (overdue)",
+             "c": "red"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "t": "—",
+           "c": "muted"
+          },
+          {
+           "btn": "Assign to me",
+           "icon": "user",
+           "sm": true
+          }
+         ],
+         [
+          {
+           "status": "New",
+           "s": "running"
+          },
+          {
+           "id": "ZK-000000043"
+          },
+          "Invoice for premium plan missing",
+          "Jonas Weber",
+          {
+           "t": "new since 2 h",
+           "c": "muted"
+          },
+          {
+           "t": "—",
+           "c": "muted"
+          },
+          {
+           "btn": "Assign to me",
+           "icon": "user",
+           "sm": true
+          }
+         ],
+         [
+          {
+           "status": "Waiting for agent",
+           "s": "pending"
+          },
+          {
+           "id": "ZK-000000042"
+          },
+          "Sync stops after 2000 photos",
+          "Anna Huber",
+          {
+           "t": "waiting since 1 d",
+           "c": "muted"
+          },
+          "simeon",
+          {
+           "btn": "Open",
+           "icon": "arrow-right",
+           "sm": true
+          }
+         ],
+         [
+          {
+           "status": "Waiting for agent",
+           "s": "pending"
+          },
+          {
+           "id": "ZK-000000040"
+          },
+          "Passkey login fails",
+          "Max Muster",
+          {
+           "t": "waiting since 3 d",
+           "c": "muted"
+          },
+          "simeon",
+          {
+           "btn": "Open",
+           "icon": "arrow-right",
+           "sm": true
+          }
+         ]
+        ]
+       }
+      }
+     ],
+     "gap": "sm"
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "columns": [
+          3,
+          5,
+          2,
+          4,
+          6,
+          1,
+          0,
+          4,
+          3,
+          5,
+          2,
+          6,
+          4,
+          2
+         ],
+         "cap": "2026-10-23 – 2026-11-05 · new per day"
+        }
+       ],
+       "title": "New vs. closed per day",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "bars": [
+          [
+           "billing",
+           "4",
+           1
+          ],
+          [
+           "sync",
+           "3",
+           0.75
+          ],
+          [
+           "login",
+           "2",
+           0.5
+          ],
+          [
+           "android",
+           "2",
+           0.5
+          ],
+          [
+           "app",
+           "1",
+           0.25
+          ]
+         ]
+        }
+       ],
+       "title": "Top labels · open",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Tickets",
+   "here": "Tickets",
+   "kids": [
+    {
+     "head": "Tickets",
+     "sub": {
+      "t": "12 · sort updated ↓ · created · number",
+      "s": "small",
+      "c": "muted"
+     },
+     "actions": [
+      {
+       "btn": "New ticket",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "t": "desk",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "ZK Zeitkapsl Support",
+         "n": "9",
+         "on": true
+        },
+        {
+         "chip": "PT plaintext Support",
+         "n": "3"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "state",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "New",
+         "n": "2"
+        },
+        {
+         "chip": "Waiting for agent",
+         "n": "5"
+        },
+        {
+         "chip": "Waiting for customer",
+         "n": "3"
+        },
+        {
+         "chip": "Waiting",
+         "n": "2"
+        },
+        {
+         "chip": "Closed",
+         "n": "31"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "assignee",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "me",
+         "n": "4"
+        },
+        {
+         "chip": "none",
+         "n": "3"
+        },
+        {
+         "chip": "simeon",
+         "n": "5"
+        },
+        {
+         "chip": "miruna",
+         "n": "2"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "label",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "billing",
+         "n": "4"
+        },
+        {
+         "chip": "sync",
+         "n": "3"
+        },
+        {
+         "chip": "login",
+         "n": "2"
+        },
+        {
+         "chip": "android",
+         "n": "2"
+        },
+        {
+         "chip": "overdue",
+         "n": "1"
+        },
+        {
+         "btn": "reset",
+         "icon": "filter",
+         "sm": true
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "row": [
+      {
+       "t": "2 selected"
+      },
+      {
+       "btn": "Assign",
+       "icon": "user",
+       "sm": true
+      },
+      {
+       "btn": "State",
+       "icon": "ok",
+       "sm": true
+      },
+      {
+       "btn": "Add label",
+       "icon": "tag",
+       "sm": true
+      },
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "btn": "clear",
+       "icon": "x",
+       "sm": true
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center",
+     "fill": "sel",
+     "radius": "control",
+     "pad": [
+      "xs",
+      "sm"
+     ]
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "",
+        "w": 40
+       },
+       {
+        "h": "State",
+        "w": 190
+       },
+       {
+        "h": "Id",
+        "w": 150
+       },
+       {
+        "h": "Ticket"
+       },
+       {
+        "h": "Requester",
+        "w": 150
+       },
+       {
+        "h": "Assignee",
+        "w": 110
+       },
+       {
+        "h": "Updated",
+        "w": 170,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "check": ""
+        },
+        {
+         "status": "New",
+         "s": "running"
+        },
+        {
+         "id": "ZK-000000043"
+        },
+        "Invoice for premium plan missing",
+        "Jonas Weber",
+        {
+         "t": "—",
+         "c": "muted"
+        },
+        "2 h ago · 1 mail"
+       ],
+       [
+        {
+         "check": "",
+         "on": true
+        },
+        {
+         "status": "Waiting for agent",
+         "s": "pending"
+        },
+        {
+         "id": "ZK-000000042"
+        },
+        {
+         "row": [
+          {
+           "t": "Sync stops after 2000 photos"
+          },
+          {
+           "tag": "android"
+          },
+          {
+           "tag": "sync"
+          },
+          {
+           "t": "· cc 1",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "Anna Huber",
+        "simeon",
+        "yesterday · 3 mails"
+       ],
+       [
+        {
+         "check": "",
+         "on": true
+        },
+        {
+         "status": "Waiting for agent",
+         "s": "pending"
+        },
+        {
+         "id": "ZK-000000040"
+        },
+        {
+         "row": [
+          {
+           "t": "Passkey login fails"
+          },
+          {
+           "tag": "login"
+          },
+          {
+           "t": "· cc 1",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "Max Muster",
+        "simeon",
+        "2 d ago · 4 mails"
+       ],
+       [
+        {
+         "check": ""
+        },
+        {
+         "status": "Closed",
+         "s": "off"
+        },
+        {
+         "id": "ZK-000000041"
+        },
+        {
+         "row": [
+          {
+           "t": "Login does not work"
+          },
+          {
+           "t": "→ ZK-000000040",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "Lena Berger",
+        {
+         "t": "—",
+         "c": "muted"
+        },
+        "2 d ago · 1 mail"
+       ],
+       [
+        {
+         "check": ""
+        },
+        {
+         "status": "Waiting for customer",
+         "s": "ok"
+        },
+        {
+         "id": "ZK-000000039"
+        },
+        {
+         "row": [
+          {
+           "t": "Export to album is empty"
+          },
+          {
+           "tag": "app"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "Sophie Wagner",
+        "miruna",
+        "4 d ago · 2 mails"
+       ],
+       [
+        {
+         "check": ""
+        },
+        {
+         "status": "Waiting",
+         "s": "off"
+        },
+        {
+         "id": "ZK-000000037"
+        },
+        {
+         "row": [
+          {
+           "t": "Refund for yearly plan"
+          },
+          {
+           "tag": "billing"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "Felix Bauer",
+        "peter",
+        {
+         "t": "due 2026-11-10",
+         "c": "muted"
+        }
+       ]
+      ],
+      "sel": 1
+     }
+    },
+    {
+     "row": [
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "pager": "1–6 of 9"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ticket",
+   "here": "Tickets",
+   "crumbs": [
+    "Tickets",
+    "ZK Zeitkapsl Support",
+    "ZK-000000042"
+   ],
+   "kids": [
+    {
+     "head": "Sync stops after 2000 photos",
+     "state": {
+      "status": "Waiting for agent",
+      "s": "pending"
+     },
+     "sub": {
+      "id": "ZK-000000042"
+     },
+     "actions": [
+      {
+       "btn": "Reply",
+       "icon": "send"
+      },
+      {
+       "btn": "Note",
+       "icon": "edit"
+      },
+      {
+       "ibtn": "more"
+      }
+     ]
+    },
+    {
+     "info": [
+      [
+       "requester",
+       "Anna Huber <anna.huber@example.com>"
+      ],
+      [
+       "assignee",
+       "simeon"
+      ],
+      [
+       "cc",
+       "max.huber@example.com"
+      ],
+      [
+       "labels",
+       {
+        "row": [
+         {
+          "tag": "android"
+         },
+         {
+          "tag": "sync"
+         }
+        ],
+        "gap": "xs",
+        "wrap": true
+       }
+      ],
+      [
+       "source",
+       "form app · de"
+      ],
+      [
+       "task",
+       {
+        "row": [
+         {
+          "t": "zk-42",
+          "c": "accent"
+         },
+         {
+          "icon": "external",
+          "c": "muted"
+         },
+         {
+          "status": "in progress",
+          "s": "running"
+         }
+        ],
+        "gap": "xs",
+        "align": "center"
+       }
+      ],
+      [
+       "App version",
+       "2.3"
+      ],
+      [
+       "Platform",
+       "Android"
+      ],
+      [
+       "created",
+       "2026-11-02 09:14 · updated 2026-11-04 16:40"
+      ]
+     ]
+    },
+    {
+     "col": [
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "icon": "arrow-right",
+           "c": "muted"
+          },
+          {
+           "t": "Anna Huber"
+          },
+          {
+           "t": "form app · 2026-11-02 09:14",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "row": [
+            {
+             "icon": "file",
+             "c": "muted"
+            },
+            {
+             "t": "screenshot.png",
+             "s": "small"
+            },
+            {
+             "t": "78 B",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "wrap": true
+        },
+        {
+         "t": "After about 2000 photos the sync stops at 87 %.",
+         "wrap": true
+        }
+       ],
+       "gap": "sm"
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "icon": "arrow-left",
+           "c": "muted"
+          },
+          {
+           "t": "simeon"
+          },
+          {
+           "t": "to anna.huber@example.com, cc max.huber@example.com · 2026-11-02 10:02",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "row": [
+            {
+             "icon": "check",
+             "c": "green"
+            },
+            {
+             "t": "sent",
+             "s": "small",
+             "c": "green"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "wrap": true
+        },
+        {
+         "t": "Hi Anna,",
+         "wrap": true
+        },
+        {
+         "t": "thanks for the report. Which app version and which device do you use?",
+         "wrap": true
+        },
+        {
+         "t": "Best regards",
+         "wrap": true
+        },
+        {
+         "t": "Simeon · Zeitkapsl Support",
+         "wrap": true
+        }
+       ],
+       "gap": "sm"
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "icon": "arrow-right",
+           "c": "muted"
+          },
+          {
+           "t": "Anna Huber"
+          },
+          {
+           "t": "mail · cc max.huber@example.com · 2026-11-03 08:31",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "seg": [
+            "text",
+            "html"
+           ],
+           "on": 1
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "wrap": true
+        },
+        {
+         "t": "Hi Simeon,",
+         "wrap": true
+        },
+        {
+         "t": "Version 2.3 (build 230), Pixel 7, Android 15. It always stops at photo 2001.",
+         "wrap": true
+        },
+        {
+         "t": "Thanks! Anna",
+         "wrap": true
+        }
+       ],
+       "gap": "sm"
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "icon": "edit",
+           "c": "muted"
+          },
+          {
+           "t": "simeon"
+          },
+          {
+           "t": "internal note · 2026-11-04 16:40",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "t": "not mailed",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "wrap": true
+        },
+        {
+         "t": "Reproduced on a Pixel 7: the batch size of 2000 is the limit. Task zk-42 created.",
+         "wrap": true
+        }
+       ],
+       "gap": "sm",
+       "fill": "chip"
+      }
+     ],
+     "gap": "sm"
+    },
+    {
+     "card": [
+      {
+       "tabs": [
+        "Reply",
+        "Note"
+       ],
+       "on": 0
+      },
+      {
+       "row": [
+        {
+         "field": "To",
+         "v": "anna.huber@example.com",
+         "grow": true
+        },
+        {
+         "field": "Cc",
+         "v": "max.huber@example.com",
+         "ph": "add address",
+         "grow": true
+        }
+       ],
+       "gap": "md",
+       "stack": true,
+       "align": "start"
+      },
+      {
+       "field": "Reply",
+       "v": "Hi Anna,\n\nthe fix is in version 2.3.1, which is in the store since today. Please update and start the sync again.\n\nBest regards\nSimeon\nZeitkapsl Support",
+       "type": "Textarea"
+      },
+      {
+       "col": [
+        {
+         "icon": "upload",
+         "c": "muted"
+        },
+        {
+         "t": "Drop files here or choose"
+        },
+        {
+         "t": "any type, max 10 MB each",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "stroke": "line",
+       "radius": "control",
+       "pad": "md",
+       "align": "center",
+       "gap": "2xs"
+      },
+      {
+       "row": [
+        {
+         "spacer": 1,
+         "grow": true
+        },
+        {
+         "btn": "Send",
+         "icon": "send",
+         "kind": "primary"
+        },
+        {
+         "ibtn": "chevron-down"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      }
+     ],
+     "gap": "sm"
+    },
+    {
+     "t": "Subject on send: Re: Sync stops after 2000 photos [ZK-000000042] · from Zeitkapsl Support <support@zeitkapsl.eu> · company footer added below the signature",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "card": [
+      {
+       "list": [
+        {
+         "main": "anna.huber@example.com · created · source form app",
+         "meta": "2026-11-02 09:14"
+        },
+        {
+         "main": "simeon · changed · assignee simeon",
+         "meta": "2026-11-02 09:58"
+        },
+        {
+         "main": "simeon · reply · mail sent",
+         "meta": "2026-11-02 10:02"
+        },
+        {
+         "main": "anna.huber@example.com · customer mail",
+         "meta": "2026-11-03 08:31"
+        },
+        {
+         "main": "simeon · task created in tasq · task zk-42",
+         "meta": "2026-11-04 16:40"
+        }
+       ]
+      }
+     ],
+     "title": "History · 5"
+    }
+   ]
+  },
+  {
+   "name": "Ticket dialogs",
+   "here": "Tickets",
+   "crumbs": [
+    "Tickets",
+    "ZK Zeitkapsl Support",
+    "ZK-000000042"
+   ],
+   "kids": [
+    {
+     "head": "Sync stops after 2000 photos",
+     "state": {
+      "status": "Waiting for agent",
+      "s": "pending"
+     },
+     "sub": {
+      "id": "ZK-000000042"
+     }
+    },
+    {
+     "row": [
+      {
+       "dialog": "State of ZK-000000042",
+       "kids": [
+        {
+         "col": [
+          {
+           "radio": "New"
+          },
+          {
+           "radio": "Waiting for agent",
+           "on": true
+          },
+          {
+           "radio": "Waiting for customer"
+          },
+          {
+           "row": [
+            {
+             "radio": "waiting until"
+            },
+            {
+             "field": "due date",
+             "v": "2026-11-10",
+             "sm": true
+            }
+           ],
+           "gap": "xs",
+           "align": "center"
+          },
+          {
+           "radio": "Closed"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "t": "Without a date it stays waiting; with one it moves to waiting for agent at 00:00 of that day.",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Save",
+         "icon": "check",
+         "kind": "primary"
+        }
+       ]
+      },
+      {
+       "dialog": "Assign ZK-000000042",
+       "kids": [
+        {
+         "search": "search agents"
+        },
+        {
+         "menu": [
+          [
+           "user",
+           "me (peter)"
+          ],
+          [
+           "user",
+           "Simeon Example · simeon · current"
+          ],
+          [
+           "user",
+           "Miruna Example · miruna"
+          ],
+          "-",
+          [
+           "user-x",
+           "none (unassign)"
+          ]
+         ]
+        },
+        {
+         "t": "agents of ZK · ↑ ↓ Enter",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        }
+       ]
+      },
+      {
+       "menu": [
+        [
+         "merge",
+         "Merge…",
+         "m"
+        ],
+        [
+         "external",
+         "Create task in tasq",
+         "x"
+        ],
+        [
+         "clock",
+         "Wait until…",
+         "w"
+        ],
+        [
+         "edit",
+         "Subject, language, cc…",
+         "e"
+        ],
+        [
+         "ok",
+         "Close",
+         "Shift+C"
+        ],
+        "-",
+        [
+         "trash",
+         "Delete…",
+         "Del"
+        ]
+       ]
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "dialog": "Labels of ZK-000000042",
+       "kids": [
+        {
+         "field": "labels",
+         "v": "android sync"
+        },
+        {
+         "t": "labels used in ZK · a–z, 0–9, -",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Save",
+         "icon": "check"
+        }
+       ]
+      },
+      {
+       "dialog": "Merge ZK-000000041 into ZK-000000040?",
+       "kids": [
+        {
+         "t": "1 messages and their files move from ZK-000000041 into ZK-000000040; the requester and cc join its cc. Mails to the old number land there. This is final: there is no undo.",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Back",
+         "icon": "arrow-left"
+        },
+        {
+         "btn": "Merge into ZK-000000040",
+         "icon": "merge",
+         "kind": "delete"
+        }
+       ]
+      },
+      {
+       "dialog": "Delete ZK-000000042?",
+       "kids": [
+        {
+         "t": "\"Sync stops after 2000 photos\" with 4 messages is deleted for everyone. The number is never reused; mails to this number will open a new ticket. The history keeps number and actor only.",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Delete ZK-000000042",
+         "icon": "trash",
+         "kind": "delete"
+        }
+       ]
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "dialog": "Details of ZK-000000042",
+       "kids": [
+        {
+         "field": "Subject",
+         "v": "Sync stops after 2000 photos"
+        },
+        {
+         "field": "Language",
+         "v": "de",
+         "type": "Select"
+        },
+        {
+         "field": "cc",
+         "v": "max.huber@example.com",
+         "ph": "max@example.com, …"
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Save",
+         "icon": "check"
+        }
+       ]
+      },
+      {
+       "dialog": "Create task in tasq",
+       "kids": [
+        {
+         "field": "Project",
+         "v": "zk · Zeitkapsl",
+         "type": "Select"
+        },
+        {
+         "field": "Title",
+         "v": "ZK-000000042: Sync stops after 2000 photos"
+        },
+        {
+         "col": [
+          {
+           "t": "Tags",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "chip": "bug",
+             "on": true
+            },
+            {
+             "chip": "android",
+             "on": true
+            },
+            {
+             "chip": "ios"
+            },
+            {
+             "chip": "web"
+            }
+           ],
+           "gap": "xs",
+           "wrap": true
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "Messages",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "col": [
+            {
+             "check": "2026-11-02 09:14 Anna Huber · After about 2000 photos the sync stops…"
+            },
+            {
+             "check": "2026-11-02 10:02 simeon · Hi Anna, thanks for the report…"
+            },
+            {
+             "check": "2026-11-03 08:31 Anna Huber · Version 2.3 (build 230), Pixel 7…",
+             "on": true
+            },
+            {
+             "check": "2026-11-04 16:40 note · Reproduced on a Pixel 7…"
+            }
+           ],
+           "gap": "xs"
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Create task in tasq",
+         "icon": "plus"
+        }
+       ]
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "New ticket",
+   "here": "Tickets",
+   "crumbs": [
+    "Tickets",
+    "New ticket"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "New ticket"
+    },
+    {
+     "col": [
+      {
+       "t": "Desk",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "seg": [
+        "ZK Zeitkapsl Support",
+        "PT plaintext Support"
+       ],
+       "on": 0
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "row": [
+      {
+       "field": "E-mail",
+       "v": "anna.huber@",
+       "state": "Error",
+       "msg": "Invalid e-mail address: e.g. anna.huber@example.com",
+       "grow": true
+      },
+      {
+       "field": "Name",
+       "v": "Anna Huber",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "Subject",
+     "v": "",
+     "ph": "empty = first line of the message"
+    },
+    {
+     "field": "Message (the customer's words)",
+     "v": "On the phone: the album export creates an empty zip since the update to 2.3.",
+     "type": "Textarea"
+    },
+    {
+     "row": [
+      {
+       "field": "labels",
+       "v": "app android",
+       "ph": "add label",
+       "grow": true
+      },
+      {
+       "field": "assignee",
+       "v": "me (peter)",
+       "type": "Select",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "Language",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "seg": [
+        "de",
+        "en"
+       ],
+       "on": 0
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "check": "Send confirmation"
+    },
+    {
+     "row": [
+      {
+       "btn": "Cancel",
+       "icon": "x",
+       "only": "d"
+      },
+      {
+       "btn": "Create",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ],
+     "gap": "xs",
+     "stack": true
+    }
+   ]
+  },
+  {
+   "name": "Settings",
+   "here": "Settings",
+   "kids": [
+    {
+     "head": "Settings"
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "t": "Desks",
+           "s": "h2"
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "btn": "New desk",
+           "icon": "plus"
+          }
+         ],
+         "gap": "xs",
+         "align": "center"
+        },
+        {
+         "table": {
+          "cols": [
+           {
+            "h": "Desk"
+           },
+           {
+            "h": "Mailbox",
+            "w": 260
+           },
+           {
+            "h": "Open",
+            "w": 80,
+            "right": true
+           },
+           {
+            "h": "Forms",
+            "w": 80,
+            "right": true
+           }
+          ],
+          "rows": [
+           [
+            {
+             "row": [
+              {
+               "tag": "ZK"
+              },
+              {
+               "t": "Zeitkapsl Support"
+              },
+              {
+               "t": "zeitkapsl",
+               "s": "small",
+               "c": "muted"
+              }
+             ],
+             "gap": "xs",
+             "wrap": true,
+             "align": "center"
+            },
+            {
+             "status": "INBOX · ok · 2 min ago",
+             "s": "ok"
+            },
+            "9",
+            "2"
+           ],
+           [
+            {
+             "row": [
+              {
+               "tag": "PT"
+              },
+              {
+               "t": "plaintext Support"
+              },
+              {
+               "t": "plaintext",
+               "s": "small",
+               "c": "muted"
+              }
+             ],
+             "gap": "xs",
+             "wrap": true,
+             "align": "center"
+            },
+            {
+             "status": "INBOX · IMAP 09:41 error",
+             "s": "bad"
+            },
+            "3",
+            "1"
+           ]
+          ]
+         }
+        },
+        {
+         "t": "Privacy",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "icon": "trash",
+           "c": "muted"
+          },
+          {
+           "t": "GDPR: delete a customer's data",
+           "c": "accent"
+          },
+          {
+           "t": "· admins",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "card": [
+          {
+           "info": [
+            [
+             "name",
+             "Peter Example"
+            ],
+            [
+             "user",
+             "peter"
+            ],
+            [
+             "e-mail",
+             "peter@example.org"
+            ],
+            [
+             "role",
+             "asq-admin · all desks"
+            ],
+            [
+             "signed in via",
+             {
+              "row": [
+               {
+                "t": "nobloat/auth"
+               },
+               {
+                "icon": "external",
+                "c": "muted"
+               }
+              ],
+              "gap": "xs",
+              "align": "center"
+             }
+            ]
+           ]
+          }
+         ],
+         "title": "Account"
+        },
+        {
+         "card": [
+          {
+           "info": [
+            [
+             "language",
+             {
+              "seg": [
+               "deutsch",
+               "english"
+              ],
+              "on": 1
+             }
+            ],
+            [
+             "theme",
+             {
+              "seg": [
+               "Auto",
+               "Light",
+               "Dark"
+              ],
+              "on": 0
+             }
+            ],
+            [
+             "design",
+             {
+              "seg": [
+               "graphite",
+               "paper"
+              ],
+              "on": 0
+             }
+            ]
+           ]
+          }
+         ],
+         "title": "Preferences"
+        }
+       ],
+       "gap": "md",
+       "w": 420
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Desk general",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "Desks",
+    "Zeitkapsl Support"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "Zeitkapsl Support",
+     "sub": {
+      "row": [
+       {
+        "tag": "ZK"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "align": "center",
+      "hug": true
+     }
+    },
+    {
+     "tabs": [
+      "General",
+      "Mail",
+      "Branding",
+      "Texts",
+      "Forms"
+     ],
+     "on": 0
+    },
+    {
+     "field": "Name",
+     "v": "Zeitkapsl Support",
+     "state": "Saved"
+    },
+    {
+     "row": [
+      {
+       "field": "Prefix",
+       "v": "ZK",
+       "state": "Saved",
+       "msg": "fixed after the first ticket · next ZK-000000044",
+       "grow": true
+      },
+      {
+       "field": "Number digits",
+       "v": "9",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "Language",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "seg": [
+        "de",
+        "en"
+       ],
+       "on": 0
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "col": [
+      {
+       "t": "Confirmation",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "check": "Confirm new tickets by mail",
+       "on": true
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "col": [
+      {
+       "t": "Webhooks",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "field": "webhook 0",
+           "v": "https://chat.zeitkapsl.eu/hooks/x8k2m4",
+           "grow": true
+          },
+          {
+           "btn": "Send test",
+           "icon": "send",
+           "sm": true
+          },
+          {
+           "ibtn": "x",
+           "kind": "danger",
+           "size": "sm"
+          }
+         ],
+         "gap": "xs",
+         "align": "end"
+        },
+        {
+         "field": "webhook 1",
+         "v": "",
+         "ph": "add a webhook URL"
+        }
+       ],
+       "gap": "sm"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "field": "tasq project",
+     "v": "zk"
+    }
+   ]
+  },
+  {
+   "name": "Desk mail",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "Desks",
+    "Zeitkapsl Support"
+   ],
+   "kids": [
+    {
+     "head": "Zeitkapsl Support",
+     "sub": {
+      "row": [
+       {
+        "tag": "ZK"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "align": "center",
+      "hug": true
+     }
+    },
+    {
+     "tabs": [
+      "General",
+      "Mail",
+      "Branding",
+      "Texts",
+      "Forms"
+     ],
+     "on": 1
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "field": "From",
+         "v": "Zeitkapsl Support <support@zeitkapsl.eu>"
+        },
+        {
+         "col": [
+          {
+           "t": "SMTP",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "smtp://support%40zeitkapsl.eu:•••@mail.zeitkapsl.eu:587",
+               "s": "small",
+               "wrap": true
+              }
+             ],
+             "fill": "chip",
+             "radius": "control",
+             "pad": "sm"
+            },
+            {
+             "btn": "Change",
+             "icon": "edit",
+             "sm": true
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "row": [
+          {
+           "btn": "Send test mail",
+           "icon": "send",
+           "sm": true
+          },
+          {
+           "t": "to peter@example.org",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        }
+       ],
+       "title": "Mail out",
+       "grow": true,
+       "gap": "md"
+      },
+      {
+       "card": [
+        {
+         "col": [
+          {
+           "t": "IMAP",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "imaps://support%40zeitkapsl.eu:•••@mail.zeitkapsl.eu:993/INBOX",
+               "s": "small",
+               "wrap": true
+              }
+             ],
+             "fill": "chip",
+             "radius": "control",
+             "pad": "sm"
+            },
+            {
+             "btn": "Change",
+             "icon": "edit",
+             "sm": true
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "info": [
+          [
+           "Folder",
+           "INBOX · from the URL"
+          ],
+          [
+           "Status",
+           {
+            "status": "ok · 2 min ago",
+            "s": "ok"
+           }
+          ]
+         ]
+        },
+        {
+         "field": "Poll every",
+         "v": "5m",
+         "state": "Saved",
+         "msg": "0 = off"
+        },
+        {
+         "row": [
+          {
+           "btn": "Poll now",
+           "icon": "refresh",
+           "sm": true
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       "title": "Mail in",
+       "grow": true,
+       "gap": "md"
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Desk branding",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "Desks",
+    "Zeitkapsl Support"
+   ],
+   "kids": [
+    {
+     "head": "Zeitkapsl Support",
+     "sub": {
+      "row": [
+       {
+        "tag": "ZK"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "align": "center",
+      "hug": true
+     }
+    },
+    {
+     "tabs": [
+      "General",
+      "Mail",
+      "Branding",
+      "Texts",
+      "Forms"
+     ],
+     "on": 2
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Color",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "chip": "#0b6bcb",
+             "on": true
+            },
+            {
+             "chip": "#bc4c00"
+            },
+            {
+             "chip": "#1a7f37"
+            },
+            {
+             "chip": "#8250df"
+            },
+            {
+             "chip": "#cf222e"
+            },
+            {
+             "chip": "custom"
+            }
+           ],
+           "gap": "xs",
+           "wrap": true
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "Font",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "seg": [
+            "sans",
+            "serif",
+            "mono"
+           ],
+           "on": 0
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "Logo",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "t": "zeitkapsl.png"
+            },
+            {
+             "btn": "Upload logo",
+             "icon": "upload",
+             "sm": true
+            },
+            {
+             "t": "PNG, max 200 KB (forms and mails)",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "Mail template",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "t": "zeitkapsl.mail.html"
+            },
+            {
+             "t": "custom",
+             "s": "small",
+             "c": "muted"
+            },
+            {
+             "btn": "Download",
+             "icon": "download",
+             "sm": true
+            },
+            {
+             "btn": "Upload",
+             "icon": "upload",
+             "sm": true
+            },
+            {
+             "btn": "Reset to default",
+             "icon": "refresh",
+             "kind": "delete",
+             "sm": true
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "t": "Zeitkapsl Support",
+         "s": "h2"
+        },
+        {
+         "field": "E-mail",
+         "v": ""
+        },
+        {
+         "field": "Message",
+         "v": "",
+         "type": "Textarea"
+        },
+        {
+         "btn": "Send",
+         "icon": "send"
+        }
+       ],
+       "title": "preview · forms",
+       "grow": true,
+       "gap": "sm"
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Desk texts",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "Desks",
+    "Zeitkapsl Support"
+   ],
+   "kids": [
+    {
+     "head": "Zeitkapsl Support",
+     "sub": {
+      "row": [
+       {
+        "tag": "ZK"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "align": "center",
+      "hug": true
+     }
+    },
+    {
+     "tabs": [
+      "General",
+      "Mail",
+      "Branding",
+      "Texts",
+      "Forms"
+     ],
+     "on": 3
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Language",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "seg": [
+            "de",
+            "en"
+           ],
+           "on": 1
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "field": "Greeting",
+         "v": "Hi {{.Name}},"
+        },
+        {
+         "field": "Closing",
+         "v": "Best regards"
+        },
+        {
+         "field": "Signature",
+         "v": "{{.Agent}}\nZeitkapsl Support",
+         "type": "Textarea"
+        },
+        {
+         "field": "Company",
+         "v": "Zeitkapsl GmbH · Musterstraße 1 · 1010 Vienna · Austria · FN 123456a · zeitkapsl.eu",
+         "type": "Textarea"
+        },
+        {
+         "field": "Confirm subject",
+         "v": "We received your request [{{.Number}}]"
+        },
+        {
+         "field": "Confirm body",
+         "v": "Hi {{.Name}},\n\nthanks for your message. We will get back to you as soon as possible. Just reply to this mail to add something.",
+         "type": "Textarea"
+        },
+        {
+         "t": "Variables: {{.Name}} {{.Agent}} {{.Number}} {{.Subject}} {{.Desk}}",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "card": [
+          {
+           "t": "Hi Anna,",
+           "wrap": true
+          },
+          {
+           "t": "…",
+           "wrap": true
+          },
+          {
+           "t": "Best regards",
+           "wrap": true
+          },
+          {
+           "t": "Simeon",
+           "wrap": true
+          },
+          {
+           "t": "Zeitkapsl Support",
+           "wrap": true
+          },
+          {
+           "hr": 1
+          },
+          {
+           "t": "Zeitkapsl GmbH · Musterstraße 1 · 1010 Vienna · Austria · FN 123456a · zeitkapsl.eu",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "title": "reply · Re: Sync stops after 2000 photos [ZK-000000042]",
+         "gap": "xs"
+        },
+        {
+         "card": [
+          {
+           "t": "Hi Anna,",
+           "wrap": true
+          },
+          {
+           "t": "thanks for your message. We will get back to you as soon as possible. Just reply to this mail to add something.",
+           "wrap": true
+          },
+          {
+           "hr": 1
+          },
+          {
+           "t": "Zeitkapsl GmbH · Musterstraße 1 · 1010 Vienna · Austria · FN 123456a · zeitkapsl.eu",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "title": "confirmation · We received your request [ZK-000000042]",
+         "gap": "xs"
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Desk forms",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "Desks",
+    "Zeitkapsl Support"
+   ],
+   "kids": [
+    {
+     "head": "Zeitkapsl Support",
+     "sub": {
+      "row": [
+       {
+        "tag": "ZK"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "align": "center",
+      "hug": true
+     }
+    },
+    {
+     "tabs": [
+      "General",
+      "Mail",
+      "Branding",
+      "Texts",
+      "Forms"
+     ],
+     "on": 4
+    },
+    {
+     "row": [
+      {
+       "t": "Forms",
+       "s": "h2"
+      },
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "field": "form id",
+       "v": "",
+       "ph": "form id",
+       "sm": true,
+       "w": 160
+      },
+      {
+       "btn": "New form",
+       "icon": "plus",
+       "sm": true
+      }
+     ],
+     "gap": "xs",
+     "align": "end",
+     "wrap": true
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Form"
+       },
+       {
+        "h": "Public URL",
+        "w": 420
+       },
+       {
+        "h": "Fields",
+        "w": 220
+       },
+       {
+        "h": "Tickets, 30 d",
+        "w": 120,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "row": [
+          {
+           "t": "App support",
+           "c": "accent"
+          },
+          {
+           "t": "app",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "row": [
+          {
+           "t": "https://asq.zeitkapsl.eu/f/zeitkapsl/app",
+           "s": "small"
+          },
+          {
+           "btn": "Copy",
+           "icon": "copy",
+           "sm": true
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "version, platform, browser",
+         "c": "muted"
+        },
+        "14"
+       ],
+       [
+        {
+         "row": [
+          {
+           "t": "Contact",
+           "c": "accent"
+          },
+          {
+           "t": "contact",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "row": [
+          {
+           "t": "https://asq.zeitkapsl.eu/f/zeitkapsl/contact",
+           "s": "small"
+          },
+          {
+           "btn": "Copy",
+           "icon": "copy",
+           "sm": true
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "—",
+         "c": "muted"
+        },
+        "6"
+       ]
+      ]
+     }
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "t": "Embed as iframe (origins: https://zeitkapsl.eu, https://app.zeitkapsl.eu)",
+         "s": "label",
+         "c": "muted",
+         "wrap": true
+        },
+        {
+         "col": [
+          {
+           "t": "<iframe src=\"https://asq.zeitkapsl.eu/f/zeitkapsl/app\" title=\"App support\" style=\"border:0;width:100%;height:46rem\"></iframe>",
+           "s": "small",
+           "wrap": true
+          }
+         ],
+         "fill": "chip",
+         "radius": "control",
+         "pad": "sm"
+        },
+        {
+         "btn": "Copy",
+         "icon": "copy",
+         "sm": true
+        }
+       ],
+       "gap": "sm",
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "t": "Own form with pow.js",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "col": [
+          {
+           "t": "<script src=\"https://asq.zeitkapsl.eu/static/pow.js\"></script> <form data-asq-form action=\"https://asq.zeitkapsl.eu/f/zeitkapsl/app\" method=\"post\">…</form>",
+           "s": "small",
+           "wrap": true
+          }
+         ],
+         "fill": "chip",
+         "radius": "control",
+         "pad": "sm"
+        },
+        {
+         "btn": "Copy",
+         "icon": "copy",
+         "sm": true
+        }
+       ],
+       "gap": "sm",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "New desk",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "New desk"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "New desk"
+    },
+    {
+     "field": "Id",
+     "v": "Support",
+     "state": "Error",
+     "msg": "Id taken or not valid: a–z, 0–9 and -, e.g. support"
+    },
+    {
+     "row": [
+      {
+       "field": "Name",
+       "v": "smalldiff Support",
+       "grow": true
+      },
+      {
+       "field": "Prefix",
+       "v": "SD",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "From",
+     "v": "",
+     "ph": "Support <support@example.com>"
+    },
+    {
+     "field": "SMTP",
+     "v": "",
+     "ph": "smtp://user:pass@host:587"
+    },
+    {
+     "row": [
+      {
+       "btn": "Cancel",
+       "icon": "x",
+       "only": "d"
+      },
+      {
+       "btn": "Create",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ],
+     "gap": "xs",
+     "stack": true
+    }
+   ]
+  },
+  {
+   "name": "Form",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "Zeitkapsl Support",
+    "Forms",
+    "app"
+   ],
+   "kids": [
+    {
+     "head": "App support",
+     "sub": {
+      "row": [
+       {
+        "t": "app",
+        "s": "small",
+        "c": "muted"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "align": "center",
+      "hug": true
+     },
+     "actions": [
+      {
+       "btn": "Open public page",
+       "icon": "external"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "field": "Title de",
+           "v": "App-Support",
+           "grow": true
+          },
+          {
+           "field": "Title en",
+           "v": "App support",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "row": [
+          {
+           "field": "Intro de",
+           "v": "Beschreib uns kurz, was passiert ist.",
+           "grow": true
+          },
+          {
+           "field": "Intro en",
+           "v": "Tell us briefly what happened.",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "row": [
+          {
+           "col": [
+            {
+             "t": "Name",
+             "s": "label",
+             "c": "muted"
+            },
+            {
+             "seg": [
+              "off",
+              "optional",
+              "required"
+             ],
+             "on": 1
+            }
+           ],
+           "gap": "xs",
+           "grow": true
+          },
+          {
+           "col": [
+            {
+             "t": "Subject (off = first line of the message)",
+             "s": "label",
+             "c": "muted"
+            },
+            {
+             "seg": [
+              "off",
+              "optional",
+              "required"
+             ],
+             "on": 0
+            }
+           ],
+           "gap": "xs",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "row": [
+          {
+           "field": "Attachments",
+           "v": "3",
+           "state": "Saved",
+           "msg": "files, 0 = none",
+           "grow": true
+          },
+          {
+           "field": "labels",
+           "v": "app",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "field": "Origins",
+         "v": "https://zeitkapsl.eu\nhttps://app.zeitkapsl.eu",
+         "type": "Textarea"
+        },
+        {
+         "field": "Thanks URL",
+         "v": "",
+         "ph": "empty = asq's page"
+        },
+        {
+         "col": [
+          {
+           "t": "Branding",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "seg": [
+              "desk",
+              "own"
+             ],
+             "on": 0
+            },
+            {
+             "field": "Font",
+             "v": "desk font",
+             "type": "Select",
+             "sm": true,
+             "w": 160
+            }
+           ],
+           "gap": "xs",
+           "align": "end",
+           "wrap": true
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "t": "Fields · 3",
+         "s": "h2"
+        },
+        {
+         "t": "E-mail and message are always there. Select options one per line; a German list only when it differs.",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        },
+        {
+         "table": {
+          "cols": [
+           {
+            "h": "Order",
+            "w": 80
+           },
+           {
+            "h": "Id",
+            "w": 100
+           },
+           {
+            "h": "Type",
+            "w": 190
+           },
+           {
+            "h": "Label de / en"
+           },
+           {
+            "h": "Options",
+            "w": 170
+           },
+           {
+            "h": "",
+            "w": 40,
+            "right": true
+           }
+          ],
+          "rows": [
+           [
+            {
+             "row": [
+              {
+               "ibtn": "arrow-up",
+               "size": "sm"
+              },
+              {
+               "ibtn": "arrow-down",
+               "size": "sm"
+              }
+             ],
+             "gap": "xs"
+            },
+            "version",
+            {
+             "row": [
+              {
+               "field": "Type",
+               "v": "select",
+               "type": "Select",
+               "sm": true,
+               "w": 100
+              },
+              {
+               "check": "required",
+               "on": true
+              }
+             ],
+             "gap": "xs",
+             "align": "end"
+            },
+            "App-Version / App version",
+            "2.3, 2.2, 2.1, older",
+            {
+             "ibtn": "x",
+             "size": "sm"
+            }
+           ],
+           [
+            {
+             "row": [
+              {
+               "ibtn": "arrow-up",
+               "size": "sm"
+              },
+              {
+               "ibtn": "arrow-down",
+               "size": "sm"
+              }
+             ],
+             "gap": "xs"
+            },
+            "platform",
+            {
+             "row": [
+              {
+               "field": "Type",
+               "v": "select",
+               "type": "Select",
+               "sm": true,
+               "w": 100
+              },
+              {
+               "check": "required"
+              }
+             ],
+             "gap": "xs",
+             "align": "end"
+            },
+            "Plattform / Platform",
+            "Android, iOS, Web",
+            {
+             "ibtn": "x",
+             "size": "sm"
+            }
+           ],
+           [
+            {
+             "row": [
+              {
+               "ibtn": "arrow-up",
+               "size": "sm"
+              },
+              {
+               "ibtn": "arrow-down",
+               "size": "sm"
+              }
+             ],
+             "gap": "xs"
+            },
+            "browser",
+            {
+             "row": [
+              {
+               "field": "Type",
+               "v": "text",
+               "type": "Select",
+               "sm": true,
+               "w": 100
+              },
+              {
+               "check": "required"
+              }
+             ],
+             "gap": "xs",
+             "align": "end"
+            },
+            "Browser (falls Web) / Browser (if web)",
+            {
+             "t": "—",
+             "c": "muted"
+            },
+            {
+             "ibtn": "x",
+             "size": "sm"
+            }
+           ]
+          ]
+         }
+        },
+        {
+         "row": [
+          {
+           "field": "Id",
+           "v": "",
+           "ph": "Id",
+           "sm": true,
+           "w": 120
+          },
+          {
+           "field": "Type",
+           "v": "text",
+           "type": "Select",
+           "sm": true,
+           "w": 110
+          },
+          {
+           "field": "Label de",
+           "v": "",
+           "sm": true,
+           "grow": true
+          },
+          {
+           "field": "Label en",
+           "v": "",
+           "sm": true,
+           "grow": true
+          },
+          {
+           "btn": "Add field",
+           "icon": "plus",
+           "sm": true
+          }
+         ],
+         "gap": "xs",
+         "align": "end",
+         "wrap": true
+        },
+        {
+         "t": "Own form with pow.js",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "col": [
+          {
+           "t": "<script src=\"https://asq.zeitkapsl.eu/static/pow.js\"></script> <form data-asq-form action=\"https://asq.zeitkapsl.eu/f/zeitkapsl/app\" method=\"post\"> <input name=\"email\" type=\"email\" required> <textarea name=\"text\" required></textarea> <select name=\"field.version\" required>…</select> <button>Send</button> </form>",
+           "s": "small",
+           "wrap": true
+          }
+         ],
+         "fill": "chip",
+         "radius": "control",
+         "pad": "sm"
+        },
+        {
+         "btn": "Copy",
+         "icon": "copy",
+         "sm": true
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "t": "Zeitkapsl Support",
+           "s": "h2"
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "t": "de · en",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center"
+        },
+        {
+         "t": "App support",
+         "s": "h1"
+        },
+        {
+         "t": "Tell us briefly what happened.",
+         "wrap": true
+        },
+        {
+         "field": "E-mail *",
+         "v": "anna.huber@example.com"
+        },
+        {
+         "field": "Name",
+         "v": "Anna Huber"
+        },
+        {
+         "field": "Message *",
+         "v": "After about 2000 photos the sync stops at 87 %.",
+         "type": "Textarea"
+        },
+        {
+         "row": [
+          {
+           "field": "App version *",
+           "v": "2.3",
+           "type": "Select",
+           "grow": true
+          },
+          {
+           "field": "Platform",
+           "v": "Android",
+           "type": "Select",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "field": "Browser (if web)",
+         "v": ""
+        },
+        {
+         "col": [
+          {
+           "icon": "upload",
+           "c": "muted"
+          },
+          {
+           "t": "Drop files here or choose"
+          },
+          {
+           "t": "up to 3 files, max 10 MB each",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "stroke": "line",
+         "radius": "control",
+         "pad": "md",
+         "align": "center",
+         "gap": "2xs"
+        },
+        {
+         "btn": "Send",
+         "icon": "send"
+        }
+       ],
+       "title": "live preview · de · en",
+       "w": 420,
+       "gap": "sm"
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "GDPR",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "GDPR"
+   ],
+   "kids": [
+    {
+     "head": "Delete a customer's data"
+    },
+    {
+     "row": [
+      {
+       "field": "E-mail",
+       "v": "max.muster@example.org",
+       "w": 320
+      },
+      {
+       "btn": "Show affected",
+       "icon": "search"
+      }
+     ],
+     "gap": "xs",
+     "align": "end",
+     "wrap": true
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "list": [
+          {
+           "main": "ZK-000000040 Passkey login fails",
+           "num": "4 msg"
+          },
+          {
+           "main": "PT-000000005 Invoice 2026-117 charged twice",
+           "num": "1 msg"
+          },
+          {
+           "main": "PT-000000007 Invoice charged twice",
+           "num": "1 msg"
+          }
+         ]
+        }
+       ],
+       "title": "Delete · 3 tickets",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "list": [
+          {
+           "main": "ZK-000000041 Login does not work",
+           "num": "cc and messages"
+          }
+         ]
+        },
+        {
+         "t": "Pending mails to the address: 1 (dropped)",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "title": "Redact · 1 tickets",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "btn": "Cancel",
+       "icon": "x"
+      },
+      {
+       "btn": "Delete 3 tickets…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "GDPR confirm",
+   "here": "Settings",
+   "crumbs": [
+    "Settings",
+    "GDPR"
+   ],
+   "kids": [
+    {
+     "head": "Delete a customer's data"
+    },
+    {
+     "dialog": "Delete 3 tickets and redact 1 of max.muster@example.org?",
+     "kids": [
+      {
+       "t": "This cannot be undone. Mails in the IMAP folders stay; delete them on the mail server. The audit keeps only a hash of the address and the counts.",
+       "wrap": true
+      }
+     ],
+     "actions": [
+      {
+       "btn": "Cancel",
+       "icon": "x"
+      },
+      {
+       "btn": "Delete 3 tickets…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ]
+    },
+    {
+     "msg": "Deleted 3 tickets, redacted 1 · ZK-000000040, PT-000000005, PT-000000007 deleted · ZK-000000041 redacted · 1 pending mails dropped. Remember the IMAP folders.",
+     "kind": "ok"
+    }
+   ]
+  },
+  {
+   "name": "Public form",
+   "bare": true,
+   "center": true,
+   "narrow": 560,
+   "kids": [
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "t": "Zeitkapsl Support",
+         "s": "h2"
+        },
+        {
+         "spacer": 1,
+         "grow": true
+        },
+        {
+         "t": "de · en",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "App support",
+       "s": "h1"
+      },
+      {
+       "t": "Tell us briefly what happened.",
+       "wrap": true
+      },
+      {
+       "field": "E-mail *",
+       "v": "anna.huber@example.com"
+      },
+      {
+       "field": "Name",
+       "v": "Anna Huber"
+      },
+      {
+       "field": "Message *",
+       "v": "After about 2000 photos the sync stops at 87 %.",
+       "type": "Textarea"
+      },
+      {
+       "row": [
+        {
+         "field": "App version *",
+         "v": "2.3",
+         "type": "Select",
+         "grow": true
+        },
+        {
+         "field": "Platform",
+         "v": "Android",
+         "type": "Select",
+         "grow": true
+        }
+       ],
+       "gap": "md",
+       "stack": true,
+       "align": "start"
+      },
+      {
+       "field": "Browser (if web)",
+       "v": ""
+      },
+      {
+       "col": [
+        {
+         "icon": "upload",
+         "c": "muted"
+        },
+        {
+         "t": "Drop files here or choose"
+        },
+        {
+         "t": "up to 3 files, max 10 MB each",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "stroke": "line",
+       "radius": "control",
+       "pad": "md",
+       "align": "center",
+       "gap": "2xs"
+      },
+      {
+       "row": [
+        {
+         "btn": "Send",
+         "icon": "send",
+         "kind": "primary"
+        },
+        {
+         "t": "checking your browser, a few seconds",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "t": "powered by ][⇄ nobloat/asq",
+       "s": "small",
+       "c": "muted",
+       "self": "center"
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Thanks",
+   "bare": true,
+   "center": true,
+   "narrow": 560,
+   "kids": [
+    {
+     "card": [
+      {
+       "t": "Zeitkapsl Support",
+       "s": "h2"
+      },
+      {
+       "t": "App support",
+       "s": "h1"
+      },
+      {
+       "msg": "Thanks! Your request ZK-000000044 has been received. We will reply to anna.huber@example.com; a confirmation is on its way.",
+       "kind": "ok"
+      },
+      {
+       "t": "powered by ][⇄ nobloat/asq",
+       "s": "small",
+       "c": "muted",
+       "self": "center"
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Error 404",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "search",
+         "c": "muted"
+        },
+        {
+         "t": "404 · not found",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "There is no ticket ZK-000000099",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "It may have been deleted, the link may be mistyped, or it belongs to something you have no access to.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Tickets",
+         "icon": "list",
+         "kind": "primary"
+        },
+        {
+         "btn": "Dashboard",
+         "icon": "dashboard"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Error 403",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "lock",
+         "c": "muted"
+        },
+        {
+         "t": "403 · no access",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "You cannot open this page",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "t": "You are signed in as miruna"
+        },
+        {
+         "tag": "access-asq"
+        },
+        {
+         "tag": "asq-desk-plaintext-agent"
+        },
+        {
+         "t": "· This page needs the group asq-admin."
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "t": "Ask an admin, or sign in with another account.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Settings",
+         "icon": "cog",
+         "kind": "primary"
+        },
+        {
+         "btn": "Manage account",
+         "icon": "user"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  }
+ ]
+}

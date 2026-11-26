@@ -64,4 +64,4 @@ Never report "built but not looked at". If a check could not run, finish it befo
 
 - Done: layers 0–2, and stat tile, message, toast, menu item, nav item, tab, avatar. Pages: Foundations, Components, Templates; app pages nomail, call, up, poll, jot (partly) were drawn by the old generator.
 - Broken: templates and app pages were drawn from loose token-bound boxes, not instances (layer rule). They must be rebuilt after layer 3 exists.
-- A generator outside git, `C:\git\nobloat\penpot-ds` (`lib.js`, `parts.js`, `DSL.md`, `apps/*.json` screen definitions for all apps, `PROGRESS.md`), renders screens from JSON. Its screen definitions are reusable; its renderer draws parts as loose boxes and must be changed to place only instances before it is used again.
+- The generator in `penpot/` (`lib.js`, `parts.js`, `DSL.md`, `apps/*.json` screen definitions for all apps; how to run it and its status: `penpot/PROGRESS.md`) renders screens from JSON. Its screen definitions are reusable; its renderer draws parts as loose boxes and must be changed to place only instances before it is used again.

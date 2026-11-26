@@ -1,0 +1,5894 @@
+{
+ "app": {
+  "name": "track",
+  "ch": "◷",
+  "nav": [
+   "Dashboard",
+   "Week",
+   "Month",
+   "List",
+   "Reports",
+   "Import"
+  ],
+  "user": "P",
+  "search": true
+ },
+ "screens": [
+  {
+   "name": "Dashboard",
+   "here": "Dashboard",
+   "kids": [
+    {
+     "head": "Dashboard",
+     "sub": {
+      "t": "Simeon · 2026",
+      "s": "small",
+      "c": "muted"
+     }
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "tiles": [
+      {
+       "tile": "Overtime balance",
+       "value": "+12:30",
+       "delta": "+9:00",
+       "cap": "this year · Dec – Nov, 12 months"
+      },
+      {
+       "tile": "This week",
+       "value": "13,50h",
+       "delta": "/ 20,00h",
+       "cap": "68 % of the target"
+      },
+      {
+       "tile": "Vacation left",
+       "value": "68,00h",
+       "delta": "Vacation taken: 44,00h"
+      },
+      {
+       "tile": "Sick",
+       "value": "2 d",
+       "delta": "8,00h · 2026"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "card": [
+        {
+         "columns": [
+          80,
+          84,
+          76,
+          88,
+          90,
+          72,
+          84,
+          92,
+          60,
+          88,
+          85,
+          52
+         ],
+         "cap": "Dec 2025 – Nov 2026 · Nov 52,00h"
+        }
+       ],
+       "title": "Worked",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "columns": [
+          8,
+          0,
+          0,
+          4,
+          0,
+          8,
+          0,
+          12,
+          0,
+          8,
+          4,
+          0
+         ],
+         "cap": "Dec 2025 – Nov 2026 · Nov 0,00h"
+        }
+       ],
+       "title": "Vacation taken",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "t": "Upcoming vacation",
+     "s": "h2"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Date"
+       },
+       {
+        "h": "Hours",
+        "w": 120,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        "2026-12-23",
+        "4,00h"
+       ],
+       [
+        "2026-12-28",
+        "4,00h"
+       ],
+       [
+        "2026-12-29",
+        "4,00h"
+       ],
+       [
+        "2026-12-30",
+        "4,00h"
+       ],
+       [
+        "4 d",
+        "16,00h"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Dashboard no hours",
+   "here": "Dashboard",
+   "kids": [
+    {
+     "head": "Dashboard",
+     "sub": {
+      "t": "Peter · 2026",
+      "s": "small",
+      "c": "muted"
+     }
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "msg": "No working hours are set for you yet. An admin adds them under Settings › People.",
+     "kind": "warning"
+    },
+    {
+     "tiles": [
+      {
+       "tile": "Overtime balance",
+       "value": "0:00"
+      },
+      {
+       "tile": "This week",
+       "value": "21,50h",
+       "delta": "/ 0,00h"
+      },
+      {
+       "tile": "Vacation left",
+       "value": "0,00h"
+      },
+      {
+       "tile": "Sick",
+       "value": "0 d"
+      }
+     ]
+    },
+    {
+     "t": "Upcoming vacation",
+     "s": "h2"
+    },
+    {
+     "t": "No vacation booked ahead.",
+     "s": "body",
+     "c": "muted"
+    }
+   ]
+  },
+  {
+   "name": "Week",
+   "here": "Week",
+   "only": "d",
+   "kids": [
+    {
+     "head": "Week 44 · 2026-10-26 – 2026-11-01",
+     "sub": {
+      "t": "Σ 28:00 this week",
+      "s": "small",
+      "c": "muted"
+     },
+     "actions": [
+      {
+       "ibtn": "chevron-left",
+       "size": "md"
+      },
+      {
+       "ibtn": "chevron-right",
+       "size": "md"
+      },
+      {
+       "btn": "Today",
+       "icon": "clock"
+      },
+      {
+       "btn": "Month",
+       "icon": "calendar"
+      }
+     ]
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "col": [],
+         "h": 44
+        },
+        {
+         "col": [
+          {
+           "t": "08:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "09:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "10:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "11:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "12:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "13:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "14:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "15:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "16:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "17:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        }
+       ],
+       "w": 48
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Mon 26",
+           "s": "small"
+          },
+          {
+           "t": "—",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [],
+         "h": 480,
+         "stroke": "line",
+         "fill": "bg",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Tue 27",
+           "s": "small"
+          },
+          {
+           "t": "6:45",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Shipment search: one index instead of Elasticsearch",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 166,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "col": [],
+           "h": 48
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            }
+           ],
+           "h": 34,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Label printing: plain PDF writer",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 118,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          }
+         ],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Wed 28",
+           "s": "small"
+          },
+          {
+           "t": "8:15",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [
+          {
+           "col": [],
+           "h": 12
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Label printing: plain PDF writer",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 178,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "col": [],
+           "h": 36
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            }
+           ],
+           "h": 34,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "zerodeps",
+               "s": "small"
+              },
+              {
+               "t": "Tracking API: one static binary",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              },
+              {
+               "tag": "#development"
+              }
+             ],
+             "h": 130,
+             "fill": "tint.blue",
+             "radius": "small",
+             "pad": "2xs",
+             "gap": "3xs",
+             "clip": true,
+             "stroke": "line-strong",
+             "grow": true
+            },
+            {
+             "col": [
+              {
+               "t": "zerodeps",
+               "s": "small"
+              },
+              {
+               "t": "Overlapping review",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "h": 46,
+             "fill": "tint.blue",
+             "radius": "small",
+             "pad": "2xs",
+             "gap": "3xs",
+             "clip": true,
+             "grow": true
+            }
+           ],
+           "gap": "3xs",
+           "align": "start",
+           "h": 132
+          },
+          {
+           "col": [],
+           "h": 2
+          }
+         ],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Thu 29",
+           "s": "small"
+          },
+          {
+           "t": "7:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [
+          {
+           "col": [],
+           "h": 36
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Replace the ORM with plain SQL",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 202,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "col": [],
+           "h": 60
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "CSV export without a library",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 130,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          }
+         ],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Fri 30",
+           "s": "small",
+           "c": "accent"
+          },
+          {
+           "t": "6:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "sel"
+        },
+        {
+         "col": [
+          {
+           "col": [],
+           "h": 24
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Delete dead feature flags",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 190,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "col": [],
+           "h": 36
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Delete dead feature flags",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            }
+           ],
+           "h": 94,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          }
+         ],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Sat 31",
+           "s": "small"
+          },
+          {
+           "t": "—",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Sun 01",
+           "s": "small"
+          },
+          {
+           "t": "—",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      }
+     ],
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "t": "drag empty space = new · drag box = move · drag edge = resize · click = edit",
+       "s": "small",
+       "c": "muted",
+       "wrap": true,
+       "only": "d"
+      },
+      {
+       "btn": "New",
+       "icon": "plus"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Week day",
+   "here": "Week",
+   "only": "p",
+   "kids": [
+    {
+     "head": "Week 44 · 2026-10-26 – 2026-11-01",
+     "sub": {
+      "t": "Σ 28:00",
+      "s": "small",
+      "c": "muted"
+     },
+     "actions": [
+      {
+       "ibtn": "chevron-left",
+       "size": "md"
+      },
+      {
+       "ibtn": "chevron-right",
+       "size": "md"
+      },
+      {
+       "btn": "Today",
+       "icon": "clock"
+      }
+     ]
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "row": [
+      {
+       "ibtn": "chevron-left",
+       "size": "md"
+      },
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "t": "Wed 28 · 8:15",
+       "s": "h2"
+      },
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "ibtn": "chevron-right",
+       "size": "md"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "col": [],
+         "h": 44
+        },
+        {
+         "col": [
+          {
+           "t": "08:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "09:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "10:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "11:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "12:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "13:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "14:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "15:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "16:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        },
+        {
+         "col": [
+          {
+           "t": "17:00",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 48
+        }
+       ],
+       "w": 48
+      },
+      {
+       "col": [
+        {
+         "col": [
+          {
+           "t": "Wed 28",
+           "s": "small"
+          },
+          {
+           "t": "8:15",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "h": 44,
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "stroke": "line",
+         "fill": "bg"
+        },
+        {
+         "col": [
+          {
+           "col": [],
+           "h": 12
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            },
+            {
+             "t": "Label printing: plain PDF writer",
+             "s": "small",
+             "c": "muted",
+             "wrap": true
+            },
+            {
+             "tag": "#development"
+            }
+           ],
+           "h": 178,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "col": [],
+           "h": 36
+          },
+          {
+           "col": [
+            {
+             "t": "zerodeps",
+             "s": "small"
+            }
+           ],
+           "h": 34,
+           "fill": "tint.blue",
+           "radius": "small",
+           "pad": "2xs",
+           "gap": "3xs",
+           "clip": true
+          },
+          {
+           "col": [],
+           "h": 2
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "zerodeps",
+               "s": "small"
+              },
+              {
+               "t": "Tracking API: one static binary",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              },
+              {
+               "tag": "#development"
+              }
+             ],
+             "h": 130,
+             "fill": "tint.blue",
+             "radius": "small",
+             "pad": "2xs",
+             "gap": "3xs",
+             "clip": true,
+             "stroke": "line-strong",
+             "grow": true
+            },
+            {
+             "col": [
+              {
+               "t": "zerodeps",
+               "s": "small"
+              },
+              {
+               "t": "Overlapping review",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "h": 46,
+             "fill": "tint.blue",
+             "radius": "small",
+             "pad": "2xs",
+             "gap": "3xs",
+             "clip": true,
+             "grow": true
+            }
+           ],
+           "gap": "3xs",
+           "align": "start",
+           "h": 132
+          },
+          {
+           "col": [],
+           "h": 2
+          }
+         ],
+         "h": 480,
+         "stroke": "line",
+         "fill": "surface",
+         "pad": [
+          null,
+          "3xs"
+         ],
+         "clip": true
+        }
+       ],
+       "grow": true
+      }
+     ],
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "t": "drag empty space = new · drag box = move · drag edge = resize · click = edit",
+       "s": "small",
+       "c": "muted",
+       "wrap": true,
+       "only": "d"
+      },
+      {
+       "btn": "New",
+       "icon": "plus"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Week entry dialog",
+   "here": "Week",
+   "kids": [
+    {
+     "head": "Week 44 · 2026-10-26 – 2026-11-01",
+     "sub": {
+      "t": "Σ 28:00 this week",
+      "s": "small",
+      "c": "muted"
+     }
+    },
+    {
+     "dialog": "Entry",
+     "kids": [
+      {
+       "field": "What",
+       "v": "Tracking API: one static binary"
+      },
+      {
+       "field": "Project",
+       "v": "zerodeps",
+       "type": "Select"
+      },
+      {
+       "field": "Tags",
+       "v": "#development"
+      },
+      {
+       "info": [
+        [
+         "Time",
+         "Wed 2026-10-28 · 13:30–16:15 · 2:45"
+        ]
+       ]
+      }
+     ],
+     "actions": [
+      {
+       "btn": "Delete",
+       "icon": "trash",
+       "kind": "delete"
+      },
+      {
+       "btn": "Discard",
+       "icon": "undo"
+      },
+      {
+       "btn": "Save",
+       "icon": "check",
+       "kind": "primary"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Month",
+   "here": "Month",
+   "kids": [
+    {
+     "head": "October 2026",
+     "actions": [
+      {
+       "ibtn": "chevron-left",
+       "size": "md"
+      },
+      {
+       "ibtn": "chevron-right",
+       "size": "md"
+      },
+      {
+       "btn": "Today",
+       "icon": "clock"
+      },
+      {
+       "btn": "Week",
+       "icon": "calendar",
+       "only": "d"
+      }
+     ],
+     "sub": {
+      "row": [
+       {
+        "rect": [
+         8,
+         8,
+         "accent",
+         "pill"
+        ]
+       },
+       {
+        "t": "zerodeps 126:00",
+        "s": "small",
+        "c": "muted"
+       },
+       {
+        "rect": [
+         8,
+         8,
+         "state.green",
+         "pill"
+        ]
+       },
+       {
+        "t": "zeitkapsl 4:00",
+        "s": "small",
+        "c": "muted"
+       },
+       {
+        "rect": [
+         8,
+         8,
+         "state.grey",
+         "pill"
+        ]
+       },
+       {
+        "t": "hr 16:00",
+        "s": "small",
+        "c": "muted"
+       },
+       {
+        "t": "· Σ 146:00",
+        "s": "small",
+        "c": "muted"
+       }
+      ],
+      "gap": "xs",
+      "wrap": true,
+      "align": "center",
+      "hug": true
+     }
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "col": [
+          {
+           "t": "Mon",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        },
+        {
+         "col": [
+          {
+           "t": "Tue",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        },
+        {
+         "col": [
+          {
+           "t": "Wed",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        },
+        {
+         "col": [
+          {
+           "t": "Thu",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        },
+        {
+         "col": [
+          {
+           "t": "Fri",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        },
+        {
+         "col": [
+          {
+           "t": "Sat",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        },
+        {
+         "col": [
+          {
+           "t": "Sun",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "grow": true,
+         "pad": [
+          "2xs",
+          "xs"
+         ]
+        }
+       ],
+       "align": "start"
+      },
+      {
+       "row": [
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "28",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "bg",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "29",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "bg",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "30",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "bg",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "1",
+             "s": "small"
+            },
+            {
+             "t": "· 8:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              80,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              20,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "2",
+             "s": "small"
+            },
+            {
+             "t": "· 6:45",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              68,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              17,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "3",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "4",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        }
+       ],
+       "align": "start"
+      },
+      {
+       "row": [
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "5",
+             "s": "small"
+            },
+            {
+             "t": "· 6:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              60,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              15,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "6",
+             "s": "small"
+            },
+            {
+             "t": "· 7:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              70,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              24,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              18,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              6,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "7",
+             "s": "small"
+            },
+            {
+             "t": "· 7:45",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              78,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              20,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "8",
+             "s": "small"
+            },
+            {
+             "t": "· 7:15",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              73,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              18,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "9",
+             "s": "small"
+            },
+            {
+             "t": "· 8:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              96,
+              6,
+              "state.grey"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              24,
+              6,
+              "state.grey"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "10",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "11",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        }
+       ],
+       "align": "start"
+      },
+      {
+       "row": [
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "12",
+             "s": "small"
+            },
+            {
+             "t": "· 8:15",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              83,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              24,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              21,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              6,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "13",
+             "s": "small"
+            },
+            {
+             "t": "· 6:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              60,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              15,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "14",
+             "s": "small"
+            },
+            {
+             "t": "· 7:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              70,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              18,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "15",
+             "s": "small"
+            },
+            {
+             "t": "· 7:45",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              78,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              24,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              20,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              6,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "16",
+             "s": "small"
+            },
+            {
+             "t": "· 7:15",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              73,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              18,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "17",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "18",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        }
+       ],
+       "align": "start"
+      },
+      {
+       "row": [
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "19",
+             "s": "small"
+            },
+            {
+             "t": "· 7:30",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              75,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              19,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "20",
+             "s": "small"
+            },
+            {
+             "t": "· 8:15",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              83,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              21,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "21",
+             "s": "small"
+            },
+            {
+             "t": "· 6:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              60,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              24,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              15,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              6,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "22",
+             "s": "small"
+            },
+            {
+             "t": "· 7:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              70,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              18,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "23",
+             "s": "small"
+            },
+            {
+             "t": "· 7:45",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              96,
+              6,
+              "state.grey"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              24,
+              6,
+              "state.grey"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "24",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "25",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        }
+       ],
+       "align": "start"
+      },
+      {
+       "row": [
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "26",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "t": "Nationalfeiertag",
+           "s": "small",
+           "c": "muted",
+           "only": "d"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "bg",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "27",
+             "s": "small"
+            },
+            {
+             "t": "· 7:30",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              75,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              24,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              19,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              6,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "28",
+             "s": "small"
+            },
+            {
+             "t": "· 8:15",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              83,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              21,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "29",
+             "s": "small"
+            },
+            {
+             "t": "· 6:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              60,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              15,
+              6,
+              "accent"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "30",
+             "s": "small",
+             "c": "accent"
+            },
+            {
+             "t": "· 7:00",
+             "s": "small",
+             "c": "muted",
+             "only": "d"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              70,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              24,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "d"
+          },
+          {
+           "row": [
+            {
+             "rect": [
+              18,
+              6,
+              "accent"
+             ]
+            },
+            {
+             "rect": [
+              6,
+              6,
+              "state.green"
+             ]
+            }
+           ],
+           "only": "p"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "sel",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "31",
+             "s": "small"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "surface",
+         "clip": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "1",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs"
+          }
+         ],
+         "h": 84,
+         "grow": true,
+         "stroke": "line",
+         "pad": "xs",
+         "gap": "2xs",
+         "fill": "bg",
+         "clip": true
+        }
+       ],
+       "align": "start"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "List",
+   "here": "List",
+   "kids": [
+    {
+     "head": "List",
+     "actions": [
+      {
+       "btn": "New",
+       "icon": "plus"
+      },
+      {
+       "btn": "CSV",
+       "icon": "download"
+      }
+     ]
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "icon": "filter",
+         "c": "muted"
+        },
+        {
+         "t": "Filters"
+        },
+        {
+         "t": "2026-10-26–2026-11-01",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "Range",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "this week",
+         "n": "21:30"
+        },
+        {
+         "chip": "last week",
+         "n": "28:00",
+         "on": true
+        },
+        {
+         "chip": "this month",
+         "n": "118:30"
+        },
+        {
+         "chip": "last month",
+         "n": "142:00"
+        },
+        {
+         "chip": "this quarter",
+         "n": "260:30"
+        },
+        {
+         "chip": "this year",
+         "n": "1.412:15"
+        },
+        {
+         "chip": "all time",
+         "n": "4.380:45"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "field": "from",
+         "v": "2026-10-26",
+         "sm": true
+        },
+        {
+         "field": "to",
+         "v": "2026-11-01",
+         "sm": true
+        },
+        {
+         "search": "filter description",
+         "w": 220
+        },
+        {
+         "btn": "Show",
+         "icon": "filter"
+        }
+       ],
+       "gap": "xs",
+       "stack": true,
+       "align": "end"
+      },
+      {
+       "row": [
+        {
+         "t": "Person",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "all",
+         "on": true
+        },
+        {
+         "chip": "Peter",
+         "n": "142:00"
+        },
+        {
+         "chip": "Simeon",
+         "n": "84:30"
+        },
+        {
+         "chip": "Miruna",
+         "n": "135:30"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "Project",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "all",
+         "on": true
+        },
+        {
+         "chip": "zerodeps",
+         "n": "126:00"
+        },
+        {
+         "chip": "staticwave",
+         "n": "135:30"
+        },
+        {
+         "chip": "zeitkapsl",
+         "n": "84:30"
+        },
+        {
+         "chip": "hr",
+         "n": "16:00"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "Tags",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "all",
+         "on": true
+        },
+        {
+         "chip": "#development",
+         "n": "196:15"
+        },
+        {
+         "chip": "#meeting",
+         "n": "48:30"
+        },
+        {
+         "chip": "#sync",
+         "n": "45:30"
+        },
+        {
+         "chip": "#import",
+         "n": "28:15"
+        },
+        {
+         "chip": "#holiday",
+         "n": "16:00"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "Billing",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "chip": "unbilled",
+         "n": "28:00"
+        },
+        {
+         "chip": "billed",
+         "n": "0:00"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      }
+     ],
+     "gap": "sm"
+    },
+    {
+     "msg": "overlap: 2026-10-28",
+     "kind": "warning"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Date",
+        "w": 110
+       },
+       {
+        "h": "Person",
+        "w": 90
+       },
+       {
+        "h": "Time",
+        "w": 120
+       },
+       {
+        "h": "Hours",
+        "w": 70,
+        "right": true
+       },
+       {
+        "h": "Project",
+        "w": 130
+       },
+       {
+        "h": "Description"
+       },
+       {
+        "h": "Tags",
+        "w": 150
+       },
+       {
+        "h": "",
+        "w": 70,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        "2026-10-30",
+        "Peter",
+        "13:15–15:15",
+        "2:00",
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "Delete dead feature flags",
+        {
+         "tag": "development"
+        },
+        {
+         "ibtn": "edit",
+         "size": "sm"
+        }
+       ],
+       [
+        "2026-10-30",
+        "Peter",
+        "08:30–12:30",
+        "4:00",
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "Delete dead feature flags",
+        {
+         "tag": "development"
+        },
+        {
+         "ibtn": "edit",
+         "size": "sm"
+        }
+       ],
+       [
+        "2026-10-29",
+        "Peter",
+        "14:15–17:00",
+        "2:45",
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "CSV export without a library",
+        {
+         "tag": "development"
+        },
+        {
+         "ibtn": "edit",
+         "size": "sm"
+        }
+       ],
+       [
+        "2026-10-28",
+        "Peter",
+        "13:30–16:15",
+        "2:45",
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "Tracking API: one static binary",
+        {
+         "tag": "development"
+        },
+        {
+         "row": [
+          {
+           "icon": "warning",
+           "c": "red"
+          },
+          {
+           "ibtn": "edit",
+           "size": "sm"
+          }
+         ],
+         "gap": "2xs"
+        }
+       ],
+       [
+        "2026-10-28",
+        "Peter",
+        "13:30–14:30",
+        "1:00",
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "Overlapping review",
+        {
+         "tag": "meeting"
+        },
+        {
+         "row": [
+          {
+           "icon": "warning",
+           "c": "red"
+          },
+          {
+           "ibtn": "edit",
+           "size": "sm"
+          }
+         ],
+         "gap": "2xs"
+        }
+       ],
+       [
+        "2026-09-30",
+        "Peter",
+        "08:15–12:00",
+        "3:45",
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "Label printing: plain PDF writer",
+        {
+         "tag": "development"
+        },
+        {
+         "row": [
+          {
+           "icon": "euro",
+           "c": "muted"
+          },
+          {
+           "t": "RE-2026-020",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "2xs"
+        }
+       ]
+      ],
+      "sel": 3
+     }
+    },
+    {
+     "row": [
+      {
+       "t": "shown",
+       "s": "body",
+       "c": "muted"
+      },
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "t": "28:00"
+      }
+     ],
+     "gap": "xs"
+    }
+   ]
+  },
+  {
+   "name": "Entry",
+   "here": "Week",
+   "crumbs": [
+    "Week",
+    "ENT-25KBRO5S7BNNUQ2L"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "Entry",
+     "sub": {
+      "row": [
+       {
+        "icon": "check",
+        "c": "green"
+       },
+       {
+        "t": "saved 14:02",
+        "s": "small",
+        "c": "green"
+       }
+      ],
+      "gap": "2xs",
+      "hug": true
+     },
+     "actions": [
+      {
+       "btn": "Delete",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ]
+    },
+    {
+     "info": [
+      [
+       "id",
+       {
+        "id": "ENT-25KBRO5S7BNNUQ2L"
+       }
+      ]
+     ]
+    },
+    {
+     "field": "What",
+     "v": "Tracking API: one static binary"
+    },
+    {
+     "row": [
+      {
+       "field": "Project",
+       "v": "zerodeps",
+       "type": "Select",
+       "grow": true
+      },
+      {
+       "field": "Tags",
+       "v": "#development",
+       "ph": "#",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "field": "Date",
+       "v": "2026-10-28",
+       "grow": true
+      },
+      {
+       "field": "Start",
+       "v": "13:30",
+       "ph": "9, 930, 9:30",
+       "grow": true
+      },
+      {
+       "field": "End",
+       "v": "25:15",
+       "state": "Error",
+       "msg": "Invalid time: e.g. 9, 930, 17:30 or +1:30",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "icon": "chevron-right",
+       "c": "muted"
+      },
+      {
+       "t": "History (2)",
+       "s": "body",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "Entry billed",
+   "here": "Week",
+   "crumbs": [
+    "Week",
+    "ENT-NHWODU6OPFV7H2RQ"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "Entry"
+    },
+    {
+     "row": [
+      {
+       "msg": "Billed, read-only: € RE-2026-020",
+       "kind": "warning"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "info": [
+      [
+       "id",
+       {
+        "id": "ENT-NHWODU6OPFV7H2RQ"
+       }
+      ],
+      [
+       "What",
+       "Label printing: plain PDF writer"
+      ],
+      [
+       "Project",
+       {
+        "row": [
+         {
+          "rect": [
+           8,
+           8,
+           "accent",
+           "pill"
+          ]
+         },
+         {
+          "t": "zerodeps"
+         }
+        ],
+        "gap": "xs",
+        "align": "center",
+        "hug": true
+       }
+      ],
+      [
+       "Tags",
+       {
+        "tag": "development"
+       }
+      ],
+      [
+       "Date",
+       "2026-09-30"
+      ],
+      [
+       "Start",
+       "08:15"
+      ],
+      [
+       "End",
+       "12:00"
+      ]
+     ]
+    },
+    {
+     "row": [
+      {
+       "icon": "chevron-right",
+       "c": "muted"
+      },
+      {
+       "t": "History (3)",
+       "s": "body",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "New entry",
+   "here": "Week",
+   "crumbs": [
+    "Week",
+    "New entry"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "New entry"
+    },
+    {
+     "field": "What",
+     "ph": "what are you working on?"
+    },
+    {
+     "row": [
+      {
+       "field": "Project",
+       "v": "zerodeps",
+       "type": "Select",
+       "grow": true
+      },
+      {
+       "field": "Tags",
+       "ph": "#",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "field": "Date",
+       "v": "2026-11-26",
+       "grow": true
+      },
+      {
+       "field": "Start",
+       "v": "09:00",
+       "ph": "9, 930, 9:30",
+       "grow": true
+      },
+      {
+       "field": "End",
+       "ph": "9, 930, 17:30, +1:30",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "btn": "Cancel",
+       "icon": "x",
+       "only": "d"
+      },
+      {
+       "btn": "Create",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ],
+     "gap": "xs",
+     "stack": true,
+     "justify": "end"
+    }
+   ]
+  },
+  {
+   "name": "Time account",
+   "here": "Reports",
+   "crumbs": [
+    "Reports",
+    "Time account"
+   ],
+   "kids": [
+    {
+     "head": "Time account 2026"
+    },
+    {
+     "row": [
+      {
+       "t": "Year",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "2024"
+      },
+      {
+       "chip": "2025"
+      },
+      {
+       "chip": "2026",
+       "on": true
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "t": "Group by",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "Year"
+      },
+      {
+       "chip": "Month",
+       "on": true
+      },
+      {
+       "chip": "Week"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "chip": "all"
+      },
+      {
+       "chip": "Simeon",
+       "on": true
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "t": "Target = Normalarbeitszeit on working days; public holidays are free, half days (in Austria 24 and 31 December) count half. Vacation, sick and doctor entries (project hr) count as worked. ± month is worked minus target. Overtime balance and vacation carry over from the first hours period, opening balances included.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "t": "Simeon",
+     "s": "h2"
+    },
+    {
+     "tiles": [
+      {
+       "tile": "Overtime balance",
+       "value": "+12:30",
+       "delta": "+9:00",
+       "cap": "this year"
+      },
+      {
+       "tile": "Worked / Target",
+       "value": "929,00h",
+       "cap": "/ 920,00h"
+      },
+      {
+       "tile": "Vacation left",
+       "value": "68,00h",
+       "cap": "Vacation taken: 44,00h"
+      },
+      {
+       "tile": "Sick",
+       "value": "2 d",
+       "cap": "8,00h"
+      }
+     ]
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Person › Month"
+       },
+       {
+        "h": "Target",
+        "w": 110,
+        "right": true
+       },
+       {
+        "h": "Worked",
+        "w": 110,
+        "right": true
+       },
+       {
+        "h": "± month",
+        "w": 100,
+        "right": true
+       },
+       {
+        "h": "Overtime balance",
+        "w": 150,
+        "right": true
+       },
+       {
+        "h": "Vacation taken",
+        "w": 130,
+        "right": true
+       },
+       {
+        "h": "Vacation left",
+        "w": 120,
+        "right": true
+       },
+       {
+        "h": "Sick",
+        "w": 120,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        "Simeon",
+        "920,00h",
+        "929,00h",
+        {
+         "t": "+9:00",
+         "s": "body",
+         "c": "green"
+        },
+        {
+         "t": "+12:30",
+         "s": "body",
+         "c": "green"
+        },
+        "44,00h",
+        "68,00h",
+        "8,00h · 2 d"
+       ],
+       [
+        {
+         "t": "   2026-08",
+         "s": "small",
+         "c": "muted"
+        },
+        "84,00h",
+        "92,00h",
+        {
+         "t": "+8:00",
+         "s": "body",
+         "c": "green"
+        },
+        {
+         "t": "+14:00",
+         "s": "body",
+         "c": "green"
+        },
+        "12,00h",
+        "76,00h",
+        "0,00h"
+       ],
+       [
+        {
+         "t": "   2026-09",
+         "s": "small",
+         "c": "muted"
+        },
+        "88,00h",
+        "60,00h",
+        {
+         "t": "−28:00",
+         "s": "body",
+         "c": "red"
+        },
+        {
+         "t": "−14:00",
+         "s": "body",
+         "c": "red"
+        },
+        "0,00h",
+        "76,00h",
+        "8,00h · 2 d"
+       ],
+       [
+        {
+         "t": "   2026-10",
+         "s": "small",
+         "c": "muted"
+        },
+        "84,00h",
+        "88,00h",
+        {
+         "t": "+4:00",
+         "s": "body",
+         "c": "green"
+        },
+        {
+         "t": "−10:00",
+         "s": "body",
+         "c": "red"
+        },
+        "8,00h",
+        "68,00h",
+        "0,00h"
+       ],
+       [
+        {
+         "t": "   2026-11",
+         "s": "small",
+         "c": "muted"
+        },
+        "84,00h",
+        "106,50h",
+        {
+         "t": "+22:30",
+         "s": "body",
+         "c": "green"
+        },
+        {
+         "t": "+12:30",
+         "s": "body",
+         "c": "green"
+        },
+        "0,00h",
+        "68,00h",
+        "0,00h"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Reports",
+   "here": "Reports",
+   "kids": [
+    {
+     "head": "Reports",
+     "actions": [
+      {
+       "btn": "Time account",
+       "icon": "clock"
+      },
+      {
+       "btn": "CSV",
+       "icon": "download"
+      }
+     ]
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "row": [
+      {
+       "t": "Range",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "this week",
+       "n": "21:30"
+      },
+      {
+       "chip": "last week",
+       "n": "28:00"
+      },
+      {
+       "chip": "this month",
+       "n": "118:30"
+      },
+      {
+       "chip": "last month",
+       "n": "142:00",
+       "on": true
+      },
+      {
+       "chip": "this quarter",
+       "n": "260:30"
+      },
+      {
+       "chip": "this year",
+       "n": "1.412:15"
+      },
+      {
+       "chip": "all time",
+       "n": "4.380:45"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "field": "from",
+       "v": "2026-10-01",
+       "sm": true
+      },
+      {
+       "field": "to",
+       "v": "2026-10-31",
+       "sm": true
+      },
+      {
+       "btn": "Show",
+       "icon": "filter"
+      }
+     ],
+     "gap": "xs",
+     "stack": true,
+     "align": "end"
+    },
+    {
+     "row": [
+      {
+       "t": "Person",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "all",
+       "on": true
+      },
+      {
+       "chip": "Peter",
+       "n": "142:00"
+      },
+      {
+       "chip": "Simeon",
+       "n": "84:30"
+      },
+      {
+       "chip": "Miruna",
+       "n": "135:30"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "t": "Project",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "all",
+       "on": true
+      },
+      {
+       "chip": "zerodeps",
+       "n": "126:00"
+      },
+      {
+       "chip": "staticwave",
+       "n": "135:30"
+      },
+      {
+       "chip": "zeitkapsl",
+       "n": "84:30"
+      },
+      {
+       "chip": "hr",
+       "n": "16:00"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "t": "Tags",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "all",
+       "on": true
+      },
+      {
+       "chip": "#development",
+       "n": "196:15"
+      },
+      {
+       "chip": "#meeting",
+       "n": "48:30"
+      },
+      {
+       "chip": "#sync",
+       "n": "45:30"
+      },
+      {
+       "chip": "#import",
+       "n": "28:15"
+      },
+      {
+       "chip": "#holiday",
+       "n": "16:00"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "t": "Group by",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "chip": "Project",
+       "on": true
+      },
+      {
+       "chip": "#Tag",
+       "on": true
+      },
+      {
+       "chip": "Person"
+      },
+      {
+       "chip": "Day"
+      },
+      {
+       "chip": "Week"
+      },
+      {
+       "chip": "Month"
+      },
+      {
+       "chip": "Year"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Project › #Tag"
+       },
+       {
+        "h": "Hours",
+        "w": 110,
+        "right": true
+       },
+       {
+        "h": "entries",
+        "w": 100,
+        "right": true
+       },
+       {
+        "h": "",
+        "w": 220
+       }
+      ],
+      "rows": [
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "staticwave"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "135:30",
+        "44",
+        {
+         "meter": 0.37,
+         "w": 200
+        }
+       ],
+       [
+        {
+         "t": "   #development",
+         "s": "small",
+         "c": "muted"
+        },
+        "108:15",
+        "34",
+        {
+         "meter": 0.3,
+         "w": 200
+        }
+       ],
+       [
+        {
+         "t": "   #meeting",
+         "s": "small",
+         "c": "muted"
+        },
+        "27:15",
+        "10",
+        {
+         "meter": 0.08,
+         "w": 200
+        }
+       ],
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "126:00",
+        "47",
+        {
+         "meter": 0.35,
+         "w": 200
+        }
+       ],
+       [
+        {
+         "t": "   #development",
+         "s": "small",
+         "c": "muted"
+        },
+        "104:45",
+        "31",
+        {
+         "meter": 0.29,
+         "w": 200
+        }
+       ],
+       [
+        {
+         "t": "   #meeting",
+         "s": "small",
+         "c": "muted"
+        },
+        "21:15",
+        "16",
+        {
+         "meter": 0.06,
+         "w": 200
+        }
+       ],
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "84:30",
+        "38",
+        {
+         "meter": 0.23,
+         "w": 200
+        }
+       ],
+       [
+        "Σ 2026-10-01 – 2026-10-31",
+        "362:00",
+        "",
+        ""
+       ]
+      ]
+     }
+    },
+    {
+     "t": "An entry with several tags counts once in every subtotal, but under each of its tags; entries without a tag are under —.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Settings",
+   "here": "",
+   "crumbs": [
+    "Settings"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "Settings"
+    },
+    {
+     "tabs": [
+      "Account",
+      "Projects",
+      "Tags",
+      "People",
+      "Periods"
+     ],
+     "on": 0
+    },
+    {
+     "info": [
+      [
+       "Name",
+       "Peter"
+      ],
+      [
+       "Username",
+       "peter@plaintext.example"
+      ],
+      [
+       "Email",
+       "peter@plaintext.example"
+      ],
+      [
+       "Groups",
+       {
+        "row": [
+         {
+          "tag": "track-admin"
+         },
+         {
+          "tag": "bill-admin"
+         },
+         {
+          "tag": "tax-admin"
+         }
+        ],
+        "gap": "xs",
+        "wrap": true
+       }
+      ],
+      [
+       "Role",
+       "admin (everything)"
+      ],
+      [
+       "Signed in via",
+       "nobloat/auth"
+      ]
+     ]
+    },
+    {
+     "row": [
+      {
+       "btn": "Manage account",
+       "icon": "external"
+      },
+      {
+       "btn": "Sign out",
+       "icon": "power"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "t": "Preferences",
+     "s": "h2"
+    },
+    {
+     "info": [
+      [
+       "Language",
+       {
+        "seg": [
+         "deutsch",
+         "english"
+        ],
+        "on": 1
+       }
+      ],
+      [
+       "Theme",
+       {
+        "seg": [
+         "Auto",
+         "Light",
+         "Dark"
+        ],
+        "on": 0
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Settings projects",
+   "here": "",
+   "crumbs": [
+    "Settings",
+    "Projects"
+   ],
+   "kids": [
+    {
+     "head": "Projects",
+     "actions": [
+      {
+       "btn": "New",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "tabs": [
+      "Account",
+      "Projects",
+      "Tags",
+      "People",
+      "Periods"
+     ],
+     "on": 1
+    },
+    {
+     "row": [
+      {
+       "chip": "active",
+       "n": "4",
+       "on": true
+      },
+      {
+       "chip": "archived",
+       "n": "0"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Name"
+       },
+       {
+        "h": "Company",
+        "w": 200
+       },
+       {
+        "h": "id",
+        "w": 200
+       }
+      ],
+      "rows": [
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        {
+         "t": "smalldiff",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "id": "PRJ-ZERODEPS"
+        }
+       ],
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "staticwave"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        {
+         "t": "smalldiff",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "id": "PRJ-STATICWAVE"
+        }
+       ],
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        {
+         "t": "plaintext",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "id": "PRJ-ZEITKAPSL"
+        }
+       ],
+       [
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "hr"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        {
+         "t": "plaintext",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "id": "PRJ-HR"
+        }
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Settings tags",
+   "here": "",
+   "crumbs": [
+    "Settings",
+    "Tags"
+   ],
+   "kids": [
+    {
+     "head": "Tags",
+     "actions": [
+      {
+       "btn": "New",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "tabs": [
+      "Account",
+      "Projects",
+      "Tags",
+      "People",
+      "Periods"
+     ],
+     "on": 2
+    },
+    {
+     "row": [
+      {
+       "chip": "active",
+       "n": "11",
+       "on": true
+      },
+      {
+       "chip": "archived",
+       "n": "1"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "t": "Every tag belongs to one project. Typing an unknown #tag creates it on the entry’s project.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Tag",
+        "w": 180
+       },
+       {
+        "h": "Project",
+        "w": 150
+       },
+       {
+        "h": "Description"
+       },
+       {
+        "h": "this month",
+        "w": 110,
+        "right": true
+       },
+       {
+        "h": "entries",
+        "w": 90,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "tag": "development"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "",
+        "74:15",
+        {
+         "t": "29",
+         "s": "body",
+         "c": "accent"
+        }
+       ],
+       [
+        {
+         "tag": "meeting"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        {
+         "t": "calls, plannings, reviews with others",
+         "s": "small",
+         "c": "muted"
+        },
+        "14:30",
+        {
+         "t": "11",
+         "s": "body",
+         "c": "accent"
+        }
+       ],
+       [
+        {
+         "tag": "travel"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "accent",
+            "pill"
+           ]
+          },
+          {
+           "t": "zerodeps"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        {
+         "t": "travel time, billable unless agreed otherwise",
+         "s": "small",
+         "c": "muted"
+        },
+        "0:00",
+        {
+         "t": "0",
+         "s": "body",
+         "c": "accent"
+        }
+       ],
+       [
+        {
+         "tag": "sync",
+         "tint": true
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "",
+        "31:00",
+        {
+         "t": "14",
+         "s": "body",
+         "c": "accent"
+        }
+       ],
+       [
+        {
+         "tag": "holiday"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "hr"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "hug": true
+        },
+        "",
+        "0:00",
+        {
+         "t": "0",
+         "s": "body",
+         "c": "accent"
+        }
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Settings periods",
+   "here": "",
+   "crumbs": [
+    "Settings",
+    "Periods"
+   ],
+   "kids": [
+    {
+     "head": "Periods"
+    },
+    {
+     "tabs": [
+      "Account",
+      "Projects",
+      "Tags",
+      "People",
+      "Periods"
+     ],
+     "on": 4
+    },
+    {
+     "t": "Closing a month makes it read-only for everyone. Billing still works.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Month"
+       },
+       {
+        "h": "State"
+       },
+       {
+        "h": "Hours",
+        "w": 100,
+        "right": true
+       },
+       {
+        "h": "not billed",
+        "w": 110,
+        "right": true
+       },
+       {
+        "h": "",
+        "w": 130,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        "2026-11",
+        {
+         "t": "open",
+         "s": "small",
+         "c": "muted"
+        },
+        "258:15",
+        "258:15",
+        {
+         "btn": "Close",
+         "icon": "lock",
+         "sm": true
+        }
+       ],
+       [
+        "2026-10",
+        {
+         "t": "open",
+         "s": "small",
+         "c": "muted"
+        },
+        "362:00",
+        "362:00",
+        {
+         "btn": "Close",
+         "icon": "lock",
+         "sm": true
+        }
+       ],
+       [
+        "2026-09",
+        {
+         "row": [
+          {
+           "icon": "lock",
+           "c": "muted"
+          },
+          {
+           "t": "closed"
+          },
+          {
+           "t": "2026-10-02 · peter@plaintext.example",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "371:30",
+        "0:00",
+        {
+         "btn": "Reopen",
+         "icon": "unlock",
+         "sm": true
+        }
+       ],
+       [
+        "2026-08",
+        {
+         "row": [
+          {
+           "icon": "lock",
+           "c": "muted"
+          },
+          {
+           "t": "closed"
+          },
+          {
+           "t": "2026-09-01 · peter@plaintext.example",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        "344:45",
+        "0:00",
+        {
+         "btn": "Reopen",
+         "icon": "unlock",
+         "sm": true
+        }
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Project",
+   "here": "",
+   "crumbs": [
+    "Settings",
+    "Projects",
+    "zerodeps"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "zerodeps",
+     "sub": {
+      "row": [
+       {
+        "icon": "check",
+        "c": "green"
+       },
+       {
+        "t": "saved 14:02",
+        "s": "small",
+        "c": "green"
+       }
+      ],
+      "gap": "2xs",
+      "hug": true
+     },
+     "actions": [
+      {
+       "btn": "Archive",
+       "icon": "archive"
+      }
+     ]
+    },
+    {
+     "info": [
+      [
+       "id",
+       {
+        "id": "PRJ-ZERODEPS"
+       }
+      ]
+     ]
+    },
+    {
+     "field": "Name",
+     "v": "zerodeps"
+    },
+    {
+     "row": [
+      {
+       "field": "External ID",
+       "ph": "crm-4711",
+       "grow": true
+      },
+      {
+       "field": "Company",
+       "v": "smalldiff",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "field": "Color",
+       "v": "#3b82f6",
+       "w": 200
+      },
+      {
+       "rect": [
+        40,
+        40,
+        "accent",
+        "control"
+       ]
+      }
+     ],
+     "gap": "xs",
+     "align": "end"
+    },
+    {
+     "row": [
+      {
+       "icon": "chevron-right",
+       "c": "muted"
+      },
+      {
+       "t": "History (1)",
+       "s": "body",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "Person",
+   "here": "",
+   "crumbs": [
+    "Settings",
+    "People",
+    "Simeon"
+   ],
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "Simeon",
+     "sub": {
+      "row": [
+       {
+        "icon": "check",
+        "c": "green"
+       },
+       {
+        "t": "saved 14:02",
+        "s": "small",
+        "c": "green"
+       }
+      ],
+      "gap": "2xs",
+      "hug": true
+     },
+     "actions": [
+      {
+       "btn": "Archive",
+       "icon": "archive"
+      }
+     ]
+    },
+    {
+     "field": "Username",
+     "v": "simeon@plaintext.example"
+    },
+    {
+     "row": [
+      {
+       "field": "Name",
+       "v": "Simeon",
+       "grow": true
+      },
+      {
+       "field": "Email",
+       "v": "simeon@plaintext.example",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "field": "Timezone",
+       "ph": "Europe/Vienna",
+       "grow": true
+      },
+      {
+       "field": "Joined",
+       "v": "2023-10-01",
+       "grow": true
+      },
+      {
+       "field": "Left",
+       "ph": "2027-01-31",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "Hours per week",
+     "v": "2024-03-01 20 25",
+     "type": "Textarea"
+    },
+    {
+     "t": "one line per period: from, hours per week, vacation days per year — 2026-01-01 38.5 25",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "row": [
+      {
+       "field": "Opening overtime (h)",
+       "v": "3,5",
+       "grow": true
+      },
+      {
+       "field": "Opening vacation (h)",
+       "v": "12",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "icon": "chevron-right",
+       "c": "muted"
+      },
+      {
+       "t": "History (2)",
+       "s": "body",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "Import",
+   "here": "Import",
+   "kids": [
+    {
+     "head": "Import"
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "btn": "Start",
+         "icon": "play"
+        },
+        {
+         "field": "What",
+         "ph": "what are you working on?",
+         "sm": true,
+         "grow": true
+        },
+        {
+         "field": "Project",
+         "v": "zerodeps",
+         "type": "Select",
+         "sm": true
+        },
+        {
+         "field": "Tags",
+         "ph": "#tags",
+         "sm": true,
+         "only": "d"
+        },
+        {
+         "t": "today 5:45 · week 21:30",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "end"
+      }
+     ],
+     "pad": "sm"
+    },
+    {
+     "t": "H3A time sheets (PDF, format as of 10.2026): one entry per day with the chargeable hours, starting at the given time. Days already imported are skipped; a sheet with errors imports nothing.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "col": [
+      {
+       "field": "Format",
+       "v": "h3a",
+       "type": "Select"
+      },
+      {
+       "col": [
+        {
+         "t": "Time sheets",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "col": [
+          {
+           "icon": "upload",
+           "c": "muted"
+          },
+          {
+           "t": "Drop time sheets here or choose"
+          },
+          {
+           "t": "PDF · up to 10 MB",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": "lg",
+         "stroke": "line-strong",
+         "radius": "panel",
+         "fill": "surface"
+        }
+       ],
+       "gap": "xs"
+      },
+      {
+       "row": [
+        {
+         "field": "Project",
+         "v": "staticwave",
+         "type": "Select",
+         "grow": true
+        },
+        {
+         "field": "Day starts",
+         "v": "09:00",
+         "grow": true
+        }
+       ],
+       "gap": "md",
+       "stack": true,
+       "align": "start"
+      },
+      {
+       "row": [
+        {
+         "btn": "Preview",
+         "icon": "eye",
+         "only": "d"
+        },
+        {
+         "btn": "Import",
+         "icon": "upload",
+         "kind": "primary"
+        }
+       ],
+       "gap": "xs",
+       "stack": true,
+       "justify": "end"
+      }
+     ],
+     "gap": "sm",
+     "w": 640
+    },
+    {
+     "t": "4 entries, 0 imported · Preview"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Date"
+       },
+       {
+        "h": "Project",
+        "w": 160
+       },
+       {
+        "h": "",
+        "w": 220
+       }
+      ],
+      "rows": [
+       [
+        "2026-11-02 09:00–16:30",
+        "staticwave",
+        ""
+       ],
+       [
+        "2026-11-03 09:00–17:00",
+        "staticwave",
+        ""
+       ],
+       [
+        "2026-11-04 09:00–15:15",
+        "staticwave",
+        {
+         "t": "already imported",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       [
+        "2026-11-05 09:00–17:30",
+        "staticwave",
+        ""
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Search",
+   "here": "",
+   "kids": [
+    {
+     "head": "Search: label"
+    },
+    {
+     "t": "Entries",
+     "s": "h2"
+    },
+    {
+     "list": [
+      {
+       "main": "Label printing: plain PDF writer",
+       "meta": "2026-10-28 08:15–12:00 · zerodeps · #development"
+      },
+      {
+       "main": "Label printing: plain PDF writer",
+       "meta": "2026-10-27 13:15–15:45 · zerodeps · #development"
+      }
+     ]
+    },
+    {
+     "t": "Projects",
+     "s": "h2"
+    },
+    {
+     "list": [
+      {
+       "main": "zerodeps",
+       "meta": "smalldiff · PRJ-ZERODEPS"
+      }
+     ]
+    },
+    {
+     "t": "Tags",
+     "s": "h2"
+    },
+    {
+     "list": [
+      {
+       "main": "#labels",
+       "meta": "zerodeps · label printing and shipping documents"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Error 404",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "search",
+         "c": "muted"
+        },
+        {
+         "t": "404 · not found",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "There is no entry ENT-NOPE",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "It may have been deleted, the link may be mistyped, or it belongs to something you have no access to.",
+       "s": "body",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Week",
+         "icon": "calendar",
+         "kind": "primary"
+        },
+        {
+         "btn": "Search",
+         "icon": "search"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Denied",
+   "here": "",
+   "bare": true,
+   "narrow": 640,
+   "kids": [
+    {
+     "logo": "track",
+     "ch": "◷"
+    },
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "lock",
+         "c": "muted"
+        },
+        {
+         "t": "403 · no access",
+         "s": "body",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "You cannot open this page",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "t": "You are signed in as Anna"
+        },
+        {
+         "tag": "bill-smalldiff"
+        },
+        {
+         "t": ". This page needs one of track’s groups (track-admin, track-company-<id>-owner, track-project-<id>-member, -viewer or -owner).",
+         "s": "body",
+         "wrap": true
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "t": "Ask an admin, or sign in with another account.",
+       "s": "body",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Sign in with another account",
+         "icon": "log-in",
+         "kind": "primary"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  }
+ ]
+}

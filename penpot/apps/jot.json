@@ -1,0 +1,3126 @@
+{
+ "app": {
+  "name": "jot",
+  "ch": "#",
+  "nav": [],
+  "user": "P",
+  "search": true
+ },
+ "screens": [
+  {
+   "name": "Dashboard",
+   "here": "",
+   "kids": [
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "icon": "plus",
+           "c": "muted"
+          },
+          {
+           "t": "New note"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "calendar",
+           "c": "muted"
+          },
+          {
+           "t": "Journal"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "list",
+           "c": "muted"
+          },
+          {
+           "t": "All notes"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Pinned",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Restore runbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Team handbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "ACME"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Spaces",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "~ peter"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.blue",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "plaintext"
+          },
+          {
+           "icon": "eye",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "team"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        }
+       ],
+       "w": 240,
+       "gap": "2xs",
+       "only": "d"
+      },
+      {
+       "col": [
+        {
+         "head": "Dashboard"
+        },
+        {
+         "card": [
+          {
+           "field": "Jot into today's journal",
+           "ph": "Jot into today's journal…",
+           "v": "call ACME about the quote before Friday",
+           "type": "Textarea"
+          },
+          {
+           "row": [
+            {
+             "t": "open today's journal",
+             "c": "accent"
+            },
+            {
+             "spacer": 1,
+             "grow": true
+            },
+            {
+             "btn": "Jot",
+             "icon": "check"
+            }
+           ],
+           "gap": "xs",
+           "align": "center"
+          }
+         ]
+        },
+        {
+         "card": [
+          {
+           "list": [
+            {
+             "dot": "bad",
+             "main": "Restore runbook: your offline edit and anna's touch the same lines",
+             "act": [
+              {
+               "btn": "Resolve",
+               "sm": true,
+               "icon": "merge"
+              }
+             ]
+            },
+            {
+             "dot": "pending",
+             "main": "[[runbooks/check]] in Restore runbook points to no note",
+             "act": [
+              {
+               "btn": "Create",
+               "sm": true,
+               "icon": "plus"
+              }
+             ]
+            }
+           ]
+          }
+         ],
+         "title": "Needs attention"
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "Since your last visit",
+             "s": "h2"
+            },
+            {
+             "t": "2026-11-17 18:40",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "align": "center"
+          },
+          {
+           "list": [
+            {
+             "main": "Weekly sync 2026-11-18",
+             "meta": "zeitkapsl/meetings · edited · anna · 1 day ago"
+            },
+            {
+             "main": "Release checklist v12",
+             "meta": "zeitkapsl/runbooks · created · simeon · 1 day ago"
+            },
+            {
+             "main": "Restore runbook",
+             "meta": "zeitkapsl/runbooks · edited · anna · 2 days ago"
+            },
+            {
+             "main": "Hiring plan 2027",
+             "meta": "team · edited · anna · 2 days ago"
+            }
+           ]
+          },
+          {
+           "t": "6 more",
+           "c": "muted"
+          }
+         ],
+         "gap": "sm"
+        }
+       ],
+       "grow": true,
+       "gap": "md"
+      }
+     ],
+     "gap": "lg",
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Notes",
+   "here": "",
+   "kids": [
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "icon": "plus",
+           "c": "muted"
+          },
+          {
+           "t": "New note"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "calendar",
+           "c": "muted"
+          },
+          {
+           "t": "Journal"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "list",
+           "c": "accent"
+          },
+          {
+           "t": "All notes",
+           "c": "accent"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control",
+         "fill": "sel"
+        },
+        {
+         "t": "Pinned",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Restore runbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Team handbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "ACME"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Spaces",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "~ peter"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.blue",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "plaintext"
+          },
+          {
+           "icon": "eye",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "team"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        }
+       ],
+       "w": 240,
+       "gap": "2xs",
+       "only": "d"
+      },
+      {
+       "col": [
+        {
+         "head": "214 notes",
+         "sub": {
+          "row": [
+           {
+            "t": "newest",
+            "s": "small",
+            "c": "accent"
+           },
+           {
+            "t": "·",
+            "s": "small",
+            "c": "muted"
+           },
+           {
+            "t": "title",
+            "s": "small",
+            "c": "muted"
+           }
+          ],
+          "gap": "xs",
+          "align": "center",
+          "hug": true
+         }
+        },
+        {
+         "row": [
+          {
+           "row": [
+            {
+             "tag": "zk"
+            },
+            {
+             "t": "63",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "meeting"
+            },
+            {
+             "t": "41",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "idea"
+            },
+            {
+             "t": "27",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "howto"
+            },
+            {
+             "t": "19",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "release"
+            },
+            {
+             "t": "14",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "ops"
+            },
+            {
+             "t": "11",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "infra"
+            },
+            {
+             "t": "9",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "row": [
+            {
+             "tag": "kunde/acme"
+            },
+            {
+             "t": "8",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center"
+          },
+          {
+           "t": "6 more",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "sm",
+         "align": "center",
+         "wrap": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Weekly sync 2026-11-18",
+               "c": "accent"
+              },
+              {
+               "t": "With anna, peter, mo.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "zeitkapsl · 1 day ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Release checklist v12",
+               "c": "accent"
+              },
+              {
+               "t": "Tag, build, smoke test, announce.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "zeitkapsl · 1 day ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Restore runbook",
+               "c": "accent"
+              },
+              {
+               "t": "Takes about four minutes. Run it once per quarter.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "zeitkapsl · 2 days ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Hiring plan 2027",
+               "c": "accent"
+              },
+              {
+               "t": "Two engineers, one designer, starting in Q2.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "team · 2 days ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Kickoff ACME onboarding",
+               "c": "accent"
+              },
+              {
+               "t": "Contacts, timeline, open questions",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "zeitkapsl · 3 weeks ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Retro October",
+               "c": "accent"
+              },
+              {
+               "t": "Less meetings, more async",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "team · 4 weeks ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "t": "208 more",
+         "c": "muted"
+        }
+       ],
+       "grow": true,
+       "gap": "md"
+      }
+     ],
+     "gap": "lg",
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Folder",
+   "here": "",
+   "kids": [
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "icon": "plus",
+           "c": "muted"
+          },
+          {
+           "t": "New note"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "calendar",
+           "c": "muted"
+          },
+          {
+           "t": "Journal"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "list",
+           "c": "muted"
+          },
+          {
+           "t": "All notes"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Pinned",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Restore runbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Team handbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "ACME"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Spaces",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "~ peter"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.blue",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "t": "meetings",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "t": "runbooks",
+           "c": "accent"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control",
+         "fill": "sel"
+        },
+        {
+         "row": [
+          {
+           "t": "customers",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "plaintext"
+          },
+          {
+           "icon": "eye",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "team"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        }
+       ],
+       "w": 240,
+       "gap": "2xs",
+       "only": "d"
+      },
+      {
+       "col": [
+        {
+         "head": "runbooks",
+         "sub": {
+          "t": "zeitkapsl › runbooks",
+          "s": "small",
+          "c": "muted"
+         },
+         "actions": [
+          {
+           "btn": "Write a page for this folder",
+           "icon": "edit"
+          },
+          {
+           "btn": "New note",
+           "kind": "primary",
+           "icon": "plus"
+          }
+         ]
+        },
+        {
+         "row": [
+          {
+           "row": [
+            {
+             "icon": "folder",
+             "c": "muted"
+            },
+            {
+             "t": "archive"
+            },
+            {
+             "t": "4",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "align": "center",
+           "pad": [
+            "xs",
+            "sm"
+           ],
+           "stroke": "line",
+           "radius": "control"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "wrap": true
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Release checklist v12",
+               "c": "accent"
+              },
+              {
+               "t": "Tag, build, smoke test, announce.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "1 day ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Restore runbook",
+               "c": "accent"
+              },
+              {
+               "t": "Takes about four minutes. Run it once per quarter.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "2 days ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          },
+          {
+           "row": [
+            {
+             "col": [
+              {
+               "t": "Rotate TLS certs",
+               "c": "accent"
+              },
+              {
+               "t": "Staging first, then prod.",
+               "s": "small",
+               "c": "muted",
+               "wrap": true
+              }
+             ],
+             "gap": "3xs",
+             "grow": true
+            },
+            {
+             "t": "3 weeks ago",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "md",
+           "align": "start"
+          },
+          {
+           "hr": 1
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       "grow": true,
+       "gap": "md"
+      }
+     ],
+     "gap": "lg",
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Note",
+   "here": "",
+   "kids": [
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "icon": "plus",
+           "c": "muted"
+          },
+          {
+           "t": "New note"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "calendar",
+           "c": "muted"
+          },
+          {
+           "t": "Journal"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "list",
+           "c": "muted"
+          },
+          {
+           "t": "All notes"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Pinned",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Restore runbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Team handbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "ACME"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Spaces",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "~ peter"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.blue",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "t": "meetings",
+           "c": "accent"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control",
+         "fill": "sel"
+        },
+        {
+         "row": [
+          {
+           "t": "runbooks",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "t": "customers",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "plaintext"
+          },
+          {
+           "icon": "eye",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "team"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        }
+       ],
+       "w": 240,
+       "gap": "2xs",
+       "only": "d"
+      },
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "t": "zeitkapsl › meetings › weekly-sync-2026-11-18",
+           "s": "small",
+           "c": "muted"
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "avatar": "A"
+          },
+          {
+           "avatar": "M"
+          },
+          {
+           "ibtn": "more",
+           "size": "sm"
+          }
+         ],
+         "gap": "xs",
+         "align": "center"
+        },
+        {
+         "col": [
+          {
+           "t": "Weekly sync 2026-11-18",
+           "s": "h1"
+          },
+          {
+           "row": [
+            {
+             "t": "With anna, peter, mo."
+            },
+            {
+             "tag": "zk"
+            },
+            {
+             "tag": "meeting"
+            },
+            {
+             "tag": "release"
+            }
+           ],
+           "gap": "xs",
+           "align": "center",
+           "wrap": true
+          },
+          {
+           "t": "Status",
+           "s": "h2"
+          },
+          {
+           "row": [
+            {
+             "t": "•",
+             "c": "muted"
+            },
+            {
+             "t": "Release v12 is blocked by"
+            },
+            {
+             "t": "ZK-42",
+             "c": "accent"
+            },
+            {
+             "t": "(sync loses comments)"
+            }
+           ],
+           "gap": "xs",
+           "align": "center",
+           "wrap": true
+          },
+          {
+           "row": [
+            {
+             "t": "•",
+             "c": "muted"
+            },
+            {
+             "t": "Backup drill: see"
+            },
+            {
+             "t": "Restore runbook",
+             "c": "accent"
+            }
+           ],
+           "gap": "xs",
+           "align": "center",
+           "wrap": true
+          },
+          {
+           "col": [
+            {
+             "t": "## Next steps"
+            },
+            {
+             "t": "- [ ] mo: fix ZK-42, then tag v12"
+            },
+            {
+             "t": "- [x] anna: mail ACME about the date #kunde/acme"
+            },
+            {
+             "t": "- [ ] peter: update [[runbooks/restore]]"
+            }
+           ],
+           "gap": "2xs"
+          },
+          {
+           "t": "Notes",
+           "s": "h2"
+          },
+          {
+           "t": "Ask the Steuerberater whether RE-2026-… numbers can restart per company.",
+           "wrap": true
+          }
+         ],
+         "gap": "sm"
+        },
+        {
+         "hr": 1
+        },
+        {
+         "col": [
+          {
+           "row": [
+            {
+             "t": "Linked from",
+             "s": "small",
+             "c": "muted"
+            },
+            {
+             "t": "Release checklist v12",
+             "s": "small",
+             "c": "accent"
+            },
+            {
+             "t": ",",
+             "s": "small",
+             "c": "muted"
+            },
+            {
+             "t": "Weekly sync 2026-11-25",
+             "s": "small",
+             "c": "accent"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center",
+           "wrap": true
+          },
+          {
+           "row": [
+            {
+             "t": "Mentioned in",
+             "s": "small",
+             "c": "muted"
+            },
+            {
+             "t": "Retro October",
+             "s": "small",
+             "c": "accent"
+            },
+            {
+             "t": "“…the weekly sync said…” ·",
+             "s": "small",
+             "c": "muted"
+            },
+            {
+             "t": "link it",
+             "s": "small",
+             "c": "accent"
+            }
+           ],
+           "gap": "2xs",
+           "align": "center",
+           "wrap": true
+          }
+         ],
+         "gap": "2xs"
+        }
+       ],
+       "grow": true,
+       "gap": "md"
+      }
+     ],
+     "gap": "lg",
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Note raw",
+   "here": "",
+   "kids": [
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "icon": "plus",
+           "c": "muted"
+          },
+          {
+           "t": "New note"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "calendar",
+           "c": "muted"
+          },
+          {
+           "t": "Journal"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "list",
+           "c": "muted"
+          },
+          {
+           "t": "All notes"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Pinned",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Restore runbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "Team handbook"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "icon": "file",
+           "c": "muted"
+          },
+          {
+           "t": "ACME"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "t": "Spaces",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.grey",
+            "pill"
+           ]
+          },
+          {
+           "t": "~ peter"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.blue",
+            "pill"
+           ]
+          },
+          {
+           "t": "zeitkapsl"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "t": "meetings",
+           "c": "accent"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control",
+         "fill": "sel"
+        },
+        {
+         "row": [
+          {
+           "t": "runbooks",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "t": "customers",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "lg"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.green",
+            "pill"
+           ]
+          },
+          {
+           "t": "plaintext"
+          },
+          {
+           "icon": "eye",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        },
+        {
+         "row": [
+          {
+           "rect": [
+            8,
+            8,
+            "state.yellow",
+            "pill"
+           ]
+          },
+          {
+           "t": "team"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "pad": [
+          "2xs",
+          "xs"
+         ],
+         "radius": "control"
+        }
+       ],
+       "w": 240,
+       "gap": "2xs",
+       "only": "d"
+      },
+      {
+       "col": [
+        {
+         "row": [
+          {
+           "t": "zeitkapsl › meetings › weekly-sync-2026-11-18",
+           "s": "small",
+           "c": "muted"
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "t": "raw markdown",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "align": "center"
+        },
+        {
+         "msg": "Someone changed the same lines meanwhile. Your text is still in the form; the current version is below.",
+         "kind": "warning"
+        },
+        {
+         "field": "markdown",
+         "type": "Textarea",
+         "v": "# Weekly sync 2026-11-18\n\nWith anna, peter, mo. #zk #meeting #release\n\n## Status\n\n- Release v12 is blocked by ZK-42 (sync loses comments)\n- Backup drill: see [[runbooks/restore]]\n\n## Next steps\n\n- [ ] mo: fix ZK-42, then tag v12\n- [x] anna: mail ACME about the date #kunde/acme\n- [ ] peter: update [[runbooks/restore]]"
+        },
+        {
+         "row": [
+          {
+           "btn": "Cancel",
+           "icon": "x"
+          },
+          {
+           "btn": "Save",
+           "kind": "primary",
+           "icon": "check"
+          }
+         ],
+         "gap": "xs",
+         "align": "center",
+         "stack": true
+        },
+        {
+         "t": "The current version",
+         "s": "h2"
+        },
+        {
+         "t": "With anna, peter, mo. Release v12 ships on 2026-11-24.",
+         "wrap": true
+        }
+       ],
+       "grow": true,
+       "gap": "md"
+      }
+     ],
+     "gap": "lg",
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Menu",
+   "here": "",
+   "only": "p",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "plus",
+         "c": "muted"
+        },
+        {
+         "t": "New note"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "icon": "calendar",
+         "c": "muted"
+        },
+        {
+         "t": "Journal"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "icon": "list",
+         "c": "muted"
+        },
+        {
+         "t": "All notes"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "t": "Pinned",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "row": [
+        {
+         "icon": "file",
+         "c": "muted"
+        },
+        {
+         "t": "Restore runbook"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "icon": "file",
+         "c": "muted"
+        },
+        {
+         "t": "Team handbook"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "icon": "file",
+         "c": "muted"
+        },
+        {
+         "t": "ACME"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "t": "Spaces",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "row": [
+        {
+         "rect": [
+          8,
+          8,
+          "state.grey",
+          "pill"
+         ]
+        },
+        {
+         "t": "~ peter"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "rect": [
+          8,
+          8,
+          "state.blue",
+          "pill"
+         ]
+        },
+        {
+         "t": "zeitkapsl"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "t": "meetings",
+         "c": "accent"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "lg"
+       ],
+       "radius": "control",
+       "fill": "sel"
+      },
+      {
+       "row": [
+        {
+         "t": "runbooks",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "lg"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "t": "customers",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "lg"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "rect": [
+          8,
+          8,
+          "state.green",
+          "pill"
+         ]
+        },
+        {
+         "t": "plaintext"
+        },
+        {
+         "icon": "eye",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      },
+      {
+       "row": [
+        {
+         "rect": [
+          8,
+          8,
+          "state.yellow",
+          "pill"
+         ]
+        },
+        {
+         "t": "team"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "2xs",
+        "xs"
+       ],
+       "radius": "control"
+      }
+     ],
+     "gap": "2xs"
+    }
+   ]
+  },
+  {
+   "name": "New",
+   "here": "",
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "New note"
+    },
+    {
+     "row": [
+      {
+       "field": "where",
+       "v": "zeitkapsl",
+       "type": "Select",
+       "grow": true
+      },
+      {
+       "field": "folder (optional)",
+       "v": "meetings",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "template",
+     "v": "weekly-sync",
+     "type": "Select"
+    },
+    {
+     "field": "title",
+     "v": "Weekly sync 2026-11-25"
+    },
+    {
+     "t": "A template is any note in a _templates/ folder of the space or of your ~.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "row": [
+      {
+       "btn": "Cancel",
+       "icon": "x",
+       "only": "d"
+      },
+      {
+       "btn": "Create",
+       "kind": "primary",
+       "icon": "plus"
+      }
+     ],
+     "gap": "xs",
+     "stack": true
+    }
+   ]
+  },
+  {
+   "name": "New pick space",
+   "here": "",
+   "narrow": 640,
+   "kids": [
+    {
+     "head": "New note"
+    },
+    {
+     "t": "Which space? One key each.",
+     "c": "muted"
+    },
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "key": "1"
+        },
+        {
+         "rect": [
+          8,
+          8,
+          "state.grey",
+          "pill"
+         ]
+        },
+        {
+         "t": "~ peter"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "xs",
+        null
+       ]
+      },
+      {
+       "hr": 1
+      },
+      {
+       "row": [
+        {
+         "key": "2"
+        },
+        {
+         "rect": [
+          8,
+          8,
+          "state.blue",
+          "pill"
+         ]
+        },
+        {
+         "t": "zeitkapsl"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "xs",
+        null
+       ]
+      },
+      {
+       "hr": 1
+      },
+      {
+       "row": [
+        {
+         "key": "3"
+        },
+        {
+         "rect": [
+          8,
+          8,
+          "state.yellow",
+          "pill"
+         ]
+        },
+        {
+         "t": "team"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "pad": [
+        "xs",
+        null
+       ]
+      },
+      {
+       "hr": 1
+      }
+     ],
+     "gap": "2xs"
+    }
+   ]
+  },
+  {
+   "name": "Preview",
+   "bare": true,
+   "center": true,
+   "narrow": 640,
+   "kids": [
+    {
+     "col": [
+      {
+       "logo": "jot preview",
+       "ch": "#",
+       "self": "center"
+      },
+      {
+       "t": "Drop a markdown file here, paste, or choose a file",
+       "wrap": true,
+       "self": "center"
+      },
+      {
+       "t": ".md / .markdown / .txt, with its images · up to 10 MB · nothing leaves this browser",
+       "s": "small",
+       "c": "muted",
+       "wrap": true,
+       "self": "center"
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "2xl",
+      "lg"
+     ],
+     "stroke": "line-strong",
+     "radius": "panel",
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "Preview open",
+   "bare": true,
+   "narrow": 720,
+   "kids": [
+    {
+     "row": [
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "t": "restore.md",
+       "s": "small",
+       "c": "muted"
+      },
+      {
+       "ibtn": "x",
+       "size": "sm"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    },
+    {
+     "t": "Restore runbook",
+     "s": "h1"
+    },
+    {
+     "row": [
+      {
+       "t": "Takes about four minutes. Run it once per quarter."
+      },
+      {
+       "tag": "howto"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    },
+    {
+     "t": "Before you start",
+     "s": "h2"
+    },
+    {
+     "t": "Check that the snapshot is from last night.",
+     "wrap": true
+    },
+    {
+     "t": "Steps",
+     "s": "h2"
+    },
+    {
+     "col": [
+      {
+       "t": "1. stop the app: docker compose stop zeitkapsl"
+      },
+      {
+       "t": "2. restore the data dir from the latest snapshot"
+      },
+      {
+       "t": "3. start it and open [[runbooks/check]]"
+      }
+     ],
+     "gap": "2xs"
+    },
+    {
+     "t": "If it fails",
+     "s": "h2"
+    },
+    {
+     "row": [
+      {
+       "t": "The old bucket name is still in the config."
+      },
+      {
+       "tag": "ops"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Guest",
+   "bare": true,
+   "narrow": 720,
+   "kids": [
+    {
+     "row": [
+      {
+       "logo": "jot",
+       "ch": "#"
+      },
+      {
+       "t": "can edit",
+       "s": "small",
+       "c": "muted"
+      },
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "avatar": "A"
+      },
+      {
+       "t": "Curious Otter",
+       "s": "small",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "align": "center"
+    },
+    {
+     "hr": 1
+    },
+    {
+     "t": "Weekly sync 2026-11-18",
+     "s": "h1"
+    },
+    {
+     "row": [
+      {
+       "t": "With anna, peter, mo."
+      },
+      {
+       "tag": "zk"
+      },
+      {
+       "tag": "meeting"
+      },
+      {
+       "tag": "release"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    },
+    {
+     "t": "Status",
+     "s": "h2"
+    },
+    {
+     "row": [
+      {
+       "t": "•",
+       "c": "muted"
+      },
+      {
+       "t": "Release v12 is blocked by"
+      },
+      {
+       "t": "ZK-42",
+       "c": "accent"
+      },
+      {
+       "t": "(sync loses comments)"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    },
+    {
+     "row": [
+      {
+       "t": "•",
+       "c": "muted"
+      },
+      {
+       "t": "Backup drill: see"
+      },
+      {
+       "t": "Restore runbook",
+       "c": "accent"
+      }
+     ],
+     "gap": "xs",
+     "align": "center",
+     "wrap": true
+    },
+    {
+     "col": [
+      {
+       "t": "## Next steps"
+      },
+      {
+       "t": "- [ ] mo: fix ZK-42, then tag v12"
+      },
+      {
+       "t": "- [x] anna: mail ACME about the date #kunde/acme"
+      },
+      {
+       "t": "- [ ] peter: update [[runbooks/restore]]"
+      }
+     ],
+     "gap": "2xs"
+    },
+    {
+     "t": "Notes",
+     "s": "h2"
+    },
+    {
+     "t": "Ask the Steuerberater whether RE-2026-… numbers can restart per company.",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "Guest name",
+   "bare": true,
+   "center": true,
+   "narrow": 420,
+   "kids": [
+    {
+     "dialog": "What should others see as your name?",
+     "kids": [
+      {
+       "field": "Name",
+       "v": "Curious Otter"
+      },
+      {
+       "t": "shown on your cursor, kept in this browser · no account needed",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      }
+     ],
+     "actions": [
+      {
+       "btn": "another name",
+       "icon": "dice"
+      },
+      {
+       "btn": "Start editing",
+       "kind": "primary"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Settings",
+   "here": "",
+   "crumbs": [
+    "Settings"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "Settings"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "name",
+         "Peter Example"
+        ],
+        [
+         "user",
+         "peter@plaintext.example"
+        ],
+        [
+         "spaces",
+         "~ peter, zeitkapsl, plaintext (read only), team"
+        ]
+       ]
+      }
+     ],
+     "title": "Account"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "language",
+         {
+          "seg": [
+           "deutsch",
+           "english"
+          ],
+          "on": 1
+         }
+        ],
+        [
+         "theme",
+         {
+          "seg": [
+           "Auto",
+           "Light",
+           "Dark"
+          ],
+          "on": 0
+         }
+        ],
+        [
+         "design",
+         {
+          "seg": [
+           "graphite",
+           "paper"
+          ],
+          "on": 0
+         }
+        ]
+       ]
+      }
+     ],
+     "title": "Preferences"
+    },
+    {
+     "card": [
+      {
+       "t": "note text only",
+       "s": "small",
+       "c": "muted"
+      },
+      {
+       "row": [
+        {
+         "card": [
+          {
+           "row": [
+            {
+             "radio": "Mono",
+             "on": true
+            },
+            {
+             "t": "nobloat default",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "align": "center"
+          },
+          {
+           "t": "Restore runbook",
+           "s": "label"
+          },
+          {
+           "t": "Takes about four minutes. Run it once per quarter, and fix the bucket name first.",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "grow": true,
+         "gap": "xs"
+        },
+        {
+         "card": [
+          {
+           "row": [
+            {
+             "radio": "Sans",
+             "on": false
+            },
+            {
+             "t": "system-ui",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "align": "center"
+          },
+          {
+           "t": "Restore runbook",
+           "s": "label"
+          },
+          {
+           "t": "Takes about four minutes. Run it once per quarter, and fix the bucket name first.",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "grow": true,
+         "gap": "xs"
+        },
+        {
+         "card": [
+          {
+           "row": [
+            {
+             "radio": "Serif",
+             "on": false
+            },
+            {
+             "t": "ui-serif",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "align": "center"
+          },
+          {
+           "t": "Restore runbook",
+           "s": "label"
+          },
+          {
+           "t": "Takes about four minutes. Run it once per quarter, and fix the bucket name first.",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "grow": true,
+         "gap": "xs"
+        }
+       ],
+       "gap": "sm",
+       "stack": true,
+       "align": "start"
+      },
+      {
+       "t": "Only fonts already on this device. Applies at once and is kept in this browser.",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      }
+     ],
+     "title": "Writing font"
+    },
+    {
+     "card": [
+      {
+       "t": "Notes you open stay on this device. Keep a whole space with “Keep this space offline” in the palette.",
+       "c": "muted",
+       "wrap": true
+      },
+      {
+       "t": "14 notes are kept on this device.",
+       "s": "small",
+       "c": "muted"
+      },
+      {
+       "btn": "Clear this device",
+       "kind": "delete",
+       "icon": "trash"
+      }
+     ],
+     "title": "Offline"
+    }
+   ]
+  },
+  {
+   "name": "Error 404",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "search",
+         "c": "muted"
+        },
+        {
+         "t": "404 · not found",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "There is no note runbooks/check",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "It may have been deleted, the link may be mistyped, or it belongs to something you have no access to.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Dashboard",
+         "kind": "primary",
+         "icon": "home"
+        },
+        {
+         "btn": "Search",
+         "icon": "search"
+        }
+       ],
+       "gap": "xs",
+       "align": "center",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  }
+ ]
+}

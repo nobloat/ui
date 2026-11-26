@@ -1,0 +1,3332 @@
+{
+ "app": {
+  "name": "gazette",
+  "ch": "¶",
+  "nav": [
+   "Dashboard",
+   "Newsletters",
+   "Subscribers",
+   "Templates",
+   "Forms",
+   "Company",
+   "GDPR"
+  ],
+  "user": "D",
+  "search": true
+ },
+ "screens": [
+  {
+   "name": "Overview",
+   "here": "",
+   "kids": [
+    {
+     "head": "Overview"
+    },
+    {
+     "tiles": [
+      {
+       "tile": "plaintext GmbH",
+       "value": "33",
+       "cap": "active subscribers · 1 running"
+      },
+      {
+       "tile": "smalldiff",
+       "value": "12",
+       "cap": "active subscribers"
+      },
+      {
+       "tile": "oliver",
+       "value": "5",
+       "cap": "active subscribers"
+      }
+     ]
+    },
+    {
+     "col": [
+      {
+       "t": "Sending",
+       "s": "h2"
+      },
+      {
+       "table": {
+        "cols": [
+         {
+          "h": "State",
+          "w": 130
+         },
+         {
+          "h": "Id",
+          "w": 160
+         },
+         {
+          "h": "Newsletter"
+         },
+         {
+          "h": "Company",
+          "w": 180
+         },
+         {
+          "h": "Progress",
+          "w": 220,
+          "right": true
+         }
+        ],
+        "rows": [
+         [
+          {
+           "status": "sending",
+           "s": "running"
+          },
+          {
+           "id": "NWS-5HJK7P3W"
+          },
+          "October update",
+          {
+           "t": "plaintext GmbH",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "meter": 0.64,
+             "w": 120
+            },
+            {
+             "t": "64 %"
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ]
+        ]
+       }
+      }
+     ],
+     "gap": "sm"
+    }
+   ]
+  },
+  {
+   "name": "Dashboard",
+   "here": "Dashboard",
+   "kids": [
+    {
+     "head": "Dashboard",
+     "sub": {
+      "t": "plaintext GmbH",
+      "c": "muted"
+     }
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "status": "sending",
+         "s": "running"
+        },
+        {
+         "id": "NWS-5HJK7P3W"
+        },
+        {
+         "t": "October update"
+        },
+        {
+         "t": "Monthly newsletter",
+         "c": "muted"
+        },
+        {
+         "spacer": 1,
+         "grow": true
+        },
+        {
+         "btn": "Pause",
+         "icon": "pause",
+         "sm": true
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "21 of 33 sent"
+        },
+        {
+         "spacer": 1,
+         "grow": true
+        },
+        {
+         "t": "64 %"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "meter": 0.64
+      },
+      {
+       "t": "failed 1 · bounced 1 · retrying 0 · pending 10",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      },
+      {
+       "t": "12/min of 600/min · 2 connections · ends 2026-10-08 09:04 · deadline 2026-10-08 11:00",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      }
+     ],
+     "title": "Sending · 1",
+     "gap": "sm"
+    },
+    {
+     "tiles": [
+      {
+       "tile": "active",
+       "value": "33",
+       "cap": "Monthly newsletter 31 · Product updates 12"
+      },
+      {
+       "tile": "new",
+       "value": "+6",
+       "cap": "last 30 days"
+      },
+      {
+       "tile": "unsubscribed",
+       "value": "3",
+       "cap": "last 30 days"
+      }
+     ]
+    },
+    {
+     "tiles": [
+      {
+       "tile": "bounced",
+       "value": "2",
+       "cap": "last 30 days"
+      },
+      {
+       "tile": "draft",
+       "value": "2",
+       "cap": "Newsletters"
+      }
+     ]
+    },
+    {
+     "card": [
+      {
+       "list": [
+        {
+         "dot": "pending",
+         "main": "2 subscribers are bounced",
+         "act": [
+          {
+           "btn": "Subscribers",
+           "icon": "arrow-right",
+           "sm": true
+          }
+         ]
+        },
+        {
+         "dot": "bad",
+         "main": "relay default: 451 4.7.1 rate limited, try again later",
+         "act": [
+          {
+           "btn": "Settings",
+           "icon": "arrow-right",
+           "sm": true
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "title": "Needs attention"
+    },
+    {
+     "col": [
+      {
+       "t": "Recent activity",
+       "s": "h2"
+      },
+      {
+       "list": [
+        {
+         "main": "dora started NWS-5HJK7P3W October update",
+         "meta": "2026-10-08 09:00"
+        },
+        {
+         "main": "dora sent a test of NWS-5HJK7P3W October update",
+         "meta": "2026-10-08 08:52"
+        },
+        {
+         "main": "georg.haas@example.com signed up",
+         "meta": "2026-11-04 19:27"
+        },
+        {
+         "main": "leon.wimmer@example.com unsubscribed",
+         "meta": "2026-10-21 08:12"
+        },
+        {
+         "main": "dora edited NWS-2BRDKA5C Release 4.2",
+         "meta": "2026-11-05 09:20"
+        }
+       ]
+      }
+     ],
+     "gap": "sm"
+    }
+   ]
+  },
+  {
+   "name": "Newsletters",
+   "here": "Newsletters",
+   "kids": [
+    {
+     "head": "Newsletters",
+     "actions": [
+      {
+       "btn": "New newsletter",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "chip": "all",
+       "n": "4",
+       "on": true
+      },
+      {
+       "chip": "draft",
+       "n": "2"
+      },
+      {
+       "chip": "scheduled",
+       "n": "0"
+      },
+      {
+       "chip": "sending",
+       "n": "1"
+      },
+      {
+       "chip": "sent",
+       "n": "1"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "State",
+        "w": 130
+       },
+       {
+        "h": "Id",
+        "w": 160
+       },
+       {
+        "h": "Newsletter"
+       },
+       {
+        "h": "Lists",
+        "w": 220
+       },
+       {
+        "h": "Changed",
+        "w": 170,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "status": "draft",
+         "s": "off"
+        },
+        {
+         "id": "NWS-2BRDKA5C"
+        },
+        "Release 4.2",
+        {
+         "t": "Product updates",
+         "c": "muted"
+        },
+        "2026-11-05 09:20"
+       ],
+       [
+        {
+         "status": "draft",
+         "s": "off"
+        },
+        {
+         "id": "NWS-7F3AQC2B"
+        },
+        "November update",
+        {
+         "t": "Monthly newsletter",
+         "c": "muted"
+        },
+        "2026-11-03 15:41"
+       ],
+       [
+        {
+         "status": "sending",
+         "s": "running"
+        },
+        {
+         "id": "NWS-5HJK7P3W"
+        },
+        "October update",
+        {
+         "t": "Monthly newsletter",
+         "c": "muted"
+        },
+        "2026-10-08 09:00"
+       ],
+       [
+        {
+         "status": "sent",
+         "s": "ok"
+        },
+        {
+         "id": "NWS-3M8XW6QD"
+        },
+        "September update",
+        {
+         "t": "Monthly newsletter · Product updates",
+         "c": "muted"
+        },
+        "2026-09-10 10:58"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Editor",
+   "here": "Newsletters",
+   "crumbs": [
+    "Newsletters",
+    "NWS-7F3AQC2B"
+   ],
+   "kids": [
+    {
+     "head": "November update",
+     "state": {
+      "status": "draft",
+      "s": "off"
+     },
+     "sub": {
+      "row": [
+       {
+        "id": "NWS-7F3AQC2B"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "wrap": true,
+      "align": "center"
+     },
+     "actions": [
+      {
+       "btn": "Test",
+       "icon": "mail"
+      },
+      {
+       "btn": "Send…",
+       "icon": "send",
+       "kind": "primary"
+      },
+      {
+       "btn": "More",
+       "icon": "chevron-down"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "chip": "de"
+      },
+      {
+       "chip": "en",
+       "on": true
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "field": "title",
+         "v": "November update"
+        },
+        {
+         "field": "template",
+         "v": "plaintext Standard (TPL-HF2CJD3E)",
+         "type": "Select"
+        },
+        {
+         "row": [
+          {
+           "col": [
+            {
+             "t": "languages",
+             "s": "label",
+             "c": "muted"
+            },
+            {
+             "row": [
+              {
+               "check": "de",
+               "on": true
+              },
+              {
+               "check": "en",
+               "on": true
+              }
+             ],
+             "gap": "md",
+             "wrap": true
+            }
+           ],
+           "gap": "xs",
+           "grow": true
+          },
+          {
+           "col": [
+            {
+             "t": "lists",
+             "s": "label",
+             "c": "muted"
+            },
+            {
+             "row": [
+              {
+               "check": "Monthly newsletter",
+               "on": true
+              },
+              {
+               "check": "Product updates"
+              }
+             ],
+             "gap": "md",
+             "wrap": true
+            }
+           ],
+           "gap": "xs",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "field": "subject",
+         "v": "New in November",
+         "state": "Saved"
+        },
+        {
+         "field": "preheader",
+         "v": "Three new things that save you time."
+        },
+        {
+         "field": "text · {first_name} {last_name} {email} · {name|fallback}",
+         "v": "Hello {first_name|everyone},\n\nthree new things that save you time:\n\n## Templates for projects\n\nNew projects start with your structure.\n\n## Sharing by link\n\nShare single documents without an account.\n\nMore in the [webinar on 2026-11-20](/webinar)\n\nKind regards\nYour plaintext team",
+         "type": "Textarea",
+         "state": "Error",
+         "msg": "Links must be absolute (https://…). (line 13): markdown with absolute links, no images"
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "row": [
+          {
+           "tabs": [
+            "HTML",
+            "Text"
+           ],
+           "on": 0
+          },
+          {
+           "spacer": 1,
+           "grow": true
+          },
+          {
+           "check": "without name"
+          }
+         ],
+         "gap": "xs",
+         "align": "center"
+        },
+        {
+         "row": [
+          {
+           "t": "subject",
+           "s": "small",
+           "c": "muted"
+          },
+          {
+           "t": "New in November"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "col": [
+          {
+           "t": "plaintext GmbH",
+           "s": "label",
+           "c": "accent"
+          },
+          {
+           "t": "Hello Anna,",
+           "wrap": true
+          },
+          {
+           "t": "three new things that save you time:",
+           "wrap": true
+          },
+          {
+           "t": "Templates for projects",
+           "wrap": true
+          },
+          {
+           "t": "New projects start with your structure.",
+           "wrap": true
+          },
+          {
+           "t": "Sharing by link",
+           "wrap": true
+          },
+          {
+           "t": "Share single documents without an account.",
+           "wrap": true
+          },
+          {
+           "t": "Kind regards",
+           "wrap": true
+          },
+          {
+           "t": "Your plaintext team",
+           "wrap": true
+          },
+          {
+           "hr": 1
+          },
+          {
+           "t": "plaintext GmbH · Mariahilfer Strasse 12, 1060 Vienna, Austria · plaintext.example",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          },
+          {
+           "t": "Unsubscribe",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "fill": "bg",
+         "stroke": "line",
+         "radius": "control",
+         "pad": "md",
+         "gap": "sm"
+        }
+       ],
+       "gap": "sm",
+       "grow": true
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "msg": "Not ready to send: content.en.markdown: Links must be absolute (https://…). (line 13)",
+     "kind": "warning"
+    }
+   ]
+  },
+  {
+   "name": "Report",
+   "here": "Newsletters",
+   "crumbs": [
+    "Newsletters",
+    "NWS-5HJK7P3W"
+   ],
+   "kids": [
+    {
+     "head": "October update",
+     "state": {
+      "status": "sending",
+      "s": "running"
+     },
+     "sub": {
+      "id": "NWS-5HJK7P3W"
+     },
+     "actions": [
+      {
+       "btn": "Pause",
+       "icon": "pause"
+      },
+      {
+       "btn": "Cancel…",
+       "icon": "stop",
+       "kind": "delete"
+      },
+      {
+       "btn": "More",
+       "icon": "chevron-down"
+      }
+     ]
+    },
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "t": "21 of 33 sent"
+        },
+        {
+         "spacer": 1,
+         "grow": true
+        },
+        {
+         "t": "64 %"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "meter": 0.64
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "info": [
+      [
+       "lists",
+       "Monthly newsletter"
+      ],
+      [
+       "recipients",
+       "33"
+      ],
+      [
+       "sent",
+       "21"
+      ],
+      [
+       "failed",
+       "1"
+      ],
+      [
+       "bounced",
+       {
+        "row": [
+         {
+          "t": "1"
+         },
+         {
+          "t": "skipped from now on",
+          "s": "small",
+          "c": "muted"
+         }
+        ],
+        "gap": "xs",
+        "wrap": true,
+        "align": "center"
+       }
+      ],
+      [
+       "retrying",
+       "0"
+      ],
+      [
+       "pending",
+       "10"
+      ],
+      [
+       "unsubscribed",
+       "0"
+      ],
+      [
+       "rate",
+       "12/min of 600/min · 2 connections · relay default"
+      ],
+      [
+       "started",
+       "2026-10-08 09:00 · by dora · 2 min"
+      ],
+      [
+       "deadline",
+       "2026-10-08 11:00 · ends 2026-10-08 09:04"
+      ]
+     ]
+    },
+    {
+     "t": "Content",
+     "s": "h2"
+    },
+    {
+     "row": [
+      {
+       "chip": "de"
+      },
+      {
+       "chip": "en",
+       "on": true
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "card": [
+      {
+       "row": [
+        {
+         "tabs": [
+          "HTML",
+          "Text"
+         ],
+         "on": 0
+        },
+        {
+         "spacer": 1,
+         "grow": true
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "row": [
+        {
+         "t": "subject",
+         "s": "small",
+         "c": "muted"
+        },
+        {
+         "t": "New in October: export to PDF/A"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      },
+      {
+       "col": [
+        {
+         "t": "plaintext GmbH",
+         "s": "label",
+         "c": "accent"
+        },
+        {
+         "t": "Hello Anna,",
+         "wrap": true
+        },
+        {
+         "t": "in October we improved three things:",
+         "wrap": true
+        },
+        {
+         "t": "• Export to PDF/A for archiving",
+         "wrap": true
+        },
+        {
+         "t": "• faster search in large projects",
+         "wrap": true
+        },
+        {
+         "t": "• a new shortcut g s for the search",
+         "wrap": true
+        },
+        {
+         "t": "All details in the changelog.",
+         "wrap": true
+        },
+        {
+         "t": "Kind regards",
+         "wrap": true
+        },
+        {
+         "t": "Your plaintext team",
+         "wrap": true
+        },
+        {
+         "hr": 1
+        },
+        {
+         "t": "plaintext GmbH · Mariahilfer Strasse 12, 1060 Vienna, Austria · plaintext.example",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        },
+        {
+         "t": "Unsubscribe",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "fill": "bg",
+       "stroke": "line",
+       "radius": "control",
+       "pad": "md",
+       "gap": "sm"
+      }
+     ],
+     "gap": "sm",
+     "grow": true
+    },
+    {
+     "t": "Failures",
+     "s": "h2"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Id",
+        "w": 160
+       },
+       {
+        "h": "Subscriber"
+       },
+       {
+        "h": "Result",
+        "w": 120
+       },
+       {
+        "h": "Error",
+        "w": 320
+       },
+       {
+        "h": "Attempts",
+        "w": 100,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "id": "SUB-5T7ZKQ2N"
+        },
+        {
+         "t": "tobias.gruber@example.com",
+         "c": "accent"
+        },
+        {
+         "status": "bounced",
+         "s": "bad"
+        },
+        {
+         "t": "550 5.1.1 user unknown",
+         "s": "small",
+         "c": "muted"
+        },
+        "1"
+       ],
+       [
+        {
+         "id": "SUB-6W3DHP8R"
+        },
+        {
+         "t": "erased",
+         "c": "muted"
+        },
+        {
+         "status": "failed",
+         "s": "bad"
+        },
+        {
+         "t": "451 4.7.1 try again later",
+         "s": "small",
+         "c": "muted"
+        },
+        "5"
+       ]
+      ]
+     }
+    },
+    {
+     "row": [
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "field": "page",
+       "v": "1",
+       "sm": true,
+       "w": 70
+      },
+      {
+       "t": "/ 1",
+       "c": "muted"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "Templates",
+   "here": "Templates",
+   "kids": [
+    {
+     "head": "Templates",
+     "actions": [
+      {
+       "btn": "New template",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Id",
+        "w": 160
+       },
+       {
+        "h": "Template"
+       },
+       {
+        "h": "Changed",
+        "w": 170,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "id": "TPL-DEFAULT"
+        },
+        {
+         "row": [
+          {
+           "t": "Default"
+          },
+          {
+           "t": "built in",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "–",
+         "c": "muted"
+        }
+       ],
+       [
+        {
+         "id": "TPL-HF2CJD3E"
+        },
+        "plaintext Standard",
+        "2026-09-14 16:05"
+       ],
+       [
+        {
+         "id": "TPL-8N2VQ4KC"
+        },
+        "plaintext Standard (Copy)",
+        "2026-11-04 11:30"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Template",
+   "here": "Templates",
+   "crumbs": [
+    "Templates",
+    "TPL-HF2CJD3E"
+   ],
+   "kids": [
+    {
+     "head": "plaintext Standard",
+     "sub": {
+      "row": [
+       {
+        "id": "TPL-HF2CJD3E"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "wrap": true,
+      "align": "center"
+     },
+     "actions": [
+      {
+       "btn": "Copy",
+       "icon": "copy"
+      },
+      {
+       "btn": "Delete…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "field": "name",
+         "v": "plaintext Standard"
+        },
+        {
+         "field": "HTML layout · .Company .Color .Subject .Preheader .Body .Footer .UnsubscribeURL .UnsubscribeLabel .Lang",
+         "v": "<!doctype html>\n<html lang=\"{{.Lang}}\">\n<head><meta charset=\"utf-8\"><title>{{.Subject}}</title></head>\n<body style=\"margin:0;padding:0;background:#f6f6f7\">\n<table role=\"presentation\" width=\"100%\" style=\"max-width:34rem;background:#ffffff;border-top:4px solid {{.Color}}\">\n<tr><td>{{.Company}}</td></tr>\n<tr><td>{{.Body}}</td></tr>\n<tr><td>{{.Footer}} <a href=\"{{.UnsubscribeURL}}\">{{.UnsubscribeLabel}}</a></td></tr>\n</table>\n</body>\n</html>",
+         "type": "Textarea"
+        },
+        {
+         "field": "text layout · .Company .BodyText .FooterText .UnsubscribeURL .UnsubscribeLabel",
+         "v": "{{.Company}}\n\n{{.BodyText}}\n\n--\n{{.FooterText}}\n{{.UnsubscribeLabel}}: {{.UnsubscribeURL}}",
+         "type": "Textarea"
+        },
+        {
+         "field": "footer de",
+         "v": "plaintext GmbH · Mariahilfer Straße 12, 1060 Wien · FN 512345x · [plaintext.example](https://plaintext.example)",
+         "type": "Textarea"
+        },
+        {
+         "field": "footer en",
+         "v": "plaintext GmbH · Mariahilfer Strasse 12, 1060 Vienna, Austria · [plaintext.example](https://plaintext.example)",
+         "type": "Textarea"
+        }
+       ],
+       "gap": "md",
+       "grow": true
+      },
+      {
+       "card": [
+        {
+         "tabs": [
+          "HTML",
+          "Text",
+          "de",
+          "en"
+         ],
+         "on": 0
+        },
+        {
+         "col": [
+          {
+           "t": "plaintext GmbH",
+           "s": "label",
+           "c": "accent"
+          },
+          {
+           "t": "Hello Anna,",
+           "wrap": true
+          },
+          {
+           "t": "this is how a newsletter looks in this template: a heading, a paragraph and a link.",
+           "wrap": true
+          },
+          {
+           "hr": 1
+          },
+          {
+           "t": "plaintext GmbH · Mariahilfer Strasse 12, 1060 Vienna, Austria · plaintext.example",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          },
+          {
+           "t": "Unsubscribe",
+           "s": "small",
+           "c": "muted"
+          }
+         ],
+         "fill": "bg",
+         "stroke": "line",
+         "radius": "control",
+         "pad": "md",
+         "gap": "sm"
+        }
+       ],
+       "gap": "sm",
+       "grow": true
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Forms",
+   "here": "Forms",
+   "kids": [
+    {
+     "head": "Forms",
+     "actions": [
+      {
+       "btn": "New form",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Id",
+        "w": 150
+       },
+       {
+        "h": "Form"
+       },
+       {
+        "h": "Lists",
+        "w": 300
+       },
+       {
+        "h": "Page",
+        "w": 220,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "id": "FRM-signup"
+        },
+        "plaintext newsletter",
+        {
+         "t": "Monthly newsletter · Product updates",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "t": "/s/plaintext/signup",
+           "c": "accent"
+          },
+          {
+           "icon": "external",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        }
+       ],
+       [
+        {
+         "id": "FRM-webinar"
+        },
+        "Webinar news",
+        {
+         "t": "Product updates",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "t": "/s/plaintext/webinar",
+           "c": "accent"
+          },
+          {
+           "icon": "external",
+           "c": "muted"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        }
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "Form",
+   "here": "Forms",
+   "crumbs": [
+    "Forms",
+    "FRM-SIGNUP"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "plaintext newsletter",
+     "sub": {
+      "row": [
+       {
+        "id": "FRM-signup"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "wrap": true,
+      "align": "center"
+     },
+     "actions": [
+      {
+       "btn": "Open page",
+       "icon": "external"
+      },
+      {
+       "btn": "Delete…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "col": [
+        {
+         "t": "lists",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "check": "Monthly newsletter",
+           "on": true
+          },
+          {
+           "check": "Product updates",
+           "on": true
+          }
+         ],
+         "gap": "md",
+         "wrap": true
+        }
+       ],
+       "gap": "xs",
+       "grow": true
+      },
+      {
+       "col": [
+        {
+         "t": "pre-checked",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "row": [
+          {
+           "check": "Monthly newsletter",
+           "on": true
+          },
+          {
+           "check": "Product updates"
+          }
+         ],
+         "gap": "md",
+         "wrap": true
+        }
+       ],
+       "gap": "xs",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "field": "first name",
+       "v": "optional",
+       "type": "Select",
+       "grow": true
+      },
+      {
+       "field": "last name",
+       "v": "optional",
+       "type": "Select",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "language",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "seg": [
+        "from the page",
+        "choice"
+       ],
+       "on": 0
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "field": "template",
+     "v": "plaintext Standard (TPL-HF2CJD3E)",
+     "type": "Select"
+    },
+    {
+     "field": "origins",
+     "v": "https://plaintext.example",
+     "type": "Textarea",
+     "state": "Saved"
+    },
+    {
+     "field": "thanks URL",
+     "v": "",
+     "ph": "https://…"
+    },
+    {
+     "t": "Style",
+     "s": "h2"
+    },
+    {
+     "col": [
+      {
+       "t": "own style",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "check": "instead of the company's"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "field": "logo URL",
+     "v": "",
+     "ph": "https://…/logo.svg"
+    },
+    {
+     "row": [
+      {
+       "field": "color",
+       "v": "#8250df",
+       "grow": true
+      },
+      {
+       "field": "font",
+       "v": "system",
+       "type": "Select",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "custom CSS",
+     "v": "",
+     "type": "Textarea"
+    },
+    {
+     "t": "Texts · en",
+     "s": "h2"
+    },
+    {
+     "field": "title",
+     "v": "plaintext newsletter"
+    },
+    {
+     "field": "intro",
+     "v": "Once a month: what is new at plaintext. No spam, unsubscribe any time.",
+     "type": "Textarea"
+    },
+    {
+     "field": "consent",
+     "v": "I want to receive the plaintext GmbH newsletter by e-mail. I can withdraw my consent at any time via the unsubscribe link.",
+     "type": "Textarea"
+    },
+    {
+     "field": "button",
+     "v": "Subscribe"
+    },
+    {
+     "field": "check-your-mail page",
+     "v": "Almost done: please confirm your address with the link in the e-mail we just sent you.",
+     "type": "Textarea"
+    },
+    {
+     "field": "mail subject",
+     "v": "Please confirm your subscription"
+    },
+    {
+     "field": "mail text",
+     "v": "Hello,\n\nplease confirm your subscription to the plaintext newsletter:\n\n[Confirm subscription]({confirm_url})\n\nIf you did not sign up, simply ignore this e-mail.",
+     "type": "Textarea"
+    },
+    {
+     "field": "confirmed page",
+     "v": "Thank you! From now on you will receive our newsletter.",
+     "type": "Textarea"
+    },
+    {
+     "t": "Texts · de",
+     "s": "h2"
+    },
+    {
+     "field": "title",
+     "v": "plaintext Newsletter"
+    },
+    {
+     "field": "intro",
+     "v": "Einmal im Monat: was es bei plaintext Neues gibt. Kein Spam, jederzeit abmeldbar.",
+     "type": "Textarea"
+    },
+    {
+     "field": "consent",
+     "v": "Ich möchte den Newsletter von plaintext GmbH per E-Mail erhalten. Die Einwilligung kann ich jederzeit über den Abmeldelink widerrufen.",
+     "type": "Textarea"
+    },
+    {
+     "field": "button",
+     "v": "Abonnieren"
+    },
+    {
+     "t": "Embed",
+     "s": "h2"
+    },
+    {
+     "t": "Add your site to origins first, then paste one of these into it.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    },
+    {
+     "col": [
+      {
+       "t": "<iframe src=\"https://gazette.plaintext.example/s/plaintext/signup?embed=1\" title=\"plaintext newsletter\" style=\"border:0;width:100%;height:32rem\"></iframe>",
+       "s": "small",
+       "wrap": true
+      }
+     ],
+     "fill": "chip",
+     "radius": "control",
+     "pad": "sm"
+    },
+    {
+     "btn": "Copy",
+     "icon": "copy"
+    },
+    {
+     "col": [
+      {
+       "t": "<script src=\"https://gazette.plaintext.example/s/pow.js\"></script> <form data-gazette=\"https://gazette.plaintext.example/s/plaintext/signup\"> <input type=\"email\" name=\"email\" required> <button>Subscribe</button> </form>",
+       "s": "small",
+       "wrap": true
+      }
+     ],
+     "fill": "chip",
+     "radius": "control",
+     "pad": "sm"
+    }
+   ]
+  },
+  {
+   "name": "Subscribers",
+   "here": "Subscribers",
+   "kids": [
+    {
+     "head": "Subscribers",
+     "actions": [
+      {
+       "btn": "Add subscriber",
+       "icon": "plus",
+       "kind": "primary"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "chip": "all",
+       "n": "40",
+       "on": true
+      },
+      {
+       "chip": "active",
+       "n": "33"
+      },
+      {
+       "chip": "pending",
+       "n": "2"
+      },
+      {
+       "chip": "unsubscribed",
+       "n": "3"
+      },
+      {
+       "chip": "bounced",
+       "n": "2"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true
+    },
+    {
+     "row": [
+      {
+       "field": "lists",
+       "v": "all lists",
+       "type": "Select",
+       "sm": true,
+       "w": 220
+      },
+      {
+       "search": "address or name",
+       "w": 300
+      }
+     ],
+     "gap": "xs",
+     "align": "end",
+     "wrap": true
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "State",
+        "w": 150
+       },
+       {
+        "h": "Subscriber"
+       },
+       {
+        "h": "Name",
+        "w": 200
+       },
+       {
+        "h": "Lists",
+        "w": 320
+       },
+       {
+        "h": "Since",
+        "w": 120,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "status": "active",
+         "s": "ok"
+        },
+        {
+         "t": "felix.bauer@example.com",
+         "c": "accent"
+        },
+        {
+         "t": "Felix Bauer · de",
+         "c": "muted"
+        },
+        {
+         "t": "Monthly newsletter · Product updates",
+         "c": "muted"
+        },
+        "2026-06-22"
+       ],
+       [
+        {
+         "status": "active",
+         "s": "ok"
+        },
+        {
+         "t": "sophie.wagner@example.com",
+         "c": "accent"
+        },
+        {
+         "t": "Sophie Wagner · de",
+         "c": "muted"
+        },
+        {
+         "t": "Monthly newsletter",
+         "c": "muted"
+        },
+        "2026-05-15"
+       ],
+       [
+        {
+         "status": "pending",
+         "s": "pending"
+        },
+        {
+         "t": "georg.haas@example.com",
+         "c": "accent"
+        },
+        {
+         "t": "Georg Haas · de",
+         "c": "muted"
+        },
+        {
+         "t": "+Monthly newsletter ◌",
+         "c": "muted"
+        },
+        "2026-11-04"
+       ],
+       [
+        {
+         "status": "unsubscribed",
+         "s": "off"
+        },
+        {
+         "t": "leon.wimmer@example.com",
+         "c": "accent"
+        },
+        {
+         "t": "–",
+         "c": "muted"
+        },
+        {
+         "t": "–",
+         "c": "muted"
+        },
+        "2026-10-22"
+       ],
+       [
+        {
+         "status": "bounced",
+         "s": "bad"
+        },
+        {
+         "t": "tobias.gruber@example.com",
+         "c": "accent"
+        },
+        {
+         "t": "Tobias Gruber · de",
+         "c": "muted"
+        },
+        {
+         "t": "Monthly newsletter",
+         "c": "muted"
+        },
+        "2026-02-11"
+       ],
+       [
+        {
+         "status": "active",
+         "s": "ok"
+        },
+        {
+         "t": "anna.huber@example.com",
+         "c": "accent"
+        },
+        {
+         "t": "Anna Huber · de",
+         "c": "muted"
+        },
+        {
+         "t": "Monthly newsletter · Product updates",
+         "c": "muted"
+        },
+        "2026-03-01"
+       ]
+      ]
+     }
+    },
+    {
+     "row": [
+      {
+       "spacer": 1,
+       "grow": true
+      },
+      {
+       "pager": "1 / 2 · 40"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Subscriber",
+   "here": "Subscribers",
+   "crumbs": [
+    "Subscribers",
+    "SUB-4K2MXQ5Z"
+   ],
+   "narrow": 720,
+   "kids": [
+    {
+     "head": "anna.huber@example.com",
+     "state": {
+      "status": "active",
+      "s": "ok"
+     },
+     "sub": {
+      "row": [
+       {
+        "id": "SUB-4K2MXQ5Z"
+       },
+       {
+        "row": [
+         {
+          "icon": "check",
+          "c": "green"
+         },
+         {
+          "t": "saved 14:02",
+          "s": "small",
+          "c": "green"
+         }
+        ],
+        "gap": "2xs",
+        "hug": true
+       }
+      ],
+      "gap": "xs",
+      "wrap": true,
+      "align": "center"
+     },
+     "actions": [
+      {
+       "btn": "Delete…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ]
+    },
+    {
+     "row": [
+      {
+       "field": "first name",
+       "v": "Anna",
+       "state": "Saved",
+       "grow": true
+      },
+      {
+       "field": "last name",
+       "v": "Huber",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "language",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "seg": [
+        "de",
+        "en"
+       ],
+       "on": 0
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "col": [
+      {
+       "t": "lists",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "row": [
+        {
+         "check": "Monthly newsletter",
+         "on": true
+        },
+        {
+         "check": "Product updates",
+         "on": true
+        }
+       ],
+       "gap": "md",
+       "wrap": true
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "t": "Consent",
+     "s": "h2"
+    },
+    {
+     "info": [
+      [
+       "source",
+       "form:signup"
+      ],
+      [
+       "signed up",
+       "2026-03-01 08:00"
+      ],
+      [
+       "confirmed",
+       "2026-03-01 08:00"
+      ],
+      [
+       "consent",
+       {
+        "t": "Ich möchte den Newsletter von plaintext GmbH per E-Mail erhalten. Die Einwilligung kann ich jederzeit über den Abmeldelink widerrufen.",
+        "c": "muted",
+        "wrap": true
+       }
+      ],
+      [
+       "changed",
+       "2026-03-01 08:00"
+      ]
+     ]
+    },
+    {
+     "t": "Deliveries",
+     "s": "h2"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Time",
+        "w": 170
+       },
+       {
+        "h": "Id",
+        "w": 160
+       },
+       {
+        "h": "Newsletter"
+       },
+       {
+        "h": "Result",
+        "w": 110
+       }
+      ],
+      "rows": [
+       [
+        {
+         "t": "2026-10-08 09:01",
+         "c": "muted"
+        },
+        {
+         "id": "NWS-5HJK7P3W"
+        },
+        "October update",
+        "sent"
+       ],
+       [
+        {
+         "t": "2026-09-10 10:02",
+         "c": "muted"
+        },
+        {
+         "id": "NWS-3M8XW6QD"
+        },
+        "September update",
+        "sent"
+       ]
+      ]
+     }
+    },
+    {
+     "t": "GDPR export or erase for this address",
+     "s": "small",
+     "c": "accent"
+    }
+   ]
+  },
+  {
+   "name": "Company",
+   "here": "Company",
+   "narrow": 760,
+   "kids": [
+    {
+     "head": "plaintext GmbH",
+     "sub": {
+      "row": [
+       {
+        "icon": "check",
+        "c": "green"
+       },
+       {
+        "t": "saved 14:02",
+        "s": "small",
+        "c": "green"
+       }
+      ],
+      "gap": "2xs",
+      "hug": true
+     }
+    },
+    {
+     "info": [
+      [
+       "id",
+       "plaintext"
+      ],
+      [
+       "sender",
+       {
+        "row": [
+         {
+          "t": "news@plaintext.example"
+         },
+         {
+          "t": "set by the operator (company.<id>.from)",
+          "s": "small",
+          "c": "muted"
+         }
+        ],
+        "gap": "xs",
+        "wrap": true,
+        "align": "center"
+       }
+      ]
+     ]
+    },
+    {
+     "row": [
+      {
+       "field": "name",
+       "v": "plaintext GmbH",
+       "state": "Saved",
+       "grow": true
+      },
+      {
+       "field": "color",
+       "v": "#8250df",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "field": "sender name",
+       "v": "plaintext GmbH",
+       "grow": true
+      },
+      {
+       "field": "reply to",
+       "v": "office@plaintext.example",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "col": [
+      {
+       "t": "languages",
+       "s": "label",
+       "c": "muted"
+      },
+      {
+       "row": [
+        {
+         "check": "de",
+         "on": true
+        },
+        {
+         "check": "en",
+         "on": true
+        },
+        {
+         "t": "the first is the fallback",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true,
+       "align": "center"
+      }
+     ],
+     "gap": "xs"
+    },
+    {
+     "t": "Hosted pages",
+     "s": "h2"
+    },
+    {
+     "field": "logo URL",
+     "v": "",
+     "ph": "https://…/logo.svg"
+    },
+    {
+     "row": [
+      {
+       "field": "page color",
+       "v": "",
+       "ph": "#8250df",
+       "grow": true
+      },
+      {
+       "field": "font",
+       "v": "system",
+       "type": "Select",
+       "grow": true
+      }
+     ],
+     "gap": "md",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "field": "custom CSS",
+     "v": "",
+     "type": "Textarea"
+    },
+    {
+     "t": "Lists",
+     "s": "h2"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Id",
+        "w": 140
+       },
+       {
+        "h": "Name de"
+       },
+       {
+        "h": "Name en"
+       },
+       {
+        "h": "",
+        "w": 220,
+        "right": true
+       }
+      ],
+      "rows": [
+       [
+        {
+         "id": "LST-news"
+        },
+        {
+         "field": "name de",
+         "v": "Monatlicher Newsletter",
+         "sm": true
+        },
+        {
+         "field": "name en",
+         "v": "Monthly newsletter",
+         "sm": true
+        },
+        {
+         "row": [
+          {
+           "btn": "Save",
+           "icon": "check",
+           "sm": true
+          },
+          {
+           "btn": "Delete…",
+           "icon": "trash",
+           "kind": "delete",
+           "sm": true
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       [
+        {
+         "id": "LST-product"
+        },
+        {
+         "field": "name de",
+         "v": "Produkt-Updates",
+         "sm": true
+        },
+        {
+         "field": "name en",
+         "v": "Product updates",
+         "sm": true
+        },
+        {
+         "row": [
+          {
+           "btn": "Save",
+           "icon": "check",
+           "sm": true
+          },
+          {
+           "btn": "Delete…",
+           "icon": "trash",
+           "kind": "delete",
+           "sm": true
+          }
+         ],
+         "gap": "xs"
+        }
+       ]
+      ]
+     }
+    },
+    {
+     "row": [
+      {
+       "field": "id",
+       "v": "",
+       "ph": "news",
+       "sm": true,
+       "w": 140
+      },
+      {
+       "field": "name de",
+       "v": "",
+       "sm": true,
+       "grow": true
+      },
+      {
+       "field": "name en",
+       "v": "",
+       "sm": true,
+       "grow": true
+      },
+      {
+       "btn": "Add list",
+       "icon": "plus",
+       "sm": true
+      }
+     ],
+     "gap": "xs",
+     "align": "end",
+     "stack": true
+    },
+    {
+     "t": "Relay",
+     "s": "h2"
+    },
+    {
+     "info": [
+      [
+       "relay",
+       "default"
+      ],
+      [
+       "capacity",
+       "600/min · 4 connections"
+      ],
+      [
+       "state",
+       {
+        "status": "ok",
+        "s": "ok"
+       }
+      ]
+     ]
+    },
+    {
+     "t": "Relay and limits are set by the operator in gazette.conf.",
+     "s": "small",
+     "c": "muted",
+     "wrap": true
+    }
+   ]
+  },
+  {
+   "name": "GDPR",
+   "here": "GDPR",
+   "kids": [
+    {
+     "head": "GDPR"
+    },
+    {
+     "row": [
+      {
+       "t": "Companies:",
+       "c": "muted"
+      },
+      {
+       "tag": "plaintext"
+      },
+      {
+       "tag": "smalldiff"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    },
+    {
+     "row": [
+      {
+       "field": "e-mail",
+       "v": "anna.huber@example.com",
+       "w": 320
+      },
+      {
+       "btn": "Show data",
+       "icon": "search",
+       "kind": "primary"
+      }
+     ],
+     "gap": "xs",
+     "align": "end",
+     "wrap": true
+    },
+    {
+     "t": "anna.huber@example.com",
+     "s": "h2"
+    },
+    {
+     "table": {
+      "cols": [
+       {
+        "h": "Company",
+        "w": 140
+       },
+       {
+        "h": "Id",
+        "w": 160
+       },
+       {
+        "h": "Subscriber"
+       },
+       {
+        "h": "Lists",
+        "w": 200
+       },
+       {
+        "h": "Consent",
+        "w": 260
+       }
+      ],
+      "rows": [
+       [
+        "plaintext",
+        {
+         "id": "SUB-4K2MXQ5Z"
+        },
+        {
+         "row": [
+          {
+           "status": "active",
+           "s": "ok"
+          },
+          {
+           "t": "Anna Huber"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "news · product",
+         "c": "muted"
+        },
+        {
+         "t": "form:signup · 2026-03-01 08:00",
+         "s": "small",
+         "c": "muted"
+        }
+       ],
+       [
+        "smalldiff",
+        {
+         "id": "SUB-7Q4HN2XA"
+        },
+        {
+         "row": [
+          {
+           "status": "pending",
+           "s": "pending"
+          },
+          {
+           "t": "Anna Huber"
+          }
+         ],
+         "gap": "xs",
+         "wrap": true,
+         "align": "center"
+        },
+        {
+         "t": "news",
+         "c": "muted"
+        },
+        {
+         "t": "form:signup · 2026-11-02 17:12",
+         "s": "small",
+         "c": "muted"
+        }
+       ]
+      ]
+     }
+    },
+    {
+     "t": "1 pending mails · 2 deliveries"
+    },
+    {
+     "card": [
+      {
+       "list": [
+        {
+         "main": "plaintext · NWS-5HJK7P3W October update · sent",
+         "meta": "2026-10-08 09:01"
+        },
+        {
+         "main": "plaintext · NWS-3M8XW6QD September update · sent",
+         "meta": "2026-09-10 10:02"
+        }
+       ]
+      }
+     ],
+     "title": "Deliveries (2)"
+    },
+    {
+     "t": "Erase",
+     "s": "h2"
+    },
+    {
+     "msg": "Deletes the subscriber records (also the unsubscribe record) and pending mails. Afterwards gazette no longer knows the address, so an API call could add it again.",
+     "kind": "warning"
+    },
+    {
+     "row": [
+      {
+       "check": "dry run"
+      },
+      {
+       "btn": "Erase everything…",
+       "icon": "trash",
+       "kind": "delete"
+      }
+     ],
+     "gap": "xs",
+     "wrap": true,
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "name": "Settings",
+   "here": "",
+   "crumbs": [
+    "Settings"
+   ],
+   "narrow": 760,
+   "kids": [
+    {
+     "head": "Settings"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "name",
+         "Dora Example"
+        ],
+        [
+         "user",
+         "dora"
+        ],
+        [
+         "e-mail",
+         "dora@plaintext.example"
+        ],
+        [
+         "groups",
+         {
+          "row": [
+           {
+            "tag": "access-gazette"
+           },
+           {
+            "tag": "gazette-plaintext-owner"
+           }
+          ],
+          "gap": "xs",
+          "wrap": true
+         }
+        ]
+       ]
+      },
+      {
+       "row": [
+        {
+         "btn": "Manage account",
+         "icon": "external"
+        },
+        {
+         "btn": "Sign out",
+         "icon": "power"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "title": "Account"
+    },
+    {
+     "card": [
+      {
+       "info": [
+        [
+         "language",
+         {
+          "seg": [
+           "deutsch",
+           "english"
+          ],
+          "on": 1
+         }
+        ],
+        [
+         "theme",
+         {
+          "seg": [
+           "Auto",
+           "Light",
+           "Dark"
+          ],
+          "on": 0
+         }
+        ],
+        [
+         "design",
+         {
+          "seg": [
+           "graphite",
+           "paper"
+          ],
+          "on": 0
+         }
+        ]
+       ]
+      }
+     ],
+     "title": "Preferences"
+    },
+    {
+     "card": [
+      {
+       "table": {
+        "cols": [
+         {
+          "h": "",
+          "w": 60
+         },
+         {
+          "h": "Relay"
+         },
+         {
+          "h": "Capacity",
+          "w": 120,
+          "right": true
+         },
+         {
+          "h": "In use",
+          "w": 110,
+          "right": true
+         },
+         {
+          "h": "Connections",
+          "w": 120,
+          "right": true
+         },
+         {
+          "h": "Per mail",
+          "w": 100,
+          "right": true
+         }
+        ],
+        "rows": [
+         [
+          {
+           "status": "ok",
+           "s": "ok"
+          },
+          "default",
+          "600/min",
+          "12/min",
+          "2 / 4",
+          "180 ms"
+         ],
+         [
+          {
+           "status": "failing",
+           "s": "bad"
+          },
+          {
+           "row": [
+            {
+             "t": "bulk"
+            },
+            {
+             "t": "451 4.7.1 rate limited, try again later",
+             "s": "small",
+             "c": "muted"
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          },
+          "3.000/min",
+          "0/min",
+          "0 / 8",
+          "210 ms"
+         ]
+        ]
+       }
+      }
+     ],
+     "title": "Relays"
+    },
+    {
+     "t": "nobloat/gazette v7",
+     "s": "small",
+     "c": "muted"
+    }
+   ]
+  },
+  {
+   "name": "Dialogs",
+   "here": "Newsletters",
+   "kids": [
+    {
+     "head": "Dialogs"
+    },
+    {
+     "row": [
+      {
+       "dialog": "New newsletter",
+       "kids": [
+        {
+         "field": "title",
+         "v": "December update"
+        },
+        {
+         "t": "Internal title; the rest is written in the editor.",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Create",
+         "icon": "plus",
+         "kind": "primary"
+        }
+       ]
+      },
+      {
+       "dialog": "Test NWS-7F3AQC2B",
+       "kids": [
+        {
+         "info": [
+          [
+           "to",
+           "dora@plaintext.example (you)"
+          ]
+         ]
+        },
+        {
+         "field": "more (up to 5)",
+         "v": "",
+         "ph": "peter@example.com simeon@example.com"
+        },
+        {
+         "t": "Every language, as Anna Huber, subject starts with [Test].",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Send test",
+         "icon": "mail"
+        }
+       ]
+      },
+      {
+       "dialog": "Send NWS-7F3AQC2B",
+       "kids": [
+        {
+         "col": [
+          {
+           "t": "lists",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "check": "Monthly newsletter",
+             "on": true
+            },
+            {
+             "check": "Product updates"
+            }
+           ],
+           "gap": "md",
+           "wrap": true
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "duration",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "field": "duration",
+             "v": "2h",
+             "sm": true,
+             "w": 80
+            },
+            {
+             "chip": "30m"
+            },
+            {
+             "chip": "2h",
+             "on": true
+            },
+            {
+             "chip": "6h"
+            },
+            {
+             "chip": "24h"
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "start",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "radio": "now",
+             "on": true
+            },
+            {
+             "radio": "at"
+            },
+            {
+             "field": "start",
+             "v": "2026-11-06 09:00",
+             "sm": true,
+             "w": 170
+            }
+           ],
+           "gap": "xs",
+           "wrap": true,
+           "align": "center"
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "t": "31 recipients · needs 1/min, 588/min free · ends 2026-11-05 16:02",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Send",
+         "icon": "send"
+        }
+       ]
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    },
+    {
+     "row": [
+      {
+       "dialog": "Add subscriber",
+       "kids": [
+        {
+         "field": "e-mail",
+         "v": "lukas.steiner@",
+         "state": "Error",
+         "msg": "Not a valid e-mail address: e.g. anna.huber@example.com"
+        },
+        {
+         "row": [
+          {
+           "field": "first name",
+           "v": "Lukas",
+           "grow": true
+          },
+          {
+           "field": "last name",
+           "v": "Steiner",
+           "grow": true
+          }
+         ],
+         "gap": "md",
+         "stack": true,
+         "align": "start"
+        },
+        {
+         "col": [
+          {
+           "t": "language",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "seg": [
+            "de",
+            "en"
+           ],
+           "on": 0
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "col": [
+          {
+           "t": "lists",
+           "s": "label",
+           "c": "muted"
+          },
+          {
+           "row": [
+            {
+             "check": "Monthly newsletter",
+             "on": true
+            },
+            {
+             "check": "Product updates"
+            }
+           ],
+           "gap": "md",
+           "wrap": true
+          }
+         ],
+         "gap": "xs"
+        },
+        {
+         "field": "consent",
+         "v": "",
+         "type": "Textarea",
+         "ph": "how the person agreed, e.g. trade fair form 2026-11-04"
+        },
+        {
+         "field": "agreed on",
+         "v": "2026-11-04"
+        },
+        {
+         "t": "Only add people who agreed. Recorded as ui:dora with the consent text.",
+         "s": "small",
+         "c": "muted",
+         "wrap": true
+        }
+       ],
+       "actions": [
+        {
+         "btn": "Cancel",
+         "icon": "x"
+        },
+        {
+         "btn": "Add",
+         "icon": "plus"
+        }
+       ]
+      },
+      {
+       "col": [
+        {
+         "dialog": "New template",
+         "kids": [
+          {
+           "field": "name",
+           "v": "Webinar invitation"
+          },
+          {
+           "field": "copy of",
+           "v": "plaintext Standard (TPL-HF2CJD3E)",
+           "type": "Select"
+          }
+         ],
+         "actions": [
+          {
+           "btn": "Cancel",
+           "icon": "x"
+          },
+          {
+           "btn": "Create",
+           "icon": "plus"
+          }
+         ]
+        },
+        {
+         "dialog": "New form",
+         "kids": [
+          {
+           "field": "id",
+           "v": "webinar"
+          },
+          {
+           "t": "The id is part of the URL: /s/plaintext/<id>.",
+           "s": "small",
+           "c": "muted",
+           "wrap": true
+          }
+         ],
+         "actions": [
+          {
+           "btn": "Cancel",
+           "icon": "x"
+          },
+          {
+           "btn": "Create",
+           "icon": "plus"
+          }
+         ]
+        },
+        {
+         "dialog": "Cancel NWS-5HJK7P3W?",
+         "kids": [
+          {
+           "t": "10 subscribers will not get it. A cancelled newsletter cannot be resumed; Copy makes a new draft.",
+           "wrap": true
+          }
+         ],
+         "actions": [
+          {
+           "btn": "Cancel",
+           "icon": "x"
+          },
+          {
+           "btn": "Cancel…",
+           "icon": "stop",
+           "kind": "delete"
+          }
+         ]
+        }
+       ],
+       "gap": "lg"
+      }
+     ],
+     "gap": "lg",
+     "stack": true,
+     "align": "start"
+    }
+   ]
+  },
+  {
+   "name": "Signup",
+   "bare": true,
+   "center": true,
+   "narrow": 480,
+   "kids": [
+    {
+     "card": [
+      {
+       "t": "plaintext newsletter",
+       "s": "h1"
+      },
+      {
+       "t": "Once a month: what is new at plaintext. No spam, unsubscribe any time.",
+       "wrap": true
+      },
+      {
+       "field": "E-mail",
+       "v": "anna.huber@example.com"
+      },
+      {
+       "row": [
+        {
+         "field": "First name (optional)",
+         "v": "Anna",
+         "grow": true
+        },
+        {
+         "field": "Last name (optional)",
+         "v": "",
+         "grow": true
+        }
+       ],
+       "gap": "md",
+       "stack": true,
+       "align": "start"
+      },
+      {
+       "col": [
+        {
+         "t": "Newsletters",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "col": [
+          {
+           "check": "Monthly newsletter",
+           "on": true
+          },
+          {
+           "check": "Product updates"
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       "gap": "xs"
+      },
+      {
+       "t": "I want to receive the plaintext GmbH newsletter by e-mail. I can withdraw my consent at any time via the unsubscribe link.",
+       "s": "small",
+       "c": "muted",
+       "wrap": true
+      },
+      {
+       "btn": "Subscribe",
+       "icon": "mail",
+       "kind": "primary",
+       "full": true
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Signup sent",
+   "bare": true,
+   "center": true,
+   "narrow": 480,
+   "kids": [
+    {
+     "card": [
+      {
+       "t": "plaintext newsletter",
+       "s": "h1"
+      },
+      {
+       "msg": "Almost done: please confirm your address with the link in the e-mail we just sent you.",
+       "kind": "ok"
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Confirm",
+   "bare": true,
+   "center": true,
+   "narrow": 480,
+   "kids": [
+    {
+     "card": [
+      {
+       "t": "Confirm subscription",
+       "s": "h1"
+      },
+      {
+       "t": "One click and your subscription is active.",
+       "wrap": true
+      },
+      {
+       "btn": "Confirm subscription",
+       "icon": "check",
+       "kind": "primary",
+       "full": true
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Unsubscribe",
+   "bare": true,
+   "center": true,
+   "narrow": 480,
+   "kids": [
+    {
+     "card": [
+      {
+       "t": "Unsubscribe",
+       "s": "h1"
+      },
+      {
+       "col": [
+        {
+         "t": "Keep receiving:",
+         "s": "label",
+         "c": "muted"
+        },
+        {
+         "col": [
+          {
+           "check": "Monthly newsletter",
+           "on": true
+          },
+          {
+           "check": "Product updates"
+          }
+         ],
+         "gap": "xs"
+        }
+       ],
+       "gap": "xs"
+      },
+      {
+       "btn": "Save choice",
+       "icon": "check",
+       "full": true
+      },
+      {
+       "btn": "Unsubscribe from everything",
+       "icon": "x",
+       "kind": "primary",
+       "full": true
+      }
+     ],
+     "gap": "md",
+     "pad": "lg"
+    }
+   ]
+  },
+  {
+   "name": "Error 404",
+   "here": "",
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "search",
+         "c": "muted"
+        },
+        {
+         "t": "404 · not found",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "There is nothing at this address",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "It may have been deleted, the link may be mistyped, or it belongs to something you have no access to.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Dashboard",
+         "icon": "dashboard",
+         "kind": "primary"
+        },
+        {
+         "btn": "Search",
+         "icon": "search"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Public error",
+   "bare": true,
+   "center": true,
+   "narrow": 560,
+   "kids": [
+    {
+     "col": [
+      {
+       "row": [
+        {
+         "icon": "clock",
+         "c": "muted"
+        },
+        {
+         "t": "410 · expired",
+         "c": "muted"
+        }
+       ],
+       "gap": "xs",
+       "align": "center"
+      },
+      {
+       "t": "This link has expired",
+       "s": "h1",
+       "wrap": true
+      },
+      {
+       "t": "Links like this one work only for a while or only once. Ask whoever sent it for a new one.",
+       "wrap": true
+      },
+      {
+       "row": [
+        {
+         "btn": "Sign up again",
+         "icon": "refresh",
+         "kind": "primary"
+        }
+       ],
+       "gap": "xs",
+       "wrap": true
+      }
+     ],
+     "gap": "md",
+     "pad": [
+      "xl",
+      null
+     ]
+    }
+   ]
+  }
+ ]
+}
