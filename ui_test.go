@@ -319,3 +319,24 @@ func TestBrand(t *testing.T) {
 		}
 	}
 }
+
+// TestTokensOnly: components.css takes every length, duration and opacity from the foundations tokens. Allowed:
+// 1em (the text size), the 1px of a visually hidden element, percentages of an element's own box (centring, corners),
+// and the container width in @container (custom properties cannot be used there).
+func TestTokensOnly(t *testing.T) {
+	b, err := os.ReadFile("components.css")
+	if err != nil {
+		t.Fatal(err)
+	}
+	css := regexp.MustCompile(`(?s)/\*.*?\*/`).ReplaceAllString(string(b), "")
+	css = regexp.MustCompile(`@container \([^)]*\)`).ReplaceAllString(css, "")
+	css = strings.ReplaceAll(css, "width: 1px; height: 1px", "")
+	raw := regexp.MustCompile(`(?:^|[^\w.-])(-?\d*\.?\d+(?:px|rem|em|ms|s))\b|opacity:\s*(\.\d+|0\.\d+)`)
+	for i, line := range strings.Split(css, "\n") {
+		for _, m := range raw.FindAllStringSubmatch(line, -1) {
+			if v := m[1] + m[2]; v != "1em" {
+				t.Errorf("components.css:%d: %s is not a token", i+1, v)
+			}
+		}
+	}
+}

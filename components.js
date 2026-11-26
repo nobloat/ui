@@ -12,3 +12,20 @@ for (const box of document.querySelectorAll('.picker')) {
   button.addEventListener('click', () => { native.value = toNative(text.value); native.showPicker(); });
   native.addEventListener('change', () => { if (native.value) { text.value = fromNative(native.value); text.dispatchEvent(new Event('change', {bubbles: true})); } });
 }
+
+// message: the close button fades it out (duration-slow, ease; instant with reduced motion), then removes it
+document.addEventListener('click', e => {
+  const m = e.target.closest('.message > .button')?.parentElement;
+  if (!m) return;
+  m.classList.add('closing');
+  setTimeout(() => m.remove(), parseFloat(getComputedStyle(m).transitionDuration) * 1000);
+});
+
+// theme: switching is CSS (radios name=theme). This only remembers the choice where no server does (static pages):
+// it restores the saved radio on load and saves it on change. Same storage key as ui.js.
+{
+  let saved = ''; try { saved = localStorage.getItem('theme') ?? ''; } catch {}
+  const r = document.getElementById('theme-' + (saved || 'auto')); if (r) r.checked = true;
+  document.addEventListener('change', e => { if (e.target.name !== 'theme') return;
+    try { e.target.value === 'auto' ? localStorage.removeItem('theme') : localStorage.setItem('theme', e.target.value); } catch {} });
+}

@@ -15,16 +15,25 @@
   --text-on-danger: #fff;
   /* typography: emphasis is weight 600, never another size */
   --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
-  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 .9375rem/1.65 ui-serif, serif;
+  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 1.0625rem/1.65 ui-serif, serif;
+  --measure: 90ch; /* the longest line of running text, in the width of its own font */
   /* spacing: four steps, each double the last */
   --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
-  /* radius and borders: three corners, one line, one focus ring */
+  /* radius, strokes and borders: three corners, two stroke widths, one line, one focus ring */
   --radius-control: .375rem; --radius-panel: .75rem; --radius-round: 999px;
-  --border: 1px solid var(--line); --border-field: 1px solid var(--muted); --focus: 2px solid var(--accent); --focus-offset: 2px;
+  --stroke-thin: 1px; --stroke-thick: 2px;
+  --border: var(--stroke-thin) solid var(--line); --border-field: var(--stroke-thin) solid var(--muted); --focus: var(--stroke-thick) solid var(--accent);
+  --underline-offset: .2em; /* links: underline stroke-thin, stroke-thick on hover */
   /* sizes */
-  --size-control: 2.5rem; --size-control-small: 1.75rem; --size-target: 1.5rem; --size-icon: 1rem;
-  /* elevation: flat by default; one shadow for what floats above the page (toast, dialog, menu) */
-  --shadow-overlay: 0 .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent);
+  --size-control: 2.5rem; --size-control-small: 1.5rem; /* small also the smallest target */
+  --size-icon: 1rem; --icon-nudge: .125em; /* icons sit on the text; 1em = the text size */
+  /* mixes: a tint (hover, tinted fill) and an edge (pressed, tinted border); a colour mixed into a surface by one of them */
+  --mix-tint: 8%; --mix-edge: 30%;
+  --opacity-disabled: .45; /* a disabled control steps back as a whole */
+  /* elevation: flat by default; three levels, each a shadow and a stacking order */
+  --shadow-raised: 0 1px 2px color-mix(in oklab, var(--text) 10%, transparent); --layer-raised: 10;
+  --shadow-floating: 0 .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent); --layer-floating: 20;
+  --shadow-modal: 0 1rem 2rem color-mix(in oklab, var(--text) 22%, transparent); --layer-modal: 30;
   /* motion: two durations, one easing; only state changes and overlays move */
   --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
   --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
@@ -33,7 +42,7 @@
 /* type roles as classes: a role is more than a font */
 .t-title { font: var(--title); } .t-heading { font: var(--heading); } .t-subheading { font: var(--subheading); }
 .t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
-.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: 70ch; }
+.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: var(--measure); }
 .t-prose strong { font-weight: 600; }
 
 /* motion utilities */

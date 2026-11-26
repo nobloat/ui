@@ -10,40 +10,40 @@ main, .cp-phone { container-type: inline-size; }
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
   font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
   transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
-  --hover: color-mix(in oklab, var(--surface), var(--text) 12%); --pressed: color-mix(in oklab, var(--surface), var(--text) 20%);
+  --hover: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); --pressed: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint));
 }
 .button > i { font-size: 1em; } /* the icon takes the text size, so it lines up with the capitals */
 .button:not(:disabled):hover { background: var(--hover); }
 .button:not(:disabled):active { background: var(--pressed); }
-.button:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
+.button:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
 
 /* filled: one strong action; the fill carries the weight, the text stays 400 */
 .button:is(.primary, .danger) { border-color: transparent; }
 .button.primary { background: var(--accent); color: var(--text-on-accent);
-  --hover: color-mix(in oklab, var(--accent), var(--text) 15%); --pressed: color-mix(in oklab, var(--accent), var(--text) 28%); }
+  --hover: color-mix(in oklab, var(--accent), var(--text) var(--mix-tint)); --pressed: color-mix(in oklab, var(--accent), var(--text) var(--mix-edge)); }
 .button.danger { background: var(--danger); color: var(--text-on-danger);
-  --hover: color-mix(in oklab, var(--danger), black 15%); --pressed: color-mix(in oklab, var(--danger), black 28%); }
+  --hover: color-mix(in oklab, var(--danger), black var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), black var(--mix-edge)); }
 
 /* quiet: no frame until hovered; for secondary actions in rows and toolbars */
 .button.quiet { border-color: transparent; background: transparent; }
 
 /* toggle: aria-pressed="true" (mute, pin, favourite) */
 .button[aria-pressed="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent);
-  --hover: color-mix(in oklab, var(--selected), var(--accent) 12%); --pressed: color-mix(in oklab, var(--selected), var(--accent) 22%); }
+  --hover: color-mix(in oklab, var(--selected), var(--accent) var(--mix-tint)); --pressed: color-mix(in oklab, var(--selected), var(--accent) var(--mix-edge)); }
 
 /* sizes and shape */
 .button.small { height: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
-.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; }
+.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; } .button.icon-only > i { font-size: calc(var(--size-icon) + var(--space-4)); }
 
-.button:disabled { opacity: .45; cursor: not-allowed; }
+.button:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }
 /* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
 .button[aria-busy="true"] { cursor: progress; } .button[aria-busy="true"]::after { content: none; }
-.button[aria-busy="true"] > i { mask: none; background: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }
+.button[aria-busy="true"] > i { mask: none; background: none; border: var(--stroke-thick) solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }
 
 /* key hint after the text, desktop only */
-.kbd { display: inline-grid; place-items: center; min-width: 1.5em; height: 1.5em; padding: 0 var(--space-4) .12em; box-sizing: border-box;
+.kbd { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4) var(--icon-nudge); box-sizing: border-box;
   border: var(--border); border-radius: var(--space-4); font: var(--small); line-height: 1; color: var(--muted); }
-.button > .kbd { margin-left: var(--space-4); border-color: color-mix(in oklab, currentColor 30%, transparent); color: inherit; opacity: .75; }
+.button > .kbd { margin-left: var(--space-4); border-color: color-mix(in oklab, currentColor var(--mix-edge), transparent); color: inherit; }
 
 /* a row of buttons */
 .buttons { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
@@ -57,12 +57,12 @@ main, .cp-phone { container-type: inline-size; }
 }
 
 /* field: label above, the control, then one line of hint or error */
-.field { display: grid; gap: var(--space-4); max-width: 24rem; font: var(--body); color: var(--text); }
+.field { display: grid; gap: var(--space-4); font: var(--body); color: var(--text); }
 .field * { font-weight: 400; } /* labels are not bold here, whatever the page sets */
 .field > .field-label { font: var(--body); }
 .field > .field-hint { font: var(--small); color: var(--muted); }
 /* error: a tinted strip attached to the bottom of the field, so it visibly belongs to it */
-.field > .field-error { margin-top: calc(var(--space-4) * -1); padding: var(--space-4) var(--space-8); border: 1px solid var(--danger); border-top: 0; border-radius: 0 0 var(--radius-control) var(--radius-control); background: color-mix(in oklab, var(--danger) 10%, var(--background)); font: var(--small); color: var(--text); }
+.field > .field-error { margin-top: calc(var(--space-4) * -1); padding: var(--space-4) var(--space-8); border: var(--stroke-thin) solid var(--danger); border-top: 0; border-radius: 0 0 var(--radius-control) var(--radius-control); background: color-mix(in oklab, var(--danger) var(--mix-tint), var(--background)); font: var(--small); color: var(--text); }
 .field > .field-error > i { margin-right: var(--space-4); color: var(--danger); }
 .field > .field-error > span { color: var(--muted); }
 .input {
@@ -72,39 +72,39 @@ main, .cp-phone { container-type: inline-size; }
 }
 .input::placeholder { color: var(--muted); opacity: 1; } /* a realistic sample of the expected value; muted reaches 4.5:1 */
 textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
-.input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); }
+.input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
 /* focus shows on the border (no outline ring), as for every field */
-.input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 var(--stroke-thin) var(--accent); }
 .input[aria-invalid="true"] { border-color: var(--danger); }
 .input[aria-invalid="true"]:has(+ .field-error) { border-radius: var(--radius-control) var(--radius-control) 0 0; }
 .input[readonly] { border-style: dashed; background: transparent; }
 /* select: the native control with a chevron */
 .select { position: relative; display: block; }
-.select > select.input { padding-right: calc(var(--space-16) + var(--space-16)); line-height: calc(var(--size-control) - 2px); cursor: pointer; }
+.select > select.input { padding-right: calc(var(--space-16) + var(--space-16)); line-height: calc(var(--size-control) - 2 * var(--stroke-thin)); cursor: pointer; }
 .select::after { content: ""; position: absolute; right: var(--space-8); top: 50%; width: 1em; height: 1em; translate: 0 -50%; background: var(--muted); mask: var(--icon-chevron-down) center / contain no-repeat; pointer-events: none; }
 
 /* choice: a checkbox or radio with its label; the whole row is the target */
-.choice { display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--size-target); font: var(--body); font-weight: 400; color: var(--text); cursor: pointer; }
+.choice { display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--size-control-small); font: var(--body); font-weight: 400; color: var(--text); cursor: pointer; }
 .choice > input { all: unset; box-sizing: border-box; flex: none; display: grid; place-items: center; width: var(--size-icon); height: var(--size-icon);
-  border: var(--border-field); border-radius: calc(var(--radius-control) - 2px); background: var(--surface); cursor: pointer;
+  border: var(--border-field); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--surface); cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease); }
 .choice > input[type="radio"] { border-radius: var(--radius-round); }
 .choice:hover > input:not(:checked) { border-color: var(--text); }
-.choice > input:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
+.choice > input:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
 .choice > input:checked { border-color: var(--accent); background: var(--accent); }
 .choice > input[type="checkbox"]:checked::before { content: ""; width: 100%; height: 100%; background: var(--text-on-accent); mask: var(--icon-check) center / 80% no-repeat; }
-.choice > input[type="radio"]:checked { background: var(--surface); box-shadow: inset 0 0 0 3px var(--surface), inset 0 0 0 8px var(--accent); }
+.choice > input[type="radio"]:checked { background: var(--surface); box-shadow: inset 0 0 0 var(--space-4) var(--surface), inset 0 0 0 var(--space-8) var(--accent); }
 .choices { display: grid; gap: var(--space-8); justify-items: start; }
 
 /* segmented: one of two to five options, all visible; radios underneath, so it works without JavaScript */
-.segmented { display: inline-flex; padding: 2px; gap: 2px; height: var(--size-control); box-sizing: border-box; border: var(--border); border-radius: var(--radius-control); background: var(--background); }
-.segmented > label { display: inline-flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-16); border-radius: calc(var(--radius-control) - 2px); font: var(--body); font-weight: 400; color: var(--muted); cursor: pointer;
+.segmented { display: inline-flex; padding: var(--space-4); gap: var(--space-4); height: var(--size-control); box-sizing: border-box; border: var(--border); border-radius: var(--radius-control); background: var(--background); }
+.segmented > label { display: inline-flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-16); border-radius: calc(var(--radius-control) - var(--space-4)); font: var(--body); font-weight: 400; color: var(--muted); cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease); }
 .segmented > label > i { font-size: 1em; }
 .segmented > label > input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .segmented > label:hover { color: var(--text); }
-.segmented > label:has(input:checked) { background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--line); }
-.segmented > label:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--focus-offset); }
+.segmented > label:has(input:checked) { background: var(--surface); color: var(--text); box-shadow: 0 0 0 var(--stroke-thin) var(--line); }
+.segmented > label:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--stroke-thick); }
 
 /* date and time: a text field in dd.mm.yyyy or hh:mm (24 h), a picker button inside on the right */
 .picker { position: relative; display: block; }
@@ -115,27 +115,27 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 /* labels: small marks next to or on other things. A state is always a dot and a word; the word stays in --text. */
 [data-state="ok"] { --c: var(--ok); } [data-state="warn"] { --c: var(--warn); } [data-state="danger"] { --c: var(--danger); }
 [data-state="info"] { --c: var(--info); } [data-state="disabled"] { --c: var(--disabled); }
-.status { display: inline-flex; align-items: center; gap: var(--space-8); height: 1.5rem; padding: 0 var(--space-8); border-radius: var(--radius-control);
-  background: color-mix(in oklab, var(--c, var(--disabled)) 15%, var(--background)); font: var(--body); color: var(--text); white-space: nowrap; }
-.status::before { content: ""; flex: none; width: .5rem; height: .5rem; border-radius: 2px; background: var(--c, var(--disabled)); }
+.status { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8); border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); font: var(--body); color: var(--text); white-space: nowrap; }
+.status::before { content: ""; flex: none; width: var(--space-8); height: var(--space-8); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--c, var(--disabled)); }
 
 /* filter chip: a link that filters a list; the count is muted; the active one is selected */
 .filter-chip { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8);
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap;
   transition: background-color var(--duration-fast) var(--ease); }
 .filter-chip > i { font-size: 1em; } .filter-chip > .count { color: var(--muted); font-variant-numeric: tabular-nums; }
-.filter-chip:hover { background: color-mix(in oklab, var(--surface), var(--text) 8%); }
-.filter-chip:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
+.filter-chip:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.filter-chip:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
 .filter-chip[aria-current="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent); }
 .filter-chips { display: flex; flex-wrap: wrap; gap: var(--space-8); }
 
 /* tag: a user's own word in a colour they chose; the text keeps full contrast */
-.tag-chip { display: inline-flex; align-items: center; gap: var(--space-4); height: 1.5rem; padding: 0 var(--space-8) 0 var(--space-4); border-radius: var(--radius-control);
-  background: color-mix(in oklab, var(--c, var(--disabled)) 15%, var(--background)); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap; }
+.tag-chip { display: inline-flex; align-items: center; gap: var(--space-4); height: var(--size-control-small); padding: 0 var(--space-8) 0 var(--space-4); border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap; }
 .tag-chip > i { font-size: 1em; color: var(--c, var(--disabled)); } /* the # says it is a tag */
 
 /* badge: a count on a button or nav item */
-.badge { display: inline-grid; place-items: center; min-width: 1.125rem; height: 1.125rem; padding: 0 var(--space-4) .1em; box-sizing: border-box;
+.badge { display: inline-grid; place-items: center; min-width: calc(var(--size-icon) + var(--space-4)); height: calc(var(--size-icon) + var(--space-4)); padding: 0 var(--space-4) var(--icon-nudge); box-sizing: border-box;
   border-radius: var(--radius-round); background: var(--accent); color: var(--text-on-accent); font: var(--small); line-height: 1; font-variant-numeric: tabular-nums; }
 .button > .badge { position: absolute; top: 0; right: 0; translate: 40% -40%; } /* centred on the corner */
 .button:has(> .badge) { position: relative; }
@@ -144,19 +144,64 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .object-id { display: inline-flex; align-items: center; gap: var(--space-4); font: var(--body); font-variant-numeric: tabular-nums; }
 .object-id > code { font: inherit; padding: 0 var(--space-4); border-radius: var(--space-4); background: var(--line); }
 
-/* message: one sentence, or a bold title and a sentence; the icon sits on the first line */
-.message { display: grid; grid-template-columns: auto 1fr; gap: var(--space-8); align-items: baseline; padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-control); background: color-mix(in oklab, var(--c, var(--info)) 12%, var(--background)); box-shadow: inset 3px 0 0 var(--c, var(--info));
-  font: var(--body); color: var(--text); }
-.message > i { color: var(--c, var(--info)); translate: 0 .125em; }
+/* links: accent, always underlined (not colour alone), thicker on hover; visited dimmer. External = target="_blank":
+   the external icon after it, so opening a new tab is announced by the same attribute. :where keeps components free to override */
+:where(a) { color: var(--accent); text-decoration: underline var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+:where(a):hover { text-decoration-thickness: var(--stroke-thick); }
+:where(a):visited { color: color-mix(in oklab, var(--accent), var(--text) var(--mix-edge)); }
+:where(a):focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); border-radius: var(--radius-control); }
+:where(a[target="_blank"])::after { content: ""; display: inline-block; width: 1em; height: 1em; margin-left: var(--space-4); vertical-align: calc(-1 * var(--icon-nudge)); background: currentColor; mask: var(--icon-external) center / contain no-repeat; }
+
+/* breadcrumbs: parents as muted links with their object icon, chevrons between, the current page last without link;
+   a narrow container shows only "← parent" (the title says where you are) */
+.breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin: 0; padding: 0; font: var(--small); color: var(--muted); }
+.breadcrumbs li { display: inline-flex; align-items: center; gap: var(--space-4); }
+.breadcrumbs li + li::before { content: ""; width: var(--size-icon); height: var(--size-icon); background: var(--muted); mask: var(--icon-chevron-right) center / contain no-repeat; }
+.breadcrumbs a { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--muted); text-decoration: none; }
+.breadcrumbs a:hover { color: var(--text); text-decoration: underline var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+.breadcrumbs [aria-current] { color: var(--text); }
+@container (max-width: 40rem) {
+  .breadcrumbs li:not(:nth-last-child(2)) { display: none; } .breadcrumbs li + li::before { content: none; }
+  .breadcrumbs a > i { display: none; }
+  .breadcrumbs a::before { content: ""; width: var(--size-icon); height: var(--size-icon); background: currentColor; mask: var(--icon-arrow-left) center / contain no-repeat; }
+}
+
+/* theme switch: three radios (auto, light, dark) set the page's colour scheme with CSS alone. Where there is room they are a
+   segmented control; where not, one icon button shows the current mode and selects the next. The server renders the saved
+   choice as the checked radio; components.js only remembers it where there is no server (static pages). */
+:root:has(input[name="theme"][value="light"]:checked) { color-scheme: light; }
+:root:has(input[name="theme"][value="dark"]:checked) { color-scheme: dark; }
+.theme-cycle { display: none; } .theme-cycle > label { display: none; }
+:root:has(#theme-auto:checked) .theme-cycle > [data-when="auto"], :root:has(#theme-light:checked) .theme-cycle > [data-when="light"], :root:has(#theme-dark:checked) .theme-cycle > [data-when="dark"] { display: inline-flex; }
+.theme-switch:has(input:focus-visible) .theme-cycle > label { outline: var(--focus); outline-offset: var(--stroke-thick); }
+@container (max-width: 40rem) {
+  .theme-switch > .segmented { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } /* still reachable by keyboard */
+  .theme-cycle { display: inline-flex; }
+}
+
+/* navigation: a page load cross-fades the content (CSS view transitions, no script); the page header with its tabs stays put.
+   Browsers without support just load the page; reduced motion turns it off. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--duration-fast); animation-timing-function: var(--ease); }
+:is(body, main) > header:first-child { view-transition-name: chrome; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+/* quote: someone else's words, set apart by a stroke and the reading face; who said it below, small and muted */
+.quote { margin: 0; padding-left: var(--space-16); border-left: var(--stroke-thick) solid var(--line); display: grid; gap: var(--space-4); }
+.quote > blockquote { margin: 0; font: var(--prose); font-style: italic; color: var(--text); }
+.quote > blockquote > p { margin: 0; }
+.quote > figcaption { font: var(--small); color: var(--muted); }
+.quote > figcaption::before { content: "— "; }
+
+/* message: one sentence, or a bold title and a sentence; always floating (ui.js moves it into .toasts), always closable */
+.message { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-8) var(--space-16); align-items: start; padding: var(--space-16); padding-right: var(--space-8);
+  border-radius: var(--radius-panel); border: var(--stroke-thin) solid color-mix(in oklab, var(--c, var(--info)) var(--mix-edge), var(--surface)); background: color-mix(in oklab, var(--c, var(--info)) var(--mix-tint), var(--surface));
+  box-shadow: var(--shadow-floating); font: var(--body); color: var(--text); }
+.message > i { color: var(--c, var(--info)); translate: 0 var(--icon-nudge); }
 .message strong { font-weight: 600; }
-/* toast: the same, tinted, floating, always closable */
-.toast { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-8); align-items: baseline; padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16);
-  border-radius: var(--radius-control); background: color-mix(in oklab, var(--c, var(--info)) 14%, var(--surface)); box-shadow: var(--shadow-overlay);
-  font: var(--body); color: var(--text); max-width: 28rem; }
-.toast > i { color: var(--c, var(--info)); translate: 0 .125em; }
-.toast > span { padding-block: var(--space-4); }
-.toast > .button { align-self: start; }
+.message > .button { margin-block: calc(-1 * var(--space-4)); }
+.toasts { z-index: var(--layer-floating); }
+.message { transition: opacity var(--duration-slow) var(--ease), translate var(--duration-slow) var(--ease); } .message.closing { opacity: 0; translate: 0 var(--space-8); }
 
 /* table: hairline rows, numbers right, the header sorts */
 .data-table { width: 100%; border-collapse: collapse; font: var(--body); color: var(--text); }
@@ -165,14 +210,14 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .data-table :is(th, td) { padding: var(--space-8); border-bottom: var(--border); }
 .data-table :is(.number, .number a) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .data-table tfoot td { font-weight: 600; border-bottom: 0; }
-.data-table tbody tr:hover { background: color-mix(in oklab, var(--background), var(--text) 4%); }
+.data-table tbody tr:hover { background: color-mix(in oklab, var(--background), var(--text) var(--mix-tint)); }
 .data-table td a { color: inherit; }
 .data-table td code { font: inherit; white-space: nowrap; }
 
 /* row list: short lists of objects; one hairline row each */
 .row-list { list-style: none; margin: 0; padding: 0; font: var(--body); }
 .row-list > li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: var(--space-4) var(--space-16); align-items: center; padding: var(--space-8) 0; border-bottom: var(--border); }
-.row-list > li::before { content: ""; width: .5rem; height: .5rem; border-radius: 2px; background: var(--c, var(--disabled)); }
+.row-list > li::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--c, var(--disabled)); }
 .row-list a { color: var(--text); font-weight: 600; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row-list a:hover { text-decoration: underline; }
 .row-list .meta { font: var(--small); color: var(--muted); }
@@ -181,7 +226,7 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 
 /* empty state: what is missing, why, and the way on */
 .empty-state { display: grid; justify-items: center; gap: var(--space-8); padding: var(--space-32) var(--space-16); text-align: center; font: var(--body); color: var(--text); }
-.empty-state > i { font-size: 2rem; color: var(--muted); }
+.empty-state > i { font-size: var(--size-control); color: var(--muted); }
 .empty-state > strong { font-weight: 600; }
 .empty-state > span { color: var(--muted); max-width: 40ch; }
 .empty-state > .button { margin-top: var(--space-8); }
@@ -196,33 +241,38 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .tab-bar > a { display: inline-flex; align-items: center; gap: var(--space-8); padding: var(--space-8) var(--space-16); color: var(--muted); text-decoration: none; white-space: nowrap; }
 .tab-bar > a > i { font-size: 1em; }
 .tab-bar > a:hover { color: var(--text); }
-.tab-bar > a[aria-current] { color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
-.tab-bar > a:focus-visible { outline: var(--focus); outline-offset: calc(var(--focus-offset) * -1); }
+.tab-bar > a[aria-current] { color: var(--text); box-shadow: inset 0 calc(-1 * var(--stroke-thick)) 0 var(--accent); }
+.tab-bar > a:focus-visible { outline: var(--focus); outline-offset: calc(var(--stroke-thick) * -1); }
 
 /* pager: numbered links; the position in words */
 .page-nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); font: var(--body); }
 .page-nav > a { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4); box-sizing: border-box;
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); text-decoration: none; font-variant-numeric: tabular-nums; }
-.page-nav > a:hover { background: color-mix(in oklab, var(--surface), var(--text) 8%); }
+.page-nav > a:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
 .page-nav > a[aria-current] { background: var(--selected); border-color: var(--accent); color: var(--accent); }
 .page-nav > span { color: var(--muted); padding: 0 var(--space-4); }
 .page-nav > .position { margin-left: var(--space-8); font: var(--small); }
 
-/* bars: progress (a task running), meter (a ratio), ranked bars; 8 px, the fill in the accent or a state colour */
+/* bars: progress (a task running), meter (a ratio), ranked bars; 4 px, round ends, the fill in the accent or a state colour */
 .progress-bar, .meter-bar { display: grid; gap: var(--space-4); font: var(--small); color: var(--text); }
 :is(.progress-bar, .meter-bar) > .label { display: flex; justify-content: space-between; gap: var(--space-16); }
 :is(.progress-bar, .meter-bar) > .label > :last-child { font-variant-numeric: tabular-nums; }
-.bar-track { height: var(--space-8); border-radius: 2px; background: var(--line); overflow: hidden; }
-.bar-track > i { display: block; height: 100%; width: var(--value); background: var(--c, var(--accent)); transition: width var(--duration-slow) var(--ease); }
+.bar-track { height: var(--space-4); border-radius: var(--radius-round); background: var(--line); overflow: hidden; }
+.bar-track > i { display: block; height: 100%; width: var(--value); border-radius: inherit; background: var(--c, var(--accent)); transition: width var(--duration-slow) var(--ease);; animation: bar-fill var(--duration-slow) var(--ease) both; }
+/* a running task: a highlight sweeps the fill, so it visibly still works (slows with reduced motion, like the spinner) */
+.progress-bar .bar-track > i { background-image: linear-gradient(90deg, transparent, color-mix(in oklab, var(--text-on-accent) var(--mix-edge), transparent), transparent); background-size: 50% 100%; background-repeat: no-repeat;
+  animation: bar-fill var(--duration-slow) var(--ease) both, bar-sweep var(--duration-spin) linear infinite; }
+@keyframes bar-fill { from { width: 0; } }
+@keyframes bar-sweep { from { background-position: -100% 0; } to { background-position: 200% 0; } }
 .rank-bars { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: var(--space-8) var(--space-16); align-items: center; font: var(--small); }
 .rank-bars > .number { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* drop zone: files dragged here or chosen; always names what is allowed */
 .drop-zone { display: grid; justify-items: center; gap: var(--space-4); padding: var(--space-32) var(--space-16); text-align: center;
-  border: 1px dashed var(--muted); border-radius: var(--radius-panel); font: var(--body); color: var(--text); cursor: pointer;
+  border: var(--stroke-thin) dashed var(--muted); border-radius: var(--radius-panel); font: var(--body); color: var(--text); cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease); }
-.drop-zone > i { font-size: 1.5rem; color: var(--muted); }
+.drop-zone > i { font-size: var(--size-control); color: var(--muted); }
 .drop-zone > small { font: var(--small); color: var(--muted); }
 .drop-zone:hover, .drop-zone.dragging { border-color: var(--accent); background: var(--selected); }
-.drop-zone:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--focus-offset); }
+.drop-zone:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--stroke-thick); }
 .drop-zone > input { position: absolute; opacity: 0; width: 1px; height: 1px; }

@@ -45,6 +45,9 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 
 - Contrast: text 4.5:1 (3:1 from 24px or 18.66px bold), state graphics and field edges 3:1, placeholders 4.5:1. Muted text included.
 - Every control has a name (visible label, `aria-label`, or `title`); every image `alt` (decorative `alt=""`); ids unique; one `main`, one `h1` per page; `lang` and a title.
+- Links: internal links are accent and always underlined (thicker on hover, dimmer when visited); links to other sites have `target="_blank" rel="noopener"`, which also adds the external icon. Nothing else opens a new tab. Tabs, table heads, row titles and breadcrumbs underline only on hover.
+- Theme: auto, light, dark. Segmented control (icon + word) where there is room, one cycling icon button where not; switching is CSS alone (radios + `:has()`); the server renders the saved choice as the checked radio.
+- Modern CSS3 only: custom properties, `:has()`, container queries, `light-dark()`, `color-mix()`, view transitions; never JavaScript for what CSS can do (theme switch, toggles, page fades).
 - Targets at least 24×24 px or spaced; visible keyboard focus everywhere (`:focus-visible` outline, fields show it on their border); a skip link; dialogs are native `<dialog>`.
 - Never color alone: a state is a dot or glyph with `role="img" aria-label`, plus a word nearby. Respect `prefers-reduced-motion`.
 
