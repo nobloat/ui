@@ -52,12 +52,6 @@
 .fd-scale { position: relative; height: 2.2rem; margin: 3rem 0 .3rem; border-radius: var(--r); background: linear-gradient(to right in oklch, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-tick { position: absolute; left: var(--at); bottom: 100%; height: calc(var(--up) * 1.2rem + .3rem); border-left: 1px dashed var(--text); padding-left: .3rem; font-size: .75em; line-height: 1; white-space: nowrap; }
 .fd-ends { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.fd-pairs { width: 100%; border-collapse: collapse; font-size: .8em; }
-.fd-pairs th, .fd-pairs td { padding: .3rem .4rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
-.fd-pairs td.no { color: var(--muted); }
-.fd-pairs td.no s { text-decoration-thickness: 1px; }
-.fd-chip { display: inline-flex; align-items: center; gap: .35rem; padding: .1rem .4rem; border-radius: var(--r); background: var(--on); color: var(--text-s); white-space: nowrap; }
-.fd-chip i.dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--text-s); }
 @media (max-width: 40rem) { .fd-modes { grid-template-columns: minmax(0,1fr); } }
 </style>
 </head>
@@ -105,15 +99,6 @@
 <span class="fd-c" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 </div>
-<h3>Pairs</h3>
-<table class="fd-pairs keep"><thead><tr><th>on</th><th>allowed</th><th>not allowed</th></tr></thead><tbody>
-<tr data-on="background" data-fg="text muted accent ok warn error info disabled line"><th>background</th><td></td><td class="no"></td></tr>
-<tr data-on="surface" data-fg="text muted accent ok warn error info disabled line"><th>surface</th><td></td><td class="no"></td></tr>
-<tr data-on="line" data-fg="text muted accent ok warn error info disabled"><th>line</th><td></td><td class="no"></td></tr>
-<tr data-on="selected" data-fg="text muted accent ok warn error info disabled line"><th>selected</th><td></td><td class="no"></td></tr>
-<tr data-on="accent" data-fg="text-on-accent"><th>accent</th><td></td><td class="no"></td></tr>
-<tr data-on="danger" data-fg="text-on-danger"><th>danger</th><td></td><td class="no"></td></tr>
-</tbody></table>
 </section>
 <section class="fd fd-dark" aria-label="dark">
 <h3>Neutrals</h3>
@@ -149,20 +134,11 @@
 <span class="fd-c" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 </div>
-<h3>Pairs</h3>
-<table class="fd-pairs keep"><thead><tr><th>on</th><th>allowed</th><th>not allowed</th></tr></thead><tbody>
-<tr data-on="background" data-fg="text muted accent ok warn error info disabled line"><th>background</th><td></td><td class="no"></td></tr>
-<tr data-on="surface" data-fg="text muted accent ok warn error info disabled line"><th>surface</th><td></td><td class="no"></td></tr>
-<tr data-on="line" data-fg="text muted accent ok warn error info disabled"><th>line</th><td></td><td class="no"></td></tr>
-<tr data-on="selected" data-fg="text muted accent ok warn error info disabled line"><th>selected</th><td></td><td class="no"></td></tr>
-<tr data-on="accent" data-fg="text-on-accent"><th>accent</th><td></td><td class="no"></td></tr>
-<tr data-on="danger" data-fg="text-on-danger"><th>danger</th><td></td><td class="no"></td></tr>
-</tbody></table>
 </section>
 </div>
 </main>
 <script>
-// Computed colours to hex and contrast, per half (each half has its own color-scheme).
+// Computed colours as hex and oklch, per half (each half has its own color-scheme).
 const fdPaint = () => {
   const cv = document.createElement('canvas').getContext('2d', {willReadFrequently: true});
   const rgb = c => { cv.clearRect(0, 0, 1, 1); cv.fillStyle = '#000'; cv.fillStyle = c; cv.fillRect(0, 0, 1, 1); return [...cv.getImageData(0, 0, 1, 1).data].slice(0, 3); };
@@ -172,28 +148,16 @@ const fdPaint = () => {
     const C = Math.hypot(A, B), H = C < .002 ? 0 : (Math.atan2(B, A) * 180 / Math.PI + 360) % 360;
     return `oklch(${L.toFixed(3)} ${C.toFixed(3)} ${H.toFixed(1)})`; };
   const hex = a => '#' + a.map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
-  const lum = a => { const [r, g, b] = a.map(x => { x /= 255; return x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4; }); return .2126 * r + .7152 * g + .0722 * b; };
-  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + .05) / (y + .05); };
   for (const half of document.querySelectorAll('.fd')) {
     const probe = document.createElement('i'); half.append(probe);
     const val = n => { probe.style.color = `var(--${n})`; return rgb(getComputedStyle(probe).color); };
     for (const c of half.querySelectorAll('[data-v]')) { const v = val(c.dataset.v.slice(2)), [h, o] = c.querySelectorAll('button'); h.textContent = hex(v); o.textContent = oklch(v); };
-    for (const tr of half.querySelectorAll('[data-on]')) {
-      const on = tr.dataset.on, bg = val(on), [yes, no] = tr.querySelectorAll('td');
-      for (const f of tr.dataset.fg.split(' ')) {
-        const r = ratio(val(f), bg), dot = ['ok', 'warn', 'error', 'info', 'disabled'].includes(f);
-        const pass = f !== 'line' && r >= 4.5;
-        const s = document.createElement('span'); s.className = 'fd-chip'; s.style.cssText = `--on:var(--${on});--text-s:var(--${f})`;
-        s.innerHTML = (dot ? '<i class="dot"></i>' : '') + `${f} ${(Math.floor(r * 10) / 10).toFixed(1)}`;
-        (pass ? yes : no).append(pass ? s : Object.assign(document.createElement('s'), {textContent: `${f} ${(Math.floor(r * 10) / 10).toFixed(1)}`}), ' ');
-      }
-    }
     probe.remove();
   }
 };
 const fdBrand = document.getElementById('fd-brand');
 fdBrand.addEventListener('input', () => { for (const h of document.querySelectorAll('.fd')) h.style.setProperty('--brand', fdBrand.value);
-  for (const el of document.querySelectorAll('.fd-pairs td')) el.textContent = ''; fdPaint(); });
+  fdPaint(); });
 fdPaint();
 document.addEventListener('click', e => { const b = e.target.closest('.fd .copy'); if (!b) return;
   navigator.clipboard.writeText(b.textContent); b.classList.add('done'); setTimeout(() => b.classList.remove('done'), 1200); });
