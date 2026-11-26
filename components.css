@@ -17,8 +17,8 @@ main, .cp-phone { container-type: inline-size; }
 .button:not(:disabled):is(:active, .is-active) { background: var(--pressed); }
 .button:is(:focus-visible, .is-focus) { outline: var(--focus); outline-offset: var(--focus-offset); }
 
-/* filled: one strong action; text in 600 */
-.button:is(.primary, .danger) { border-color: transparent; font-weight: 600; }
+/* filled: one strong action; the fill carries the weight, the text stays 400 */
+.button:is(.primary, .danger) { border-color: transparent; }
 .button.primary { background: var(--accent); color: var(--text-on-accent);
   --hover: color-mix(in oklab, var(--accent), var(--text) 15%); --pressed: color-mix(in oklab, var(--accent), var(--text) 28%); }
 .button.danger { background: var(--danger); color: var(--text-on-danger);
