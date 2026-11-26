@@ -138,3 +138,4 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .rl-hero > .mark { height: 8rem; width: auto; } .rl-hero > .mark path { stroke: var(--muted); } .rl-hero > .mark text { fill: var(--text); }
 .rl-hero > h1 { margin: 0; }
 .rl-doc > .rl-motto { margin-block: calc(2 * var(--space-32)); font: var(--heading); font-size: 3rem; font-weight: 400; font-style: italic; line-height: 1.2; text-align: center; } /* the motto, large, no quote frame */
+.rl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } /* the page title, for screen readers and the tab only */
