@@ -6,7 +6,7 @@ Rules for any agent working on the nobloat design system. Read all of it before 
 
 A reusable, sustainable design system to design new nobloat apps quickly, UI and UX.
 
-- **Working surface: `foundations.html`** in the repo root, a plain HTML page (open it in a browser, nothing to build). Each foundation is a section (Colours, Typography, then Spacing, Radius and borders, Sizes, Layout, Elevation, Motion), linked from the sticky bar at the top. Components follow on the same principle once the foundations are complete.
+- **Working surface: `foundations.html` and `components.html`** in the repo root (tokens in `foundations.css`, components in `components.css`, the page frame in `showcase.css`/`showcase.js`), a plain HTML page (open it in a browser, nothing to build). Each foundation is a section (Colours, Typography, then Spacing, Radius and borders, Sizes, Layout, Elevation, Motion), linked from the sticky bar at the top. Components follow on the same principle once the foundations are complete.
 - **Penpot is paused.** The Penpot file nobloat-ui and the generator in `penpot/` are not developed further; the pitfalls at the end stay for reference.
 - **Source of truth:** until the foundations are complete, `skill/SKILL.md`, `README.md` and `ui.css` stay the source of truth for the apps, and `foundations.html` is the proposal. Every rule in `SKILL.md` is carried into this file, so nothing is lost. When the foundations are complete, `ui.css` is streamlined once to match `foundations.html` (old token names as temporary aliases, then every app via `make ui`), and this file becomes the source of truth.
 - `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of design system work unless the owner asks.
@@ -131,10 +131,17 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [x] Typography
 - [x] Spacing
 - [x] Radius and borders
-- [ ] Sizes (controls, targets, icons)
+- [x] Sizes (controls, targets, icons)
 - [ ] Layout (page width, breakpoint, margins)
 - [ ] Elevation
 - [ ] Motion
+**Components** (in `components.html`, styles in `components.css`, built only from `foundations.css`)
+- [x] Button (default, primary, danger, icon-only, small; states shown once)
+- [ ] Field (text, select, textarea; label, hint, error)
+- [ ] Checkbox, radio, segmented
+- [ ] Status (dot and word, pill)
+- [ ] Chip, tag, badge, kbd, id with copy
+
 - [ ] Streamline `ui.css` to the foundations, roll out with `make ui`
 
 Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, message, toast, menu item, nav item, tab, avatar.

@@ -1,0 +1,32 @@
+/* nobloat components: built only from the tokens in foundations.css. Proposal; moves into ui.css at the streamlining. */
+
+/* button: always an icon before the text; one primary per page; states are not variants */
+.button {
+  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
+  height: var(--size-control); min-width: var(--size-control); padding: 0 var(--space-16);
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
+  font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
+}
+.button > i { font-size: var(--size-icon); }
+.button:not(:disabled):is(:hover, .is-hover) { background: var(--line); }
+.button:not(:disabled):is(:active, .is-active) { background: color-mix(in oklab, var(--line), var(--text) 12%); }
+.button:is(:focus-visible, .is-focus) { outline: var(--focus); outline-offset: var(--focus-offset); }
+
+.button.primary { background: var(--accent); border-color: transparent; color: var(--text-on-accent); }
+.button.primary:not(:disabled):is(:hover, .is-hover) { background: color-mix(in oklab, var(--accent), var(--text) 15%); }
+.button.primary:not(:disabled):is(:active, .is-active) { background: color-mix(in oklab, var(--accent), var(--text) 28%); }
+
+.button.danger { background: var(--danger); border-color: transparent; color: var(--text-on-danger); }
+.button.danger:not(:disabled):is(:hover, .is-hover) { background: color-mix(in oklab, var(--danger), black 15%); }
+.button.danger:not(:disabled):is(:active, .is-active) { background: color-mix(in oklab, var(--danger), black 28%); }
+
+.button.small { height: var(--size-control-small); min-width: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
+.button.icon-only { width: var(--size-control); padding: 0; border-radius: var(--radius-round); }
+.button.icon-only.small { width: var(--size-control-small); }
+
+.button:disabled { opacity: .45; cursor: not-allowed; }
+/* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
+.button[aria-busy="true"] { cursor: progress; } .button[aria-busy="true"]::after { content: none; }
+.button[aria-busy="true"] > i { mask: none; background: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: button-spin .8s linear infinite; }
+@keyframes button-spin { to { rotate: 1turn; } }
+@media (prefers-reduced-motion: reduce) { .button[aria-busy="true"] > i { animation-duration: 2.4s; } }

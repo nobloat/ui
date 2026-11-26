@@ -1,0 +1,33 @@
+/* nobloat foundations: the tokens. Proposal; ui.css is streamlined to match once the foundations are done.
+   light-dark() resolves where a colour is used, so a panel can set its own color-scheme. */
+:root {
+  /* colours: three sources per mode, the rest derived (neutral mixes in OKLab keep greys grey) */
+  --background: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --text: light-dark(#1b1c1e, #e5e5e4);
+  --line: color-mix(in oklab, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
+  --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
+  --brand: #0a5fc7; /* the one colour an app sets */
+  /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
+  --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
+  --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
+  --text-on-accent: light-dark(#fff, var(--background));
+  /* states: one colour for both modes, for dots, icons and edges; the word next to it stays in --text */
+  --ok: #5f8a2e; --warn: #c2620a; --danger: #dc2626; --info: #3b82f6; --disabled: #7c7c85;
+  --text-on-danger: #fff;
+  /* typography: emphasis is weight 600, never another size */
+  --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
+  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 .9375rem/1.65 ui-serif, serif;
+  /* spacing: four steps, each double the last */
+  --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
+  /* radius and borders: three corners, one line, one focus ring */
+  --radius-control: .375rem; --radius-panel: .75rem; --radius-round: 999px;
+  --border: 1px solid var(--line); --border-field: 1px solid var(--muted); --focus: 2px solid var(--accent); --focus-offset: 2px;
+  /* sizes */
+  --size-control: 2.5rem; --size-control-small: 1.75rem; --size-target: 1.5rem; --size-icon: 1rem;
+  --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
+}
+
+/* type roles as classes: a role is more than a font */
+.t-title { font: var(--title); } .t-heading { font: var(--heading); } .t-subheading { font: var(--subheading); }
+.t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
+.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: 70ch; }
+.t-prose strong { font-weight: 600; }

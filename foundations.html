@@ -6,97 +6,13 @@
 <title>Foundations · nobloat/ui</title>
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="ui.css">
-<style>
-/* Foundations, proposal: defined here only; ui.css is streamlined to match once all foundations are done.
-   light-dark() resolves where a colour is used, so each colour panel sets its own color-scheme. */
-:root {
-  /* colours: three sources per mode, the rest derived (neutral mixes in OKLab keep greys grey) */
-  --background: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --text: light-dark(#1b1c1e, #e5e5e4);
-  --line: color-mix(in oklab, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
-  --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
-  --brand: #0a5fc7; /* the one colour an app sets */
-  /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
-  --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
-  --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
-  --text-on-accent: light-dark(#fff, var(--background));
-  /* states: one colour for both modes, for dots, icons and edges; the word next to it stays in --text */
-  --ok: #5f8a2e; --warn: #c2620a; --danger: #dc2626; --info: #3b82f6; --disabled: #7c7c85;
-  --text-on-danger: #fff;
-  /* typography: emphasis is weight 600, never another size */
-  --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
-  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 .9375rem/1.65 ui-serif, serif;
-  /* spacing: four steps, each double the last */
-  --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
-  /* radius and borders: three corners, one line, one focus ring */
-  --radius-control: .375rem; --radius-panel: .75rem; --radius-round: 999px;
-  --border: 1px solid var(--line); --border-field: 1px solid var(--muted); --focus: 2px solid var(--accent); --focus-offset: 2px;
-  --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
-}
-:root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; } /* "both" follows the system */
-html { background: var(--background); } body { background: transparent; max-width: 104rem; } /* the canvas repaints on a live switch */
-
-/* type roles as classes: a role is more than a font */
-.t-title { font: var(--title); } .t-heading { font: var(--heading); } .t-subheading { font: var(--subheading); }
-.t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
-.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: 70ch; }
-.t-prose strong { font-weight: 600; }
-/* wrapping rules */
-.fd-ty p { hyphens: auto; text-wrap: pretty; max-width: 70ch; }
-.fd-ty :is(h2, h3) { hyphens: auto; text-wrap: balance; } .fd-ty :is(button, label, code, .fd-n) { hyphens: manual; }
-.fd-ty { overflow-wrap: anywhere; }
-
-/* page */
-.fd-title { margin: 0 0 var(--space-16); }
-.fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; padding: var(--space-16) 0; margin-bottom: var(--space-32); background: var(--background); border-bottom: var(--border); font: var(--body); }
-.fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
-.fd-tools { margin-left: auto; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; }
-.fd-pick label { display: inline-flex; align-items: center; gap: var(--space-16); cursor: pointer; }
-.fd-pick input { width: 4.5rem; height: 2.2rem; padding: 3px; border: var(--border); border-radius: var(--radius-control); background: var(--surface); cursor: pointer; }
-.fd-pick input::-webkit-color-swatch-wrapper { padding: 0; } .fd-pick input::-webkit-color-swatch { border: 0; border-radius: calc(var(--radius-control) - 2px); }
-.fd-pick input::-moz-color-swatch { border: 0; border-radius: calc(var(--radius-control) - 2px); }
-.fd-sec { scroll-margin-top: 5rem; margin-bottom: calc(var(--space-32) * 2); }
-.fd-sec > h2 { color: var(--text); letter-spacing: 0; text-transform: none; margin: 0 0 var(--space-16); }
-.fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-32); }
-body:has(#fd-light:checked) .fd-dark, body:has(#fd-dark:checked) .fd-light { display: none; }
-body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns: minmax(0,1fr); }
-.fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
-.fd { background: var(--background); color: var(--text); border: var(--border); border-radius: var(--radius-panel); padding: var(--space-32); min-width: 0; }
-.fd h3 { margin: var(--space-32) 0 var(--space-16); } .fd h3:first-of-type { margin-top: var(--space-4); }
-
-/* colour rows */
-.fd-col { display: grid; gap: var(--space-16); justify-items: start; }
-.fd-c { display: flex; align-items: center; gap: var(--space-16); min-width: 0; font: var(--body); }
-.fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--radius-control); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
-.fd-n { min-width: 10.5rem; }
-.fd-v { display: flex; gap: var(--space-4) var(--space-32); flex-wrap: wrap; }
-.fd-v .fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; padding: 0; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
-.fd-copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: var(--space-4); vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
-.fd-copy:hover, .fd-copy:focus-visible { color: var(--text); text-decoration: underline; } .fd-copy:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
-.fd-copy.done::after { content: " ✓"; color: var(--ok); }
-.fd-down { display: flex; align-items: center; gap: var(--space-8); height: 2rem; margin: calc(var(--space-4) * -1) 0; padding-left: 1.75rem; font: var(--small); color: var(--muted); }
-.fd-down svg { width: 1rem; height: 100%; overflow: visible; }
-.fd-down line { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 3 3; }
-.fd-down path { stroke: var(--muted); stroke-width: 1.25; fill: none; }
-.fd-scale { position: relative; height: 3rem; margin: calc(var(--space-32) * 2) 0 var(--space-8); border-radius: var(--radius-control); background: linear-gradient(to right in oklab, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
-.fd-tick { position: absolute; left: var(--at); bottom: 100%; height: 1.5rem; border-left: 1px dashed var(--muted); padding-left: var(--space-8); font: var(--small); line-height: 1; white-space: nowrap; }
-.fd-ends { display: flex; justify-content: space-between; gap: var(--space-16); margin-bottom: var(--space-16); font: var(--small); color: var(--muted); }
-
-/* typography and spacing rows */
-.ty-list { display: grid; }
-.ty-r { display: grid; grid-template-columns: 10.5rem minmax(0, 38rem) auto; column-gap: var(--space-32); align-items: first baseline; padding: var(--space-16) 0; border-bottom: var(--border); font: var(--body); }
-.ty-r:last-child { border-bottom: 0; } .ty-rule { grid-column: 1 / 3; } .ty-sample { min-width: 0; }
-.ty-mock { columns: 3 22rem; column-gap: var(--space-32); column-rule: var(--border); padding: var(--space-32); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); }
-.ty-mock p { margin: 0 0 var(--space-16); } .ty-mock .ty-end { column-span: all; margin: var(--space-8) 0 0; padding-top: var(--space-16); border-top: var(--border); }
-.rb-s { display: flex; align-items: center; gap: var(--space-16); } .rb-box { flex: none; width: 4.5rem; height: 2.2rem; background: var(--surface); border: var(--border); }
-.sp-bar { display: flex; align-items: center; gap: var(--space-16); } .sp-bar i { flex: none; height: var(--space-16); background: var(--accent); border-radius: 2px; }
-@media (max-width: 50rem) { .ty-r { grid-template-columns: minmax(0,1fr); row-gap: var(--space-4); } .ty-rule { grid-column: auto; } }
-@media (max-width: 40rem) { .fd-modes { grid-template-columns: minmax(0,1fr); } }
-</style>
+<link rel="stylesheet" href="foundations.css">
+<link rel="stylesheet" href="showcase.css">
 </head>
 <body>
 <main id="main">
 <h1 class="fd-title t-title">Foundations</h1>
-<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><a href="#radius">Radius and borders</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<nav class="fd-bar" aria-label="Sections"><a href="components.html">Components</a><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><a href="#radius">Radius and borders</a><a href="#sizes">Sizes</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
 <div class="seg" role="radiogroup" aria-label="Modes">
 <label><input type="radio" name="fd-mode" id="fd-both" checked><i class="icon-columns" aria-hidden="true"></i> both</label>
 <label><input type="radio" name="fd-mode" id="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
@@ -213,7 +129,17 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 </div>
 </div>
 </section>
+<section id="sizes" class="fd-sec"><h2 class="t-heading">Sizes</h2>
+<div class="fd fd-ty">
+<div class="ty-list"><div class="ty-r"><span class="fd-n">size-control</span><span class="rb-s"><i class="rb-box" style="height:var(--size-control);width:var(--size-control)"></i><span class="t-small">buttons, fields, segmented, round icon buttons</span></span><span class="fd-v"><button type="button" class="fd-copy">2.5rem</button><button type="button" class="fd-copy">40px</button></span></div>
+<div class="ty-r"><span class="fd-n">size-control-small</span><span class="rb-s"><i class="rb-box" style="height:var(--size-control-small);width:var(--size-control-small)"></i><span class="t-small">small buttons and fields in dense rows</span></span><span class="fd-v"><button type="button" class="fd-copy">1.75rem</button><button type="button" class="fd-copy">28px</button></span></div>
+<div class="ty-r"><span class="fd-n">size-target</span><span class="rb-s"><i class="rb-box" style="height:var(--size-target);width:var(--size-target)"></i><span class="t-small">smallest clickable area (WCAG 2.5.8)</span></span><span class="fd-v"><button type="button" class="fd-copy">1.5rem</button><button type="button" class="fd-copy">24px</button></span></div>
+<div class="ty-r"><span class="fd-n">size-icon</span><span class="rb-s"><i class="rb-box" style="height:var(--size-icon);width:var(--size-icon)"></i><span class="t-small">icons; they scale with the text</span></span><span class="fd-v"><button type="button" class="fd-copy">1rem</button><button type="button" class="fd-copy">16px</button></span></div>
+</div>
+</div>
+</section>
 </main>
+<script src="showcase.js"></script>
 <script>
 // Computed colours as hex and oklch, per half (each half has its own color-scheme).
 const fdPaint = () => {
@@ -232,12 +158,8 @@ const fdPaint = () => {
     probe.remove();
   }
 };
-const fdBrand = document.getElementById('fd-brand');
-fdBrand.addEventListener('input', () => { document.documentElement.style.setProperty('--brand', fdBrand.value);
-  fdPaint(); });
+document.getElementById('fd-brand').addEventListener('input', fdPaint);
 fdPaint();
-document.addEventListener('click', e => { const b = e.target.closest('.fd-copy'); if (!b) return;
-  navigator.clipboard.writeText(b.textContent).then(() => { b.classList.add('done'); setTimeout(() => b.classList.remove('done'), 1200); }); });
 </script>
 </body>
 </html>

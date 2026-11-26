@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Components · nobloat/ui</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="foundations.css">
+<link rel="stylesheet" href="showcase.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<main id="main">
+<h1 class="fd-title t-title">Components</h1>
+<nav class="fd-bar" aria-label="Sections"><a href="foundations.html">Foundations</a><a href="#button">Button</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<div class="seg" role="radiogroup" aria-label="Modes">
+<label><input type="radio" name="fd-mode" id="fd-both" checked><i class="icon-columns" aria-hidden="true"></i> both</label>
+<label><input type="radio" name="fd-mode" id="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
+<label><input type="radio" name="fd-mode" id="fd-dark"><i class="icon-moon" aria-hidden="true"></i> dark</label>
+</div></div></nav>
+<section id="button" class="fd-sec"><h2 class="t-heading">Button</h2>
+<div class="fd fd-ty">
+<h3 class="t-subheading">Variants</h3>
+<div class="ty-list"><div class="ty-r cp-r"><span class="fd-n">default</span><span class="cp-ex"><button type="button" class="button"><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">actions</span></span><span class="fd-v"><button type="button" class="fd-copy" data-copy="<button type=&quot;button&quot; class=&quot;button&quot;><i class=&quot;icon-edit&quot; aria-hidden=&quot;true&quot;></i> Edit</button>">HTML</button></span></div>
+<div class="ty-r cp-r"><span class="fd-n">primary</span><span class="cp-ex"><button type="button" class="button primary"><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">the one main action of a page</span></span><span class="fd-v"><button type="button" class="fd-copy" data-copy="<button type=&quot;button&quot; class=&quot;button primary&quot;><i class=&quot;icon-check&quot; aria-hidden=&quot;true&quot;></i> Save</button>">HTML</button></span></div>
+<div class="ty-r cp-r"><span class="fd-n">danger</span><span class="cp-ex"><button type="button" class="button danger"><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">destructive, always confirms</span></span><span class="fd-v"><button type="button" class="fd-copy" data-copy="<button type=&quot;button&quot; class=&quot;button danger&quot;><i class=&quot;icon-trash&quot; aria-hidden=&quot;true&quot;></i> Delete</button>">HTML</button></span></div>
+<div class="ty-r cp-r"><span class="fd-n">icon-only</span><span class="cp-ex"><button type="button" class="button icon-only" aria-label="Settings" title="Settings"><i class="icon-cog" aria-hidden="true"></i></button><span class="t-small">round; name in aria-label and title</span></span><span class="fd-v"><button type="button" class="fd-copy" data-copy="<button type=&quot;button&quot; class=&quot;button icon-only&quot; aria-label=&quot;Settings&quot; title=&quot;Settings&quot;><i class=&quot;icon-cog&quot; aria-hidden=&quot;true&quot;></i></button>">HTML</button></span></div>
+<div class="ty-r cp-r"><span class="fd-n">small</span><span class="cp-ex"><button type="button" class="button small"><i class="icon-plus" aria-hidden="true"></i> Add</button> <button type="button" class="button small icon-only" aria-label="More" title="More"><i class="icon-more" aria-hidden="true"></i></button><span class="t-small">dense rows, tables</span></span><span class="fd-v"><button type="button" class="fd-copy" data-copy="<button type=&quot;button&quot; class=&quot;button small&quot;><i class=&quot;icon-plus&quot; aria-hidden=&quot;true&quot;></i> Add</button> <button type=&quot;button&quot; class=&quot;button small icon-only&quot; aria-label=&quot;More&quot; title=&quot;More&quot;><i class=&quot;icon-more&quot; aria-hidden=&quot;true&quot;></i></button>">HTML</button></span></div>
+</div>
+<h3 class="t-subheading">States</h3>
+<div class="cp-states"><span class="cp-st"><button type="button" class="button" tabindex="-1"><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">default</span></span><span class="cp-st"><button type="button" class="button is-hover" tabindex="-1"><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">hover</span></span><span class="cp-st"><button type="button" class="button is-focus" tabindex="-1"><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">focus</span></span><span class="cp-st"><button type="button" class="button is-active" tabindex="-1"><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">pressed</span></span><span class="cp-st"><button type="button" class="button" disabled><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">disabled</span></span><span class="cp-st"><button type="button" class="button" aria-busy="true"><i class="icon-edit" aria-hidden="true"></i> Edit</button><span class="t-small">busy</span></span></div>
+<div class="cp-states"><span class="cp-st"><button type="button" class="button primary" tabindex="-1"><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">default</span></span><span class="cp-st"><button type="button" class="button primary is-hover" tabindex="-1"><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">hover</span></span><span class="cp-st"><button type="button" class="button primary is-focus" tabindex="-1"><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">focus</span></span><span class="cp-st"><button type="button" class="button primary is-active" tabindex="-1"><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">pressed</span></span><span class="cp-st"><button type="button" class="button primary" disabled><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">disabled</span></span><span class="cp-st"><button type="button" class="button primary" aria-busy="true"><i class="icon-check" aria-hidden="true"></i> Save</button><span class="t-small">busy</span></span></div>
+<div class="cp-states"><span class="cp-st"><button type="button" class="button danger" tabindex="-1"><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">default</span></span><span class="cp-st"><button type="button" class="button danger is-hover" tabindex="-1"><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">hover</span></span><span class="cp-st"><button type="button" class="button danger is-focus" tabindex="-1"><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">focus</span></span><span class="cp-st"><button type="button" class="button danger is-active" tabindex="-1"><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">pressed</span></span><span class="cp-st"><button type="button" class="button danger" disabled><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">disabled</span></span><span class="cp-st"><button type="button" class="button danger" aria-busy="true"><i class="icon-trash" aria-hidden="true"></i> Delete</button><span class="t-small">busy</span></span></div>
+<h3 class="t-subheading">Rules</h3>
+<div class="ty-list"><div class="ty-r"><span class="ty-rule">every button has an icon before its text; icon-only buttons are round and named (aria-label, title)</span></div>
+<div class="ty-r"><span class="ty-rule">at most one primary button per page</span></div>
+<div class="ty-r"><span class="ty-rule">danger always asks for confirmation, naming the object and the consequence</span></div>
+<div class="ty-r"><span class="ty-rule">one height: size-control (40 px); small (28 px) only in dense rows</span></div>
+<div class="ty-r"><span class="ty-rule">states are shown, never picked: hover, focus, pressed, disabled, busy</span></div>
+</div>
+</div>
+</section>
+</main>
+<script src="showcase.js"></script>
+</body>
+</html>
