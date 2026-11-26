@@ -54,8 +54,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 | 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token.css` | – |
 | 1 | Components: button, forms, labels (incl. avatar), feedback, data, navigation and upload | `components.css` | tokens |
 | 2 | Composed parts: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette | `composed.css` | components |
-| 3 | Shell: app header (logo, commands, user menu), app footer, nav, breadcrumbs and page head, phone layout | `shell.css` | composed parts |
-| 4 | Page templates: list, detail, form, dashboard, settings; login and errors are the shell without nav and user menu | the old gallery until it is replaced | shell and composed parts |
+| 3 | Shell: app header (logo, commands, user menu), nav, page head, footer, phone layout, and the page templates it frames (list, detail, form, dashboard, settings; login and errors are the shell without nav and user menu) | `shell.css`, `shell.html`; templates in `partials.html` | composed parts |
 | – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
 
 - **One shell** for every app; no second frame. Apps are outside `ui/` and fill the templates.
@@ -107,6 +106,8 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Changelog**: every app has one, every version an entry with its date, written for users in plain words: what you can do now, what works differently, what was fixed as you saw it. No technical detail: no refactors, dependencies, commit hashes or internal names.
 - **Avatar**: a person is a round picture, or the initial where there is none, always with the name beside it or in its label; 40 px, small (24 px) in rows.
 - **Nav**: the app's places as a tab bar inside the header under its row: icon, name, a badge for what waits; no keys (every place is in the palette); the current place underlined in the accent. On phones it scrolls sideways; every place is also in the palette. Settings is never a nav item.
+- **Installable**: every app is a PWA: `manifest.webmanifest`, `app-icon.svg`, `app-icon-192.png`, `app-icon-512.png` (also maskable) and `app-icon.png` (180, Apple) in its `web/static/`, written by `ui/appicon.sh` from the app's char and colour and committed; `partials.html` links them. No service worker for installing; apps that work offline bring their own.
+- **App icon**: the mark in white on a full square in the brand colour (the platform rounds or masks it), the mark inside the middle 60 %. Favicon: the mark alone (`favicon.svg`). Logo: mark and app name. One source: the mark; never drawn separately.
 - **Title tag**: `{page} · {app}`, most specific first (tabs cut from the right; the favicon names the app): `Invoices · bill`, `INV-2026-0042 · bill`, `New invoice · bill`, `404 · Not found · bill`, `Sign in · bill`. The page part is the h1 without its state; a custom brand puts `Brand.Name` for the app. A count first, `(3) Invoices · bill`, only for what waits.
 - **Breadcrumbs** on every page below the top level, current page last without a link; phones show "← parent".
 - **Page head**: title and the page's actions right of it (under it on phones). Actions never sit alone at the bottom; only a form's submit sits at its end.
