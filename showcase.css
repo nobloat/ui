@@ -76,3 +76,4 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 .cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); gap: var(--space-16) var(--space-32); align-items: start; }
 .cp-fields .field { max-width: none; } .cp-fields .t-small { margin-top: var(--space-4); }
 .cp-cap { display: flex; gap: var(--space-16); align-items: baseline; flex-wrap: wrap; } .cp-fields > div > .cp-cap:first-child { margin-bottom: var(--space-8); color: var(--text); }
+.choice > input.is-focus { outline: var(--focus); outline-offset: var(--focus-offset); }

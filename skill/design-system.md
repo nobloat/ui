@@ -140,7 +140,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 **Components** (in `components.html`, styles in `components.css`, built only from `foundations.css`)
 - [x] Button (default, primary, danger, quiet, toggle, icon-only, small, key hint, group; phone: icon only and full-width primary; states shown once)
 - [x] Field (text, select, textarea; label, hint, error; focus and error on the border; read-only dashed)
-- [ ] Checkbox, radio, segmented
+- [x] Checkbox, radio, segmented (choice with label, whole row the target; segmented on radios)
 - [ ] Status (dot and word, pill)
 - [ ] Chip, tag, badge, kbd, id with copy
 
