@@ -7,7 +7,7 @@
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="ui.css">
 <style>
-:root { --jumbo: 600 64px/1.05 var(--mono); --title: 600 28px/1.2 var(--mono); --heading: 600 20px/1.2 var(--mono); --subheading: 600 16px/1.2 var(--mono); --body: 400 14px/1.6 var(--mono); --small: 400 12px/1.6 var(--mono); } /* typography roles; number = body + tabular-nums */
+:root { --title: 600 28px/1.2 var(--mono); --heading: 600 20px/1.2 var(--mono); --body: 400 14px/1.6 var(--mono); --small: 400 12px/1.6 var(--mono); } /* typography roles; emphasis = 600, no other sizes */
 /* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
    everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
 .fd {
@@ -35,21 +35,21 @@
 .fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.5rem; }
 body:has(#fd-light:checked) .fd-dark, body:has(#fd-dark:checked) .fd-light { display: none; }
 body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns: minmax(0,1fr); }
-.fd-title { font: var(--jumbo); margin: 0 0 1rem; }
+.fd-title { font: var(--title); margin: 0 0 1rem; }
 .fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 1rem 1.75rem; flex-wrap: wrap; padding: .8rem 0; margin-bottom: 1.5rem; background: var(--bg); border-bottom: 1px solid var(--line); }
 .fd-bar { font: var(--body); } .fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
 .fd-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; }
-.fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font: var(--title); color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
+.fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font: var(--heading); color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
 .fd-ty { color-scheme: light; } body:has(#fd-dark:checked) .fd-ty { color-scheme: dark; }
 .ty-s, .ty-r { display: flex; align-items: center; gap: 1.1rem; font: var(--body); }
 .ty-aa { width: 4.5rem; line-height: 1; font-weight: 600; }
 .ty-roles { gap: 1.4rem; } .ty-r { align-items: baseline; flex-wrap: wrap; }
 .ty-sample { flex: 0 0 26rem; max-width: 100%; min-width: 0; overflow-wrap: anywhere; }
-.ty-muted { color: var(--muted); } .ty-num { font-variant-numeric: tabular-nums; }
+.ty-muted { color: var(--muted); } .ty-mock strong { font-weight: 600; }
 .ty-mock { display: grid; gap: .7rem; max-width: 40rem; } .ty-mock p { margin: 0; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
 .fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.75rem 2rem 2rem; min-width: 0; }
-.fd h3 { margin: 2.6rem 0 1.1rem; font: var(--heading); } .fd h3:first-of-type { margin-top: .2rem; }
+.fd h3 { margin: 2.6rem 0 1.1rem; font: var(--body); font-weight: 600; } .fd h3:first-of-type { margin-top: .2rem; }
 .fd-col { display: grid; gap: .8rem; justify-items: start; }
 .fd-c { display: flex; align-items: center; gap: 1.1rem; min-width: 0; font: var(--body); }
 .fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--r); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
@@ -149,22 +149,19 @@ body { max-width: 104rem; }
 <h3>Scale</h3>
 <div class="fd-col"><div class="ty-s"><span class="ty-aa" style="font-size:12px">Aa</span><span class="fd-n">12 px</span><span class="fd-v"><button type="button" class="copy">12px</button><button type="button" class="copy">0.75rem</button></span></div>
 <div class="ty-s"><span class="ty-aa" style="font-size:14px">Aa</span><span class="fd-n">14 px</span><span class="fd-v"><button type="button" class="copy">14px</button><button type="button" class="copy">0.875rem</button></span></div>
-<div class="ty-s"><span class="ty-aa" style="font-size:16px">Aa</span><span class="fd-n">16 px</span><span class="fd-v"><button type="button" class="copy">16px</button><button type="button" class="copy">1rem</button></span></div>
 <div class="ty-s"><span class="ty-aa" style="font-size:20px">Aa</span><span class="fd-n">20 px</span><span class="fd-v"><button type="button" class="copy">20px</button><button type="button" class="copy">1.25rem</button></span></div>
 <div class="ty-s"><span class="ty-aa" style="font-size:28px">Aa</span><span class="fd-n">28 px</span><span class="fd-v"><button type="button" class="copy">28px</button><button type="button" class="copy">1.75rem</button></span></div>
-<div class="ty-s"><span class="ty-aa" style="font-size:64px">Aa</span><span class="fd-n">64 px</span><span class="fd-v"><button type="button" class="copy">64px</button><button type="button" class="copy">4rem</button></span></div>
 </div>
 <h3>Roles</h3>
-<div class="fd-col ty-roles"><div class="ty-r"><div class="ty-sample" style="font:var(--jumbo)">Welcome to nobloat</div><span class="fd-n">jumbo</span><span class="fd-v"><button type="button" class="copy">font: 600 64px/1.05 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample" style="font:var(--title)">Invoices</div><span class="fd-n">title</span><span class="fd-v"><button type="button" class="copy">font: 600 28px/1.2 var(--mono)</button></span></div>
+<div class="fd-col ty-roles"><div class="ty-r"><div class="ty-sample" style="font:var(--title)">Invoices</div><span class="fd-n">title</span><span class="fd-v"><button type="button" class="copy">font: 600 28px/1.2 var(--mono)</button></span></div>
 <div class="ty-r"><div class="ty-sample" style="font:var(--heading)">Needs attention</div><span class="fd-n">heading</span><span class="fd-v"><button type="button" class="copy">font: 600 20px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample" style="font:var(--subheading)">ACME GmbH</div><span class="fd-n">subheading</span><span class="fd-v"><button type="button" class="copy">font: 600 16px/1.2 var(--mono)</button></span></div>
 <div class="ty-r"><div class="ty-sample" style="font:var(--body)">Three invoices are overdue; reminders go out on Monday.</div><span class="fd-n">body</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
 <div class="ty-r"><div class="ty-sample ty-muted" style="font:var(--small)">peter · 2 hours ago</div><span class="fd-n">small</span><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
-<div class="ty-r"><div class="ty-sample ty-num" style="font:var(--body)">1.234,56 € · CUS-0042 · 17:30</div><span class="fd-n">number</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono); font-variant-numeric: tabular-nums</button></span></div>
 </div>
 <h3>Together</h3>
-<div class="ty-mock"><div style="font:var(--jumbo)">Welcome back</div><div style="font:var(--title)">Invoices</div><div style="font:var(--heading)">Needs attention</div><p style="font:var(--body)">Three invoices are overdue. Reminders go out on Monday unless you mark them paid before.</p><div style="font:var(--subheading)">ACME GmbH</div><div class="ty-muted" style="font:var(--small)">INV-2026-0042 · peter · 2 hours ago</div><div class="ty-num" style="font:var(--body)">1.234,56 €</div></div>
+<div class="ty-mock"><div style="font:var(--title)">Invoices</div><div style="font:var(--heading)">Needs attention</div><p style="font:var(--body)">Three invoices are overdue. Reminders go out on Monday unless you mark them paid before.</p><div style="font:var(--body);font-weight:600">ACME GmbH</div><div class="ty-muted" style="font:var(--small)">INV-2026-0042 · peter · 2 hours ago</div></div>
+<h3>Text</h3>
+<div class="ty-mock"><p style="font:var(--body)">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing</strong> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud exercitation</em> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in <strong><em>reprehenderit in voluptate</em></strong> velit esse cillum dolore eu fugiat nulla pariatur.</p><p style="font:var(--body)">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <a href="#typography">A link in text</a>, <code>inline code</code>.</p><p class="ty-muted" style="font:var(--small)">Small: sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p></div>
 </div>
 </section>
 </main>
