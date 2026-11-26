@@ -41,7 +41,8 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .fd-bar { font: var(--body); } .fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
 .fd-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; }
 .fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font: var(--heading); color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
-:root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; } /* the switch sets the whole page; "both" follows the system */
+:root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; }
+html { background: light-dark(#f6f6f5, #18191b); } body { background: transparent; } /* paint the canvas from html, so a live switch repaints the outer background too */ /* the switch sets the whole page; "both" follows the system */
 /* wrapping rules */
 .fd-ty :is(p, li, td) { hyphens: auto; text-wrap: pretty; max-width: 70ch; }
 .fd-ty :is(h1, h2, h3, h4, .ty-h) { hyphens: auto; text-wrap: balance; } .fd-ty :is(button, label, code, .fd-n) { hyphens: manual; }
