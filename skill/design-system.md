@@ -33,7 +33,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Spacing:** four steps, `space-4`, `space-8`, `space-16`, `space-32` (each double the last).
 - **Radius and borders:** `radius-control` 6 px, `radius-panel` 12 px, `radius-round`; `border` 1 px `line`, `border-field` 1 px `muted` (3:1), `focus` 2 px `accent` with 2 px offset.
 - **Headings never ALL UPPERCASE.**
-- Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
+- Look: 40 px controls (28 px small), every button with `radius-control`, icon-only buttons square as well, 12 px panels.
 
 ## Layers: each one only from the one below
 
@@ -86,7 +86,7 @@ What is still missing in each layer: [To do](#to-do).
 - **Every button has an icon, before the text, no exceptions** (actions, OK and Cancel, Close, tabs, pager, chips, menu items, icon-only buttons). Links out carry `external` after the text; messages, states, units and empty states carry theirs. Plain links in text and form labels get none.
 - The same action has the same icon everywhere. Actions: confirm/save/OK `check` · cancel/close `x` · back `arrow-left` · next `arrow-right` · new `plus` · delete `trash` · archive `archive` · edit `edit` · copy `copy` · undo/reset `undo` · retry/reload `refresh` · random name or id `dice` · upload `upload` · download/export `download` · send `send` · comment `chat` · preview `eye` · print `print` · merge `merge` · sign in `log-in` · sign out `power` · lock/unlock `lock`/`unlock` · filter `filter` · search `search` · help `help` · more `more`. Places: dashboard `dashboard` · list `list` · board `columns` · calendar `calendar` · time `clock` · person `user` · people `users` · nobody `user-x` · company `building` · project `folder` · tag `tag` · settings `cog` · keys `key` · money `euro` · document `file` · source `code` · language `globe` · reports `chart` · mail `mail` · home `home` · link `link`. Chip states: all `list` · active/done `ok` · waiting `pause` · overdue/failed `warning` · archived `archive`.
 - One primary button per page at most. Delete is red and always confirms, naming the object and the consequence. Dialogs always have a title.
-- **Key hints on desktop**: a button with a shortcut shows it as a `kbd` after its text; a round icon-only button names it in its tooltip (`Mute (m)`). Nav links show `g` + letter. Tabs, pager, chips and labels show none. Menu and palette rows show their key.
+- **Key hints on desktop**: a button with a shortcut shows it as a `kbd` after its text; an icon-only button names it in its tooltip (`Mute (m)`). Nav links show `g` + letter. Tabs, pager, chips and labels show none. Menu and palette rows show their key.
 
 ### Pages and content
 
@@ -157,7 +157,7 @@ Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, mes
 - [ ] Key hint (`kbd`) inside buttons, menu rows and nav items
 - [ ] Field: hint text in the normal state, read-only, unit affix other than currency (%, days)
 - [ ] Chip with icon or dot and count
-- [ ] Pressed state of round buttons (call), badge anchored on a button
+- [ ] Badge anchored on a button
 - [ ] Code text and code block
 - [ ] Pill input (groups, tags), colour swatches with custom colour
 - [ ] Drop zone (upload), single-file upload button

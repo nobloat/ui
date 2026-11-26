@@ -33,7 +33,7 @@ main, .cp-phone { container-type: inline-size; }
 
 /* sizes and shape */
 .button.small { height: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
-.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; border-radius: var(--radius-round); }
+.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; }
 
 .button:disabled { opacity: .45; cursor: not-allowed; }
 /* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
