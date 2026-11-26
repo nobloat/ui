@@ -79,3 +79,5 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 /* page switch: Foundations and Components; the current page is the h1 */
 .fd-pages { display: flex; align-items: baseline; gap: var(--space-32); margin: 0 0 var(--space-16); }
 .fd-pages > h1 { margin: 0; } .fd-pages > a { color: var(--muted); text-decoration: none; } .fd-pages > a:hover { color: var(--text); }
+.cp-stack { display: grid; gap: var(--space-8); } .cp-wide2 { grid-column: span 2; }
+@media (max-width: 70rem) { .cp-wide2 { grid-column: auto; } }

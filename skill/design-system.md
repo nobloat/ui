@@ -137,13 +137,18 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [x] Icons (from icons/; `off` strikes any icon through)
 - [ ] Rollout: call (mic-off, camera-off), asq and tasq/auth (user-x) switch to `icon-… off` when ui.css is copied
 - [ ] Layout (page width, breakpoint, margins)
-- [ ] Elevation
+- [x] Elevation (one token, `shadow-overlay`, for what floats)
 - [x] Motion (duration-fast, duration-slow, ease, spin; zero with reduced motion)
 **Components** (in `components.html`, styles in `components.css`, built only from `foundations.css`)
 - [x] Button (default, primary, danger, quiet, toggle, icon-only, small, key hint, group; phone: icon only and full-width primary; states shown once)
 - [x] Field (text, select, textarea; label, hint, error; focus and error on the border; read-only dashed)
 - [x] Checkbox, radio, segmented (choice with label, whole row the target; segmented on radios)
 - [x] Labels: status (dot and word on a tint), filter chip, tag, badge, object id
+
+- [x] Feedback: message, toast, progress and meter, empty state
+- [x] Data: table, row list, info grid, ranked bars
+- [x] Navigation and upload: tabs, pager, drop zone
+- [ ] Composed parts: card, dialog, menu, command palette, stat tile
 
 - [ ] Streamline `ui.css` to the foundations, roll out with `make ui`
 

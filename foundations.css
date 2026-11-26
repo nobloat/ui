@@ -23,6 +23,8 @@
   --border: 1px solid var(--line); --border-field: 1px solid var(--muted); --focus: 2px solid var(--accent); --focus-offset: 2px;
   /* sizes */
   --size-control: 2.5rem; --size-control-small: 1.75rem; --size-target: 1.5rem; --size-icon: 1rem;
+  /* elevation: flat by default; one shadow for what floats above the page (toast, dialog, menu) */
+  --shadow-overlay: 0 .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent);
   /* motion: two durations, one easing; only state changes and overlays move */
   --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
   --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
