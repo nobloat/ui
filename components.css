@@ -58,11 +58,11 @@ main, .cp-phone { container-type: inline-size; }
 
 /* field: label above, the control, then one line of hint or error */
 .field { display: grid; gap: var(--space-4); max-width: 24rem; font: var(--body); color: var(--text); }
-.field > .label { font: var(--body); }
-.field > .hint { font: var(--small); color: var(--muted); }
-.field > .error { font: var(--small); color: var(--text); }
-.field > .error > i { margin-right: var(--space-4); color: var(--danger); }
-.field > .error > span { color: var(--muted); }
+.field > .field-label { font: var(--body); }
+.field > .field-hint { font: var(--small); color: var(--muted); }
+.field > .field-error { font: var(--small); color: var(--text); }
+.field > .field-error > i { margin-right: var(--space-4); color: var(--danger); }
+.field > .field-error > span { color: var(--muted); }
 .input {
   all: unset; box-sizing: border-box; width: 100%; height: var(--size-control); padding: 0 var(--space-8) 0 calc(var(--space-8) + var(--space-4));
   border: var(--border-field); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--body);
@@ -70,7 +70,7 @@ main, .cp-phone { container-type: inline-size; }
 }
 .input::placeholder { color: var(--muted); }
 textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
-.input:hover:not(:disabled, [readonly]) { border-color: var(--text); }
+.input:hover:not(:disabled, [readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); }
 /* focus shows on the border (no outline ring), as for every field */
 .input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }

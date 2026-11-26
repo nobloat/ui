@@ -72,7 +72,7 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 .button.is-hover:not(:disabled) { background: var(--hover); } .button.is-active:not(:disabled) { background: var(--pressed); }
 .button.is-focus { outline: var(--focus); outline-offset: var(--focus-offset); }
 .ty-mock.cp-rules { columns: 2 22rem; } .cp-rules p { break-inside: avoid; }
-.input.is-hover { border-color: var(--text); } .input.is-focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.input.is-hover { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); } .input.is-focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); gap: var(--space-16) var(--space-32); align-items: start; }
 .cp-fields .field { max-width: none; } .cp-fields .t-small { margin-top: var(--space-4); }
 .cp-cap { display: flex; gap: var(--space-16); align-items: baseline; flex-wrap: wrap; } .cp-fields > div > .cp-cap:first-child { margin-bottom: var(--space-8); color: var(--text); }
