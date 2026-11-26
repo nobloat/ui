@@ -6,7 +6,7 @@ main, .cp-phone { container-type: inline-size; }
 /* button: always an icon before the text; one primary per page; states are not variants */
 .button {
   all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
-  height: var(--size-control); min-width: var(--size-control); padding: 0 var(--space-16);
+  height: var(--size-control); min-width: var(--size-control); padding: 0 calc(var(--space-16) + var(--space-8)); /* 24 px sides */
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
   font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
   transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
