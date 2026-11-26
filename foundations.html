@@ -27,6 +27,9 @@
   --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 .9375rem/1.65 ui-serif, serif;
   /* spacing: four steps, each double the last */
   --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
+  /* radius and borders: three corners, one line, one focus ring */
+  --radius-control: .375rem; --radius-panel: .75rem; --radius-round: 999px;
+  --border: 1px solid var(--line); --border-field: 1px solid var(--muted); --focus: 2px solid var(--accent); --focus-offset: 2px;
   --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
 }
 :root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; } /* "both" follows the system */
@@ -44,46 +47,47 @@ html { background: var(--background); } body { background: transparent; max-widt
 
 /* page */
 .fd-title { margin: 0 0 var(--space-16); }
-.fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; padding: var(--space-16) 0; margin-bottom: var(--space-32); background: var(--background); border-bottom: 1px solid var(--line); font: var(--body); }
+.fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; padding: var(--space-16) 0; margin-bottom: var(--space-32); background: var(--background); border-bottom: var(--border); font: var(--body); }
 .fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
 .fd-tools { margin-left: auto; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; }
 .fd-pick label { display: inline-flex; align-items: center; gap: var(--space-16); cursor: pointer; }
-.fd-pick input { width: 4.5rem; height: 2.2rem; padding: 3px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); cursor: pointer; }
-.fd-pick input::-webkit-color-swatch-wrapper { padding: 0; } .fd-pick input::-webkit-color-swatch { border: 0; border-radius: calc(var(--r) - 2px); }
-.fd-pick input::-moz-color-swatch { border: 0; border-radius: calc(var(--r) - 2px); }
+.fd-pick input { width: 4.5rem; height: 2.2rem; padding: 3px; border: var(--border); border-radius: var(--radius-control); background: var(--surface); cursor: pointer; }
+.fd-pick input::-webkit-color-swatch-wrapper { padding: 0; } .fd-pick input::-webkit-color-swatch { border: 0; border-radius: calc(var(--radius-control) - 2px); }
+.fd-pick input::-moz-color-swatch { border: 0; border-radius: calc(var(--radius-control) - 2px); }
 .fd-sec { scroll-margin-top: 5rem; margin-bottom: calc(var(--space-32) * 2); }
 .fd-sec > h2 { color: var(--text); letter-spacing: 0; text-transform: none; margin: 0 0 var(--space-16); }
 .fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-32); }
 body:has(#fd-light:checked) .fd-dark, body:has(#fd-dark:checked) .fd-light { display: none; }
 body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns: minmax(0,1fr); }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
-.fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--space-32); min-width: 0; }
+.fd { background: var(--background); color: var(--text); border: var(--border); border-radius: var(--radius-panel); padding: var(--space-32); min-width: 0; }
 .fd h3 { margin: var(--space-32) 0 var(--space-16); } .fd h3:first-of-type { margin-top: var(--space-4); }
 
 /* colour rows */
 .fd-col { display: grid; gap: var(--space-16); justify-items: start; }
 .fd-c { display: flex; align-items: center; gap: var(--space-16); min-width: 0; font: var(--body); }
-.fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--r); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
+.fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--radius-control); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-n { min-width: 10.5rem; }
 .fd-v { display: flex; gap: var(--space-4) var(--space-32); flex-wrap: wrap; }
 .fd-v .fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; padding: 0; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
 .fd-copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: var(--space-4); vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
-.fd-copy:hover, .fd-copy:focus-visible { color: var(--text); text-decoration: underline; }
+.fd-copy:hover, .fd-copy:focus-visible { color: var(--text); text-decoration: underline; } .fd-copy:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
 .fd-copy.done::after { content: " ✓"; color: var(--ok); }
 .fd-down { display: flex; align-items: center; gap: var(--space-8); height: 2rem; margin: calc(var(--space-4) * -1) 0; padding-left: 1.75rem; font: var(--small); color: var(--muted); }
 .fd-down svg { width: 1rem; height: 100%; overflow: visible; }
 .fd-down line { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 3 3; }
 .fd-down path { stroke: var(--muted); stroke-width: 1.25; fill: none; }
-.fd-scale { position: relative; height: 3rem; margin: calc(var(--space-32) * 2) 0 var(--space-8); border-radius: var(--r); background: linear-gradient(to right in oklab, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
+.fd-scale { position: relative; height: 3rem; margin: calc(var(--space-32) * 2) 0 var(--space-8); border-radius: var(--radius-control); background: linear-gradient(to right in oklab, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-tick { position: absolute; left: var(--at); bottom: 100%; height: 1.5rem; border-left: 1px dashed var(--muted); padding-left: var(--space-8); font: var(--small); line-height: 1; white-space: nowrap; }
 .fd-ends { display: flex; justify-content: space-between; gap: var(--space-16); margin-bottom: var(--space-16); font: var(--small); color: var(--muted); }
 
 /* typography and spacing rows */
 .ty-list { display: grid; }
-.ty-r { display: grid; grid-template-columns: 10.5rem minmax(0, 38rem) auto; column-gap: var(--space-32); align-items: first baseline; padding: var(--space-16) 0; border-bottom: 1px solid var(--line); font: var(--body); }
+.ty-r { display: grid; grid-template-columns: 10.5rem minmax(0, 38rem) auto; column-gap: var(--space-32); align-items: first baseline; padding: var(--space-16) 0; border-bottom: var(--border); font: var(--body); }
 .ty-r:last-child { border-bottom: 0; } .ty-rule { grid-column: 1 / 3; } .ty-sample { min-width: 0; }
-.ty-mock { columns: 3 22rem; column-gap: var(--space-32); column-rule: 1px solid var(--line); padding: var(--space-32); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
-.ty-mock p { margin: 0 0 var(--space-16); } .ty-mock .ty-end { column-span: all; margin: var(--space-8) 0 0; padding-top: var(--space-16); border-top: 1px solid var(--line); }
+.ty-mock { columns: 3 22rem; column-gap: var(--space-32); column-rule: var(--border); padding: var(--space-32); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); }
+.ty-mock p { margin: 0 0 var(--space-16); } .ty-mock .ty-end { column-span: all; margin: var(--space-8) 0 0; padding-top: var(--space-16); border-top: var(--border); }
+.rb-s { display: flex; align-items: center; gap: var(--space-16); } .rb-box { flex: none; width: 4.5rem; height: 2.2rem; background: var(--surface); border: var(--border); }
 .sp-bar { display: flex; align-items: center; gap: var(--space-16); } .sp-bar i { flex: none; height: var(--space-16); background: var(--accent); border-radius: 2px; }
 @media (max-width: 50rem) { .ty-r { grid-template-columns: minmax(0,1fr); row-gap: var(--space-4); } .ty-rule { grid-column: auto; } }
 @media (max-width: 40rem) { .fd-modes { grid-template-columns: minmax(0,1fr); } }
@@ -92,7 +96,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 <body>
 <main id="main">
 <h1 class="fd-title t-title">Foundations</h1>
-<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><a href="#radius">Radius and borders</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
 <div class="seg" role="radiogroup" aria-label="Modes">
 <label><input type="radio" name="fd-mode" id="fd-both" checked><i class="icon-columns" aria-hidden="true"></i> both</label>
 <label><input type="radio" name="fd-mode" id="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
@@ -192,6 +196,20 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 <div class="ty-r"><span class="fd-n">space-8</span><span class="sp-bar"><i style="width:var(--space-8)"></i><span class="t-small">related items, inside controls</span></span><span class="fd-v"><button type="button" class="fd-copy">8px</button><button type="button" class="fd-copy">0.5rem</button></span></div>
 <div class="ty-r"><span class="fd-n">space-16</span><span class="sp-bar"><i style="width:var(--space-16)"></i><span class="t-small">default: gaps, panel padding, phone margin</span></span><span class="fd-v"><button type="button" class="fd-copy">16px</button><button type="button" class="fd-copy">1rem</button></span></div>
 <div class="ty-r"><span class="fd-n">space-32</span><span class="sp-bar"><i style="width:var(--space-32)"></i><span class="t-small">between groups and sections</span></span><span class="fd-v"><button type="button" class="fd-copy">32px</button><button type="button" class="fd-copy">2rem</button></span></div>
+</div>
+</div>
+</section>
+<section id="radius" class="fd-sec"><h2 class="t-heading">Radius and borders</h2>
+<div class="fd fd-ty">
+<h3 class="t-subheading">Radius</h3>
+<div class="ty-list"><div class="ty-r"><span class="fd-n">radius-control</span><span class="rb-s"><i class="rb-box" style="border-radius:var(--radius-control)"></i><span class="t-small">buttons, fields, chips, swatches</span></span><span class="fd-v"><button type="button" class="fd-copy">.375rem</button><button type="button" class="fd-copy">6px</button></span></div>
+<div class="ty-r"><span class="fd-n">radius-panel</span><span class="rb-s"><i class="rb-box" style="border-radius:var(--radius-panel)"></i><span class="t-small">panels, cards, dialogs, menus</span></span><span class="fd-v"><button type="button" class="fd-copy">.75rem</button><button type="button" class="fd-copy">12px</button></span></div>
+<div class="ty-r"><span class="fd-n">radius-round</span><span class="rb-s"><i class="rb-box" style="border-radius:var(--radius-round)"></i><span class="t-small">pills, avatars, dots, round icon buttons</span></span><span class="fd-v"><button type="button" class="fd-copy">999px</button></span></div>
+</div>
+<h3 class="t-subheading">Borders</h3>
+<div class="ty-list"><div class="ty-r"><span class="fd-n">border</span><span class="rb-s"><i class="rb-box" style="border:var(--border)"></i><span class="t-small">dividers, panels, cards, rows</span></span><span class="fd-v"><button type="button" class="fd-copy">1px solid var(--line)</button></span></div>
+<div class="ty-r"><span class="fd-n">border-field</span><span class="rb-s"><i class="rb-box" style="border:var(--border-field)"></i><span class="t-small">field edges (3:1)</span></span><span class="fd-v"><button type="button" class="fd-copy">1px solid var(--muted)</button></span></div>
+<div class="ty-r"><span class="fd-n">focus</span><span class="rb-s"><i class="rb-box" style="border:var(--border);outline:var(--focus);outline-offset:var(--focus-offset)"></i><span class="t-small">keyboard focus on every control</span></span><span class="fd-v"><button type="button" class="fd-copy">2px solid var(--accent)</button><button type="button" class="fd-copy">offset 2px</button></span></div>
 </div>
 </div>
 </section>

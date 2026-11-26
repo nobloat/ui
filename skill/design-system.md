@@ -30,6 +30,8 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Names are descriptive:** `background`, `text`, `selected`, `text-on-accent`, not `bg`, `fg`, `sel`, `on-accent`.
 - **Typography:** one family for the interface, the system monospace; five roles: `title` 600 32/1.2, `heading` 600 24/1.2, `subheading` 600 18/1.3, `body` 400 14/1.6, `small` 400 12/1.6 in `muted`. Emphasis is weight 600, never another size. `prose` for running text blocks: 400 15/1.65 `ui-serif, serif`, justified and hyphenated. A hero (big intro) and numbers are components, not type roles.
 - **Wrapping:** running text `hyphens: auto` and `text-wrap: pretty`, at most 70ch per line (longer text in columns); headings `text-wrap: balance`; buttons, labels and code never hyphenated; long strings `overflow-wrap: anywhere`; values joined with a non-breaking space (`1.234,56&nbsp;€`).
+- **Spacing:** four steps, `space-4`, `space-8`, `space-16`, `space-32` (each double the last).
+- **Radius and borders:** `radius-control` 6 px, `radius-panel` 12 px, `radius-round`; `border` 1 px `line`, `border-field` 1 px `muted` (3:1), `focus` 2 px `accent` with 2 px offset.
 - **Headings never ALL UPPERCASE.**
 - Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
 
@@ -127,8 +129,8 @@ Never report "built but not looked at". If a check could not run, finish it befo
 **Foundations** (in `foundations.html`, one section each)
 - [x] Colours
 - [x] Typography
-- [ ] Spacing
-- [ ] Radius and borders
+- [x] Spacing
+- [x] Radius and borders
 - [ ] Sizes (controls, targets, icons)
 - [ ] Layout (page width, breakpoint, margins)
 - [ ] Elevation
