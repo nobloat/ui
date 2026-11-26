@@ -32,6 +32,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Wrapping:** running text `hyphens: auto` and `text-wrap: pretty`, at most 70ch per line (longer text in columns); headings `text-wrap: balance`; buttons, labels and code never hyphenated; long strings `overflow-wrap: anywhere`; values joined with a non-breaking space (`1.234,56&nbsp;€`).
 - **Spacing:** four steps, `space-4`, `space-8`, `space-16`, `space-32` (each double the last).
 - **Radius and borders:** `radius-control` 6 px, `radius-panel` 12 px, `radius-round`; `border` 1 px `line`, `border-field` 1 px `muted` (3:1), `focus` 2 px `accent` with 2 px offset.
+- **Dates and times:** always dd.mm.yyyy and hh:mm (24 h), typed into text fields with a pattern; a picker button opens the browser picker (components.js). ISO on the wire.
 - **Headings never ALL UPPERCASE.**
 - Look: 40 px controls (28 px small), every button with `radius-control`, icon-only buttons square as well, 12 px panels.
 

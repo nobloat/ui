@@ -105,3 +105,9 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .segmented > label:hover { color: var(--text); }
 .segmented > label:has(input:checked) { background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--line); }
 .segmented > label:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--focus-offset); }
+
+/* date and time: a text field in dd.mm.yyyy or hh:mm (24 h), a picker button inside on the right */
+.picker { position: relative; display: block; }
+.picker > .input { padding-right: calc(var(--size-control-small) + var(--space-8)); font-variant-numeric: tabular-nums; }
+.picker > button { position: absolute; right: var(--space-4); top: 50%; translate: 0 -50%; }
+.picker > input[type="date"], .picker > input[type="time"] { position: absolute; right: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
