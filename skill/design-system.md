@@ -132,6 +132,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [x] Spacing
 - [x] Radius and borders
 - [x] Sizes (controls, targets, icons)
+- [x] Icons (all 79, from icons/)
 - [ ] Layout (page width, breakpoint, margins)
 - [ ] Elevation
 - [ ] Motion

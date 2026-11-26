@@ -57,3 +57,8 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .cp-ex { display: flex; align-items: center; gap: var(--space-16); flex-wrap: wrap; }
 .cp-states { display: flex; flex-wrap: wrap; gap: var(--space-16) var(--space-32); padding: var(--space-16) 0; border-bottom: var(--border); }
 .cp-st { display: grid; justify-items: start; gap: var(--space-8); }
+/* icons */
+.ic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: var(--space-8); margin-top: var(--space-16); }
+.ic-grid .ic-c { border: 0; background: none; box-shadow: none; min-height: 0; cursor: copy; display: grid; justify-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-8); border-radius: var(--radius-control); color: var(--text); font: var(--small); white-space: normal; text-align: center; }
+.ic-c::before { content: none; } .ic-c > i { font-size: 1.25rem; } .ic-c > span { color: var(--muted); }
+.ic-grid .ic-c:hover, .ic-grid .ic-c:focus-visible { background: var(--line); text-decoration: none; }
