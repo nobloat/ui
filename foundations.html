@@ -19,12 +19,13 @@
   --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
   --selected: color-mix(in oklch, var(--accent) 7%, var(--background));
   --text-on-accent: light-dark(#fff, var(--background)); /* text on a filled accent: white in light, dark in dark */
-  --ok: light-dark(#166534, #4ade80);
-  --warn: light-dark(#854d0e, #facc15);
-  --error: light-dark(#b91c1c, #f87171);
-  --info: light-dark(#1d4ed8, #60a5fa);
-  --disabled: light-dark(#5a5b5f, #97989c);
-  --danger: var(--error); --text-on-danger: var(--text-on-accent);
+  /* states: one colour for both modes, for dots, icons, edges and tinted pills; the word stays in --text */
+  --ok: #059669;
+  --warn: #d97706;
+  --danger: #dc2626; /* also a fill with white text (4.8:1) */
+  --info: #3b82f6;
+  --disabled: #7c7c85;
+  --text-on-danger: #fff;
 }
 .fd-pick input { vertical-align: middle; width: 3rem; height: 1.8rem; padding: 0; border: 1px solid var(--line); border-radius: var(--r); }
 .fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1rem; }
@@ -48,7 +49,10 @@
 .fd-down svg { width: 1rem; height: 100%; overflow: visible; }
 .fd-down line { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 3 3; }
 .fd-down path { stroke: var(--muted); stroke-width: 1.25; fill: none; }
-.fd-ref { display: flex; align-items: center; gap: .7rem; font-size: .85em; color: var(--muted); } .fd-ref::before { content: ""; width: 3.2rem; height: 1.6rem; border-radius: var(--r); background: var(--error); }
+.fd-use { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .9rem; font-size: .85em; }
+.fd-dot, .fd-pill { display: inline-flex; align-items: center; gap: .4rem; }
+.fd-dot i, .fd-pill i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--c); }
+.fd-pill { padding: .1rem .55rem; border-radius: 99px; background: color-mix(in oklch, var(--c) 15%, var(--background)); }
 .fd-scale { position: relative; height: 2.2rem; margin: 3rem 0 .3rem; border-radius: var(--r); background: linear-gradient(to right in oklch, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-tick { position: absolute; left: var(--at); bottom: 100%; height: calc(var(--up) * 1.2rem + .3rem); border-left: 1px dashed var(--text); padding-left: .3rem; font-size: .75em; line-height: 1; white-space: nowrap; }
 .fd-ends { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -89,16 +93,13 @@
 <h3>States</h3>
 <div class="fd-col"><span class="fd-c src" style="--v:var(--ok)" data-v="--ok"><b></b><span class="fd-n">ok</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--warn)" data-v="--warn"><b></b><span class="fd-n">warn</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--error)" data-v="--error"><b></b><span class="fd-n">error</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<span class="fd-c src" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--info)" data-v="--info"><b></b><span class="fd-n">info</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<span class="fd-c src" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 </div>
-<h3>Action</h3>
-<div class="fd-col"><span class="fd-ref">error</span>
-<span class="fd-down" aria-hidden="true"><svg viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>=</span></span>
-<span class="fd-c" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-</div>
+<div class="fd-use"><span class="fd-dot" style="--c:var(--ok)"><i></i>paid</span><span class="fd-dot" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-dot" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-dot" style="--c:var(--info)"><i></i>sent</span><span class="fd-dot" style="--c:var(--disabled)"><i></i>archived</span></div>
+<div class="fd-use"><span class="fd-pill" style="--c:var(--ok)"><i></i>paid</span><span class="fd-pill" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-pill" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-pill" style="--c:var(--info)"><i></i>sent</span><span class="fd-pill" style="--c:var(--disabled)"><i></i>archived</span></div>
 </section>
 <section class="fd fd-dark" aria-label="dark">
 <h3>Neutrals</h3>
@@ -124,16 +125,13 @@
 <h3>States</h3>
 <div class="fd-col"><span class="fd-c src" style="--v:var(--ok)" data-v="--ok"><b></b><span class="fd-n">ok</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--warn)" data-v="--warn"><b></b><span class="fd-n">warn</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--error)" data-v="--error"><b></b><span class="fd-n">error</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<span class="fd-c src" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--info)" data-v="--info"><b></b><span class="fd-n">info</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<span class="fd-c src" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 </div>
-<h3>Action</h3>
-<div class="fd-col"><span class="fd-ref">error</span>
-<span class="fd-down" aria-hidden="true"><svg viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>=</span></span>
-<span class="fd-c" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-</div>
+<div class="fd-use"><span class="fd-dot" style="--c:var(--ok)"><i></i>paid</span><span class="fd-dot" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-dot" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-dot" style="--c:var(--info)"><i></i>sent</span><span class="fd-dot" style="--c:var(--disabled)"><i></i>archived</span></div>
+<div class="fd-use"><span class="fd-pill" style="--c:var(--ok)"><i></i>paid</span><span class="fd-pill" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-pill" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-pill" style="--c:var(--info)"><i></i>sent</span><span class="fd-pill" style="--c:var(--disabled)"><i></i>archived</span></div>
 </section>
 </div>
 </main>
