@@ -36,9 +36,9 @@
   --print-title: 600 22pt/1.15 var(--mono); --print-heading: 600 13pt/1.25 var(--mono); --print-body: 400 10.5pt/1.45 ui-serif, serif;
   --print-data: 400 9pt/1.45 var(--mono); --print-small: 400 7.5pt/1.4 var(--mono);
   /* elevation: flat by default; three levels, each a shadow and a stacking order */
-  --shadow-raised: 0 1px 2px color-mix(in oklab, var(--text) 10%, transparent); --layer-raised: 10;
-  --shadow-floating: 0 .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent); --layer-floating: 20;
-  --shadow-modal: 0 1rem 2rem color-mix(in oklab, var(--text) 22%, transparent); --layer-modal: 30;
+  --shadow-raised: 1px 1px 2px color-mix(in oklab, var(--text) 10%, transparent); --layer-raised: 10; /* light from the top left */
+  --shadow-floating: .25rem .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent); --layer-floating: 20;
+  --shadow-modal: 1rem 1rem 2rem color-mix(in oklab, var(--text) 22%, transparent); --layer-modal: 30;
   /* motion: two durations, one easing; only state changes and overlays move */
   --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
   --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */

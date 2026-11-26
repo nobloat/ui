@@ -86,7 +86,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 
 - Frames: phone 390, desktop 1280. A phone design must also work from 320 to 500 px without sideways scrolling; the breakpoint is 640 px (40rem).
 - A variant only where the structure changes; everything else is the same component.
-- Phone structure: header with logo, search icon, user menu and ☰ (nav as a vertical list). Tables become one card per row with "label … value" lines (unless the table must stay a table); short lists of objects are row lists, not tables. Forms one column. Overflow menus become a bottom sheet; toasts span the width at the bottom. Create, edit, delete and copy buttons show only their icon; the primary action keeps its text and spans the width. A page form's Cancel is hidden ("← parent" does it); a dialog keeps its Cancel. No key hints.
+- Phone structure: header with logo, search icon, user menu and ☰ (nav as a vertical list). Tables become one card per row with "label … value" lines (unless the table must stay a table); short lists of objects are row lists, not tables. Forms one column. Overflow menus become a bottom sheet; toasts span the width at the bottom. Create, edit, delete and copy buttons show only their icon; the primary action keeps its text and spans the width. A page form's Cancel is hidden ("← parent" does it). A dialog has no Cancel button: Esc, the backdrop and × cancel, Enter takes its one action (focused on open). No key hints.
 
 ### Variants and states
 

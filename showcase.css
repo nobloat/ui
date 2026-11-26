@@ -62,7 +62,7 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 .button.is-focus { outline: var(--focus); outline-offset: var(--stroke-thick); }
 .ty-mock.cp-rules { columns: 2 22rem; } .cp-rules p { break-inside: avoid; }
 .input.is-hover { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); } .input.is-focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-.cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); gap: var(--space-16) var(--space-32); align-items: start; }
+.cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr)); gap: var(--space-16) var(--space-32); align-items: start; }
 .cp-fields .field { max-width: none; } .cp-fields .t-small { margin-top: var(--space-4); }
 .cp-cap { display: flex; gap: var(--space-16); align-items: baseline; flex-wrap: wrap; } .cp-fields > div > .cp-cap:first-child { margin-bottom: var(--space-8); color: var(--text); }
 /* page switch: Foundations and Components; the current page is the h1 */
@@ -139,3 +139,4 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .rl-hero > h1 { margin: 0; }
 .rl-doc > .rl-motto { margin-block: calc(2 * var(--space-32)); font: var(--heading); font-size: 3rem; font-weight: 400; font-style: italic; line-height: 1.2; text-align: center; } /* the motto, large, no quote frame */
 .rl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } /* the page title, for screen readers and the tab only */
+.cp-stage { display: grid; place-items: center; padding: var(--space-32); border: var(--border); border-radius: var(--radius-panel); background: color-mix(in oklab, black var(--mix-edge), var(--background)); } .cp-stage > .dialog { position: static; max-inline-size: 100%; animation: none; }
