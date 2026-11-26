@@ -45,7 +45,7 @@ What is still missing in each layer: [To do](#to-do).
 ### Tokens and colour
 
 - **Light and dark** are a token theme, never component variants. Both are first class.
-- No component tokens; components use semantic tokens (`fg`, `muted`, `line`, `line-strong` for field edges, `chip`, `sel`, `accent`, `bg`, state colours). Derived colours use Penpot's `mix(a, b, w)` with references, no precalculated hex. It mixes in OKLCH and `w` is the share of `b` (`mix({color.bg}, {color.fg}, 0.1)` = `color-mix(in oklch, fg 10%, bg)`); the CSS equivalent goes in the description.
+- No component tokens; components use semantic tokens (`fg`, `muted`, `line`, `line-strong` for field edges, `chip`, `sel`, `accent`, `bg`, state colours). Derived colours are stored as precalculated hex: Penpot's `mix(a, b, w)` resolves in the token panel (OKLCH, `w` is the share of `b`) but bound shapes never receive the value. Compute the hex with the same OKLCH mix and put the CSS formula in the description (`color-mix(in oklch, fg 10%, bg)`).
 - **One brand knob per app**: `brand` (primary button, selection, highlight of the current period in charts, dots of the error display). Dark mode derives its own shade, which an app may override. The brand needs 4.5:1 on the light background, its dark shade on the dark one.
 - Otherwise colour only means something: state colours (ok, warning, error, info, off) for state and nothing else; signed money (+ green, − red, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
 - Chart series beyond one: blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, in that order, always with a legend or direct labels.
