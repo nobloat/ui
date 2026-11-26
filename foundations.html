@@ -19,7 +19,7 @@
   --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
   --selected: color-mix(in oklch, var(--accent) 7%, var(--background));
   --text-on-accent: light-dark(#fff, var(--background)); /* text on a filled accent: white in light, dark in dark */
-  /* states: one colour for both modes, for dots, icons, edges and tinted pills; the word stays in --text */
+  /* states: one colour for both modes, for dots, icons and edges; the word stays in --text */
   --ok: #5f8a2e;
   --warn: #d97706;
   --danger: #dc2626; /* also a fill with white text (4.8:1) */
@@ -48,10 +48,6 @@
 .fd-down svg { width: 1rem; height: 100%; overflow: visible; }
 .fd-down line { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 3 3; }
 .fd-down path { stroke: var(--muted); stroke-width: 1.25; fill: none; }
-.fd-use { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .9rem; font-size: .85em; }
-.fd-dot, .fd-pill { display: inline-flex; align-items: center; gap: .4rem; }
-.fd-dot i, .fd-pill i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--c); }
-.fd-pill { padding: .1rem .55rem; border-radius: 99px; background: color-mix(in oklch, var(--c) 15%, var(--background)); }
 .fd-scale { position: relative; height: 2.2rem; margin: 3rem 0 .3rem; border-radius: var(--r); background: linear-gradient(to right in oklch, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-tick { position: absolute; left: var(--at); bottom: 100%; height: calc(var(--up) * 1.2rem + .3rem); border-left: 1px dashed var(--muted); padding-left: .3rem; font-size: .75em; line-height: 1; white-space: nowrap; }
 .fd-ends { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -97,8 +93,6 @@
 <span class="fd-c src" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 </div>
-<div class="fd-use"><span class="fd-dot" style="--c:var(--ok)"><i></i>paid</span><span class="fd-dot" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-dot" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-dot" style="--c:var(--info)"><i></i>sent</span><span class="fd-dot" style="--c:var(--disabled)"><i></i>archived</span></div>
-<div class="fd-use"><span class="fd-pill" style="--c:var(--ok)"><i></i>paid</span><span class="fd-pill" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-pill" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-pill" style="--c:var(--info)"><i></i>sent</span><span class="fd-pill" style="--c:var(--disabled)"><i></i>archived</span></div>
 </section>
 <section class="fd fd-dark" aria-label="dark">
 <h3>Neutrals</h3>
@@ -129,8 +123,6 @@
 <span class="fd-c src" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 <span class="fd-c src" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
 </div>
-<div class="fd-use"><span class="fd-dot" style="--c:var(--ok)"><i></i>paid</span><span class="fd-dot" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-dot" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-dot" style="--c:var(--info)"><i></i>sent</span><span class="fd-dot" style="--c:var(--disabled)"><i></i>archived</span></div>
-<div class="fd-use"><span class="fd-pill" style="--c:var(--ok)"><i></i>paid</span><span class="fd-pill" style="--c:var(--warn)"><i></i>due soon</span><span class="fd-pill" style="--c:var(--danger)"><i></i>overdue</span><span class="fd-pill" style="--c:var(--info)"><i></i>sent</span><span class="fd-pill" style="--c:var(--disabled)"><i></i>archived</span></div>
 </section>
 </div>
 </main>
