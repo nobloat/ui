@@ -29,3 +29,27 @@ document.addEventListener('click', e => {
   document.addEventListener('change', e => { if (e.target.name !== 'theme') return;
     try { e.target.value === 'auto' ? localStorage.removeItem('theme') : localStorage.setItem('theme', e.target.value); } catch {} });
 }
+
+// command palette: Ctrl K opens; typing filters the rows (a group heading hides with its rows), arrows move the
+// selection, Enter runs it. Rows are links or buttons, so without this script they still work by click and Tab.
+for (const dlg of document.querySelectorAll('.command-palette')) {
+  const input = dlg.querySelector('input'), rows = [...dlg.querySelectorAll('.menu > :is(a, button)')];
+  const shown = () => rows.filter(r => !r.hidden);
+  const select = r => { rows.forEach(x => x.removeAttribute('aria-selected')); r?.setAttribute('aria-selected', 'true'); r?.scrollIntoView({block: 'nearest', container: 'nearest'}); };
+  const filter = () => {
+    const q = input.value.trim().toLowerCase();
+    rows.forEach(r => r.hidden = !r.textContent.toLowerCase().includes(q));
+    dlg.querySelectorAll('.menu > .group').forEach(g => { let n = g.nextElementSibling, any = false;
+      while (n && !n.matches('.group')) { any ||= !n.hidden && n.matches('a, button'); n = n.nextElementSibling; } g.hidden = !any; });
+    select(shown()[0]);
+  };
+  input.addEventListener('input', filter);
+  input.addEventListener('keydown', e => {
+    const s = shown(), i = s.findIndex(r => r.hasAttribute('aria-selected'));
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); select(s[(i + (e.key === 'ArrowDown' ? 1 : -1) + s.length) % s.length]); }
+    else if (e.key === 'Enter') { e.preventDefault(); s[i]?.click(); dlg.close(); }
+  });
+  dlg.addEventListener('close', () => { input.value = ''; filter(); });
+  document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); dlg.showModal(); } });
+  filter();
+}

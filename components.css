@@ -308,3 +308,33 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 /* phones, and browsers without anchor positioning: a sheet from the bottom */
 @media (width < 40rem) { .menu kbd { display: none; } .menu[popover] { position-area: none; inset: auto 0 0; margin: 0; inline-size: auto; min-inline-size: 0; padding-bottom: var(--space-16); border-radius: var(--radius-panel) var(--radius-panel) 0 0; } }
 @supports not (position-area: block-end) { .menu[popover] { position-area: none; inset: auto 0 0; margin: 0; inline-size: auto; padding-bottom: var(--space-16); border-radius: var(--radius-panel) var(--radius-panel) 0 0; } }
+
+/* card: a panel with any content; an optional head with a title and its actions. Flat: a border, no shadow. */
+.card { display: grid; align-content: start; gap: var(--space-16); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text); }
+.card > header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-block-size: var(--size-control); margin-block: calc(-1 * var(--space-8)); }
+.card > header > :first-child { margin: 0; }
+
+/* stat tile: a card that is one link to its list: label, value, change, then a sparkline or a meter with its period */
+.stat-tile { display: grid; align-content: start; gap: var(--space-4); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel);
+  background: var(--surface); color: var(--text); text-decoration: none; }
+.stat-tile:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.stat-tile:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.stat-tile > .label { font: var(--body); }
+.stat-tile > .value { font: var(--title); font-variant-numeric: tabular-nums; }
+.stat-tile > .delta { display: flex; align-items: center; gap: var(--space-4); font: var(--small); color: var(--muted); }
+.stat-tile > .delta > i { color: var(--c, var(--muted)); }
+.stat-tile > .delta[data-state="ok"] { --c: var(--ok); } .stat-tile > .delta[data-state="danger"] { --c: var(--danger); }
+.stat-tile > .sparkline { inline-size: 100%; block-size: var(--size-control); margin-block-start: var(--space-8); overflow: visible; }
+.sparkline polyline { fill: none; stroke: var(--muted); stroke-width: var(--stroke-thin); vector-effect: non-scaling-stroke; }
+.menu > [hidden] { display: none; }
+.stat-tile > .meter-bar { margin-block-start: var(--space-8); }
+.stat-tile > .period { font: var(--small); color: var(--muted); }
+
+/* command palette: a dialog with a search field over menu rows (Ctrl K). Arrows move, Enter runs the selected row,
+   Esc closes. The field is its title. On phones it fills the top of the screen, above the keyboard. */
+.command-palette { inline-size: min(var(--measure), 100% - var(--space-32)); margin-block-start: var(--space-32); }
+.command-palette > form { gap: var(--space-8); padding: var(--space-8); }
+.command-palette .menu { padding: 0; border: 0; box-shadow: none; }
+.menu > .group { padding: var(--space-8) var(--space-8) var(--space-4); font: var(--small); color: var(--muted); }
+.menu > [aria-selected="true"] { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); } /* as hover */
+@media (width < 40rem) { .command-palette:modal { inset: 0 0 auto; inline-size: auto; max-inline-size: none; margin: 0; border-radius: 0 0 var(--radius-panel) var(--radius-panel); } }

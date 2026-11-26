@@ -7,7 +7,7 @@
   --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
   --brand: #18181b; /* the one colour an app sets; nobloat itself is monochrome, its near black (nobloat.org) */
   /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
-  --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
+  --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand-dark, var(--brand)) max(l, .72) c h)); /* --brand-dark: optional, the brand on dark */
   --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
   --text-on-accent: light-dark(#fff, var(--background));
   /* states: one colour for both modes, for dots, icons and edges; the word next to it stays in --text */
