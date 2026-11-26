@@ -16,9 +16,8 @@ These apply in Penpot now and go into `ui.css` and `SKILL.md` when the design sy
 
 - **One design** (graphite). Paper is not built in Penpot.
 - **Headings never ALL UPPERCASE.** Section headings are 16/600 in `fg`, normal case (`ui.css` still has uppercase section labels and `main h2`).
-- Hover: `fg` at 8 % on the surface.
-- Neutrals from three base colours per mode (`bg`, `surface`, `fg`); `chip`, `line`, `line-strong`, `muted`, `hover` are mixes in OKLCH, `faint` is `line` (`ui.css` has fixed hex values and mixes in sRGB).
-- Every token is named `color.<name>` without groups. The Color board shows each source with what is derived from it, each derived swatch captioned with its source and percentage (matching its description).
+- Neutrals from three base colours per mode (`bg`, `surface`, `fg`); three derived neutrals, mixes of `fg` into `bg` in OKLCH: `subtle` (~7 %: chip fill and hover; a hovered chip uses `line`), `line` (11 %: dividers, borders, inactive and decorative), `muted` (67 %: secondary text and field edges). `ui.css` has `chip`, `line`, `muted` as fixed hex, mixes in sRGB and has no hover token.
+- Every token is named `color.<name>` without groups. The Color board groups colours by category (Neutrals, Brand, States, Action, Call stage), one line per swatch (`name #light / #dark`); neutrals as one scale from `bg` to `fg` with the derived ones at their percentage, other derived colours connected to their source by dashed arrows with the percentage on the arrow.
 - One colour per state, named by meaning: `color.ok`, `color.warning`, `color.error`, `color.info`, `color.off`, for both dots and state words, derived from the source hues `color.green`, `color.yellow`, `color.red`, `color.blue`, `color.grey` (used for nothing else); no rim around dots (`ui.css` has hue names, a bright colour plus `--rim` for dots and a darker `--c-text` for words). A red fill for a dangerous action (call's hang-up) is `danger` with `on-danger`, not a state.
 - Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
 
@@ -46,7 +45,7 @@ What is still missing in each layer: [To do](#to-do).
 ### Tokens and colour
 
 - **Light and dark** are a token theme, never component variants. Both are first class.
-- No component tokens; components use semantic tokens (`fg`, `muted`, `line`, `line-strong` for field edges, `chip`, `sel`, `accent`, `bg`, state colours). Derived colours are stored as precalculated hex: Penpot's `mix(a, b, w)` resolves in the token panel (OKLCH, `w` is the share of `b`) but bound shapes never receive the value. Compute the hex with the same OKLCH mix and put the CSS formula in the description (`color-mix(in oklch, fg 10%, bg)`).
+- No component tokens; components use semantic tokens (`bg`, `surface`, `fg`, `subtle`, `line`, `muted`, `sel`, `accent`, state colours). Derived colours are stored as precalculated hex: Penpot's `mix(a, b, w)` resolves in the token panel (OKLCH, `w` is the share of `b`) but bound shapes never receive the value. Compute the hex with the same OKLCH mix and put the CSS formula in the description (`color-mix(in oklch, fg 10%, bg)`).
 - **One brand knob per app**: `brand` (primary button, selection, highlight of the current period in charts, dots of the error display). Dark mode derives its own shade, which an app may override. The brand needs 4.5:1 on the light background, its dark shade on the dark one.
 - Otherwise colour only means something: state colours (ok, warning, error, info, off) for state and nothing else; signed money (+ `ok`, − `error`, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
 - Chart series beyond one: blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, in that order, always with a legend or direct labels.
@@ -54,7 +53,7 @@ What is still missing in each layer: [To do](#to-do).
 
 ### Accessibility (WCAG 2.2 AA, in light and dark)
 
-- Contrast: text and placeholders 4.5:1 (3:1 from 24 px, or 18.66 px bold), icons, field edges and state dots 3:1, muted text included. Exception: inactive or purely decorative elements (e.g. jot's faded boxes) use the token `faint` and are exempt (WCAG 1.4.3, 1.4.11); `faint` never carries meaning, text that must be read, or an active control's edge.
+- Contrast: text and placeholders 4.5:1 (3:1 from 24 px, or 18.66 px bold), icons, field edges and state dots 3:1, muted text included. Exception: inactive or purely decorative elements (e.g. jot's faded boxes) use `line` and are exempt (WCAG 1.4.3, 1.4.11); `line` never carries meaning, text that must be read, or an active control's edge.
 - Targets at least 24×24 px or spaced. Visible keyboard focus on every control (fields show it on their border), documented on the States board.
 - Every icon-only control has a name (shown as the tooltip in the design).
 
