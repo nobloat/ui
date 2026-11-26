@@ -70,11 +70,10 @@ main, .cp-phone { container-type: inline-size; }
 }
 .input::placeholder { color: var(--muted); }
 textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
-.input:hover:not(:disabled, [readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); }
+.input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); }
 /* focus shows on the border (no outline ring), as for every field */
 .input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
-.input:disabled { opacity: .45; cursor: not-allowed; }
 .input[readonly] { border-style: dashed; background: transparent; }
 .input.small { height: var(--size-control-small); font: var(--small); color: var(--text); }
 /* select: the native control with a chevron */
