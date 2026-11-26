@@ -32,6 +32,18 @@
 @container (max-width: 40rem) { .app-footer .key-hint { display: none; } } /* no key hints on phones */
 .app-footer li { display: inline-flex; align-items: center; gap: var(--space-4); }
 /* sync state (apps that work offline): a status before Commands; synced, syncing, offline with the changes waiting */
-.app-header .sync { white-space: nowrap; }
+.sync { white-space: nowrap; }
+.sync > .progress-bar { inline-size: calc(var(--size-control) * 2); } /* syncing: count, percent and the running bar */
 @container (max-width: 40rem) { .app-header .sync > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } } /* phones: the dot, the word for screen readers and the title */
 .app-footer a > i { margin-right: var(--space-4); }
+
+/* nav: the app's places as a tab bar inside the header, under its row (on the surface, so page tabs below stay distinct).
+   Icon, name, a badge for what waits; no keys (every place is in the palette). On phones it scrolls sideways. */
+.app-header > .app-nav { border-bottom: 0; padding: 0 var(--space-8); scrollbar-width: none; }
+
+/* page head: breadcrumbs (below the top level), then the title, with its state, and the page's actions right of it;
+   on phones the crumbs are "← parent" and the actions wrap under the title, the primary spanning the width. */
+.page-head { container-type: inline-size; display: grid; gap: var(--space-8); padding-block: var(--space-16); }
+.page-head > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8) var(--space-16); }
+.page-head h1 { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); min-inline-size: 0; margin: 0; font: var(--title); overflow-wrap: anywhere; }
+@container (max-width: 40rem) { .page-head h1 { font: var(--heading); } .page-head > div > .buttons { inline-size: 100%; } }

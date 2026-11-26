@@ -54,7 +54,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 | 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token.css` | – |
 | 1 | Components: button, forms, labels (incl. avatar), feedback, data, navigation and upload | `components.css` | tokens |
 | 2 | Composed parts: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette | `composed.css` | components |
-| 3 | Shell: app header (logo, commands, user menu), app footer, nav, breadcrumbs and page head, session bar, phone layout | `shell.css` | composed parts |
+| 3 | Shell: app header (logo, commands, user menu), app footer, nav, breadcrumbs and page head, phone layout | `shell.css` | composed parts |
 | 4 | Page templates: list, detail, form, dashboard, settings; login and errors are the shell without nav and user menu | the old gallery until it is replaced | shell and composed parts |
 | – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
 
@@ -98,14 +98,16 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Every button has an icon, before the text, no exceptions** (actions, OK and Cancel, Close, tabs, pager, chips, menu items, icon-only buttons). Links out carry `external` after the text; messages, states, units and empty states carry theirs. Plain links in text and form labels get none.
 - The same action has the same icon everywhere. Actions: confirm/save/OK `check` · cancel/close `x` · back `arrow-left` · next `arrow-right` · new `plus` · delete `trash` · archive `archive` · edit `edit` · copy `copy` · undo/reset `undo` · retry/reload `refresh` · random name or id `dice` · upload `upload` · download/export `download` · send `send` · comment `chat` · preview `eye` · print `print` · merge `merge` · sign in `log-in` · sign out `power` · lock/unlock `lock`/`unlock` · filter `filter` · search `search` · commands `terminal` · help `help` · more `more`. Places: dashboard `dashboard` · list `list` · board `columns` · calendar `calendar` · time `clock` · person `user` · people `users` · nobody `user-x` · company `building` · project `folder` · tag `tag` · settings `cog` · keys `key` · money `euro` · document `file` · source `code` · language `globe` · reports `chart` · mail `mail` · home `home` · link `link` · photo `photo` · video `video` · live photo `live-photo` · logs `logs` · audit `audit` · shell `window` · support `support`. Chip states: all `list` · active/done `ok` · waiting `pause` · overdue/failed `warning` · archived `archive`.
 - One primary button per page at most. Delete is red and always confirms, naming the object and the consequence. Dialogs always have a title.
-- **Key hints on desktop**: a button with a shortcut shows it as a `kbd` after its text; an icon-only button names it in its tooltip (`Mute (m)`). Nav links show `g` + letter; Settings is `Ctrl ,`. Tabs, pager, chips and labels show none. Menu rows show their key; palette rows do not (typing goes into the search).
+- **Key hints on desktop**: a button with a shortcut shows it as a `kbd` after its text; an icon-only button names it in its tooltip (`Mute (m)`). Nav links show no keys (places are in the palette); Settings is `Ctrl ,`. Tabs, pager, chips and labels show none. Menu rows show their key; palette rows do not (typing goes into the search).
 
 ### Pages and content
 
-- **Header**: logo left; right the Commands button (`terminal`, `Ctrl K`; opens the palette, searching is one of its commands; icon only on phones) and the user menu (the avatar: who, theme, language, the app's rows (shortcuts are in the footer), then Settings and Sign out after a line, fixed in every app). Apps that work offline add their sync state before Commands, a status: synced (with the time in its title), syncing n of m, offline · n waiting, sync failed; on phones only the dot. Nothing else loose in the header. Settings is never a nav item. Apps without a palette (call) show no Commands button.
+- **Header**: logo left; right the Commands button (`terminal`, `Ctrl K`; opens the palette, searching is one of its commands; icon only on phones) and the user menu (the avatar: who, theme, language, the app's rows (shortcuts are in the footer), then Settings and Sign out after a line, fixed in every app). Apps that work offline add their sync state before Commands, a status: synced (with the time in its title), syncing n of m with percent and a progress bar, offline · n waiting, sync failed; on phones only the dot. Nothing else loose in the header. Settings is never a nav item. Apps without a palette (call) show no Commands button.
 - **Footer**: at the end of every page with a signed-in user, small and muted under a hairline. Left the product `][◆ nobloat/<app>` (links to nobloat.org) and its version (links to its changelog entry); right `?` shortcuts (desktop only), support (`support` icon; a new issue with page, version and browser filled in) and source. Nothing else.
 - **Changelog**: every app has one, every version an entry with its date, written for users in plain words: what you can do now, what works differently, what was fixed as you saw it. No technical detail: no refactors, dependencies, commit hashes or internal names.
 - **Avatar**: a person is a round picture, or the initial where there is none, always with the name beside it or in its label; 40 px, small (24 px) in rows.
+- **Nav**: the app's places as a tab bar inside the header under its row: icon, name, a badge for what waits; no keys (every place is in the palette); the current place underlined in the accent. On phones it scrolls sideways; every place is also in the palette. Settings is never a nav item.
+- **Title tag**: `{page} · {app}`, most specific first (tabs cut from the right; the favicon names the app): `Invoices · bill`, `INV-2026-0042 · bill`, `New invoice · bill`, `404 · Not found · bill`, `Sign in · bill`. The page part is the h1 without its state; a custom brand puts `Brand.Name` for the app. A count first, `(3) Invoices · bill`, only for what waits.
 - **Breadcrumbs** on every page below the top level, current page last without a link; phones show "← parent".
 - **Page head**: title and the page's actions right of it (under it on phones). Actions never sit alone at the bottom; only a form's submit sits at its end.
 - **List**: chips with counts and tags above, table or row list, pager, empty state with the create action. Sortable column headers show ↑/↓. Bulk lists: checkbox column and a bulk bar ("{n} selected").
@@ -114,7 +116,7 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Settings**: account, preferences (language, theme), app settings, users, keys.
 - **Forms**: edit forms autosave; saved shows quietly as "✓ saved 14:02" beside the form, never a toast. Create is a small form with only the required fields and one Create button. An error is one line under the field: what is wrong, then what is valid with an example. Uploads are a drop zone naming the supported files and the size limit. Single choice: segmented or select; several values: pills with ×.
 - **Errors**: keep header and nav; small code, the message as title in plain words, what happened to the user's work, buttons for what to do next. 500 shows a copyable `ERR-…` reference. The codes 400 401 403 404 409 410 413 429 500 503 show a dot-matrix display of the code in the brand colour above a line drawing of the mark ][◆.
-- **Session**: a bar 5 minutes before the session ends ("Stay signed in") and after it.
+- **Session**: no session bar; sessions slide, forms autosave, and an expired session sends the user to sign in and back to the same page.
 - **Ids** look like ticket keys (`CUS-0042`), shown as code with a copy button.
 - **Money** always with the currency, a real minus sign; inputs with the unit as an affix. **Dates** ISO in lists, recent events relative; durations `h:mm`.
 - **Tags** are tinted pills in a user-chosen colour from preset swatches safe on light and dark; the text keeps full contrast.
@@ -152,7 +154,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 **Components** (`components.html`)
 - [x] Button, forms (fields, date and time, choices), labels, feedback, data, navigation and upload
 - [ ] Composed parts: card, dialog, menu and bottom sheet, command palette and `?` help, stat tile
-- [ ] App frame: app header (desktop and phone), user menu, page head, breadcrumbs, session bar
+- [ ] Shell (`shell.html`): app header and nav (desktop and phone), user menu, sync state, page head, footer; whole-frame check left
 - [ ] Mark, logo and app icon: `][` in a neutral token with one character in `brand`; logo is mark plus app name or a custom image; favicon and home-screen icon are exports
 - [ ] Still missing from the apps: unit affix (%, days), saved indicator, pill input (groups, tags), colour swatches, single-file upload button, bulk bar, history (audit), charts (stack, columns, sparkline), calendar (week, month), error display (dot matrix)
 
