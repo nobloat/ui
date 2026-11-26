@@ -17,6 +17,7 @@ These apply in Penpot now and go into `ui.css` and `SKILL.md` when the design sy
 - **One design** (graphite). Paper is not built in Penpot.
 - **Headings never ALL UPPERCASE.** Section headings are 16/600 in `fg`, normal case (`ui.css` still has uppercase section labels and `main h2`).
 - Hover: `fg` at 8 % on the surface.
+- One colour per state: status dots and state words both use `state-text.*`; no rim around dots (`ui.css` uses the bright colour plus `--rim`).
 - Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
 
 ## Layers: each one only from the one below
