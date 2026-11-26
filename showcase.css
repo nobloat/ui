@@ -17,7 +17,7 @@ html { background: var(--background); } body { background: transparent; max-widt
 .fd-pick input::-webkit-color-swatch-wrapper { padding: 0; } .fd-pick input::-webkit-color-swatch { border: 0; border-radius: calc(var(--radius-control) - 2px); }
 .fd-pick input::-moz-color-swatch { border: 0; border-radius: calc(var(--radius-control) - 2px); }
 .fd-sec { scroll-margin-top: 5rem; margin-bottom: calc(var(--space-32) * 2); }
-.fd-sec > h2 { color: var(--text); letter-spacing: 0; text-transform: none; margin: 0 0 var(--space-16); }
+.fd-sec > h2, .cp-head > h2 { color: var(--text); letter-spacing: 0; text-transform: none; margin: 0 0 var(--space-16); }
 .fd-modes { display: grid; gap: var(--space-32); }
 /* one mode at a time, the one the page is in (theme radios: auto, light, dark) */
 :root:has(#theme-light:checked) .fd-dark, :root:has(#theme-dark:checked) .fd-light { display: none; }
@@ -60,11 +60,18 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 /* forced states for the states row only; the component itself uses :hover, :active and :focus-visible */
 .button.is-hover:not(:disabled) { background: var(--hover); } .button.is-active:not(:disabled) { background: var(--pressed); }
 .button.is-focus { outline: var(--focus); outline-offset: var(--stroke-thick); }
-.ty-mock.cp-rules { columns: 2 22rem; } .cp-rules p { break-inside: avoid; }
+
 .input.is-hover { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); } .input.is-focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-.cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr)); gap: var(--space-16) var(--space-32); align-items: start; }
-.cp-fields .field { max-width: none; } .cp-fields .t-small { margin-top: var(--space-4); }
-.cp-cap { display: flex; gap: var(--space-16); align-items: baseline; flex-wrap: wrap; } .cp-fields > div > .cp-cap:first-child { margin-bottom: var(--space-8); color: var(--text); }
+.cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr)); gap: var(--space-32); align-items: stretch; }
+.cp-fields .field { max-width: none; }
+.cp-cap { display: flex; gap: var(--space-16); align-items: baseline; flex-wrap: wrap; }
+/* a specimen: its name, the component on a framed surface, then what it is for with the HTML button at the end of the line */
+.cp-fields > div { display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-8); min-width: 0; }
+.cp-fields > div > .cp-cap:first-child { color: var(--text); }
+.cp-fields > div > .cp-cap:last-child { flex-wrap: nowrap; justify-content: space-between; margin: 0; }
+.cp-box { display: grid; align-content: center; gap: var(--space-16); min-width: 0; padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); }
+.cp-box:has(> :is(.cp-stage, .card, .stat-tile):only-child) { align-content: stretch; padding: 0; border: 0; background: none; } /* it brings its own frame */
+.cp-fields + h3, .cp-two + h3, .cp-states + h3 { margin-top: var(--space-32); }
 /* page switch: Foundations and Components; the current page is the h1 */
 .fd-pages { display: grid; gap: var(--space-16); margin: 0 0 var(--space-16); }
 .fd-pages > h1 { margin: 0; }
@@ -140,3 +147,5 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .rl-doc > .rl-motto { margin-block: calc(2 * var(--space-32)); font: var(--heading); font-size: 3rem; font-weight: 400; font-style: italic; line-height: 1.2; text-align: center; } /* the motto, large, no quote frame */
 .rl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } /* the page title, for screen readers and the tab only */
 .cp-stage { display: grid; place-items: center; padding: var(--space-32); border: var(--border); border-radius: var(--radius-panel); background: color-mix(in oklab, black var(--mix-edge), var(--background)); } .cp-stage > .dialog { position: static; max-inline-size: 100%; animation: none; }
+.cp-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16) var(--space-32); } .cp-head { margin-bottom: var(--space-16); } .cp-head > h2 { margin-block: 0; } /* a heading with live demos beside it */
+.cp-fields.cp-cols2 { grid-template-columns: repeat(auto-fill, minmax(max(22rem, calc(50% - var(--space-32))), 1fr)); }
