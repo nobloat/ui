@@ -1,6 +1,6 @@
 # Penpot screen generator: working notes
 
-Renders screens into the Penpot file "nobloat-ui" from `apps/<app>.json` (format: `DSL.md`). Rules for all Penpot work: `../skill/penpot.md`.
+Renders screens into the Penpot file "nobloat-ui" from `apps/<app>.json` (format: `DSL.md`). Rules for all Penpot work: `../skill/design-system.md`.
 
 **Warning:** the renderer (`lib.js`) draws header, page head, card, table, list, dialog, menu, breadcrumbs, pager, search and charts as its own token-bound boxes, not as component instances. That breaks the layer rule. Before it is used again, those parts must exist as components (layer 3) and the renderer must place only instances. The definitions in `apps/` are a one-time snapshot of the apps' pages for the migration, not a second source of truth.
 

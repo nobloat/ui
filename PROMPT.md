@@ -45,3 +45,11 @@ what is this generator? · is there a benefit doing this in node/js? · alright,
 lets review the penpot skill, is it in accordance what is defined in the UI/UX requirements of the ui module? · penpot will supersede the manual defined rules but we are still building this now. so we are just building the penpot stack now, skill/readme will remain source of truth until we are done · the rules skill carries but penpot doesnt need to be ported over to penpot, they are important · document the missing components as todo list etc. we can do this step by step · fix the penpot.md so this becomes the source of truth for future development
 
 (Decided: `SKILL.md`, `README.md` and `ui.css` stay the source of truth until the design system is complete, then `skill/penpot.md` and the Penpot file replace them. Every rule of `SKILL.md` that concerns look and UX is carried into `penpot.md` (brand, contrast details, target size and focus, widths and phone structure, icons and their meanings, buttons and key hints, page anatomy, forms, errors, data display, charts). The owner's earlier Penpot decisions (one design, no uppercase headings, hover, call look) are listed as decided differences that go into `ui.css` at the handover. Missing components and templates are a to-do list per layer.)
+
+---
+
+## 2026-11-26 — foundations in plain HTML
+
+since we have so many issues with penpot, let's do this in html? · this should work standalone as plain html pages no go or anything required · ignore paper, we will just build one really good theme · [colours, typography iterated on the page] · yes lets define the missing foundations so we can then build really nice components; streamline ui.css in the end
+
+(Decided: the design system is worked out in `foundations.html` (plain HTML, loads only `ui.css`); Penpot is paused. `skill/penpot.md` becomes `skill/design-system.md` with the current decisions (colours, typography, wrapping), page rules and the foundations to-do list. `ui.css` is streamlined once when the foundations are complete.)

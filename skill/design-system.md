@@ -1,31 +1,43 @@
-# nobloat design system in Penpot
+# nobloat design system
 
-Rules for any agent working on the Penpot file **nobloat-ui** (via the Penpot MCP plugin). Read all of it before the first call. These rules come from mistakes that were made; each one is an order from the owner, not a suggestion.
+Rules for any agent working on the nobloat design system. Read all of it before starting. These rules come from mistakes that were made; each one is an order from the owner, not a suggestion.
 
-## Goal and source of truth
+## Goal, working surface and source of truth
 
-A reusable, sustainable design system to design new nobloat apps quickly, UI and UX. When it is complete, this file and the Penpot file **replace** the hand-written rules: future UI work starts here.
+A reusable, sustainable design system to design new nobloat apps quickly, UI and UX.
 
-Until then:
-- `skill/SKILL.md`, `README.md` and `ui.css` stay the source of truth. Penpot must implement every rule in them, and every rule is carried into this file (below), so nothing is lost at the handover. Where this file and `SKILL.md` disagree, `SKILL.md` wins, except for the decided differences listed next.
-- `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of Penpot work unless the owner asks.
+- **Working surface: `foundations.html`** in the repo root, a plain HTML page (open it in a browser, nothing to build). Each foundation is a section (Colours, Typography, then Spacing, Radius and borders, Sizes, Layout, Elevation, Motion), linked from the sticky bar at the top. Components follow on the same principle once the foundations are complete.
+- **Penpot is paused.** The Penpot file nobloat-ui and the generator in `penpot/` are not developed further; the pitfalls at the end stay for reference.
+- **Source of truth:** until the foundations are complete, `skill/SKILL.md`, `README.md` and `ui.css` stay the source of truth for the apps, and `foundations.html` is the proposal. Every rule in `SKILL.md` is carried into this file, so nothing is lost. When the foundations are complete, `ui.css` is streamlined once to match `foundations.html` (old token names as temporary aliases, then every app via `make ui`), and this file becomes the source of truth.
+- `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of design system work unless the owner asks.
 
-### Decided differences from ui.css (owner decisions)
+### Page rules for foundations.html
 
-These apply in Penpot now and go into `ui.css` and `SKILL.md` when the design system is complete:
+- Plain HTML and CSS, no Go templating, no build; it only loads `ui.css`.
+- Each value is shown once with its name and copyable values (hex and `oklch` for colours, the CSS line for type); derived values show where they come from (a scale or a dashed arrow), never a second copy.
+- Foundations only: no app content (no invoices, customers, users), no components (dots, pills, buttons belong to components). Sample text says what nobloat stands for, not lorem ipsum.
+- The page uses its own tokens (colours, type roles) for itself, so it proves they are consistent.
+- One line per item, `line` for every border and divider, calm and spacious; look at a screenshot in light and dark before showing anything.
 
-- **One design** (graphite). Paper is not built in Penpot.
-- **Headings never ALL UPPERCASE.** Section headings are 16/600 in `fg`, normal case (`ui.css` still has uppercase section labels and `main h2`).
-- Neutrals from three base colours per mode (`bg`, `surface`, `fg`); three derived neutrals, mixes of `fg` into `bg` in OKLCH: `subtle` (~7 %: chip fill and hover; a hovered chip uses `line`), `line` (11 %: dividers, borders, inactive and decorative), `muted` (67 %: secondary text and field edges). `ui.css` has `chip`, `line`, `muted` as fixed hex, mixes in sRGB and has no hover token.
-- Every token is named `color.<name>` without groups. The Color board groups colours by category (Neutrals, Brand, States, Action, Call stage), one line per swatch (`name #light / #dark`); neutrals as one scale from `bg` to `fg` with the derived ones at their percentage, other derived colours connected to their source by dashed arrows with the percentage on the arrow.
-- One colour per state, named by meaning: `color.ok`, `color.warning`, `color.error`, `color.info`, `color.off`, for both dots and state words, derived from the source hues `color.green`, `color.yellow`, `color.red`, `color.blue`, `color.grey` (used for nothing else); no rim around dots (`ui.css` has hue names, a bright colour plus `--rim` for dots and a darker `--c-text` for words). A red fill for a dangerous action (call's hang-up) is `danger` with `on-danger`, not a state.
+### Decided (differs from today's ui.css)
+
+These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at the streamlining:
+
+- **One design** (graphite). Paper is removed.
+- **Neutrals** from three sources per mode: `background`, `surface`, `text`. Two derived, mixed in OKLCH: `line` (`text` 10 % on `background`: dividers, borders, chip fill, hover, inactive and decorative) and `muted` (67 %: secondary text, field edges).
+- **Brand:** an app sets one colour, `brand`. `accent` is the brand adapted only where contrast would fail (OKLCH lightness at most .52 in light, at least .72 in dark). `selected` = `accent` 7 % on `background`. `text-on-accent` is white in light and `background` in dark.
+- **States**, named by meaning only, never by hue: `ok` #5f8a2e, `warn` #d97706, `danger` #dc2626, `info` #3b82f6, `disabled` #7c7c85; one colour for both modes, for dots, icons and edges (3:1). The word next to a state stays in `text`. `danger` is also the fill of dangerous buttons with `text-on-danger` (white, 4.8:1). There is no `error`.
+- **Names are descriptive:** `background`, `text`, `selected`, `text-on-accent`, not `bg`, `fg`, `sel`, `on-accent`.
+- **Typography:** one family for the interface, the system monospace; four roles: `title` 600 28/1.2, `heading` 600 20/1.2, `body` 400 14/1.6, `small` 400 12/1.6 in `muted`. Emphasis is weight 600, never another size. `prose` for running text blocks: 400 15/1.65 `ui-serif, serif`, justified and hyphenated. A hero (big intro) and numbers are components, not type roles.
+- **Wrapping:** running text `hyphens: auto` and `text-wrap: pretty`, at most 70ch per line (longer text in columns); headings `text-wrap: balance`; buttons, labels and code never hyphenated; long strings `overflow-wrap: anywhere`; values joined with a non-breaking space (`1.234,56&nbsp;€`).
+- **Headings never ALL UPPERCASE.**
 - Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
 
 ## Layers: each one only from the one below
 
 | # | Layer | Built only from |
 |---|---|---|
-| 0 | Tokens (sets `core`, `mode/light`, `mode/dark`; theme group `mode`) | – |
+| 0 | Foundations: colours, typography, spacing, radius and borders, sizes, layout, elevation, motion (`foundations.html`) | – |
 | 1 | Building blocks: icons, surface, divider, text styles | tokens |
 | 2 | Controls: button, icon button, field, money, checkbox, radio, segmented, chip, tag, status, badge, id, key, nav item, tab, menu item, avatar, message, toast | instances of 1 |
 | 3 | Composed parts: app header (desktop/phone), page head, breadcrumbs, card, dialog, menu panel, search, pager, table header and row, list row, info row, stat tile, empty state, chart bar, meter | instances of 1–2 |
@@ -44,17 +56,16 @@ What is still missing in each layer: [To do](#to-do).
 
 ### Tokens and colour
 
-- **Light and dark** are a token theme, never component variants. Both are first class.
-- No component tokens; components use semantic tokens (`bg`, `surface`, `fg`, `subtle`, `line`, `muted`, `sel`, `accent`, state colours). Derived colours are stored as precalculated hex: Penpot's `mix(a, b, w)` resolves in the token panel (OKLCH, `w` is the share of `b`) but bound shapes never receive the value. Compute the hex with the same OKLCH mix and put the CSS formula in the description (`color-mix(in oklch, fg 10%, bg)`).
-- **One brand knob per app**: `brand` (primary button, selection, highlight of the current period in charts, dots of the error display). Dark mode derives its own shade, which an app may override. The brand needs 4.5:1 on the light background, its dark shade on the dark one.
-- Otherwise colour only means something: state colours (ok, warning, error, info, off) for state and nothing else; signed money (+ `ok`, − `error`, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
+- **Light and dark** are first class and come from the same tokens (`light-dark()`), never from component variants.
+- No component tokens; components use the semantic tokens above. A tint that only one component uses (a pill's background) is a formula inside that component, not a token.
+- Colour only means something: brand for interaction and selection, states for state, signed money in `ok` and `danger`. Never colour alone: a state is a dot or glyph plus a word.
 - Chart series beyond one: blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, in that order, always with a legend or direct labels.
-- Fonts without external dependencies: the system monospace stack.
+- No fonts or icons from outside: system fonts only.
 
 ### Accessibility (WCAG 2.2 AA, in light and dark)
 
 - Contrast: text and placeholders 4.5:1 (3:1 from 24 px, or 18.66 px bold), icons, field edges and state dots 3:1, muted text included. Exception: inactive or purely decorative elements (e.g. jot's faded boxes) use `line` and are exempt (WCAG 1.4.3, 1.4.11); `line` never carries meaning, text that must be read, or an active control's edge.
-- Targets at least 24×24 px or spaced. Visible keyboard focus on every control (fields show it on their border), documented on the States board.
+- Targets at least 24×24 px or spaced. Visible keyboard focus on every control (fields show it on their border), shown once for all controls.
 - Every icon-only control has a name (shown as the tooltip in the design).
 
 ### Widths
@@ -98,9 +109,9 @@ What is still missing in each layer: [To do](#to-do).
 
 Before reporting anything as done:
 
-1. Run the checks in **light and dark**: every fill and stroke bound to a token that matches its resolved value; every text has a text style; contrast against the nearest filled ancestor; nothing overflows or collapses; **no styled shape outside a component instance**.
-2. Export every new or changed board in both themes and look at it (alignment, wrapping, crowding, readability); phone boards also at 320.
-3. Leave the file on the **light** theme, verify that exactly one theme is active.
+1. The CSS of the page is valid (braces balance; a broken rule silently drops all styling after it).
+2. Take a screenshot at desktop width in **light and dark** (both halves, or the switch) and look at it: alignment, wrapping, crowding, readability, nothing overflowing; check contrast of every new pair (text 4.5:1, graphics 3:1).
+3. Check a phone width (at least 390 px in a real browser; headless Chrome does not go below about 500 px).
 
 Never report "built but not looked at". If a check could not run, finish it before reporting.
 
@@ -112,6 +123,17 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - Tick off the to-do list below as items are finished and shown to the owner.
 
 ## To do
+
+**Foundations** (in `foundations.html`, one section each)
+- [x] Colours
+- [x] Typography
+- [ ] Spacing
+- [ ] Radius and borders
+- [ ] Sizes (controls, targets, icons)
+- [ ] Layout (page width, breakpoint, margins)
+- [ ] Elevation
+- [ ] Motion
+- [ ] Streamline `ui.css` to the foundations, roll out with `make ui`
 
 Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, message, toast, menu item, nav item, tab, avatar.
 
@@ -164,7 +186,7 @@ Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, mes
 **Handover**
 - [ ] Carry the decided differences into `ui.css` and `SKILL.md`; this file becomes the source of truth
 
-## Penpot plugin pitfalls
+## Penpot (paused): plugin pitfalls
 
 - Check `penpot.currentFile.name === "nobloat-ui"` before every write: the plugin silently connects to whichever Penpot tab is in front.
 - `token.applyToShapes` **toggles**: applying a token a shape already has (also inherited from its main) removes it. Check `shape.tokens[prop]` first.

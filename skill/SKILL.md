@@ -9,7 +9,7 @@ The UI of nobloat apps comes from one reference repo, **nobloat/ui** (checked ou
 
 Before writing a page, open the nearest example in `../ui/pages/` (gallery `index`, `dashboard`, `list`, `detail`, `form`, `dates`, `week`, `month`, `settings`, `status`, `login`) and copy its structure. Everything below is enforced by `node ../ui/check.mjs` where it can be checked by a machine.
 
-Design system work in Penpot (the file nobloat-ui: tokens, components, templates, app screens) follows [`penpot.md`](penpot.md).
+Design system work (foundations, components, templates; worked out in `../ui/foundations.html`) follows [`design-system.md`](design-system.md).
 
 ## Setup in an app
 
