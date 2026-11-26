@@ -31,7 +31,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--radius-control); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-n { min-width: 10.5rem; }
 .fd-v { display: flex; gap: var(--space-4) var(--space-32); flex-wrap: wrap; }
-.fd-v .fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; padding: 0; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
+button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; padding: 0; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
 .fd-copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: var(--space-4); vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
 .fd-copy:hover, .fd-copy:focus-visible { color: var(--text); text-decoration: underline; } .fd-copy:focus-visible { outline: var(--focus); outline-offset: var(--focus-offset); }
 .fd-copy.done::after { content: " ✓"; color: var(--ok); }
@@ -72,3 +72,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .button.is-hover:not(:disabled) { background: var(--hover); } .button.is-active:not(:disabled) { background: var(--pressed); }
 .button.is-focus { outline: var(--focus); outline-offset: var(--focus-offset); }
 .ty-mock.cp-rules { columns: 2 22rem; } .cp-rules p { break-inside: avoid; }
+.input.is-hover { border-color: var(--text); } .input.is-focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.cp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); gap: var(--space-16) var(--space-32); align-items: start; }
+.cp-fields .field { max-width: none; } .cp-fields .t-small { margin-top: var(--space-4); }
+.cp-cap { display: flex; gap: var(--space-16); align-items: baseline; flex-wrap: wrap; } .cp-fields > div > .cp-cap:first-child { margin-bottom: var(--space-8); color: var(--text); }

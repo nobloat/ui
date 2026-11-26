@@ -32,9 +32,8 @@ main, .cp-phone { container-type: inline-size; }
   --hover: color-mix(in oklab, var(--selected), var(--accent) 12%); --pressed: color-mix(in oklab, var(--selected), var(--accent) 22%); }
 
 /* sizes and shape */
-.button.small { height: var(--size-control-small); min-width: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
-.button.icon-only { width: var(--size-control); padding: 0; border-radius: var(--radius-round); }
-.button.icon-only.small { width: var(--size-control-small); }
+.button.small { height: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
+.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; border-radius: var(--radius-round); }
 
 .button:disabled { opacity: .45; cursor: not-allowed; }
 /* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
@@ -53,6 +52,32 @@ main, .cp-phone { container-type: inline-size; }
 @container (max-width: 40rem) {
   .button > .kbd { display: none; }
   .button.phone-icon > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .button.phone-icon { width: var(--size-control); padding: 0; }
+  .button.phone-icon { min-width: 0; aspect-ratio: 1; padding: 0; }
   .button.primary { flex: 1 1 100%; }
 }
+
+/* field: label above, the control, then one line of hint or error */
+.field { display: grid; gap: var(--space-4); max-width: 24rem; font: var(--body); color: var(--text); }
+.field > .label { font: var(--body); }
+.field > .hint { font: var(--small); color: var(--muted); }
+.field > .error { font: var(--small); color: var(--text); }
+.field > .error > i { margin-right: var(--space-4); color: var(--danger); }
+.field > .error > span { color: var(--muted); }
+.input {
+  all: unset; box-sizing: border-box; width: 100%; height: var(--size-control); padding: 0 var(--space-8) 0 calc(var(--space-8) + var(--space-4));
+  border: var(--border-field); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--body);
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+.input::placeholder { color: var(--muted); }
+textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
+.input:hover:not(:disabled, [readonly]) { border-color: var(--text); }
+/* focus shows on the border (no outline ring), as for every field */
+.input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
+.input:disabled { opacity: .45; cursor: not-allowed; }
+.input[readonly] { border-style: dashed; background: transparent; }
+.input.small { height: var(--size-control-small); font: var(--small); color: var(--text); }
+/* select: the native control with a chevron */
+.select { position: relative; display: block; }
+.select > select.input { padding-right: calc(var(--space-16) + var(--space-16)); line-height: calc(var(--size-control) - 2px); cursor: pointer; }
+.select::after { content: ""; position: absolute; right: var(--space-8); top: 50%; width: 1em; height: 1em; translate: 0 -50%; background: var(--muted); mask: var(--icon-chevron-down) center / contain no-repeat; pointer-events: none; }
