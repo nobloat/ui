@@ -23,6 +23,8 @@
   --border: 1px solid var(--line); --border-field: 1px solid var(--muted); --focus: 2px solid var(--accent); --focus-offset: 2px;
   /* sizes */
   --size-control: 2.5rem; --size-control-small: 1.75rem; --size-target: 1.5rem; --size-icon: 1rem;
+  /* motion: two durations, one easing; only state changes and overlays move */
+  --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
   --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
 }
 
@@ -31,3 +33,8 @@
 .t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
 .t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: 70ch; }
 .t-prose strong { font-weight: 600; }
+
+/* motion utilities */
+.spin { animation: spin var(--duration-spin) linear infinite; }
+@keyframes spin { to { rotate: 1turn; } }
+@media (prefers-reduced-motion: reduce) { :root { --duration-fast: 0ms; --duration-slow: 0ms; --duration-spin: 2.4s; } }

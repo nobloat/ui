@@ -136,7 +136,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [ ] Rollout: call (mic-off, camera-off), asq and tasq/auth (user-x) switch to `icon-… off` when ui.css is copied
 - [ ] Layout (page width, breakpoint, margins)
 - [ ] Elevation
-- [ ] Motion
+- [x] Motion (duration-fast, duration-slow, ease, spin; zero with reduced motion)
 **Components** (in `components.html`, styles in `components.css`, built only from `foundations.css`)
 - [x] Button (default, primary, danger, icon-only, small; states shown once)
 - [ ] Field (text, select, textarea; label, hint, error)

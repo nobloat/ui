@@ -6,6 +6,7 @@
   height: var(--size-control); min-width: var(--size-control); padding: 0 var(--space-16);
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
   font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
+  transition: background-color var(--duration-fast) var(--ease);
 }
 .button > i { font-size: var(--size-icon); }
 .button:not(:disabled):is(:hover, .is-hover) { background: var(--line); }
@@ -27,6 +28,4 @@
 .button:disabled { opacity: .45; cursor: not-allowed; }
 /* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
 .button[aria-busy="true"] { cursor: progress; } .button[aria-busy="true"]::after { content: none; }
-.button[aria-busy="true"] > i { mask: none; background: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: button-spin .8s linear infinite; }
-@keyframes button-spin { to { rotate: 1turn; } }
-@media (prefers-reduced-motion: reduce) { .button[aria-busy="true"] > i { animation-duration: 2.4s; } }
+.button[aria-busy="true"] > i { mask: none; background: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }

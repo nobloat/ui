@@ -62,3 +62,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .ic-grid .ic-c { border: 0; background: none; box-shadow: none; min-height: 0; cursor: copy; display: grid; justify-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-8); border-radius: var(--radius-control); color: var(--text); font: var(--small); white-space: normal; text-align: center; }
 .ic-c::before { content: none; } .ic-c > i { font-size: 1.25rem; } .ic-c > span { color: var(--muted); }
 .ic-grid .ic-c:hover, .ic-grid .ic-c:focus-visible { background: var(--line); text-decoration: none; }
+/* motion demo: a dot that moves on hover of its row with the given duration */
+.mo-demo { flex: none; width: 4.5rem; height: 2.2rem; border: var(--border); border-radius: var(--radius-control); background: linear-gradient(var(--accent), var(--accent)) left center / 1rem 1rem no-repeat; transition: background-position var(--d) var(--ease); }
+.ty-r:hover .mo-demo { background-position: right center; }
+.mo-fw { display: grid; gap: var(--space-8); margin: var(--space-16) 0; } .mo-fw i { color: var(--muted); }
