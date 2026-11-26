@@ -150,3 +150,10 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .cp-stage { display: grid; place-items: center; padding: var(--space-32); border: var(--border); border-radius: var(--radius-panel); background: color-mix(in oklab, black var(--mix-edge), var(--background)); } .cp-stage > .dialog { position: static; max-inline-size: 100%; animation: none; }
 .cp-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16) var(--space-32); } .cp-head { margin-bottom: var(--space-16); } .cp-head > h2 { margin-block: 0; } /* a heading with live demos beside it */
 .cp-fields.cp-cols2 { grid-template-columns: repeat(auto-fill, minmax(max(22rem, calc(50% - var(--space-32))), 1fr)); }
+/* the layers: one stack, each layer a row, arrows down */
+.rl-graph.rl-layers { --w: min(100%, var(--measure)); grid-template-columns: minmax(0, 1fr); gap: 0; }
+.rl-layers > .rl-node { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-16); }
+.rl-layers > .rl-node > .t-small { grid-column: 2; } .rl-layers > .rl-node > code { grid-column: 3; grid-row: 1 / span 2; }
+.rl-layers > .rl-node > i { grid-row: 1 / span 2; }
+.rl-layers > .cr-down { grid-column: auto; margin: 0; }
+@media (max-width: 60rem) { .rl-graph.rl-layers > .cr-down { display: block; } .rl-layers > .rl-node > code { grid-column: 2; grid-row: auto; } }
