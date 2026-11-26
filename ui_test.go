@@ -26,10 +26,11 @@ type Link struct {
 	Href, Label, Key string
 	On               bool
 }
+
 // Action and ErrorInfo: what an app passes as .Error to nb-error (partials.html documents the fields)
 type Action struct {
 	Href, Label, Icon, Key string
-	Palette               bool
+	Palette                bool
 }
 type ErrorInfo struct {
 	Code                   int
@@ -320,22 +321,28 @@ func TestBrand(t *testing.T) {
 	}
 }
 
-// TestTokensOnly: components.css takes every length, duration and opacity from the foundations tokens. Allowed:
+// TestTokensOnly: components.css and documents.css take every length, duration and opacity from the foundations tokens. Allowed:
 // 1em (the text size), the 1px of a visually hidden element, percentages of an element's own box (centring, corners),
 // and the container width in @container (custom properties cannot be used there).
 func TestTokensOnly(t *testing.T) {
-	b, err := os.ReadFile("components.css")
+	for _, file := range []string{"components.css", "documents.css"} {
+		tokensOnly(t, file)
+	}
+}
+
+func tokensOnly(t *testing.T, file string) {
+	b, err := os.ReadFile(file)
 	if err != nil {
 		t.Fatal(err)
 	}
 	css := regexp.MustCompile(`(?s)/\*.*?\*/`).ReplaceAllString(string(b), "")
-	css = regexp.MustCompile(`@container \([^)]*\)`).ReplaceAllString(css, "")
+	css = regexp.MustCompile(`@(container|media) [^{]*\([^)]*\)`).ReplaceAllString(css, "")
 	css = strings.ReplaceAll(css, "width: 1px; height: 1px", "")
 	raw := regexp.MustCompile(`(?:^|[^\w.-])(-?\d*\.?\d+(?:px|rem|em|ms|s))\b|opacity:\s*(\.\d+|0\.\d+)`)
 	for i, line := range strings.Split(css, "\n") {
 		for _, m := range raw.FindAllStringSubmatch(line, -1) {
 			if v := m[1] + m[2]; v != "1em" {
-				t.Errorf("components.css:%d: %s is not a token", i+1, v)
+				t.Errorf("%s:%d: %s is not a token", file, i+1, v)
 			}
 		}
 	}
