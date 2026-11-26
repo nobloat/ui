@@ -6,13 +6,13 @@
 .doc-head > h2 { margin: 0; }
 .sheet { color-scheme: light; --accent: var(--text); --muted: color-mix(in oklab, var(--text), var(--surface) var(--mix-edge)); --line: var(--muted); --ox: 0mm; --oy: 0mm; position: relative; box-sizing: border-box; width: var(--page-width); min-height: var(--page-height); margin-inline: auto;
   padding: var(--page-margin) var(--page-margin) var(--page-margin) var(--page-margin-left); background: var(--surface); color: var(--text);
-  box-shadow: var(--shadow-raised); font: var(--print-body); }
+  box-shadow: var(--shadow-raised); font: var(--print-body); display: flex; flex-direction: column; } /* the footer sits on the foot of the page */
 .sheet + .sheet { margin-top: var(--space-32); }
 .sheet :is(h1, h2, h3, p, ol, ul, table, figure) { margin: 0; }
 .sheet h1 { font: var(--print-title); } .sheet h2 { font: var(--print-heading); } .sheet h3 { font: var(--print-data); font-weight: 600; }
 .sheet .small, .sheet small { font: var(--print-small); color: var(--muted); }
 .sheet .num { font: var(--print-data); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
-.flow { display: grid; gap: var(--space-16); align-content: start; }
+.flow { display: grid; gap: var(--space-16); align-content: start; margin-bottom: var(--space-32); }
 
 /* letterhead: the mark and the sender, one accent rule under it */
 .letterhead { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-16); padding-bottom: var(--space-8); border-bottom: var(--stroke-thin) solid var(--text); }
@@ -36,7 +36,7 @@
 .totals { margin-left: auto; width: var(--window-width); display: grid; grid-template-columns: 1fr auto; font: var(--print-data); break-inside: avoid; }
 .totals > * { padding: var(--space-4) 0; } .totals dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
 .totals .grand { font-weight: 600; border-top: var(--stroke-thin) solid var(--text); }
-.doc-foot { margin-top: var(--space-32); padding-top: var(--space-8); border-top: var(--border); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-16); font: var(--print-small); color: var(--muted); break-inside: avoid; }
+.doc-foot { margin-top: auto; padding-top: var(--space-8); border-top: var(--border); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-16); font: var(--print-small); color: var(--muted); break-inside: avoid; }
 .signature { margin-top: var(--space-32); }
 
 .help-body { margin-top: var(--space-32); } .title-page > .mark { height: var(--size-control); width: auto; }
@@ -63,7 +63,7 @@
 @media print {
   body > main > :not(.docs), .docs > :not(.sheet), .doc-head, .fd-tools { display: none !important; }
   html, body { background: none; } body { max-width: none; margin: 0; padding: 0; }
-  .sheet { --ox: var(--page-margin-left); --oy: var(--page-margin); width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; break-after: page; }
+  .sheet { --ox: var(--page-margin-left); --oy: var(--page-margin); width: auto; min-height: calc(var(--page-height) - 2 * var(--page-margin)); margin: 0; padding: 0; box-shadow: none; break-after: page; }
   .sheet:last-child { break-after: auto; }
   :root:has(.sheet:target) .sheet:not(:target) { display: none; }
 }
