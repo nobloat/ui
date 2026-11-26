@@ -132,7 +132,8 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [x] Spacing
 - [x] Radius and borders
 - [x] Sizes (controls, targets, icons)
-- [x] Icons (all 79, from icons/)
+- [x] Icons (from icons/; `off` strikes any icon through)
+- [ ] Rollout: call (mic-off, camera-off), asq and tasq/auth (user-x) switch to `icon-… off` when ui.css is copied
 - [ ] Layout (page width, breakpoint, margins)
 - [ ] Elevation
 - [ ] Motion
