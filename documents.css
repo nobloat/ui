@@ -1,0 +1,68 @@
+/* nobloat documents: A4 sheets on screen, the same sheets in print (Ctrl+P, or save as PDF). Values from foundations.css. */
+.docs { display: grid; gap: var(--space-32); }
+.doc-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-16); }
+.doc-head > h2 { margin: 0; }
+.sheet { color-scheme: light; --ox: 0mm; --oy: 0mm; position: relative; box-sizing: border-box; width: var(--page-width); min-height: var(--page-height); margin-inline: auto;
+  padding: var(--page-margin) var(--page-margin) var(--page-margin) var(--page-margin-left); background: var(--surface); color: var(--text);
+  box-shadow: var(--shadow-raised); font: var(--print-body); }
+.sheet + .sheet { margin-top: var(--space-32); }
+.sheet :is(h1, h2, h3, p, ol, ul, table, figure) { margin: 0; }
+.sheet h1 { font: var(--print-title); } .sheet h2 { font: var(--print-heading); } .sheet h3 { font: var(--print-data); font-weight: 600; }
+.sheet .small, .sheet small { font: var(--print-small); color: var(--muted); }
+.sheet .num { font: var(--print-data); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.flow { display: grid; gap: var(--space-16); align-content: start; }
+
+/* letterhead: the mark and the sender, one accent rule under it */
+.letterhead { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-16); padding-bottom: var(--space-8); border-bottom: var(--stroke-thick) solid var(--accent); }
+.letterhead .mark { height: var(--size-control-small); width: auto; } .letterhead .mark path { stroke: var(--muted); } .letterhead .mark text { fill: var(--accent); } /* shape and font from ui.css .mark */
+.letterhead .brand { display: flex; align-items: center; gap: var(--space-8); font: var(--print-heading); }
+.letterhead address { font: var(--print-small); font-style: normal; text-align: right; color: var(--muted); }
+
+/* DIN 5008 form B: address window and information block, measured from the paper edge */
+.window { position: absolute; top: calc(var(--window-top) - var(--oy)); left: calc(var(--window-left) - var(--ox)); width: var(--window-width); height: var(--window-height); box-sizing: border-box; padding-top: var(--space-4); }
+.window .return { display: block; font: var(--print-small); color: var(--muted); border-bottom: var(--stroke-thin) solid var(--line); margin-bottom: var(--space-8); }
+.window address { font-style: normal; }
+.info { position: absolute; top: calc(var(--window-top) - var(--oy)); left: calc(var(--info-left) - var(--ox)); right: calc(var(--page-margin) - var(--ox)); display: grid; grid-template-columns: auto 1fr; gap: 0 var(--space-16); font: var(--print-data); }
+.info dt { color: var(--muted); } .info dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.after-window { margin-top: calc(var(--window-top) + var(--window-height) - var(--page-margin) - var(--space-32)); }
+
+/* line table: header repeats on every printed page, rows never split, totals stay together */
+.lines { width: 100%; border-collapse: collapse; font: var(--print-data); }
+.lines th { font-weight: 400; color: var(--muted); text-align: left; border-bottom: var(--stroke-thin) solid var(--text); padding: var(--space-4) var(--space-8) var(--space-4) 0; }
+.lines td { padding: var(--space-4) var(--space-8) var(--space-4) 0; border-bottom: var(--border); vertical-align: top; } .lines tr { break-inside: avoid; }
+.lines :is(th, td):last-child { padding-right: 0; } .lines th.num { text-align: right; }
+.totals { margin-left: auto; width: var(--window-width); display: grid; grid-template-columns: 1fr auto; font: var(--print-data); break-inside: avoid; }
+.totals > * { padding: var(--space-4) 0; } .totals dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.totals .grand { font-weight: 600; border-top: var(--stroke-thin) solid var(--text); }
+.doc-foot { margin-top: var(--space-32); padding-top: var(--space-8); border-top: var(--border); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-16); font: var(--print-small); color: var(--muted); break-inside: avoid; }
+.signature { margin-top: var(--space-32); }
+
+.help-body { margin-top: var(--space-32); } .title-page > .mark { height: var(--size-control); width: auto; }
+
+/* report: title page and contents */
+.title-page { min-height: calc(var(--page-height) - 2 * var(--page-margin)); display: grid; align-content: center; gap: var(--space-16); break-after: page; }
+.contents { list-style: none; padding: 0; font: var(--print-data); } .contents li { display: flex; gap: var(--space-8); }
+.contents li::after { content: ""; order: 1; flex: 1; border-bottom: var(--stroke-thin) dotted var(--line); margin-bottom: var(--space-4); } .contents li > span:last-child { order: 2; }
+.sheet h2 { break-after: avoid; } .sheet figure, .sheet .rank-bars { break-inside: avoid; }
+.sheet code { font: var(--print-data); } .sheet pre { font: var(--print-data); padding: var(--space-8); background: var(--background); border-radius: var(--radius-control); white-space: pre-wrap; }
+.sheet .rank-bars { font: var(--print-data); }
+
+/* narrow screens: the sheet reflows instead of scrolling sideways (print is unaffected) */
+@media screen and (max-width: 60rem) {
+  .sheet { width: auto; min-height: 0; padding: var(--space-16); }
+  .window, .info { position: static; width: auto; height: auto; margin-block: var(--space-16); } .after-window { margin-top: 0; }
+  .doc-foot { grid-template-columns: 1fr; }
+}
+
+/* print: only the sheets, no frame; open a single document with its #id to print only that one */
+@page { size: A4; margin: var(--page-margin) var(--page-margin) var(--page-margin) var(--page-margin-left);
+  @bottom-right { content: "page " counter(page) " / " counter(pages); font: var(--print-small); color: var(--muted); } }
+@page :first { @bottom-right { content: none; } }
+@media print {
+  body > main > :not(.docs), .docs > :not(.sheet), .doc-head, .fd-tools { display: none !important; }
+  html, body { background: none; } body { max-width: none; margin: 0; padding: 0; }
+  .sheet { --ox: var(--page-margin-left); --oy: var(--page-margin); width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; break-after: page; }
+  .sheet:last-child { break-after: auto; }
+  :root:has(.sheet:target) .sheet:not(:target) { display: none; }
+}
+.doc-head > h2 { text-transform: none; letter-spacing: normal; color: var(--text); } /* ui.css uppercases these; never */

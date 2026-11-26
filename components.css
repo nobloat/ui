@@ -24,15 +24,14 @@ main, .cp-phone { container-type: inline-size; }
 .button.danger { background: var(--danger); color: var(--text-on-danger);
   --hover: color-mix(in oklab, var(--danger), black var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), black var(--mix-edge)); }
 
-/* quiet: no frame until hovered; for secondary actions in rows and toolbars */
-.button.quiet { border-color: transparent; background: transparent; }
+/* a button inside another component (picker, id, message) takes its look from there: no frame, small; there is no quiet or small type */
+:is(.picker, .object-id, .message) > .button { height: var(--size-control-small); border-color: transparent; background: transparent; }
 
 /* toggle: aria-pressed="true" (mute, pin, favourite) */
 .button[aria-pressed="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent);
   --hover: color-mix(in oklab, var(--selected), var(--accent) var(--mix-tint)); --pressed: color-mix(in oklab, var(--selected), var(--accent) var(--mix-edge)); }
 
 /* sizes and shape */
-.button.small { height: var(--size-control-small); padding: 0 var(--space-8); gap: var(--space-4); font: var(--small); }
 .button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; } .button.icon-only > i { font-size: calc(var(--size-icon) + var(--space-4)); }
 
 .button:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }

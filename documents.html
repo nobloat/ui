@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Documents · nobloat/ui</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="foundations.css">
+<link rel="stylesheet" href="showcase.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="documents.css">
+</head>
+<body>
+<main id="main">
+<header class="fd-pages"><h1 class="t-title nb-title"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg>nobloat/ui</h1><nav class="tab-bar" aria-label="Design system"><a href="index.html"><i class="icon-home" aria-hidden="true"></i> Overview</a><a href="foundations.html"><i class="icon-contrast" aria-hidden="true"></i> Foundations</a><a href="components.html"><i class="icon-dashboard" aria-hidden="true"></i> Components</a><a href="documents.html" aria-current="page"><i class="icon-file" aria-hidden="true"></i> Documents</a></nav></header>
+<nav class="fd-bar" aria-label="Sections"><a href="#invoice">Invoice</a><a href="#letter">Letter</a><a href="#report">Report</a><a href="#help">Help page</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<span class="theme-switch"><div class="segmented" role="radiogroup" aria-label="Theme"><label><input type="radio" name="theme" id="theme-auto" value="auto" checked><i class="icon-contrast" aria-hidden="true"></i> auto</label><label><input type="radio" name="theme" id="theme-light" value="light"><i class="icon-sun" aria-hidden="true"></i> light</label><label><input type="radio" name="theme" id="theme-dark" value="dark"><i class="icon-moon" aria-hidden="true"></i> dark</label></div><span class="theme-cycle"><label for="theme-light" class="button icon-only" data-when="auto" title="Theme: auto (next: light)"><i class="icon-contrast" aria-hidden="true"></i></label><label for="theme-dark" class="button icon-only" data-when="light" title="Theme: light (next: dark)"><i class="icon-sun" aria-hidden="true"></i></label><label for="theme-auto" class="button icon-only" data-when="dark" title="Theme: dark (next: auto)"><i class="icon-moon" aria-hidden="true"></i></label></span></span></div></nav>
+<p class="t-prose docs-intro">A4 documents built from the same tokens. Each prints as it is shown: Ctrl+P, or save as PDF. Open a document by its link to print only that one.</p>
+<div class="docs">
+<div class="doc-head"><h2 class="t-heading">Invoice</h2><a href="#invoice">print only this one</a></div>
+<article class="sheet" id="invoice" aria-label="Invoice"><header class="letterhead"><span class="brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg>Kerbl &amp; Sohn OG</span><address>Linzer Straße 12 · 4020 Linz<br>office@kerbl.example · +43 732 123 456</address></header><div class="window"><span class="return">Kerbl &amp; Sohn OG · Linzer Straße 12 · 4020 Linz</span><address>ACME GmbH<br>Mag. Anna Huber<br>Mariahilfer Straße 88<br>1070 Wien</address></div>
+<dl class="info"><dt>Invoice</dt><dd>INV-2026-0042</dd><dt>Date</dt><dd>28.11.2026</dd><dt>Due</dt><dd>12.12.2026</dd><dt>Customer</dt><dd>CUS-0042</dd><dt>Your VAT id</dt><dd>ATU87654321</dd></dl>
+<div class="flow after-window"><h1>Invoice INV-2026-0042</h1><p>For the work in November 2026, as agreed in our offer of 12.10.2026.</p>
+<table class="lines"><thead><tr><th>#</th><th>Description</th><th class="num">Qty</th><th>Unit</th><th class="num">Price</th><th class="num">Amount</th></tr></thead><tbody><tr><td>1</td><td>Workshop day, design system</td><td class="num">2</td><td>day</td><td class="num">1.200,00&nbsp;€</td><td class="num">2.400,00&nbsp;€</td></tr><tr><td>2</td><td>Component review and fixes</td><td class="num">6,5</td><td>h</td><td class="num">95,00&nbsp;€</td><td class="num">617,50&nbsp;€</td></tr><tr><td>3</td><td>Icon set, 80 icons</td><td class="num">1</td><td>set</td><td class="num">480,00&nbsp;€</td><td class="num">480,00&nbsp;€</td></tr><tr><td>4</td><td>Print templates: invoice, letter, report</td><td class="num">1</td><td>set</td><td class="num">860,00&nbsp;€</td><td class="num">860,00&nbsp;€</td></tr><tr><td>5</td><td>Travel Linz to Wien and back</td><td class="num">1</td><td>flat</td><td class="num">74,00&nbsp;€</td><td class="num">74,00&nbsp;€</td></tr></tbody></table>
+<dl class="totals"><dt>Subtotal</dt><dd>4.431,50&nbsp;€</dd><dt>VAT 20 %</dt><dd>886,30&nbsp;€</dd><dt class="grand">Total</dt><dd class="grand">5.317,80&nbsp;€</dd></dl>
+<p>Please transfer the total by 12.12.2026 to the account below, with the reference <strong>INV-2026-0042</strong>. Thank you for the work together.</p></div><footer class="doc-foot"><span>Kerbl &amp; Sohn OG<br>Linzer Straße 12, 4020 Linz<br>FN 123456a, LG Linz</span><span>VAT ATU12345678<br>office@kerbl.example<br>+43 732 123 456</span><span>Erste Bank<br>IBAN AT61 1904 3002 3457 3201<br>BIC GIBAATWWXXX</span></footer></article>
+<div class="doc-head"><h2 class="t-heading">Letter</h2><a href="#letter">print only this one</a></div>
+<article class="sheet" id="letter" aria-label="Letter"><header class="letterhead"><span class="brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg>Kerbl &amp; Sohn OG</span><address>Linzer Straße 12 · 4020 Linz<br>office@kerbl.example · +43 732 123 456</address></header><div class="window"><span class="return">Kerbl &amp; Sohn OG · Linzer Straße 12 · 4020 Linz</span><address>ACME GmbH<br>Mag. Anna Huber<br>Mariahilfer Straße 88<br>1070 Wien</address></div>
+<dl class="info"><dt>Date</dt><dd>28.11.2026</dd><dt>Our ref</dt><dd>OFF-2026-0019</dd><dt>Contact</dt><dd>Peter Kerbl</dd></dl>
+<div class="flow after-window"><h2>Your request of 20.11.2026</h2><p>Dear Ms Huber,</p>
+<p>thank you for your request. We are glad to take on the next steps of the design system for ACME and have put together what we understood and what we suggest.</p>
+<p>The work starts with the foundations: colours, type and spacing from your brand colour, checked for contrast in light and dark. The components follow, built only from those values, so every later change happens in one place.</p>
+<p>We would schedule two workshop days in January and deliver the first pages two weeks later. The detailed offer is attached. If anything is unclear, call me any time.</p>
+<p class="signature">Kind regards<br><br>Peter Kerbl</p></div><footer class="doc-foot"><span>Kerbl &amp; Sohn OG<br>Linzer Straße 12, 4020 Linz<br>FN 123456a, LG Linz</span><span>VAT ATU12345678<br>office@kerbl.example<br>+43 732 123 456</span><span>Erste Bank<br>IBAN AT61 1904 3002 3457 3201<br>BIC GIBAATWWXXX</span></footer></article>
+<div class="doc-head"><h2 class="t-heading">Report</h2><a href="#report">print only this one</a></div>
+<article class="sheet" id="report" aria-label="Report">
+<section class="title-page"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><h1>Hours report<br>November 2026</h1><p class="small">Kerbl &amp; Sohn OG · prepared 01.12.2026</p>
+<ol class="contents"><li><span>Hours by project</span><span>2</span></li><li><span>Hours by person</span><span>2</span></li><li><span>Open items</span><span>2</span></li></ol></section>
+<div class="flow"><h2>Hours by project</h2><p>November had 168 booked hours, 9 more than October. Most of it went into the ACME design system, which is now in its second month.</p>
+<div class="rank-bars"><span>ACME design system</span><div class="bar-track"><i style="--value:100%"></i></div><span class="number">92&nbsp;h</span><span>Bergbau AG portal</span><div class="bar-track"><i style="--value:48%"></i></div><span class="number">44&nbsp;h</span><span>Café Zentral website</span><div class="bar-track"><i style="--value:22%"></i></div><span class="number">20&nbsp;h</span><span>Internal</span><div class="bar-track"><i style="--value:13%"></i></div><span class="number">12&nbsp;h</span></div>
+<h2>Hours by person</h2>
+<table class="lines"><thead><tr><th>Person</th><th class="num">Billable</th><th class="num">Internal</th><th class="num">Total</th></tr></thead><tbody><tr><td>Peter Kerbl</td><td class="num">71,5</td><td class="num">6,0</td><td class="num">77,5</td></tr><tr><td>Lena Kerbl</td><td class="num">64,0</td><td class="num">4,5</td><td class="num">68,5</td></tr><tr><td>Jonas Mayr</td><td class="num">20,5</td><td class="num">1,5</td><td class="num">22,0</td></tr>
+<tr><td><strong>Total</strong></td><td class="num"><strong>156,0</strong></td><td class="num"><strong>12,0</strong></td><td class="num"><strong>168,0</strong></td></tr></tbody></table>
+<h2>Open items</h2><p>Two invoices are still open, together 7.950,00&nbsp;€. Both are within their payment terms.</p></div></article>
+<div class="doc-head"><h2 class="t-heading">Help page</h2><a href="#help">print only this one</a></div>
+<article class="sheet" id="help" aria-label="Help page"><header class="letterhead"><span class="brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg>Kerbl &amp; Sohn OG</span><address>Linzer Straße 12 · 4020 Linz<br>office@kerbl.example · +43 732 123 456</address></header>
+<div class="flow help-body"><h1>How invoices are sent</h1>
+<p>An invoice leaves the system as a PDF attached to an email. It is sent once you finalize it, never before, and a copy goes to the archive with the same number.</p>
+<h2>Before you finalize</h2><ol><li>Check the address and VAT id of the customer.</li><li>Check every line and the due date.</li><li>Choose who receives the email; the billing contact of the customer is preset.</li></ol>
+<h2>What happens then</h2><p>The invoice gets the next free number of its series, which can never change again. The mail waits in the outbox until the mail server accepts it, and is retried if it does not.</p>
+<figure class="quote"><blockquote><p>A finalized invoice is never changed. A mistake is corrected with a credit note.</p></blockquote><figcaption>how bill handles corrections</figcaption></figure>
+<h2>Sending again</h2><p>Open the invoice and choose <code>Send again</code>. The same PDF goes out once more; the number and the date stay the same.</p>
+<pre>bill send INV-2026-0042 --to billing@acme.example</pre></div></article>
+</div>
+</main>
+<script src="showcase.js"></script>
+<script src="components.js"></script>
+</body>
+</html>

@@ -40,10 +40,11 @@ These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at t
 - **Navigation motion:** a page load cross-fades the content (`@view-transition { navigation: auto; }`, `duration-fast`, `ease`); the page header stays (`view-transition-name`); off with reduced motion; no script.
 - **Modern CSS only:** custom properties, `:has()`, container queries, `light-dark()`, `color-mix()`, nesting, view transitions, logical properties; no preprocessor, no framework, no vendor-prefix workarounds, no JavaScript for what CSS can do.
 - **Quote:** `figure.quote` > `blockquote` + `figcaption` (who, `cite` for the work); prose face in italic, a `stroke-thick` `line` on the left, the source small and muted.
+- **Buttons:** default, primary, danger; icon-only and toggle as shapes. No quiet and no small type: a button inside another component (picker, id, message) takes a frameless 24 px look from that component.
 - **Dates and times:** always dd.mm.yyyy and hh:mm (24 h), typed into text fields with a pattern; a picker button opens the browser picker (components.js). ISO on the wire.
 - **Waiting:** an unknown length (spinner) only for operations under 3 s; everything longer shows what runs and how far (count and percent), updated as it runs.
 - **Headings never ALL UPPERCASE.**
-- Look: 40 px controls (28 px small), every button with `radius-control`, icon-only buttons square as well, 12 px panels.
+- Look: 40 px controls, every button with `radius-control`, icon-only buttons square as well, 12 px panels.
 
 ## Layers: each one only from the one below
 
