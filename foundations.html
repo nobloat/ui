@@ -7,181 +7,191 @@
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="ui.css">
 <style>
-:root { --font: var(--mono); --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem; } /* spacing: four steps, each double the last */
-:root { --title: 600 32px/1.2 var(--font); --heading: 600 24px/1.2 var(--font); --subheading: 600 18px/1.3 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); --prose: 400 15px/1.65 ui-serif, serif; } /* typography roles; emphasis = 600; prose = running text blocks, serif, justified */
-/* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
-   everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
-.fd {
+/* Foundations, proposal: defined here only; ui.css is streamlined to match once all foundations are done.
+   light-dark() resolves where a colour is used, so each colour panel sets its own color-scheme. */
+:root {
+  /* colours: three sources per mode, the rest derived (neutral mixes in OKLab keep greys grey) */
   --background: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --text: light-dark(#1b1c1e, #e5e5e4);
-  --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
-  --line: color-mix(in oklch, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
-  --muted: color-mix(in oklch, var(--text) 67%, var(--background));
+  --line: color-mix(in oklab, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
+  --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
   --brand: #0a5fc7; /* the one colour an app sets */
-  /* accent: the brand, adapted only where it would fail: OKLCH lightness capped at .52 in light, raised to at least .72 in dark */
+  /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
   --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
-  --selected: color-mix(in oklch, var(--accent) 7%, var(--background));
-  --text-on-accent: light-dark(#fff, var(--background)); /* text on a filled accent: white in light, dark in dark */
-  /* states: one colour for both modes, for dots, icons and edges; the word stays in --text */
-  --ok: #5f8a2e;
-  --warn: #d97706;
-  --danger: #dc2626; /* also a fill with white text (4.8:1) */
-  --info: #3b82f6;
-  --disabled: #7c7c85;
+  --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
+  --text-on-accent: light-dark(#fff, var(--background));
+  /* states: one colour for both modes, for dots, icons and edges; the word next to it stays in --text */
+  --ok: #5f8a2e; --warn: #d97706; --danger: #dc2626; --info: #3b82f6; --disabled: #7c7c85;
   --text-on-danger: #fff;
+  /* typography: emphasis is weight 600, never another size */
+  --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
+  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 .9375rem/1.65 ui-serif, serif;
+  /* spacing: four steps, each double the last */
+  --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
+  --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
 }
+:root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; } /* "both" follows the system */
+html { background: var(--background); } body { background: transparent; max-width: 104rem; } /* the canvas repaints on a live switch */
+
+/* type roles as classes: a role is more than a font */
+.t-title { font: var(--title); } .t-heading { font: var(--heading); } .t-subheading { font: var(--subheading); }
+.t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
+.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: 70ch; }
+.t-prose strong { font-weight: 600; }
+/* wrapping rules */
+.fd-ty p { hyphens: auto; text-wrap: pretty; max-width: 70ch; }
+.fd-ty :is(h2, h3) { hyphens: auto; text-wrap: balance; } .fd-ty :is(button, label, code, .fd-n) { hyphens: manual; }
+.fd-ty { overflow-wrap: anywhere; }
+
+/* page */
+.fd-title { margin: 0 0 var(--space-16); }
+.fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; padding: var(--space-16) 0; margin-bottom: var(--space-32); background: var(--background); border-bottom: 1px solid var(--line); font: var(--body); }
+.fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
+.fd-tools { margin-left: auto; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; }
 .fd-pick label { display: inline-flex; align-items: center; gap: var(--space-16); cursor: pointer; }
 .fd-pick input { width: 4.5rem; height: 2.2rem; padding: 3px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); cursor: pointer; }
 .fd-pick input::-webkit-color-swatch-wrapper { padding: 0; } .fd-pick input::-webkit-color-swatch { border: 0; border-radius: calc(var(--r) - 2px); }
 .fd-pick input::-moz-color-swatch { border: 0; border-radius: calc(var(--r) - 2px); }
+.fd-sec { scroll-margin-top: 5rem; margin-bottom: calc(var(--space-32) * 2); }
+.fd-sec > h2 { color: var(--text); letter-spacing: 0; text-transform: none; margin: 0 0 var(--space-16); }
 .fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-32); }
 body:has(#fd-light:checked) .fd-dark, body:has(#fd-dark:checked) .fd-light { display: none; }
 body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns: minmax(0,1fr); }
-.fd-title { font: var(--title); margin: 0 0 var(--space-16); }
-.fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; padding: var(--space-16) 0; margin-bottom: var(--space-32); background: var(--bg); border-bottom: 1px solid var(--line); }
-.fd-bar { font: var(--body); } .fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
-.fd-tools { margin-left: auto; display: flex; align-items: center; gap: var(--space-16) var(--space-32); flex-wrap: wrap; }
-.fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font: var(--heading); color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
-:root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; }
-html { background: light-dark(#f6f6f5, #18191b); } body { background: transparent; } /* paint the canvas from html, so a live switch repaints the outer background too */ /* the switch sets the whole page; "both" follows the system */
-/* wrapping rules */
-.fd-ty :is(p, li, td) { hyphens: auto; text-wrap: pretty; max-width: 70ch; }
-.fd-ty :is(h1, h2, h3, h4, .ty-h) { hyphens: auto; text-wrap: balance; } .fd-ty :is(button, label, code, .fd-n) { hyphens: manual; }
-.fd-ty { overflow-wrap: anywhere; }
-.ty-prose { text-align: justify; hyphens: auto; text-wrap: pretty; max-width: 70ch; }
-.ty-list { display: grid; }
-.ty-r { display: grid; grid-template-columns: 10.5rem minmax(0, 38rem) auto; column-gap: var(--space-32); align-items: first baseline; padding: var(--space-16) 0; border-bottom: 1px solid var(--line); font: var(--body); }
-.ty-r:last-child { border-bottom: 0; } .ty-rule { grid-column: 1 / 3; } .ty-sample { min-width: 0; }
-.ty-mock { columns: 3 22rem; column-gap: var(--space-32); column-rule: 1px solid var(--line); padding: var(--space-32) var(--space-32); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); } .ty-mock p { margin: 0 0 var(--space-16); } .ty-mock .ty-end { column-span: all; margin: var(--space-8) 0 0; padding-top: var(--space-16); border-top: 1px solid var(--line); }
-@media (max-width: 50rem) { .ty-r { grid-template-columns: minmax(0,1fr); row-gap: var(--space-4); } .ty-rule { grid-column: auto; } }
-.sp-bar { display: flex; align-items: center; gap: var(--space-16); } .sp-bar i { flex: none; height: var(--space-16); background: var(--accent); border-radius: 2px; }
-.ty-muted { color: var(--muted); } .ty-mock strong { font-weight: 600; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
-.fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--space-32) var(--space-32) var(--space-32); min-width: 0; }
-.fd h3 { font: var(--subheading); margin: var(--space-32) 0 var(--space-16); } .fd h3:first-of-type { margin-top: var(--space-4); }
+.fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--space-32); min-width: 0; }
+.fd h3 { margin: var(--space-32) 0 var(--space-16); } .fd h3:first-of-type { margin-top: var(--space-4); }
+
+/* colour rows */
 .fd-col { display: grid; gap: var(--space-16); justify-items: start; }
 .fd-c { display: flex; align-items: center; gap: var(--space-16); min-width: 0; font: var(--body); }
 .fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--r); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-n { min-width: 10.5rem; }
-.fd-v { display: flex; gap: var(--space-32); flex-wrap: wrap; }
-.fd-v .copy { all: unset; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
-.fd-v .copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: .3em; vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
-.fd-v .copy:hover, .fd-v .copy:focus-visible { color: var(--text); text-decoration: underline; }
-.fd-v .copy.done::after { content: " ✓"; color: var(--ok); }
-.fd-down { display: flex; align-items: center; gap: .6rem; height: 2rem; margin: -.3rem 0; padding-left: 1.75rem; font: var(--small); color: var(--muted); }
+.fd-v { display: flex; gap: var(--space-4) var(--space-32); flex-wrap: wrap; }
+.fd-v .fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; padding: 0; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
+.fd-copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: var(--space-4); vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
+.fd-copy:hover, .fd-copy:focus-visible { color: var(--text); text-decoration: underline; }
+.fd-copy.done::after { content: " ✓"; color: var(--ok); }
+.fd-down { display: flex; align-items: center; gap: var(--space-8); height: 2rem; margin: calc(var(--space-4) * -1) 0; padding-left: 1.75rem; font: var(--small); color: var(--muted); }
 .fd-down svg { width: 1rem; height: 100%; overflow: visible; }
 .fd-down line { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 3 3; }
 .fd-down path { stroke: var(--muted); stroke-width: 1.25; fill: none; }
-.fd-scale { position: relative; height: 3rem; margin: calc(var(--space-32) * 2) 0 var(--space-8); border-radius: var(--r); background: linear-gradient(to right in oklch, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
-.fd-tick { position: absolute; left: var(--at); bottom: 100%; height: calc(var(--up) * 1.2rem + .3rem); border-left: 1px dashed var(--muted); padding-left: .4rem; font: var(--small); line-height: 1; white-space: nowrap; }
-.fd-ends small { font: inherit; }
-.fd-ends { display: flex; justify-content: space-between; gap: var(--space-16); flex-wrap: wrap; margin-bottom: var(--space-16); font: var(--small); color: var(--muted); }
-body { max-width: 104rem; }
+.fd-scale { position: relative; height: 3rem; margin: calc(var(--space-32) * 2) 0 var(--space-8); border-radius: var(--r); background: linear-gradient(to right in oklab, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
+.fd-tick { position: absolute; left: var(--at); bottom: 100%; height: 1.5rem; border-left: 1px dashed var(--muted); padding-left: var(--space-8); font: var(--small); line-height: 1; white-space: nowrap; }
+.fd-ends { display: flex; justify-content: space-between; gap: var(--space-16); margin-bottom: var(--space-16); font: var(--small); color: var(--muted); }
+
+/* typography and spacing rows */
+.ty-list { display: grid; }
+.ty-r { display: grid; grid-template-columns: 10.5rem minmax(0, 38rem) auto; column-gap: var(--space-32); align-items: first baseline; padding: var(--space-16) 0; border-bottom: 1px solid var(--line); font: var(--body); }
+.ty-r:last-child { border-bottom: 0; } .ty-rule { grid-column: 1 / 3; } .ty-sample { min-width: 0; }
+.ty-mock { columns: 3 22rem; column-gap: var(--space-32); column-rule: 1px solid var(--line); padding: var(--space-32); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+.ty-mock p { margin: 0 0 var(--space-16); } .ty-mock .ty-end { column-span: all; margin: var(--space-8) 0 0; padding-top: var(--space-16); border-top: 1px solid var(--line); }
+.sp-bar { display: flex; align-items: center; gap: var(--space-16); } .sp-bar i { flex: none; height: var(--space-16); background: var(--accent); border-radius: 2px; }
+@media (max-width: 50rem) { .ty-r { grid-template-columns: minmax(0,1fr); row-gap: var(--space-4); } .ty-rule { grid-column: auto; } }
 @media (max-width: 40rem) { .fd-modes { grid-template-columns: minmax(0,1fr); } }
 </style>
 </head>
 <body>
 <main id="main">
-<h1 class="fd-title">Foundations</h1>
-<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><span class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<h1 class="fd-title t-title">Foundations</h1>
+<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><div class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
 <div class="seg" role="radiogroup" aria-label="Modes">
-<input type="radio" name="fd-mode" id="fd-both" checked><label for="fd-both"><i class="icon-columns" aria-hidden="true"></i> both</label>
-<input type="radio" name="fd-mode" id="fd-light"><label for="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
-<input type="radio" name="fd-mode" id="fd-dark"><label for="fd-dark"><i class="icon-moon" aria-hidden="true"></i> dark</label>
-</div></span></nav>
-<section id="colours" class="fd-sec"><h2>Colours</h2>
+<label><input type="radio" name="fd-mode" id="fd-both" checked><i class="icon-columns" aria-hidden="true"></i> both</label>
+<label><input type="radio" name="fd-mode" id="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
+<label><input type="radio" name="fd-mode" id="fd-dark"><i class="icon-moon" aria-hidden="true"></i> dark</label>
+</div></div></nav>
+<section id="colours" class="fd-sec"><h2 class="t-heading">Colours</h2>
 <div class="fd-modes">
 <section class="fd fd-light" aria-label="light">
-<h3>Neutrals</h3>
-<div class="fd-col"><span class="fd-c src" style="--v:var(--background)" data-v="--background"><b></b><span class="fd-n">background</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--surface)" data-v="--surface"><b></b><span class="fd-n">surface</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--text)" data-v="--text"><b></b><span class="fd-n">text</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<h3 class="t-subheading">Neutrals</h3>
+<div class="fd-col"><span class="fd-c" style="--v:var(--background)" data-v="--background"><b></b><span class="fd-n">background</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--surface)" data-v="--surface"><b></b><span class="fd-n">surface</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--text)" data-v="--text"><b></b><span class="fd-n">text</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
-<div class="fd-scale" role="img" aria-label="text mixed into bg: line 10 %, muted 67 %">
-<span class="fd-tick" style="--at:10%;--up:1">line 10 %</span><span class="fd-tick" style="--at:67%;--up:1">muted 67 %</span>
+<div class="fd-scale" role="img" aria-label="text mixed into background: line 10 %, muted 67 %">
+<span class="fd-tick" style="--at:10%">line 10 %</span><span class="fd-tick" style="--at:67%">muted 67 %</span>
 </div>
-<div class="fd-ends muted"><small>background</small><small>text</small></div>
-<div class="fd-col"><span class="fd-c" style="--v:var(--line)" data-v="--line"><b></b><span class="fd-n">line</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c" style="--v:var(--muted)" data-v="--muted"><b></b><span class="fd-n">muted</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<div class="fd-ends"><span>background</span><span>text</span></div>
+<div class="fd-col"><span class="fd-c" style="--v:var(--line)" data-v="--line"><b></b><span class="fd-n">line</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--muted)" data-v="--muted"><b></b><span class="fd-n">muted</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
-<h3>Brand</h3>
-<div class="fd-col"><span class="fd-c src" style="--v:var(--brand)" data-v="--brand"><b></b><span class="fd-n">brand</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-down" aria-hidden="true"><svg viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>adapted per mode</span></span>
-<span class="fd-c" style="--v:var(--accent)" data-v="--accent"><b></b><span class="fd-n">accent</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-down" aria-hidden="true"><svg viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>7 % on background</span></span>
-<span class="fd-c" style="--v:var(--selected)" data-v="--selected"><b></b><span class="fd-n">selected</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c" style="--v:var(--text-on-accent)" data-v="--text-on-accent"><b></b><span class="fd-n">text-on-accent</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<h3 class="t-subheading">Brand</h3>
+<div class="fd-col"><span class="fd-c" style="--v:var(--brand)" data-v="--brand"><b></b><span class="fd-n">brand</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-down"><svg aria-hidden="true" viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>adapted per mode</span></span>
+<span class="fd-c" style="--v:var(--accent)" data-v="--accent"><b></b><span class="fd-n">accent</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-down"><svg aria-hidden="true" viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>7 % on background</span></span>
+<span class="fd-c" style="--v:var(--selected)" data-v="--selected"><b></b><span class="fd-n">selected</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--text-on-accent)" data-v="--text-on-accent"><b></b><span class="fd-n">text-on-accent</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
-<h3>States</h3>
-<div class="fd-col"><span class="fd-c src" style="--v:var(--ok)" data-v="--ok"><b></b><span class="fd-n">ok</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--warn)" data-v="--warn"><b></b><span class="fd-n">warn</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--info)" data-v="--info"><b></b><span class="fd-n">info</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<h3 class="t-subheading">States</h3>
+<div class="fd-col"><span class="fd-c" style="--v:var(--ok)" data-v="--ok"><b></b><span class="fd-n">ok</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--warn)" data-v="--warn"><b></b><span class="fd-n">warn</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--info)" data-v="--info"><b></b><span class="fd-n">info</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
 </section>
 <section class="fd fd-dark" aria-label="dark">
-<h3>Neutrals</h3>
-<div class="fd-col"><span class="fd-c src" style="--v:var(--background)" data-v="--background"><b></b><span class="fd-n">background</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--surface)" data-v="--surface"><b></b><span class="fd-n">surface</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--text)" data-v="--text"><b></b><span class="fd-n">text</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<h3 class="t-subheading">Neutrals</h3>
+<div class="fd-col"><span class="fd-c" style="--v:var(--background)" data-v="--background"><b></b><span class="fd-n">background</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--surface)" data-v="--surface"><b></b><span class="fd-n">surface</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--text)" data-v="--text"><b></b><span class="fd-n">text</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
-<div class="fd-scale" role="img" aria-label="text mixed into bg: line 10 %, muted 67 %">
-<span class="fd-tick" style="--at:10%;--up:1">line 10 %</span><span class="fd-tick" style="--at:67%;--up:1">muted 67 %</span>
+<div class="fd-scale" role="img" aria-label="text mixed into background: line 10 %, muted 67 %">
+<span class="fd-tick" style="--at:10%">line 10 %</span><span class="fd-tick" style="--at:67%">muted 67 %</span>
 </div>
-<div class="fd-ends muted"><small>background</small><small>text</small></div>
-<div class="fd-col"><span class="fd-c" style="--v:var(--line)" data-v="--line"><b></b><span class="fd-n">line</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c" style="--v:var(--muted)" data-v="--muted"><b></b><span class="fd-n">muted</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<div class="fd-ends"><span>background</span><span>text</span></div>
+<div class="fd-col"><span class="fd-c" style="--v:var(--line)" data-v="--line"><b></b><span class="fd-n">line</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--muted)" data-v="--muted"><b></b><span class="fd-n">muted</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
-<h3>Brand</h3>
-<div class="fd-col"><span class="fd-c src" style="--v:var(--brand)" data-v="--brand"><b></b><span class="fd-n">brand</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-down" aria-hidden="true"><svg viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>adapted per mode</span></span>
-<span class="fd-c" style="--v:var(--accent)" data-v="--accent"><b></b><span class="fd-n">accent</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-down" aria-hidden="true"><svg viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>7 % on background</span></span>
-<span class="fd-c" style="--v:var(--selected)" data-v="--selected"><b></b><span class="fd-n">selected</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c" style="--v:var(--text-on-accent)" data-v="--text-on-accent"><b></b><span class="fd-n">text-on-accent</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
+<h3 class="t-subheading">Brand</h3>
+<div class="fd-col"><span class="fd-c" style="--v:var(--brand)" data-v="--brand"><b></b><span class="fd-n">brand</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-down"><svg aria-hidden="true" viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>adapted per mode</span></span>
+<span class="fd-c" style="--v:var(--accent)" data-v="--accent"><b></b><span class="fd-n">accent</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-down"><svg aria-hidden="true" viewBox="0 0 12 24" preserveAspectRatio="none"><line x1="6" y1="0" x2="6" y2="22"/><path d="M1.5 17 6 22 10.5 17"/></svg><span>7 % on background</span></span>
+<span class="fd-c" style="--v:var(--selected)" data-v="--selected"><b></b><span class="fd-n">selected</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--text-on-accent)" data-v="--text-on-accent"><b></b><span class="fd-n">text-on-accent</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
-<h3>States</h3>
-<div class="fd-col"><span class="fd-c src" style="--v:var(--ok)" data-v="--ok"><b></b><span class="fd-n">ok</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--warn)" data-v="--warn"><b></b><span class="fd-n">warn</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--info)" data-v="--info"><b></b><span class="fd-n">info</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-<span class="fd-c src" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
-</div>
-</section>
+<h3 class="t-subheading">States</h3>
+<div class="fd-col"><span class="fd-c" style="--v:var(--ok)" data-v="--ok"><b></b><span class="fd-n">ok</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--warn)" data-v="--warn"><b></b><span class="fd-n">warn</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--danger)" data-v="--danger"><b></b><span class="fd-n">danger</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--info)" data-v="--info"><b></b><span class="fd-n">info</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--disabled)" data-v="--disabled"><b></b><span class="fd-n">disabled</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
+<span class="fd-c" style="--v:var(--text-on-danger)" data-v="--text-on-danger"><b></b><span class="fd-n">text-on-danger</span><span class="fd-v"><button type="button" class="fd-copy"></button><button type="button" class="fd-copy"></button></span></span>
 </div>
 </section>
-<section id="typography" class="fd-sec"><h2>Typography</h2>
+</div>
+</section>
+<section id="typography" class="fd-sec"><h2 class="t-heading">Typography</h2>
 <div class="fd fd-ty">
-<h3>Roles</h3>
-<div class="ty-list"><div class="ty-r"><span class="fd-n">title</span><div class="ty-sample" style="font:var(--title)">Less, but working.</div><span class="fd-v"><button type="button" class="copy">font: 600 32px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><span class="fd-n">heading</span><div class="ty-sample" style="font:var(--heading)">Copy, don't import.</div><span class="fd-v"><button type="button" class="copy">font: 600 24px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><span class="fd-n">subheading</span><div class="ty-sample" style="font:var(--subheading)">One file of CSS, one of JS.</div><span class="fd-v"><button type="button" class="copy">font: 600 18px/1.3 var(--mono)</button></span></div>
-<div class="ty-r"><span class="fd-n">body</span><div class="ty-sample" style="font:var(--body)">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need.</div><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
-<div class="ty-r"><span class="fd-n">prose</span><div class="ty-sample ty-prose" style="font:var(--prose)">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on.</div><span class="fd-v"><button type="button" class="copy">font: 400 15px/1.65 ui-serif, serif; text-align: justify; hyphens: auto</button></span></div>
-<div class="ty-r"><span class="fd-n">small</span><div class="ty-sample ty-muted" style="font:var(--small)">No fonts to download, no icons to fetch, no tracking.</div><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
+<h3 class="t-subheading">Roles</h3>
+<div class="ty-list"><div class="ty-r"><span class="fd-n">title</span><div class="t-title ty-sample">Less, but working.</div><span class="fd-v"><button type="button" class="fd-copy">font: 600 2rem/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><span class="fd-n">heading</span><div class="t-heading ty-sample">Copy, don't import.</div><span class="fd-v"><button type="button" class="fd-copy">font: 600 1.5rem/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><span class="fd-n">subheading</span><div class="t-subheading ty-sample">One file of CSS, one of JS.</div><span class="fd-v"><button type="button" class="fd-copy">font: 600 1.125rem/1.3 var(--mono)</button></span></div>
+<div class="ty-r"><span class="fd-n">body</span><div class="t-body ty-sample">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need.</div><span class="fd-v"><button type="button" class="fd-copy">font: 400 .875rem/1.6 var(--mono)</button></span></div>
+<div class="ty-r"><span class="fd-n">prose</span><div class="t-prose ty-sample">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on.</div><span class="fd-v"><button type="button" class="fd-copy">font: 400 .9375rem/1.65 ui-serif, serif; text-align: justify; hyphens: auto</button></span></div>
+<div class="ty-r"><span class="fd-n">small</span><div class="t-small ty-sample">No fonts to download, no icons to fetch, no tracking.</div><span class="fd-v"><button type="button" class="fd-copy">font: 400 .75rem/1.6 var(--mono); color: var(--muted)</button></span></div>
 </div>
-<h3>Wrapping</h3>
-<div class="ty-list"><div class="ty-r"><span class="ty-rule">running text is hyphenated</span><span class="fd-v"><button type="button" class="copy">hyphens: auto</button></span></div>
-<div class="ty-r"><span class="ty-rule">running text blocks are justified</span><span class="fd-v"><button type="button" class="copy">text-align: justify</button></span></div>
-<div class="ty-r"><span class="ty-rule">headings get balanced lines</span><span class="fd-v"><button type="button" class="copy">text-wrap: balance</button></span></div>
-<div class="ty-r"><span class="ty-rule">paragraphs avoid a lone last word</span><span class="fd-v"><button type="button" class="copy">text-wrap: pretty</button></span></div>
-<div class="ty-r"><span class="ty-rule">at most 70 characters per line</span><span class="fd-v"><button type="button" class="copy">max-width: 70ch</button></span></div>
-<div class="ty-r"><span class="ty-rule">long strings break instead of overflowing</span><span class="fd-v"><button type="button" class="copy">overflow-wrap: anywhere</button></span></div>
-<div class="ty-r"><span class="ty-rule">values stay together</span><span class="fd-v"><button type="button" class="copy">1.234,56&amp;nbsp;€</button></span></div>
+<h3 class="t-subheading">Wrapping</h3>
+<div class="ty-list"><div class="ty-r"><span class="ty-rule">running text is hyphenated</span><span class="fd-v"><button type="button" class="fd-copy">hyphens: auto</button></span></div>
+<div class="ty-r"><span class="ty-rule">running text blocks are justified</span><span class="fd-v"><button type="button" class="fd-copy">text-align: justify</button></span></div>
+<div class="ty-r"><span class="ty-rule">headings get balanced lines</span><span class="fd-v"><button type="button" class="fd-copy">text-wrap: balance</button></span></div>
+<div class="ty-r"><span class="ty-rule">paragraphs avoid a lone last word</span><span class="fd-v"><button type="button" class="fd-copy">text-wrap: pretty</button></span></div>
+<div class="ty-r"><span class="ty-rule">at most 70 characters per line</span><span class="fd-v"><button type="button" class="fd-copy">max-width: 70ch</button></span></div>
+<div class="ty-r"><span class="ty-rule">long strings break instead of overflowing</span><span class="fd-v"><button type="button" class="fd-copy">overflow-wrap: anywhere</button></span></div>
+<div class="ty-r"><span class="ty-rule">values stay together</span><span class="fd-v"><button type="button" class="fd-copy">1.234,56&amp;nbsp;€</button></span></div>
 </div>
-<h3>Text</h3>
-<div class="ty-mock"><p lang="en" class="ty-prose" style="font:var(--prose)">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need. <strong>One file of CSS, one of JS</strong>, no build step. <em>If a feature needs a framework, the feature is too big.</em> Prices like 1.234,56&nbsp;€ and ids like CUS-0042 line up because <strong><em>digits have one width</em></strong>.</p><p lang="en" class="ty-prose" style="font:var(--prose)">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on. A change that two apps need goes into the shared files first and is then copied into both; a copy that drifts from the original is caught by a check, not by a person.</p><p lang="en" class="ty-prose" style="font:var(--prose)">Colour means something or it is not there. A state is a dot and a word, never colour alone, so it survives a grey screen, a printout and eyes that see colours differently. Light and dark are both first class; neither is an afterthought, and both are checked before anything counts as done.</p><p lang="en" class="ty-prose" style="font:var(--prose)">The interface speaks in one voice: a monospace for everything you operate, a serif for everything you read. Four sizes are enough. Emphasis is weight, not size, and headings are never shouted in capitals. Text that runs is justified and hyphenated, and no line is longer than an eye can follow.</p><p lang="de" class="ty-prose" style="font:var(--prose)">Jede Seite funktioniert ohne JavaScript, jeder Zustand steht in der Adresszeile, und nichts wird geladen, was die Seite nicht braucht. Anwendungen kopieren diese Dateien, statt sie einzubinden, damit jede für sich baut und nichts bricht, wenn sich das Original weiterentwickelt. Barrierefreiheit ist keine Zusatzfunktion, sondern die Voraussetzung dafür, dass etwas als fertig gilt.</p><p lang="en" class="ty-prose" style="font:var(--prose)">Nothing is decoration. Every number on a dashboard leads to something a person can act on, every button says what it does and carries the same icon everywhere, and every shortcut also has a visible control. What cannot be explained in one sentence is probably not finished yet. <a href="#typography">Read the rules</a>, or check a page with <code>node check.mjs</code>.</p><p class="ty-muted ty-end" style="font:var(--small)">Small enough to read, simple enough to keep.</p></div>
+<h3 class="t-subheading">Text</h3>
+<div class="ty-mock"><p lang="en" class="t-prose">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need. <strong>One file of CSS, one of JS</strong>, no build step. <em>If a feature needs a framework, the feature is too big.</em> Prices like 1.234,56&nbsp;€ and ids like CUS-0042 line up because <strong><em>digits have one width</em></strong>.</p><p lang="en" class="t-prose">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on. A change that two apps need goes into the shared files first and is then copied into both; a copy that drifts from the original is caught by a check, not by a person.</p><p lang="en" class="t-prose">Colour means something or it is not there. A state is a dot and a word, never colour alone, so it survives a grey screen, a printout and eyes that see colours differently. Light and dark are both first class; neither is an afterthought, and both are checked before anything counts as done.</p><p lang="en" class="t-prose">The interface speaks in one voice: a monospace for everything you operate, a serif for everything you read. Four sizes are enough. Emphasis is weight, not size, and headings are never shouted in capitals. Text that runs is justified and hyphenated, and no line is longer than an eye can follow.</p><p lang="de" class="t-prose">Jede Seite funktioniert ohne JavaScript, jeder Zustand steht in der Adresszeile, und nichts wird geladen, was die Seite nicht braucht. Anwendungen kopieren diese Dateien, statt sie einzubinden, damit jede für sich baut und nichts bricht, wenn sich das Original weiterentwickelt. Barrierefreiheit ist keine Zusatzfunktion, sondern die Voraussetzung dafür, dass etwas als fertig gilt.</p><p lang="en" class="t-prose">Nothing is decoration. Every number on a dashboard leads to something a person can act on, every button says what it does and carries the same icon everywhere, and every shortcut also has a visible control. What cannot be explained in one sentence is probably not finished yet. <a href="#typography">Read the rules</a>, or check a page with <code>node check.mjs</code>.</p><p class="t-small ty-end">Small enough to read, simple enough to keep.</p></div>
 </div>
 </section>
-<section id="spacing" class="fd-sec"><h2>Spacing</h2>
+<section id="spacing" class="fd-sec"><h2 class="t-heading">Spacing</h2>
 <div class="fd fd-ty">
-<h3>Scale</h3>
-<div class="ty-list"><div class="ty-r sp-r"><span class="fd-n">space-4</span><span class="sp-bar"><i style="width:var(--space-4)"></i><span class="ty-muted" style="font:var(--small)">icon to its text, tight inline gaps</span></span><span class="fd-v"><button type="button" class="copy">4px</button><button type="button" class="copy">0.25rem</button></span></div>
-<div class="ty-r sp-r"><span class="fd-n">space-8</span><span class="sp-bar"><i style="width:var(--space-8)"></i><span class="ty-muted" style="font:var(--small)">related items, inside controls</span></span><span class="fd-v"><button type="button" class="copy">8px</button><button type="button" class="copy">0.5rem</button></span></div>
-<div class="ty-r sp-r"><span class="fd-n">space-16</span><span class="sp-bar"><i style="width:var(--space-16)"></i><span class="ty-muted" style="font:var(--small)">default: gaps, panel padding, phone margin</span></span><span class="fd-v"><button type="button" class="copy">16px</button><button type="button" class="copy">1rem</button></span></div>
-<div class="ty-r sp-r"><span class="fd-n">space-32</span><span class="sp-bar"><i style="width:var(--space-32)"></i><span class="ty-muted" style="font:var(--small)">between groups and sections</span></span><span class="fd-v"><button type="button" class="copy">32px</button><button type="button" class="copy">2rem</button></span></div>
+<h3 class="t-subheading">Scale</h3>
+<div class="ty-list"><div class="ty-r"><span class="fd-n">space-4</span><span class="sp-bar"><i style="width:var(--space-4)"></i><span class="t-small">icon to its text, tight inline gaps</span></span><span class="fd-v"><button type="button" class="fd-copy">4px</button><button type="button" class="fd-copy">0.25rem</button></span></div>
+<div class="ty-r"><span class="fd-n">space-8</span><span class="sp-bar"><i style="width:var(--space-8)"></i><span class="t-small">related items, inside controls</span></span><span class="fd-v"><button type="button" class="fd-copy">8px</button><button type="button" class="fd-copy">0.5rem</button></span></div>
+<div class="ty-r"><span class="fd-n">space-16</span><span class="sp-bar"><i style="width:var(--space-16)"></i><span class="t-small">default: gaps, panel padding, phone margin</span></span><span class="fd-v"><button type="button" class="fd-copy">16px</button><button type="button" class="fd-copy">1rem</button></span></div>
+<div class="ty-r"><span class="fd-n">space-32</span><span class="sp-bar"><i style="width:var(--space-32)"></i><span class="t-small">between groups and sections</span></span><span class="fd-v"><button type="button" class="fd-copy">32px</button><button type="button" class="fd-copy">2rem</button></span></div>
 </div>
 </div>
 </section>
@@ -205,11 +215,11 @@ const fdPaint = () => {
   }
 };
 const fdBrand = document.getElementById('fd-brand');
-fdBrand.addEventListener('input', () => { for (const h of document.querySelectorAll('.fd')) h.style.setProperty('--brand', fdBrand.value);
+fdBrand.addEventListener('input', () => { document.documentElement.style.setProperty('--brand', fdBrand.value);
   fdPaint(); });
 fdPaint();
-document.addEventListener('click', e => { const b = e.target.closest('.fd .copy'); if (!b) return;
-  navigator.clipboard.writeText(b.textContent); b.classList.add('done'); setTimeout(() => b.classList.remove('done'), 1200); });
+document.addEventListener('click', e => { const b = e.target.closest('.fd-copy'); if (!b) return;
+  navigator.clipboard.writeText(b.textContent).then(() => { b.classList.add('done'); setTimeout(() => b.classList.remove('done'), 1200); }); });
 </script>
 </body>
 </html>

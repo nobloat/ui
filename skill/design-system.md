@@ -24,8 +24,8 @@ A reusable, sustainable design system to design new nobloat apps quickly, UI and
 These are decided in `foundations.html` and go into `ui.css` and `SKILL.md` at the streamlining:
 
 - **One design** (graphite). Paper is removed.
-- **Neutrals** from three sources per mode: `background`, `surface`, `text`. Two derived, mixed in OKLCH: `line` (`text` 10 % on `background`: dividers, borders, chip fill, hover, inactive and decorative) and `muted` (67 %: secondary text, field edges).
-- **Brand:** an app sets one colour, `brand`. `accent` is the brand adapted only where contrast would fail (OKLCH lightness at most .52 in light, at least .72 in dark). `selected` = `accent` 7 % on `background`. `text-on-accent` is white in light and `background` in dark.
+- **Neutrals** from three sources per mode: `background`, `surface`, `text`. Two derived, mixed in OKLab (keeps greys grey): `line` (`text` 10 % on `background`: dividers, borders, chip fill, hover, inactive and decorative) and `muted` (67 %: secondary text, field edges).
+- **Brand:** an app sets one colour, `brand`. `accent` is the brand adapted only where contrast would fail (OKLCH lightness at most .52 in light, at least .72 in dark). `selected` = `accent` 7 % on `background` (OKLab). `text-on-accent` is white in light and `background` in dark.
 - **States**, named by meaning only, never by hue: `ok` #5f8a2e, `warn` #d97706, `danger` #dc2626, `info` #3b82f6, `disabled` #7c7c85; one colour for both modes, for dots, icons and edges (3:1). The word next to a state stays in `text`. `danger` is also the fill of dangerous buttons with `text-on-danger` (white, 4.8:1). There is no `error`.
 - **Names are descriptive:** `background`, `text`, `selected`, `text-on-accent`, not `bg`, `fg`, `sel`, `on-accent`.
 - **Typography:** one family for the interface, the system monospace; five roles: `title` 600 32/1.2, `heading` 600 24/1.2, `subheading` 600 18/1.3, `body` 400 14/1.6, `small` 400 12/1.6 in `muted`. Emphasis is weight 600, never another size. `prose` for running text blocks: 400 15/1.65 `ui-serif, serif`, justified and hyphenated. A hero (big intro) and numbers are components, not type roles.
