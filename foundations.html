@@ -32,9 +32,9 @@
 .fd-pick input::-webkit-color-swatch-wrapper { padding: 0; } .fd-pick input::-webkit-color-swatch { border: 0; border-radius: calc(var(--r) - 2px); }
 .fd-pick input::-moz-color-swatch { border: 0; border-radius: calc(var(--r) - 2px); }
 .fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.5rem; }
-.fd-modes:has(#fd-light:checked) .fd-dark, .fd-modes:has(#fd-dark:checked) .fd-light { display: none; }
-.fd-modes:has(#fd-light:checked, #fd-dark:checked) { grid-template-columns: minmax(0,1fr); }
-.fd-switch { grid-column: 1 / -1; display: flex; align-items: center; gap: 1.25rem 2.5rem; flex-wrap: wrap; margin: .5rem 0 1rem; }
+body:has(#fd-light:checked) .fd-dark, body:has(#fd-dark:checked) .fd-light { display: none; }
+body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns: minmax(0,1fr); }
+.fd-head { display: flex; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; } .fd-head h1 { margin: 0; } .fd-head .seg { margin-left: auto; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
 .fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.75rem 2rem 2rem; min-width: 0; }
 .fd h3 { margin: 2.6rem 0 1.1rem; font-size: 1.1rem; font-weight: 600; } .fd h3:first-of-type { margin-top: .2rem; }
@@ -60,14 +60,13 @@ body { max-width: 104rem; }
 </head>
 <body>
 <main id="main">
-<div class="pagehead"><h1>Colours</h1></div>
-<div class="fd-modes">
-<div class="fd-switch"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<div class="pagehead fd-head"><h1>Colours</h1><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
 <div class="seg" role="radiogroup" aria-label="Modes">
 <input type="radio" name="fd-mode" id="fd-both" checked><label for="fd-both"><i class="icon-columns" aria-hidden="true"></i> both</label>
 <input type="radio" name="fd-mode" id="fd-light"><label for="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
 <input type="radio" name="fd-mode" id="fd-dark"><label for="fd-dark"><i class="icon-moon" aria-hidden="true"></i> dark</label>
 </div></div>
+<div class="fd-modes">
 <section class="fd fd-light" aria-label="light">
 <h3>Neutrals</h3>
 <div class="fd-col"><span class="fd-c src" style="--v:var(--background)" data-v="--background"><b></b><span class="fd-n">background</span><span class="fd-v"><button type="button" class="copy"></button><button type="button" class="copy"></button></span></span>
