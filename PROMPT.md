@@ -33,3 +33,7 @@ fix these issues and let's define templates in ui for typical error pages, show 
 no copies! inacceptable · all should stack on each layer · i want to build a reusable, sustainable design system to quickly develop new app in nobloat style also from UX and UI perspective · content slots are very important · not all apps, let's start with the simplest one (auth, call) · are we missing guidelines / agents.md for the ui/ux design with penpot? you made quite a lot of mistakes and ignored clear orders, let's fix that first
 
 (Decided: `skill/penpot.md` holds the rules for Penpot work: layers built only from instances of the layer below, containers with content slots, one layer at a time and screens last, app by app; the hard ground rules; what "done" means; the plugin pitfalls. Linked from `AGENTS.md` and `skill/SKILL.md`.)
+
+what is this generator? · is there a benefit doing this in node/js? · alright, then lets commit that
+
+(Decided: the Penpot screen generator lives in `penpot/` (renderer `lib.js` for the plugin, screen definitions `apps/*.json`, `validate.mjs`, `dryrun.mjs`, `serve.mjs`). The renderer stays JS because the Penpot plugin API is JS; the definitions are a one-time migration snapshot, not a second source of truth. Icon names are read from `icons/`, not a copied list.)
