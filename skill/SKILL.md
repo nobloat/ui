@@ -48,6 +48,7 @@ Works at 320–500 px without sideways scrolling or zoom; the breakpoint is 40re
 - Links: internal links are accent and always underlined (thicker on hover, dimmer when visited); links to other sites have `target="_blank" rel="noopener"`, which also adds the external icon. Nothing else opens a new tab. Tabs, table heads, row titles and breadcrumbs underline only on hover.
 - Theme: auto, light, dark. Segmented control (icon + word) where there is room, one cycling icon button where not; switching is CSS alone (radios + `:has()`); the server renders the saved choice as the checked radio.
 - Modern CSS3 only: custom properties, `:has()`, container queries, `light-dark()`, `color-mix()`, view transitions; never JavaScript for what CSS can do (theme switch, toggles, page fades).
+- Print and documents: readable on a cheap black-and-white printer with minimal ink (black on white, no colour, no fills, thin lines, no light grey).
 - Targets at least 24×24 px or spaced; visible keyboard focus everywhere (`:focus-visible` outline, fields show it on their border); a skip link; dialogs are native `<dialog>`.
 - Never color alone: a state is a dot or glyph with `role="img" aria-label`, plus a word nearby. Respect `prefers-reduced-motion`.
 
