@@ -18,7 +18,8 @@ These apply in Penpot now and go into `ui.css` and `SKILL.md` when the design sy
 - **Headings never ALL UPPERCASE.** Section headings are 16/600 in `fg`, normal case (`ui.css` still has uppercase section labels and `main h2`).
 - Hover: `fg` at 8 % on the surface.
 - Neutrals from three base colours per mode (`bg`, `surface`, `fg`); `chip`, `line`, `line-strong`, `muted`, `hover` are mixes in OKLCH, `faint` is `line` (`ui.css` has fixed hex values and mixes in sRGB).
-- One colour per state, named by meaning: `state.ok`, `state.warning`, `state.error`, `state.info`, `state.off`, for both dots and state words; no rim around dots (`ui.css` has hue names, a bright colour plus `--rim` for dots and a darker `--c-text` for words). A red fill for a dangerous action (call's hang-up) is `danger` with `on-danger`, not a state.
+- Every token is named `color.<name>` without groups. The Color board shows each source with what is derived from it, each derived swatch captioned with its source and percentage (matching its description).
+- One colour per state, named by meaning: `color.ok`, `color.warning`, `color.error`, `color.info`, `color.off`, for both dots and state words, derived from the source hues `color.green`, `color.yellow`, `color.red`, `color.blue`, `color.grey` (used for nothing else); no rim around dots (`ui.css` has hue names, a bright colour plus `--rim` for dots and a darker `--c-text` for words). A red fill for a dangerous action (call's hang-up) is `danger` with `on-danger`, not a state.
 - Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
 
 ## Layers: each one only from the one below
@@ -47,7 +48,7 @@ What is still missing in each layer: [To do](#to-do).
 - **Light and dark** are a token theme, never component variants. Both are first class.
 - No component tokens; components use semantic tokens (`fg`, `muted`, `line`, `line-strong` for field edges, `chip`, `sel`, `accent`, `bg`, state colours). Derived colours are stored as precalculated hex: Penpot's `mix(a, b, w)` resolves in the token panel (OKLCH, `w` is the share of `b`) but bound shapes never receive the value. Compute the hex with the same OKLCH mix and put the CSS formula in the description (`color-mix(in oklch, fg 10%, bg)`).
 - **One brand knob per app**: `brand` (primary button, selection, highlight of the current period in charts, dots of the error display). Dark mode derives its own shade, which an app may override. The brand needs 4.5:1 on the light background, its dark shade on the dark one.
-- Otherwise colour only means something: state colours (ok, warning, error, info, off) for state and nothing else; signed money (+ green, − red, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
+- Otherwise colour only means something: state colours (ok, warning, error, info, off) for state and nothing else; signed money (+ `ok`, − `error`, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
 - Chart series beyond one: blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, in that order, always with a legend or direct labels.
 - Fonts without external dependencies: the system monospace stack.
 
