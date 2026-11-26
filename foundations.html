@@ -7,7 +7,7 @@
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="ui.css">
 <style>
-:root { --font: var(--mono); }
+:root { --font: var(--mono); --space-4: 0.25rem; --space-8: 0.5rem; --space-12: 0.75rem; --space-16: 1rem; --space-24: 1.5rem; --space-32: 2rem; --space-48: 3rem; } /* spacing: multiples of 4 */
 :root { --title: 600 28px/1.2 var(--font); --heading: 600 20px/1.2 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); --prose: 400 15px/1.65 ui-serif, serif; } /* typography roles; emphasis = 600; prose = running text blocks, serif, justified */
 /* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
    everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
@@ -41,7 +41,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .fd-bar { font: var(--body); } .fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
 .fd-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; }
 .fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font: var(--heading); color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
-.fd-ty { color-scheme: light; } body:has(#fd-dark:checked) .fd-ty { color-scheme: dark; }
+:root:has(#fd-light:checked) { color-scheme: light; } :root:has(#fd-dark:checked) { color-scheme: dark; } /* the switch sets the whole page; "both" follows the system */
 /* wrapping rules */
 .fd-ty :is(p, li, td) { hyphens: auto; text-wrap: pretty; max-width: 70ch; }
 .fd-ty :is(h1, h2, h3, h4, .ty-h) { hyphens: auto; text-wrap: balance; } .fd-ty :is(button, label, code, .fd-n) { hyphens: manual; }
@@ -52,6 +52,7 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .ty-r:last-child { border-bottom: 0; } .ty-rule { grid-column: 1 / 3; } .ty-sample { min-width: 0; }
 .ty-mock { columns: 3 22rem; column-gap: 3rem; column-rule: 1px solid var(--line); padding: 1.6rem 2rem; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); } .ty-mock p { margin: 0 0 1rem; } .ty-mock .ty-end { column-span: all; margin: .5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); }
 @media (max-width: 50rem) { .ty-r { grid-template-columns: minmax(0,1fr); row-gap: .3rem; } .ty-rule { grid-column: auto; } }
+.sp-bar { display: flex; align-items: center; gap: var(--space-16); } .sp-bar i { flex: none; height: var(--space-16); background: var(--accent); border-radius: 2px; }
 .ty-muted { color: var(--muted); } .ty-mock strong { font-weight: 600; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
 .fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.75rem 2rem 2rem; min-width: 0; }
@@ -80,7 +81,7 @@ body { max-width: 104rem; }
 <body>
 <main id="main">
 <h1 class="fd-title">Foundations</h1>
-<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><span class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
+<nav class="fd-bar" aria-label="Sections"><a href="#colours">Colours</a><a href="#typography">Typography</a><a href="#spacing">Spacing</a><span class="fd-tools"><span class="fd-pick"><label><i class="icon-edit" aria-hidden="true"></i> brand <input type="color" id="fd-brand" value="#0a5fc7"></label></span>
 <div class="seg" role="radiogroup" aria-label="Modes">
 <input type="radio" name="fd-mode" id="fd-both" checked><label for="fd-both"><i class="icon-columns" aria-hidden="true"></i> both</label>
 <input type="radio" name="fd-mode" id="fd-light"><label for="fd-light"><i class="icon-sun" aria-hidden="true"></i> light</label>
@@ -170,6 +171,19 @@ body { max-width: 104rem; }
 </div>
 <h3>Text</h3>
 <div class="ty-mock"><p lang="en" class="ty-prose" style="font:var(--prose)">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need. <strong>One file of CSS, one of JS</strong>, no build step. <em>If a feature needs a framework, the feature is too big.</em> Prices like 1.234,56&nbsp;€ and ids like CUS-0042 line up because <strong><em>digits have one width</em></strong>.</p><p lang="en" class="ty-prose" style="font:var(--prose)">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on. A change that two apps need goes into the shared files first and is then copied into both; a copy that drifts from the original is caught by a check, not by a person.</p><p lang="en" class="ty-prose" style="font:var(--prose)">Colour means something or it is not there. A state is a dot and a word, never colour alone, so it survives a grey screen, a printout and eyes that see colours differently. Light and dark are both first class; neither is an afterthought, and both are checked before anything counts as done.</p><p lang="en" class="ty-prose" style="font:var(--prose)">The interface speaks in one voice: a monospace for everything you operate, a serif for everything you read. Four sizes are enough. Emphasis is weight, not size, and headings are never shouted in capitals. Text that runs is justified and hyphenated, and no line is longer than an eye can follow.</p><p lang="de" class="ty-prose" style="font:var(--prose)">Jede Seite funktioniert ohne JavaScript, jeder Zustand steht in der Adresszeile, und nichts wird geladen, was die Seite nicht braucht. Anwendungen kopieren diese Dateien, statt sie einzubinden, damit jede für sich baut und nichts bricht, wenn sich das Original weiterentwickelt. Barrierefreiheit ist keine Zusatzfunktion, sondern die Voraussetzung dafür, dass etwas als fertig gilt.</p><p lang="en" class="ty-prose" style="font:var(--prose)">Nothing is decoration. Every number on a dashboard leads to something a person can act on, every button says what it does and carries the same icon everywhere, and every shortcut also has a visible control. What cannot be explained in one sentence is probably not finished yet. <a href="#typography">Read the rules</a>, or check a page with <code>node check.mjs</code>.</p><p class="ty-muted ty-end" style="font:var(--small)">Small enough to read, simple enough to keep.</p></div>
+</div>
+</section>
+<section id="spacing" class="fd-sec"><h2>Spacing</h2>
+<div class="fd fd-ty">
+<h3>Scale</h3>
+<div class="ty-list"><div class="ty-r sp-r"><span class="fd-n">space-4</span><span class="sp-bar"><i style="width:var(--space-4)"></i><span class="ty-muted" style="font:var(--small)">icon to its text, tight inline gaps</span></span><span class="fd-v"><button type="button" class="copy">4px</button><button type="button" class="copy">0.25rem</button></span></div>
+<div class="ty-r sp-r"><span class="fd-n">space-8</span><span class="sp-bar"><i style="width:var(--space-8)"></i><span class="ty-muted" style="font:var(--small)">inside controls, between related items</span></span><span class="fd-v"><button type="button" class="copy">8px</button><button type="button" class="copy">0.5rem</button></span></div>
+<div class="ty-r sp-r"><span class="fd-n">space-12</span><span class="sp-bar"><i style="width:var(--space-12)"></i><span class="ty-muted" style="font:var(--small)">padding of small controls and chips</span></span><span class="fd-v"><button type="button" class="copy">12px</button><button type="button" class="copy">0.75rem</button></span></div>
+<div class="ty-r sp-r"><span class="fd-n">space-16</span><span class="sp-bar"><i style="width:var(--space-16)"></i><span class="ty-muted" style="font:var(--small)">default gap, page margin on phones</span></span><span class="fd-v"><button type="button" class="copy">16px</button><button type="button" class="copy">1rem</button></span></div>
+<div class="ty-r sp-r"><span class="fd-n">space-24</span><span class="sp-bar"><i style="width:var(--space-24)"></i><span class="ty-muted" style="font:var(--small)">between groups, panel padding</span></span><span class="fd-v"><button type="button" class="copy">24px</button><button type="button" class="copy">1.5rem</button></span></div>
+<div class="ty-r sp-r"><span class="fd-n">space-32</span><span class="sp-bar"><i style="width:var(--space-32)"></i><span class="ty-muted" style="font:var(--small)">between sections of a page</span></span><span class="fd-v"><button type="button" class="copy">32px</button><button type="button" class="copy">2rem</button></span></div>
+<div class="ty-r sp-r"><span class="fd-n">space-48</span><span class="sp-bar"><i style="width:var(--space-48)"></i><span class="ty-muted" style="font:var(--small)">between major page regions</span></span><span class="fd-v"><button type="button" class="copy">48px</button><button type="button" class="copy">3rem</button></span></div>
+</div>
 </div>
 </section>
 </main>
