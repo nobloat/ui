@@ -151,6 +151,11 @@ Step by step, one layer at a time. Done so far: layers 0–2, and stat tile, mes
 - [ ] auth, then call; then the others one by one, each shown to the owner
 - [ ] Delete the old loose-box pages (nomail, call, up, poll, jot)
 
+**Checks and code (ideas from ui-skills.com, not Penpot work; each needs the owner's go)**
+- [ ] `check.mjs`: layout shift after load (CLS) and motion without `prefers-reduced-motion` (Chrome runs with reduced motion forced, so the motion case is untested today)
+- [ ] `ui.css`: `text-wrap: balance` on headings, `pretty` on paragraphs (`tabular-nums` is already used)
+- [ ] Touch targets: decide 24 px (WCAG AA, today) or 44 px on phones; the call look (40 px) is close to 44
+
 **Handover**
 - [ ] Carry the decided differences into `ui.css` and `SKILL.md`; this file becomes the source of truth
 
