@@ -117,7 +117,7 @@ Lists where users act on many objects get a checkbox column: `th.pick` with `inp
 - **Status**: `.dot.ok/.pend/.bad/.run/.off` or `.st` glyphs, always labeled.
 - **Messages**: `.flash` (error), `.flash.ok`, `.warn`, `.banner` (info); one sentence, or `<strong>title</strong>` plus text when it needs both; the icon comes from the class. Server flashes become toasts; saving never shows one.
 - **Toasts are always closable**: every toast has an × button that removes it at once; errors stay until closed, successes fade after 5 s. Client messages use ui.js's `toast(text, ok)`, never an app's own toast code, so a toast can never sit over the page with no way to dismiss it.
-- **Progress**: a task that takes time shows `<label class="progress"><span>what runs · 312 of 1.200</span><span class="pct">26 %</span><progress value max></progress></label>`; unknown length is `<progress>` without value. A short wait is the button spinner (`aria-busy`), not a bar.
+- **Progress**: a task that takes time shows `<label class="progress"><span>what runs · 312 of 1.200</span><span class="pct">26 %</span><progress value max></progress></label>`. **Unknown length only under 3 seconds:** a wait without a known end (signing in, saving a form) is the button spinner (`aria-busy`) and must finish within 3 s. Anything that can take longer reports what it is doing and how far it is (count and percent, updated as it runs); the server sends progress, the page never shows an endless spinner or an empty `<progress>`.
 
 ## Charts
 
