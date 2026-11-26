@@ -1,0 +1,73 @@
+/* nobloat composed parts (layer 2): built only from the components in components.css. */
+
+/* dialog: the native <dialog> (showModal: focus trap, Esc, backdrop). Title, content, actions at the end (Cancel first, the
+   action last); the close button sits in the head. Width follows the content, at most one measure. */
+.dialog { padding: 0; border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text);
+  box-shadow: var(--shadow-modal); inline-size: fit-content; max-inline-size: min(var(--measure), 100% - var(--space-32)); }
+.dialog::backdrop { background: color-mix(in oklab, black var(--mix-edge), transparent); }
+.dialog > form, .dialog > div { display: grid; gap: var(--space-16); padding: var(--space-16) var(--space-16) var(--space-16) var(--space-32); }
+.dialog header { display: flex; align-items: start; gap: var(--space-16); margin-right: calc(-1 * var(--space-8)); }
+.dialog header > :first-child { flex: 1; margin: 0; padding-top: var(--space-8); }
+.dialog footer { display: flex; flex-wrap: wrap; justify-content: end; gap: var(--space-8); padding-top: var(--space-8); }
+/* phones: a sheet from the bottom, the actions span the width */
+@media (width < 40rem) {
+  .dialog:modal { inset: auto 0 0; max-inline-size: none; inline-size: auto; margin: 0; border-radius: var(--radius-panel) var(--radius-panel) 0 0; }
+  .dialog:modal footer > .button { flex: 1; }
+}
+
+/* menu: a popover list of actions (popover + popovertarget: opens, closes on Esc and outside click, no script).
+   Rows are links or buttons, icon first, key hint at the end; a dangerous row comes last after a line, its icon in danger. */
+.menu { display: grid; padding: var(--space-4); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text);
+  box-shadow: var(--shadow-floating); min-inline-size: max-content; }
+.menu > :is(a, button) { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control); padding: 0 var(--space-8);
+  border: 0; border-radius: var(--radius-control); background: none; color: inherit; font: inherit; text-align: start; text-decoration: none; cursor: pointer; }
+.menu > :is(a, button):is(:hover, :focus-visible) { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); outline: none; }
+.menu > :is(a, button) > .kbd { margin-left: auto; padding-left: var(--space-16); }
+.menu > .danger > i { color: var(--danger); }
+.menu > hr { margin: var(--space-4) 0; border: 0; border-top: var(--border); }
+.menu[popover]:not(:popover-open) { display: none; }
+.menu[popover] { margin: 0; margin-top: var(--space-4); position-area: block-end span-inline-start; position-try-fallbacks: flip-block, flip-inline; }
+/* phones, and browsers without anchor positioning: a sheet from the bottom */
+@media (width < 40rem) { .menu kbd { display: none; } .menu[popover] { position-area: none; inset: auto 0 0; margin: 0; inline-size: auto; min-inline-size: 0; padding-bottom: var(--space-16); border-radius: var(--radius-panel) var(--radius-panel) 0 0; } }
+@supports not (position-area: block-end) { .menu[popover] { position-area: none; inset: auto 0 0; margin: 0; inline-size: auto; padding-bottom: var(--space-16); border-radius: var(--radius-panel) var(--radius-panel) 0 0; } }
+
+/* card: a panel with any content; an optional head with a title and its actions. Flat: a border, no shadow. */
+.card { display: grid; align-content: start; gap: var(--space-16); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text); }
+.card > header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-block-size: var(--size-control); margin-block: calc(-1 * var(--space-8)); }
+.card > header > :first-child { margin: 0; }
+
+/* stat tile: a card that is one link to its list: label, value, change, then a sparkline or a meter with its period */
+.stat-tile { display: grid; align-content: start; gap: var(--space-4); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel);
+  background: var(--surface); color: var(--text); text-decoration: none; }
+.stat-tile:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.stat-tile:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.stat-tile > .label { font: var(--body); }
+.stat-tile > .value { font: var(--title); font-variant-numeric: tabular-nums; }
+.stat-tile > .delta { display: flex; align-items: center; gap: var(--space-4); font: var(--small); color: var(--muted); }
+.stat-tile > .delta > i { color: var(--c, var(--muted)); }
+.stat-tile > .delta[data-state="ok"] { --c: var(--ok); } .stat-tile > .delta[data-state="danger"] { --c: var(--danger); }
+.stat-tile > .sparkline { inline-size: 100%; block-size: var(--size-control); margin-block-start: var(--space-8); overflow: visible; }
+.sparkline polyline { fill: none; stroke: var(--muted); stroke-width: var(--stroke-thin); vector-effect: non-scaling-stroke; }
+.menu > [hidden] { display: none; }
+.stat-tile > .meter-bar { margin-block-start: var(--space-8); }
+.stat-tile > .period { font: var(--small); color: var(--muted); }
+
+/* command palette: a dialog with a search line over menu rows (Ctrl K). The page's own actions come first (its object as
+   the group name), then actions and places. Typing ranks the rows by how well they match (word starts and runs count most)
+   and marks the matched letters; arrows move, Enter selects, Esc closes. The search line is its title. On phones it sits at the top. */
+.command-palette { inline-size: min(var(--measure), 100% - var(--space-32)); } /* centred like every dialog */
+.command-palette > form { gap: 0; padding: 0; }
+.command-palette .search { display: flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-16); border-bottom: var(--border); }
+.command-palette .search:focus-within { border-bottom-color: var(--accent); }
+.command-palette .search > .prompt { font-weight: 600; color: var(--muted); } /* the prompt >_ in the mono face, not an icon */
+.command-palette .search > input { all: unset; flex: 1; block-size: calc(var(--size-control) + var(--space-16)); font: var(--subheading); font-weight: 400; color: var(--text); }
+.command-palette .search > input::placeholder { color: var(--muted); }
+.command-palette .menu { padding: var(--space-8); border: 0; box-shadow: none; block-size: calc(var(--size-control) * 8); overflow-y: auto; align-content: start; } /* fixed: the line stays put while typing */
+.command-palette .menu > .no-match { padding: var(--space-16) var(--space-8); color: var(--muted); }
+.command-palette .menu mark { background: none; color: inherit; font-weight: 600; text-decoration: underline; text-decoration-thickness: var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+.command-palette > form > footer { display: flex; gap: var(--space-16); padding: var(--space-8) var(--space-16); border-top: var(--border); font: var(--small); color: var(--muted); }
+.command-palette > form > footer .kbd { margin-right: var(--space-4); }
+@media (width < 40rem) { .command-palette > form > footer { display: none; } } /* no key hints on phones */
+.menu > .group { padding: var(--space-8) var(--space-8) var(--space-4); font: var(--small); color: var(--muted); }
+.menu > [aria-selected="true"] { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); } /* as hover */
+@media (width < 40rem) { .command-palette:modal { inset: 0 0 auto; inline-size: auto; max-inline-size: none; margin: 0; border-radius: 0 0 var(--radius-panel) var(--radius-panel); } }

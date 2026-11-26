@@ -70,7 +70,8 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 .cp-fields > div > .cp-cap:first-child { color: var(--text); }
 .cp-fields > div > .cp-cap:last-child { flex-wrap: nowrap; justify-content: space-between; margin: 0; }
 .cp-box { display: grid; align-content: center; gap: var(--space-16); min-width: 0; padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); }
-.cp-box:has(> :is(.cp-stage, .card, .stat-tile):only-child) { align-content: stretch; padding: 0; border: 0; background: none; } /* it brings its own frame */
+.cp-box:has(> :is(.cp-stage, .card, .stat-tile, .app-header, .app-footer):only-child) { align-content: stretch; padding: 0; border: 0; background: none; } /* it brings its own frame */
+.cp-box > :is(.app-header, .app-footer) { position: static; align-self: start; border: var(--border); border-radius: var(--radius-panel); } /* a specimen: framed, not sticky */
 .cp-fields + h3, .cp-two + h3, .cp-states + h3 { margin-top: var(--space-32); }
 /* page switch: Foundations and Components; the current page is the h1 */
 .fd-pages { display: grid; gap: var(--space-16); margin: 0 0 var(--space-16); }

@@ -1,4 +1,4 @@
-/* nobloat documents: A4 sheets on screen, the same sheets in print (Ctrl+P, or save as PDF). Values from foundations.css.
+/* nobloat documents: A4 sheets on screen, the same sheets in print (Ctrl+P, or save as PDF). Values from token.css.
    Rule: a document prints fully readable on a cheap black-and-white printer with as little ink as possible. Black text on white,
    no colour, no fills or shaded areas, thin lines only, grey never lighter than mix-edge from the text. The screen shows the same. */
 .docs { display: grid; gap: var(--space-32); }
