@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="ui.css">
 <style>
 :root { --font: var(--mono); --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem; } /* spacing: four steps, each double the last */
-:root { --title: 600 28px/1.2 var(--font); --heading: 600 20px/1.2 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); --prose: 400 15px/1.65 ui-serif, serif; } /* typography roles; emphasis = 600; prose = running text blocks, serif, justified */
+:root { --title: 600 32px/1.2 var(--font); --heading: 600 24px/1.2 var(--font); --subheading: 600 18px/1.3 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); --prose: 400 15px/1.65 ui-serif, serif; } /* typography roles; emphasis = 600; prose = running text blocks, serif, justified */
 /* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
    everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
 .fd {
@@ -57,7 +57,7 @@ html { background: light-dark(#f6f6f5, #18191b); } body { background: transparen
 .ty-muted { color: var(--muted); } .ty-mock strong { font-weight: 600; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
 .fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--space-32) var(--space-32) var(--space-32); min-width: 0; }
-.fd h3 { margin: var(--space-32) 0 var(--space-16); font: var(--body); font-weight: 600; } .fd h3:first-of-type { margin-top: var(--space-4); }
+.fd h3 { font: var(--subheading); margin: var(--space-32) 0 var(--space-16); } .fd h3:first-of-type { margin-top: var(--space-4); }
 .fd-col { display: grid; gap: var(--space-16); justify-items: start; }
 .fd-c { display: flex; align-items: center; gap: var(--space-16); min-width: 0; font: var(--body); }
 .fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--r); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
@@ -155,8 +155,9 @@ body { max-width: 104rem; }
 <section id="typography" class="fd-sec"><h2>Typography</h2>
 <div class="fd fd-ty">
 <h3>Roles</h3>
-<div class="ty-list"><div class="ty-r"><span class="fd-n">title</span><div class="ty-sample" style="font:var(--title)">Less, but working.</div><span class="fd-v"><button type="button" class="copy">font: 600 28px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><span class="fd-n">heading</span><div class="ty-sample" style="font:var(--heading)">Copy, don't import.</div><span class="fd-v"><button type="button" class="copy">font: 600 20px/1.2 var(--mono)</button></span></div>
+<div class="ty-list"><div class="ty-r"><span class="fd-n">title</span><div class="ty-sample" style="font:var(--title)">Less, but working.</div><span class="fd-v"><button type="button" class="copy">font: 600 32px/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><span class="fd-n">heading</span><div class="ty-sample" style="font:var(--heading)">Copy, don't import.</div><span class="fd-v"><button type="button" class="copy">font: 600 24px/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><span class="fd-n">subheading</span><div class="ty-sample" style="font:var(--subheading)">One file of CSS, one of JS.</div><span class="fd-v"><button type="button" class="copy">font: 600 18px/1.3 var(--mono)</button></span></div>
 <div class="ty-r"><span class="fd-n">body</span><div class="ty-sample" style="font:var(--body)">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need.</div><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
 <div class="ty-r"><span class="fd-n">prose</span><div class="ty-sample ty-prose" style="font:var(--prose)">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on.</div><span class="fd-v"><button type="button" class="copy">font: 400 15px/1.65 ui-serif, serif; text-align: justify; hyphens: auto</button></span></div>
 <div class="ty-r"><span class="fd-n">small</span><div class="ty-sample ty-muted" style="font:var(--small)">No fonts to download, no icons to fetch, no tracking.</div><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
