@@ -9,6 +9,8 @@ The UI of nobloat apps comes from one reference repo, **nobloat/ui** (checked ou
 
 Before writing a page, open the nearest example in `../ui/pages/` (gallery `index`, `dashboard`, `list`, `detail`, `form`, `dates`, `week`, `month`, `settings`, `status`, `login`) and copy its structure. Everything below is enforced by `node ../ui/check.mjs` where it can be checked by a machine.
 
+Design system work in Penpot (the file nobloat-ui: tokens, components, templates, app screens) follows [`penpot.md`](penpot.md).
+
 ## Setup in an app
 
 1. Copy unchanged into the app: `ui.css`, `ui.js` → `web/static/`; `partials.html` → `web/`; `calendar.js` only for calendar pages; `chart.go` only for charts (change the package line, register `Spark`/`Columns` as template funcs). Merge `i18n/{en,de}.json` into the app's i18n files. Copy `favicon.svg` and replace the character and color.

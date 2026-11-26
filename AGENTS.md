@@ -4,6 +4,7 @@ Follow the nobloat skills ([nobloat/skill](https://github.com/nobloat/skill), ch
 
 - `nobloat`: stack, code, HTTP, config, tests, UI and the plan-first workflow. Always.
 - `nobloat-ui`: this repo, [`skill/SKILL.md`](skill/SKILL.md); keep it in sync with `ui.css`, `ui.js`, `partials.html` and the designs.
+- Design system work in Penpot (file nobloat-ui): [`skill/penpot.md`](skill/penpot.md). Read it before the first Penpot call.
 
 Every app copies `ui.css`, `ui.js`, `partials.html` and `i18n/ui/*.json` unchanged (`make ui` in the app). A change here is rolled out by running `make ui` in each app in nobloat/system and checking the screenshots there.
 
