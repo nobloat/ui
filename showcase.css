@@ -133,11 +133,8 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .nb-title { display: flex; align-items: center; gap: var(--space-8); } .nb-title .mark { height: 1em; } .nb-title .mark path { stroke: var(--muted); }
 /* the rules page is a plain document: no colour */
 .rl-page .nb-title .mark text, .rl-page .rl-node > i { fill: var(--text); color: var(--text); }
-.rl-page .quote > blockquote { font: var(--heading); font-weight: 400; font-style: italic; } /* the motto, large */
 /* rules page hero: breaks the scale on purpose; a large centred mark, the name under it, the motto with room around it */
 .rl-hero { display: grid; justify-items: center; gap: var(--space-16); padding-block: var(--space-32); text-align: center; }
 .rl-hero > .mark { height: 8rem; width: auto; } .rl-hero > .mark path { stroke: var(--muted); } .rl-hero > .mark text { fill: var(--text); }
 .rl-hero > h1 { margin: 0; }
-.rl-page .quote { justify-self: center; margin-block: calc(2 * var(--space-32)); padding: var(--space-16) var(--space-32); }
-.rl-page .quote > blockquote { font-size: 3rem; line-height: 1.2; }
-.rl-page .quote > figcaption { font-size: 1rem; }
+.rl-doc > .rl-motto { margin-block: calc(2 * var(--space-32)); font: var(--heading); font-size: 3rem; font-weight: 400; font-style: italic; line-height: 1.2; text-align: center; } /* the motto, large, no quote frame */
