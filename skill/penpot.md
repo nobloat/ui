@@ -17,7 +17,7 @@ These apply in Penpot now and go into `ui.css` and `SKILL.md` when the design sy
 - **One design** (graphite). Paper is not built in Penpot.
 - **Headings never ALL UPPERCASE.** Section headings are 16/600 in `fg`, normal case (`ui.css` still has uppercase section labels and `main h2`).
 - Hover: `fg` at 8 % on the surface.
-- One colour per state: status dots and state words both use `state-text.*`; no rim around dots (`ui.css` uses the bright colour plus `--rim`).
+- One colour per state, named by meaning: `state.ok`, `state.warning`, `state.error`, `state.info`, `state.off`, for both dots and state words; no rim around dots (`ui.css` has hue names, a bright colour plus `--rim` for dots and a darker `--c-text` for words). A red fill for a dangerous action (call's hang-up) is `danger` with `on-danger`, not a state.
 - Look follows the call app: 40 px controls (28 px small), round icon buttons, 12 px panels.
 
 ## Layers: each one only from the one below
@@ -46,7 +46,7 @@ What is still missing in each layer: [To do](#to-do).
 - **Light and dark** are a token theme, never component variants. Both are first class.
 - No component tokens; components use semantic tokens (`fg`, `muted`, `line`, `line-strong` for field edges, `chip`, `sel`, `accent`, `bg`, state colours). Derived colours are precalculated (Penpot's `mix()` resolves wrong), the formula goes in the token description.
 - **One brand knob per app**: `brand` (primary button, selection, highlight of the current period in charts, dots of the error display). Dark mode derives its own shade, which an app may override. The brand needs 4.5:1 on the light background, its dark shade on the dark one.
-- Otherwise colour only means something: state colours (green, yellow, red, blue, grey) for state and nothing else; signed money (+ green, − red, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
+- Otherwise colour only means something: state colours (ok, warning, error, info, off) for state and nothing else; signed money (+ green, − red, no sign neutral). Never colour alone: a state is a dot or glyph plus a word.
 - Chart series beyond one: blue `#2563eb`, pink `#db2777`, amber `#d97706`, green `#16a34a`, in that order, always with a legend or direct labels.
 - Fonts without external dependencies: the system monospace stack.
 
