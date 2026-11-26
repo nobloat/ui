@@ -51,7 +51,7 @@ What is still missing in each layer: [To do](#to-do).
 
 ### Accessibility (WCAG 2.2 AA, in light and dark)
 
-- Contrast: text and placeholders 4.5:1 (3:1 from 24 px, or 18.66 px bold), icons, field edges and state dots 3:1, muted text included.
+- Contrast: text and placeholders 4.5:1 (3:1 from 24 px, or 18.66 px bold), icons, field edges and state dots 3:1, muted text included. Exception: inactive or purely decorative elements (e.g. jot's faded boxes) use the token `faint` and are exempt (WCAG 1.4.3, 1.4.11); `faint` never carries meaning, text that must be read, or an active control's edge.
 - Targets at least 24×24 px or spaced. Visible keyboard focus on every control (fields show it on their border), documented on the States board.
 - Every icon-only control has a name (shown as the tooltip in the design).
 
