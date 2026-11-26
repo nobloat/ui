@@ -70,7 +70,7 @@ main, .cp-phone { container-type: inline-size; }
   border: var(--border-field); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--body);
   transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
 }
-.input::placeholder { color: var(--muted); }
+.input::placeholder { color: var(--muted); opacity: 1; } /* a realistic sample of the expected value; muted reaches 4.5:1 */
 textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
 .input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) 4%); }
 /* focus shows on the border (no outline ring), as for every field */
