@@ -75,7 +75,6 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
 .input[readonly] { border-style: dashed; background: transparent; }
-.input.small { height: var(--size-control-small); font: var(--small); color: var(--text); }
 /* select: the native control with a chevron */
 .select { position: relative; display: block; }
 .select > select.input { padding-right: calc(var(--space-16) + var(--space-16)); line-height: calc(var(--size-control) - 2px); cursor: pointer; }
