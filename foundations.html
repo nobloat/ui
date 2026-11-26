@@ -7,6 +7,7 @@
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="ui.css">
 <style>
+:root { --jumbo: 600 44px/1.1 var(--mono); --title: 600 28px/1.2 var(--mono); --heading: 600 20px/1.2 var(--mono); --subheading: 600 16px/1.2 var(--mono); --body: 400 14px/1.6 var(--mono); --small: 400 12px/1.6 var(--mono); } /* typography roles; number = body + tabular-nums */
 /* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
    everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
 .fd {
@@ -34,13 +35,13 @@
 .fd-modes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.5rem; }
 body:has(#fd-light:checked) .fd-dark, body:has(#fd-dark:checked) .fd-light { display: none; }
 body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns: minmax(0,1fr); }
-.fd-title { font-size: 44px; line-height: 1.1; font-weight: 600; margin: 0 0 1rem; }
+.fd-title { font: var(--jumbo); margin: 0 0 1rem; }
 .fd-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 1rem 1.75rem; flex-wrap: wrap; padding: .8rem 0; margin-bottom: 1.5rem; background: var(--bg); border-bottom: 1px solid var(--line); }
-.fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
+.fd-bar { font: var(--body); } .fd-bar > a { text-decoration: none; } .fd-bar > a:hover { text-decoration: underline; }
 .fd-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; }
-.fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font-size: 28px; line-height: 1.2; font-weight: 600; color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
+.fd-sec { scroll-margin-top: 5rem; margin-bottom: 3.5rem; } .fd-sec > h2 { font: var(--title); color: var(--fg); letter-spacing: 0; text-transform: none; margin: 0 0 1.25rem; }
 .fd-ty { color-scheme: light; } body:has(#fd-dark:checked) .fd-ty { color-scheme: dark; }
-.ty-s, .ty-r { display: flex; align-items: center; gap: 1.1rem; font-size: .95em; }
+.ty-s, .ty-r { display: flex; align-items: center; gap: 1.1rem; font: var(--body); }
 .ty-aa { width: 4.5rem; line-height: 1; font-weight: 600; }
 .ty-roles { gap: 1.4rem; } .ty-r { align-items: baseline; flex-wrap: wrap; }
 .ty-sample { flex: 0 0 26rem; max-width: 100%; min-width: 0; overflow-wrap: anywhere; }
@@ -48,23 +49,24 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .ty-mock { display: grid; gap: .7rem; max-width: 40rem; } .ty-mock p { margin: 0; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
 .fd { background: var(--background); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.75rem 2rem 2rem; min-width: 0; }
-.fd h3 { margin: 2.6rem 0 1.1rem; font-size: 1.1rem; font-weight: 600; } .fd h3:first-of-type { margin-top: .2rem; }
+.fd h3 { margin: 2.6rem 0 1.1rem; font: var(--heading); } .fd h3:first-of-type { margin-top: .2rem; }
 .fd-col { display: grid; gap: .8rem; justify-items: start; }
-.fd-c { display: flex; align-items: center; gap: 1.1rem; min-width: 0; font-size: .95em; }
+.fd-c { display: flex; align-items: center; gap: 1.1rem; min-width: 0; font: var(--body); }
 .fd-c b { flex: none; width: 4.5rem; height: 2.2rem; border-radius: var(--r); background: var(--v); box-shadow: inset 0 0 0 1px var(--line); }
 .fd-n { min-width: 10.5rem; }
 .fd-v { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.fd-v .copy { all: unset; cursor: copy; color: var(--muted); white-space: nowrap; }
+.fd-v .copy { all: unset; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
 .fd-v .copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: .3em; vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
 .fd-v .copy:hover, .fd-v .copy:focus-visible { color: var(--text); text-decoration: underline; }
 .fd-v .copy.done::after { content: " ✓"; color: var(--ok); }
-.fd-down { display: flex; align-items: center; gap: .6rem; height: 2rem; margin: -.3rem 0; padding-left: 1.75rem; font-size: .8em; color: var(--muted); }
+.fd-down { display: flex; align-items: center; gap: .6rem; height: 2rem; margin: -.3rem 0; padding-left: 1.75rem; font: var(--small); color: var(--muted); }
 .fd-down svg { width: 1rem; height: 100%; overflow: visible; }
 .fd-down line { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 3 3; }
 .fd-down path { stroke: var(--muted); stroke-width: 1.25; fill: none; }
 .fd-scale { position: relative; height: 3rem; margin: 3.4rem 0 .5rem; border-radius: var(--r); background: linear-gradient(to right in oklch, var(--background), var(--text)); box-shadow: inset 0 0 0 1px var(--line); }
-.fd-tick { position: absolute; left: var(--at); bottom: 100%; height: calc(var(--up) * 1.2rem + .3rem); border-left: 1px dashed var(--muted); padding-left: .4rem; font-size: .85em; line-height: 1; white-space: nowrap; }
-.fd-ends { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; font-size: .85rem; color: var(--muted); }
+.fd-tick { position: absolute; left: var(--at); bottom: 100%; height: calc(var(--up) * 1.2rem + .3rem); border-left: 1px dashed var(--muted); padding-left: .4rem; font: var(--small); line-height: 1; white-space: nowrap; }
+.fd-ends small { font: inherit; }
+.fd-ends { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; font: var(--small); color: var(--muted); }
 body { max-width: 104rem; }
 @media (max-width: 40rem) { .fd-modes { grid-template-columns: minmax(0,1fr); } }
 </style>
@@ -153,16 +155,16 @@ body { max-width: 104rem; }
 <div class="ty-s"><span class="ty-aa" style="font-size:44px">Aa</span><span class="fd-n">44 px</span><span class="fd-v"><button type="button" class="copy">44px</button><button type="button" class="copy">2.75rem</button></span></div>
 </div>
 <h3>Roles</h3>
-<div class="fd-col ty-roles"><div class="ty-r"><div class="ty-sample" style="font:600 44px/1.1 var(--mono)">Welcome to nobloat</div><span class="fd-n">jumbo</span><span class="fd-v"><button type="button" class="copy">font: 600 44px/1.1 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample" style="font:600 28px/1.2 var(--mono)">Invoices</div><span class="fd-n">title</span><span class="fd-v"><button type="button" class="copy">font: 600 28px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample" style="font:600 20px/1.2 var(--mono)">Needs attention</div><span class="fd-n">heading</span><span class="fd-v"><button type="button" class="copy">font: 600 20px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample" style="font:600 16px/1.2 var(--mono)">ACME GmbH</div><span class="fd-n">subheading</span><span class="fd-v"><button type="button" class="copy">font: 600 16px/1.2 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample" style="font:400 14px/1.6 var(--mono)">Three invoices are overdue; reminders go out on Monday.</div><span class="fd-n">body</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample ty-muted" style="font:400 12px/1.6 var(--mono)">peter · 2 hours ago</div><span class="fd-n">small</span><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
-<div class="ty-r"><div class="ty-sample ty-num" style="font:400 14px/1.6 var(--mono)">1.234,56 € · CUS-0042 · 17:30</div><span class="fd-n">number</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono); font-variant-numeric: tabular-nums</button></span></div>
+<div class="fd-col ty-roles"><div class="ty-r"><div class="ty-sample" style="font:var(--jumbo)">Welcome to nobloat</div><span class="fd-n">jumbo</span><span class="fd-v"><button type="button" class="copy">font: 600 44px/1.1 var(--mono)</button></span></div>
+<div class="ty-r"><div class="ty-sample" style="font:var(--title)">Invoices</div><span class="fd-n">title</span><span class="fd-v"><button type="button" class="copy">font: 600 28px/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><div class="ty-sample" style="font:var(--heading)">Needs attention</div><span class="fd-n">heading</span><span class="fd-v"><button type="button" class="copy">font: 600 20px/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><div class="ty-sample" style="font:var(--subheading)">ACME GmbH</div><span class="fd-n">subheading</span><span class="fd-v"><button type="button" class="copy">font: 600 16px/1.2 var(--mono)</button></span></div>
+<div class="ty-r"><div class="ty-sample" style="font:var(--body)">Three invoices are overdue; reminders go out on Monday.</div><span class="fd-n">body</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
+<div class="ty-r"><div class="ty-sample ty-muted" style="font:var(--small)">peter · 2 hours ago</div><span class="fd-n">small</span><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
+<div class="ty-r"><div class="ty-sample ty-num" style="font:var(--body)">1.234,56 € · CUS-0042 · 17:30</div><span class="fd-n">number</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono); font-variant-numeric: tabular-nums</button></span></div>
 </div>
 <h3>Together</h3>
-<div class="ty-mock"><div style="font:600 44px/1.1 var(--mono)">Welcome back</div><div style="font:600 28px/1.2 var(--mono)">Invoices</div><div style="font:600 20px/1.2 var(--mono)">Needs attention</div><p style="font:400 14px/1.6 var(--mono)">Three invoices are overdue. Reminders go out on Monday unless you mark them paid before.</p><div style="font:600 16px/1.2 var(--mono)">ACME GmbH</div><div class="ty-muted" style="font:400 12px/1.6 var(--mono)">INV-2026-0042 · peter · 2 hours ago</div><div class="ty-num" style="font:400 14px/1.6 var(--mono)">1.234,56 €</div></div>
+<div class="ty-mock"><div style="font:var(--jumbo)">Welcome back</div><div style="font:var(--title)">Invoices</div><div style="font:var(--heading)">Needs attention</div><p style="font:var(--body)">Three invoices are overdue. Reminders go out on Monday unless you mark them paid before.</p><div style="font:var(--subheading)">ACME GmbH</div><div class="ty-muted" style="font:var(--small)">INV-2026-0042 · peter · 2 hours ago</div><div class="ty-num" style="font:var(--body)">1.234,56 €</div></div>
 </div>
 </section>
 </main>
