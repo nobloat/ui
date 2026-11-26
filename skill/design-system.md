@@ -157,6 +157,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 - [ ] Composed parts: card, dialog, menu and bottom sheet, command palette and `?` help, stat tile
 - [ ] Shell (`shell.html`): app header and nav (desktop and phone), user menu, sync state, page head, footer; whole-frame check left
 - [ ] Mark, logo and app icon: `][` in a neutral token with one character in `brand`; logo is mark plus app name or a custom image; favicon and home-screen icon are exports
+- [ ] Missing components from the apps: calendar, board, login form, settings page, dashboard, TOTP input
 - [ ] Still missing from the apps: unit affix (%, days), saved indicator, pill input (groups, tags), colour swatches, single-file upload button, bulk bar, history (audit), charts (stack, columns, sparkline), calendar (week, month), error display (dot matrix)
 
 **Checks** (each needs the owner's go)
