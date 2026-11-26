@@ -5,7 +5,7 @@
   --background: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --text: light-dark(#1b1c1e, #e5e5e4);
   --line: color-mix(in oklab, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
   --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
-  --brand: #0a5fc7; /* the one colour an app sets */
+  --brand: #18181b; /* the one colour an app sets; nobloat itself is monochrome, its near black (nobloat.org) */
   /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
   --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand) max(l, .72) c h));
   --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
