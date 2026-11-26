@@ -7,7 +7,8 @@
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="ui.css">
 <style>
-:root { --title: 600 28px/1.2 var(--mono); --heading: 600 20px/1.2 var(--mono); --body: 400 14px/1.6 var(--mono); --small: 400 12px/1.6 var(--mono); } /* typography roles; emphasis = 600, no other sizes */
+:root { --font: var(--mono); }
+:root, .ty-fam { --title: 600 28px/1.2 var(--font); --heading: 600 20px/1.2 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); } /* typography roles; emphasis = 600, no other sizes */
 /* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
    everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
 .fd {
@@ -45,6 +46,8 @@ body:has(#fd-light:checked, #fd-dark:checked) .fd-modes { grid-template-columns:
 .ty-aa { width: 4.5rem; line-height: 1; font-weight: 600; }
 .ty-roles { gap: 1.4rem; } .ty-r { align-items: baseline; flex-wrap: wrap; }
 .ty-sample { flex: 0 0 26rem; max-width: 100%; min-width: 0; overflow-wrap: anywhere; }
+.ty-fams { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2.5rem; } .ty-fam { display: grid; gap: .7rem; align-content: start; } .ty-fam p { margin: 0; } .ty-fam .fd-v { margin-top: -.5rem; } .ty-fam strong { font-weight: 600; }
+@media (max-width: 60rem) { .ty-fams { grid-template-columns: minmax(0,1fr); } }
 .ty-muted { color: var(--muted); } .ty-mock strong { font-weight: 600; }
 .ty-mock { display: grid; gap: .7rem; max-width: 40rem; } .ty-mock p { margin: 0; }
 .fd-light { color-scheme: light; } .fd-dark { color-scheme: dark; }
@@ -158,6 +161,8 @@ body { max-width: 104rem; }
 <div class="ty-r"><div class="ty-sample" style="font:var(--body)">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div><span class="fd-n">body</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
 <div class="ty-r"><div class="ty-sample ty-muted" style="font:var(--small)">Sed do eiusmod tempor incididunt</div><span class="fd-n">small</span><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
 </div>
+<h3>Families</h3>
+<div class="ty-fams"><div class="ty-fam" style="--font:system-ui, sans-serif"><span class="fd-n">sans</span><span class="fd-v"><button type="button" class="copy">font-family: system-ui, sans-serif</button></span><div style="font:var(--title)">Lorem ipsum dolor</div><div style="font:var(--heading)">Lorem ipsum dolor sit amet</div><p style="font:var(--body)">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing</strong> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud exercitation</em> ullamco laboris nisi ut aliquip ex ea commodo consequat. 1.234,56 · 0123456789</p><p class="ty-muted" style="font:var(--small)">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p></div><div class="ty-fam" style="--font:ui-serif, Georgia, serif"><span class="fd-n">serif</span><span class="fd-v"><button type="button" class="copy">font-family: ui-serif, Georgia, serif</button></span><div style="font:var(--title)">Lorem ipsum dolor</div><div style="font:var(--heading)">Lorem ipsum dolor sit amet</div><p style="font:var(--body)">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing</strong> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud exercitation</em> ullamco laboris nisi ut aliquip ex ea commodo consequat. 1.234,56 · 0123456789</p><p class="ty-muted" style="font:var(--small)">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p></div><div class="ty-fam" style="--font:var(--mono)"><span class="fd-n">mono</span><span class="fd-v"><button type="button" class="copy">font-family: var(--mono)</button></span><div style="font:var(--title)">Lorem ipsum dolor</div><div style="font:var(--heading)">Lorem ipsum dolor sit amet</div><p style="font:var(--body)">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing</strong> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud exercitation</em> ullamco laboris nisi ut aliquip ex ea commodo consequat. 1.234,56 · 0123456789</p><p class="ty-muted" style="font:var(--small)">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p></div></div>
 <h3>Text</h3>
 <div class="ty-mock"><p style="font:var(--body)">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing</strong> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud exercitation</em> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in <strong><em>reprehenderit in voluptate</em></strong> velit esse cillum dolore eu fugiat nulla pariatur.</p><p style="font:var(--body)">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <a href="#typography">A link in text</a>, <code>inline code</code>.</p><p class="ty-muted" style="font:var(--small)">Small: sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p></div>
 </div>
