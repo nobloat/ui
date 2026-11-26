@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="ui.css">
 <style>
 :root { --font: var(--mono); }
-:root, .ty-fam { --title: 600 28px/1.2 var(--font); --heading: 600 20px/1.2 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); --prose: 400 15px/1.65 system-ui, sans-serif; } /* typography roles; emphasis = 600; prose = running text blocks, sans, justified */
+:root, .ty-fam { --title: 600 28px/1.2 var(--font); --heading: 600 20px/1.2 var(--font); --body: 400 14px/1.6 var(--font); --small: 400 12px/1.6 var(--font); --prose: 400 15px/1.65 ui-serif, serif; } /* typography roles; emphasis = 600; prose = running text blocks, serif, justified */
 /* Proposed colour tokens (step 1): defined here only, ui.css is not changed yet. Three sources per mode for neutrals,
    everything else mixed in OKLCH. light-dark() resolves per element, so each half below sets its own color-scheme. */
 .fd {
@@ -159,7 +159,7 @@ body { max-width: 104rem; }
 <div class="fd-col ty-roles"><div class="ty-r"><div class="ty-sample" style="font:var(--title)">Less, but working.</div><span class="fd-n">title</span><span class="fd-v"><button type="button" class="copy">font: 600 28px/1.2 var(--mono)</button></span></div>
 <div class="ty-r"><div class="ty-sample" style="font:var(--heading)">Copy, don't import.</div><span class="fd-n">heading</span><span class="fd-v"><button type="button" class="copy">font: 600 20px/1.2 var(--mono)</button></span></div>
 <div class="ty-r"><div class="ty-sample" style="font:var(--body)">Every page works without JavaScript, every state lives in the URL, and nothing is loaded that the page does not need.</div><span class="fd-n">body</span><span class="fd-v"><button type="button" class="copy">font: 400 14px/1.6 var(--mono)</button></span></div>
-<div class="ty-r"><div class="ty-sample ty-prose" style="font:var(--prose)">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on.</div><span class="fd-n">prose</span><span class="fd-v"><button type="button" class="copy">font: 400 15px/1.65 system-ui, sans-serif; text-align: justify; hyphens: auto</button></span></div>
+<div class="ty-r"><div class="ty-sample ty-prose" style="font:var(--prose)">Apps copy these files instead of importing them, so each one builds on its own and nothing breaks when the original moves on.</div><span class="fd-n">prose</span><span class="fd-v"><button type="button" class="copy">font: 400 15px/1.65 ui-serif, serif; text-align: justify; hyphens: auto</button></span></div>
 <div class="ty-r"><div class="ty-sample ty-muted" style="font:var(--small)">No fonts to download, no icons to fetch, no tracking.</div><span class="fd-n">small</span><span class="fd-v"><button type="button" class="copy">font: 400 12px/1.6 var(--mono); color: var(--muted)</button></span></div>
 </div>
 <h3>Families</h3>
