@@ -70,7 +70,7 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 | 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token.css` | – |
 | 1 | Components: button, forms (incl. one-time code), labels (incl. avatar), feedback, data, navigation and upload | `components.css` | tokens |
 | 2 | Composed parts: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette, board columns, calendar (week, month) | `composed.css` | components |
-| 3 | Shell: app header (logo, commands, user menu), nav, page head, footer, phone layout, and the page templates it frames (list, detail, form, dashboard, settings; login and errors are the shell without nav and user menu) | `shell.css`, `shell.html`; templates in `partials.html` | composed parts |
+| 3 | Shell: app header (logo, commands, user menu), nav, page head, footer, phone layout, and the page templates it frames (list, detail, form, dashboard, settings; errors are the shell without nav and user menu, which auth's sign in also uses) | `shell.css`, `shell.html`; templates in `partials.html` | composed parts |
 | – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
 
 - **One shell** for every app; no second frame. Apps are outside `ui/` and fill the templates. An app never restyles a ui component (not `body` either), never reuses a ui class name for its own parts, and its own CSS uses tokens only.
