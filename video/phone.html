@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>phone · nobloat/ui demo</title>
+<link rel="stylesheet" href="../token/token.css">
+<link rel="stylesheet" href="../token/base.css">
+<style>
+/* demo only: a page at phone width (390 × 680) in a frame, for the recording */
+body { display: grid; place-items: center; min-block-size: 100dvh; }
+.phone { inline-size: 390px; block-size: 680px; border: var(--stroke-thick) solid var(--text); border-radius: var(--radius-panel); overflow: hidden; background: var(--background); }
+.phone > iframe { inline-size: 100%; block-size: 100%; border: 0; }
+</style>
+</head>
+<body>
+<main class="phone"><iframe title="The page at phone width"></iframe></main>
+<script>document.querySelector('iframe').src = location.search.slice(1);</script>
+</body>
+</html>

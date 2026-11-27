@@ -26,6 +26,28 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 
 **Every rule (layout, light/dark, mobile, accessibility, navigation, forms, money, ids, charts, keyboard):** [`skill/design-system.md`](skill/design-system.md), the only source. **How an app uses it** (markup, classes, ui.js): [`skill/SKILL.md`](skill/SKILL.md). It is an [Agent Skill](https://agentskills.io) named `nobloat-ui`, so coding agents follow the same rules: link it like the other nobloat skills (`ln -s ~/git/nobloat/ui/skill ~/.claude/skills/nobloat-ui`, or `.agents/skills/nobloat-ui` per project), or tell agents without skill support to read `../ui/skill/SKILL.md`.
 
+## Typed pages
+
+A page of a Go app is a Go value; ui renders it, refuses what the rules forbid and builds the CSS and JS from what the pages use ([`PLAN.md`](PLAN.md), rules in [`skill/design-system.md`](skill/design-system.md) → Parts and typed pages, usage in [`skill/SKILL.md`](skill/SKILL.md) → Typed pages).
+
+![demo: a page written in Go, rendered, checked and shipped (67 s)](video/demo.gif)
+
+```go
+ui.Render(w, lang, texts, ui.Page{Title: "Users", Header: &header, Footer: &footer,
+	Head: &ui.PageHead{Title: "Users", Actions: []ui.Button{{Label: "New user", Icon: ui.IconPlus, Key: "c", Primary: true, Href: "/users/new"}}},
+	Main: ui.Table{Columns: cols, Rows: rows},
+})
+```
+
+| | |
+|---|---|
+| parts | `token/`, `components/<part>/`, `blocks/<part>/`, `shell/<part>/`: CSS, template, script only with behaviour; Go types in `components.go`, `blocks.go`, `page.go`, `button.go`, `field.go`, `form.go` |
+| into an app | `go -C ../ui run ./cmd/nbui copy -to ../<app>/ui` (`-check` in CI); `ui.WriteAssets("web/static", *update, pages...)` in the app's test |
+| regenerate | `go run ./cmd/nbui gen`: the specimens on `components.html` and `blocks.html`, `fragments/`, `nb.html-data.json`, `ui.types.js`, `components.js`, `showcase/sample/`, `screens/auth/` (`go test ./...` fails when any is stale) |
+| screens | [`screens/auth/`](screens/auth/index.html): every screen of auth; [`showcase/sample/`](showcase/sample/index.html): an app's dashboard, list, settings and form |
+| not in Go | `fragments/<part>.html` (markup), `nb.html-data.json` (VS Code `html.customData`), `ui.types.js` (JSDoc, `// @ts-check`) |
+| demo | `node video/record.mjs <frames dir>` then `go run ./video/encode <frames dir> video/demo.gif` (headless Chrome over the DevTools protocol, a GIF from Go's standard library) |
+
 ## Files
 
 | file | what | in an app |

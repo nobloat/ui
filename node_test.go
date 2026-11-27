@@ -76,3 +76,14 @@ func TestElements(t *testing.T) {
 		}
 	}
 }
+
+// TestBrand: the brand colour reaches the page as --brand; anything but #rrggbb is refused.
+func TestBrandColour(t *testing.T) {
+	var b strings.Builder
+	if err := Render(&b, "en", nil, Page{Title: "t", Brand: Brand{Color: "#7c3aed"}, Main: Plain("x")}); err != nil || !strings.Contains(b.String(), `<html lang="en" style="--brand:#7c3aed;">`) {
+		t.Errorf("brand not set: %v %s", err, b.String()[:80])
+	}
+	if err := Render(&b, "en", nil, Page{Title: "t", Brand: Brand{Color: "red;}body{x"}, Main: Plain("x")}); err == nil {
+		t.Error("a bad brand colour was accepted")
+	}
+}

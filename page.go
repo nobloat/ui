@@ -19,7 +19,11 @@ type Page struct {
 	Footer  *Footer
 	Palette *Palette
 	Narrow  bool // a bare page with one small form: sign in, second step, new password
+	Brand   Brand
 }
+
+// Brand: the one colour an app sets (Rules: Brand), and optionally its colour on dark; #rrggbb.
+type Brand struct{ Color, ColorDark string }
 
 func (p Page) Render(c *Ctx, w io.Writer) error {
 	if p.Title == "" || c.Lang == "" {
@@ -44,6 +48,16 @@ func (p Page) Render(c *Ctx, w io.Writer) error {
 	if p.Head != nil {
 		c.use("blocks/page-head")
 	}
+	style := ""
+	for _, b := range []struct{ name, v string }{{"--brand", p.Brand.Color}, {"--brand-dark", p.Brand.ColorDark}} {
+		if b.v == "" {
+			continue
+		}
+		if !hexColor(b.v) {
+			return fmt.Errorf("page %q: brand colour %q is not #rrggbb", p.Title, b.v)
+		}
+		style += b.name + ":" + b.v + ";"
+	}
 	static := p.Static
 	if static == "" {
 		static = "/static/"
@@ -52,8 +66,9 @@ func (p Page) Render(c *Ctx, w io.Writer) error {
 		Lang, Title, App, Static            string
 		JS, Narrow                          bool
 		Header, Head, Main, Footer, Palette template.HTML
+		Brand                               template.CSS
 	}{c.Lang, c.text(p.Title), p.App, static, c.hasJS(), p.Narrow, template.HTML(header.String()), template.HTML(head.String()),
-		template.HTML(main.String()), template.HTML(footer.String()), template.HTML(palette.String())})
+		template.HTML(main.String()), template.HTML(footer.String()), template.HTML(palette.String()), template.CSS(style)})
 }
 
 // Dashboard: the app's start page: stat tiles first, then cards with what needs doing.

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>nobloat/ui demo</title>
+<link rel="stylesheet" href="../token/token.css">
+<link rel="stylesheet" href="../token/base.css">
+<style>
+/* demo slides only (not part of ui): a title card, or code and terminal output typed out */
+body { display: grid; place-items: center; min-block-size: 100dvh; padding: var(--space-32); box-sizing: border-box; }
+.card { text-align: center; } .card h1 { font: var(--title); margin: 0 0 var(--space-16); } .card p { font: var(--prose); color: var(--muted); margin: 0; }
+.mark { width: 4rem; fill: none; stroke: var(--text); stroke-width: 2; margin-bottom: var(--space-16); } .mark text { fill: var(--text); stroke: none; font: 600 1.5rem var(--mono); }
+.code { inline-size: min(100%, 64rem); } .code h2 { font: var(--subheading); margin: 0 0 var(--space-8); } .code p { color: var(--muted); margin: 0 0 var(--space-16); }
+pre { margin: 0; padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); font: 400 1rem/1.5 var(--mono); white-space: pre-wrap; min-block-size: 22rem; }
+pre.term { background: var(--text); color: var(--background); }
+.c { color: var(--muted); } .ok { color: var(--ok); } .bad { color: var(--danger); }
+</style>
+</head>
+<body>
+<main id="main"></main>
+<script>
+// slides.html#<name>: one slide; code and terminal output type out character by character (the recorder waits for data-done)
+const S = {
+  title: ['card', 'nobloat/ui', 'A page is a Go value. ui renders it, checks the rules, and ships only the CSS it uses.'],
+  code: ['code', 'auth’s sign-in screen, written in Go', 'screens/auth/screens.go: typed, checked by the compiler', `return ui.Page{Title: "Sign in", App: "auth", Narrow: true, Main: ui.Nodes{
+    ui.Para{ui.Plain("Sign in to continue to bill")},
+    ui.Form{Action: "/login", Fields: []ui.Node{
+        ui.Field{Name: "username", Label: "E-mail", Type: ui.Email,
+            Required: true, Autocomplete: "username"},
+        ui.Field{Name: "password", Label: "Password", Type: ui.Password,
+            Required: true, Err: "Wrong e-mail or password."},
+    }, Actions: []ui.Button{
+        {Label: "Sign in", Icon: ui.IconLogIn, Primary: true},
+    }},
+}}`],
+  rules: ['term', 'The rules are part of the types', 'a button without an icon, a second primary action or a pattern without an example does not render', `<span class="c">$</span> go test ./...
+<span class="bad">--- FAIL: TestScreens (0.00s)</span>
+    screens_test.go:25: button "Save": needs an icon and a label
+    screens_test.go:25: button "Book": a second primary action on the page
+    screens_test.go:25: field "vat": a pattern needs a title naming a valid example
+<span class="bad">--- FAIL: TestAssets (0.00s)</span>
+    screens_test.go:32: web\\static\\ui.css is stale: run go test -update
+<span class="bad">FAIL</span>	example.org/app	2.081s`],
+  copy: ['term', 'An app takes it with one command', 'and its test writes exactly the CSS its pages use (no script: none of them has behaviour)', `<span class="c">$</span> go -C ../ui run ./cmd/nbui copy -to ../app/ui
+<span class="c">$</span> go test -run TestAssets -update ./...   <span class="c"># ui.WriteAssets("web/static", *update, pages...)</span>
+PASS
+<span class="ok">ok</span>  	example.org/app	2.206s
+<span class="c">$</span> ls -l web/static
+14867 ui.css
+<span class="c">$</span> go -C ../ui run ./cmd/nbui copy -to ../app/ui -check   <span class="c"># in CI: the copy is unchanged</span>`],
+  other: ['code', 'Not in Go? Take the markup and the types', 'fragments/ for every part, nb.html-data.json for the editor, ui.types.js for // @ts-check', `// @ts-check
+/** @type {import('../ui/ui.types.js').Field} */
+const email = {name: 'email', label: 'E-mail', type: 'email', required: true}
+
+&lt;!-- fragments/field.html --&gt;
+&lt;label class="field"&gt;&lt;span class="field-label"&gt;Name&lt;/span&gt;&lt;input class="input" name="name"
+  placeholder="ACME GmbH" aria-describedby="name-line"&gt;&lt;span class="field-hint" id="name-line"&gt;as on the
+  invoice&lt;/span&gt;&lt;/label&gt;`],
+  end: ['card', 'Less, but working.', 'go run ./cmd/nbui gen · nbui copy · ui.WriteAssets — the rest is plain HTML and CSS.'],
+};
+const [kind, title, sub, body] = S[location.search.slice(1) || location.hash.slice(1)] || S.title;
+const main = document.getElementById('main');
+if (kind === 'card') {
+  main.innerHTML = `<div class="card"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M1 5h4v22H1M12.5 5h-4v22h4"/><text x="14.5" y="24">◆</text></svg><h1></h1><p></p></div>`;
+  main.querySelector('h1').textContent = title; main.querySelector('p').textContent = sub;
+  document.body.dataset.done = '';
+} else {
+  main.innerHTML = `<div class="code"><h2></h2><p></p><pre class="${kind === 'term' ? 'term' : ''}"></pre></div>`;
+  main.querySelector('h2').textContent = title; main.querySelector('p').textContent = sub;
+  const pre = main.querySelector('pre'), parts = body.split(/(<[^>]+>|&[a-z]+;)/).filter(Boolean); // tags and entities appear whole
+  let i = 0, shown = '';
+  const tick = () => {
+    if (i >= parts.length) { document.body.dataset.done = ''; return; }
+    const p = parts[i];
+    if (p.startsWith('<') || p.startsWith('&')) { shown += p; i++; tick(); return; }
+    shown += p[0]; parts[i] = p.slice(1); if (!parts[i]) i++;
+    pre.innerHTML = shown;
+    setTimeout(tick, kind === 'term' ? 8 : 14);
+  };
+  tick();
+}
+</script>
+</body>
+</html>

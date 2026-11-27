@@ -32,6 +32,13 @@
  * @property {string} [New] - the link that creates an item in this column
  * @property {Node[]} [Items]
  */
+
+/**
+ * Brand: the one colour an app sets (Rules: Brand), and optionally its colour on dark; #rrggbb.
+ * @typedef {Object} Brand
+ * @property {string} [Color]
+ * @property {string} [ColorDark]
+ */
 /** @typedef {Crumb[]} Breadcrumbs Breadcrumbs: the parents with their icons, the current page last (no link). */
 
 /**
@@ -316,6 +323,7 @@
  * @property {Footer} [Footer]
  * @property {Palette} [Palette]
  * @property {boolean} [Narrow] - a bare page with one small form: sign in, second step, new password
+ * @property {Brand} [Brand]
  */
 
 /**
