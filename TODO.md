@@ -1,3 +1,5 @@
+Status 2026-11-27: task 1 → PLAN.md (typed UI, phases 1 and 2 done); task 2 → screens/auth/ (phase 3 done); task 3 → index.html, "The system" (phase 4 done).
+
 # task 1
 I am wondering how we can actually build this into HTML5 compatible web components.
 How we define the available properties and how we can build this modular so each app grand grab what it needs. As usual hard rule, no npm or external build tools.
