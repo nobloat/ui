@@ -1,0 +1,20 @@
+/* board columns: one column per state, a stroke in the state colour on top, the name (shortened when long), the count
+   (muted, always at the same place) and new; under it any items (the app's own cards). Phones: one column wide, the next
+   peeking, swiping snaps; a mouse gets a thin scrollbar. */
+.columns { container-type: inline-size; font: var(--body); color: var(--text); }
+.col-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(calc(var(--size-control) * 4), 1fr); gap: var(--space-16); align-items: start; overflow-x: auto; }
+.column { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); padding-top: var(--space-8); border-top: var(--stroke-thick) solid var(--c, var(--disabled)); min-inline-size: 0; } /* the state bar (C, picked) */
+.column > header { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control-small); }
+.column h2 { display: flex; align-items: center; gap: var(--space-8); flex: 1; min-inline-size: 0; margin: 0; font: var(--body); font-weight: 600; letter-spacing: 0; text-transform: none; color: inherit; }
+.column .count { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.column > header > .button { block-size: var(--size-control-small); border: 0; background: none; box-shadow: none; }
+.column > div { display: grid; gap: var(--space-8); }
+.column .empty { margin: 0; padding: var(--space-8); font: var(--small); color: var(--muted); text-align: center; }
+@container (max-width: 40rem) {
+  .col-track { grid-auto-columns: calc(100% - var(--space-32)); scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .column { scroll-snap-align: start; }
+}
+@media (pointer: fine) { .col-track { scrollbar-width: thin; } } /* a mouse cannot swipe: a thin scrollbar (Shift + wheel also scrolls) */
+.column h2 > .name { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the count always sits at the same place: right, before the new button; long names shorten with an ellipsis */
+.column .count { flex: none; margin-left: auto; min-inline-size: 2ch; text-align: right; white-space: nowrap; }

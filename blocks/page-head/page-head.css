@@ -1,0 +1,6 @@
+/* page head: breadcrumbs (below the top level), then the title, with its state, and the page's actions right of it;
+   on phones the crumbs are "← parent" and the actions wrap under the title, the primary spanning the width. */
+.page-head { container-type: inline-size; display: grid; gap: var(--space-8); padding-block: var(--space-16); }
+.page-head > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8) var(--space-16); }
+.page-head h1 { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); min-inline-size: 0; margin: 0; font: var(--title); overflow-wrap: anywhere; }
+@container (max-width: 40rem) { .page-head h1 { font: var(--heading); } .page-head > div > .buttons { inline-size: 100%; } }

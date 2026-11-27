@@ -1,0 +1,14 @@
+/* dialog: the native <dialog> (showModal: focus trap, Esc, backdrop). Title, content, actions at the end (Cancel first, the
+   action last); the close button sits in the head. Width follows the content, at most one measure. */
+.dialog { padding: 0; border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text);
+  box-shadow: var(--shadow-modal); inline-size: fit-content; max-inline-size: min(var(--measure), 100% - var(--space-32)); }
+.dialog::backdrop { background: color-mix(in oklab, var(--shade) var(--mix-edge), transparent); }
+.dialog > form, .dialog > div { display: grid; gap: var(--space-16); padding: var(--space-16) var(--space-16) var(--space-16) var(--space-32); }
+.dialog header { display: flex; align-items: start; gap: var(--space-16); margin-right: calc(-1 * var(--space-8)); }
+.dialog header > :first-child { flex: 1; margin: 0; padding-top: var(--space-8); }
+.dialog footer { display: flex; flex-wrap: wrap; justify-content: end; gap: var(--space-8); padding-top: var(--space-8); }
+/* phones: a sheet from the bottom, the actions span the width */
+@media (width < 40rem) {
+  .dialog:modal { inset: auto 0 0; max-inline-size: none; inline-size: auto; margin: 0; border-radius: var(--radius-panel) var(--radius-panel) 0 0; }
+  .dialog:modal footer > .button { flex: 1; }
+}

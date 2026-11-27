@@ -1,0 +1,27 @@
+/* settings section: the settings page (/settings, Ctrl ,) is only a stack of these. The topic (and one line on it, and a
+   dangerous action) left, label and value rows right; a hairline between sections; phones: the topic on top, each label
+   small over its value. Every control saves as it changes: an editable field (components.css) for typed values; a checkbox,
+   radio or segmented control saves on change, disabled while saving, with a spinner and then a check in a slot that is there
+   from the start (.save-state); a failed save puts the old value back and shows an error toast (components.js). */
+.settings { container-type: inline-size; display: grid; max-inline-size: calc(var(--size-control) * 20); }
+.settings > section { display: grid; grid-template-columns: calc(var(--size-control) * 6) minmax(0, 1fr); gap: var(--space-8) var(--space-32); padding-block: var(--space-32); border-top: var(--border); }
+.settings > section:first-child { border-top: 0; padding-top: 0; }
+.settings > section > header > h2 { margin: 0; font: var(--subheading); letter-spacing: 0; text-transform: none; color: inherit; }
+.settings > section > header > p { margin: var(--space-4) 0 0; font: var(--small); color: var(--muted); }
+.settings > section > header > .buttons { margin-top: var(--space-16); }
+.setting-rows { display: grid; margin: 0; }
+.setting-rows > div { display: grid; grid-template-columns: calc(var(--size-control) * 4) minmax(0, 1fr); gap: var(--space-4) var(--space-16); align-items: start; padding-block: var(--space-4); }
+.setting-rows dt { display: flex; align-items: center; min-block-size: var(--size-control); color: var(--muted); font: var(--body); }
+.setting-rows dd { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); min-block-size: var(--size-control); margin: 0; font: var(--body); }
+.setting-rows dd > .field-hint { flex-basis: 100%; font: var(--small); color: var(--muted); }
+.setting-rows dd > .editable { inline-size: calc(var(--size-control) * 6); max-inline-size: 100%; }
+.setting-rows dd > code + .button { margin-inline-start: auto; } /* Sign out at the end of the User row */
+.save-state { display: inline-flex; align-items: center; inline-size: 1em; color: var(--muted); } .save-state.is-saved { color: var(--ok); } /* reserved: empty until saving */
+.save-state > .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@container (max-width: 40rem) {
+  .settings > section { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-16); }
+  .settings > section > header > .buttons > .button { flex: 1 1 100%; } /* the section's action spans the width, like a primary */
+  .setting-rows > div { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: var(--space-8); }
+  .setting-rows :is(dt, dd) { min-block-size: 0; } .setting-rows dt { font: var(--small); }
+  .setting-rows dd > :is(.segmented, .editable) { flex: 1 1 0; min-inline-size: 0; } /* shares the line with its save slot */
+}

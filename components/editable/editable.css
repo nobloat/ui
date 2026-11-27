@@ -1,0 +1,12 @@
+nb-editable { display: block; } /* a custom element is inline until told otherwise */
+/* editable field: the value as text with a pencil; editing in place (components.js): Enter or leaving saves, Esc puts the old
+   value back. Its hint line (.field-hint right after it) is there from the start; an invalid value's error takes its place, so
+   nothing moves. Saving: the value dimmed, the pencil a spinner and disabled, then a check for 2 s. A failed save is an error toast. */
+.editable .value { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control); font: var(--body); color: var(--text); }
+.editable .value > span:first-child { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.editable .value > .button { margin-left: auto; block-size: var(--size-control-small); border: 0; background: none; color: var(--muted); }
+.editable .value > .button:hover { color: var(--text); } .editable .value > .button:disabled { opacity: 1; cursor: progress; }
+.editable .value > .button.is-saved { color: var(--ok); }
+.editable.is-saving .value > span:first-child { opacity: var(--opacity-disabled); } .editable.is-saving .value { cursor: progress; }
+.editable + .field-hint { min-block-size: 1lh; } /* reserved: the hint, or the error in its place */
+.editable + .field-hint.is-error { color: var(--text); } .editable + .field-hint.is-error > i { margin-right: var(--space-4); color: var(--danger); }

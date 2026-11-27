@@ -96,3 +96,6 @@ const (
 	IconWindow       Icon = "window"
 	IconX            Icon = "x"
 )
+
+// IconNames: every icon, for checks and editors.
+var IconNames = []string{"archive", "arrow-down", "arrow-left", "arrow-right", "arrow-up", "audit", "bell", "blocks", "building", "calendar", "camera", "chart", "chat", "check", "chevron-down", "chevron-left", "chevron-right", "chevron-up", "clock", "code", "cog", "columns", "contrast", "copy", "cut", "dashboard", "dice", "download", "edit", "error", "euro", "external", "eye", "file", "filter", "focus-exit", "focus", "folder", "globe", "hang-up", "help", "home", "info", "key", "link", "list", "live-photo", "lock", "log-in", "log-out", "logs", "mail", "menu", "merge", "mic", "minus", "moon", "more", "ok", "paste", "pause", "photo", "play", "plus", "power", "print", "redo", "refresh", "screen", "search", "send", "signal", "star-filled", "star", "stop", "sun", "support", "tag", "terminal", "trash", "undo", "unlock", "upload", "user", "users", "video", "warning", "window", "x"}

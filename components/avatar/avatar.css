@@ -1,0 +1,5 @@
+/* avatar: a person as a round picture, or their initial where there is none; the name is always beside it or in its label */
+.avatar { display: inline-grid; place-items: center; inline-size: var(--size-control); block-size: var(--size-control); flex: none; box-sizing: border-box; overflow: hidden;
+  border: var(--border); border-radius: var(--radius-round); background: var(--background); color: var(--text); font: var(--body); font-weight: 600; line-height: 1; }
+.avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.avatar.small { inline-size: var(--size-control-small); block-size: var(--size-control-small); font: var(--small); font-weight: 600; }

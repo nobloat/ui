@@ -1,0 +1,9 @@
+/* filter chip: a link that filters a list; the count is muted; the active one is selected */
+.filter-chip { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8);
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease); }
+.filter-chip > i { font-size: 1em; } .filter-chip > .count { color: var(--muted); font-variant-numeric: tabular-nums; }
+.filter-chip:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.filter-chip:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.filter-chip[aria-current="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent); }
+.filter-chips { display: flex; flex-wrap: wrap; gap: var(--space-8); }

@@ -11,6 +11,18 @@ The UI of nobloat apps comes from one reference repo, **nobloat/ui** (checked ou
 
 Before writing a page, open the nearest example in `../ui/pages/` (`dashboard`, `list`, `detail`, `form`, `dates`, `week`, `month`, `settings`, `status`, `login`) and copy its structure. `node ../ui/check.mjs` enforces what a machine can check.
 
+## Typed pages (Go apps that moved; `PLAN.md`)
+
+A page is a Go value; ui renders it, enforces the rules (`Render` returns an error for a button without an icon, a second primary action, a field without a label, …) and builds `ui.css` and `ui.js` from what the pages use.
+
+1. `go -C ../ui run ./cmd/nbui copy -to ../<app>/ui` copies package `ui` into the app; import it as `<module>/ui`. `-check` in CI fails when the copy differs.
+2. A handler: `ui.Render(w, lang, texts, ui.Page{Title: "Invoices", Header: &hdr, Head: &ui.PageHead{…}, Main: ui.Table{…}, Footer: &ftr})`. Texts are keys (`ui.Text`) resolved by `texts`; icons are constants (`ui.IconPlus`).
+3. The app's test renders every screen with sample data: `ui.WriteAssets("web/static", *update, pages...)` fails when the bundle is stale; `go test -update` rewrites it.
+4. Own parts: any type with `Render(*ui.Ctx, io.Writer) error` fits a slot (`ui.Node`); text in slots is `ui.Plain` or `ui.Code` (escaped).
+5. Apps not in Go: the markup of every specimen is in `../ui/fragments/`, element attributes for VS Code in `../ui/nb.html-data.json` (`html.customData`), JSDoc types in `../ui/ui.types.js` (`// @ts-check`).
+
+The rest of this file describes today's `ui.css`, `ui.js` and `partials.html`, which apps use until they move.
+
 ## Setup in an app
 
 1. Copy unchanged into the app: `ui.css`, `ui.js` → `web/static/`; `partials.html` → `web/`; `calendar.js` only for calendar pages; `chart.go` only for charts (change the package line, register `Spark`/`Columns` as template funcs). Merge `i18n/{en,de}.json` into the app's i18n files. App icons and manifest: `../ui/appicon.sh` (Rules: Pages and content → Installable).

@@ -1,0 +1,4 @@
+/* card: a panel with any content; an optional head with a title and its actions. Flat: a border, no shadow. */
+.card { display: grid; align-content: start; gap: var(--space-16); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text); }
+.card > header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-block-size: var(--size-control); margin-block: calc(-1 * var(--space-8)); }
+.card > header > :first-child { margin: 0; }

@@ -98,7 +98,8 @@ func assets(c *Ctx) (css, js []byte) {
 	out.WriteString("\n/* icons */\n" + iconCSS(icons))
 	out.Write(body.Bytes())
 	if script.Len() > 0 {
-		js = append([]byte("// nobloat/ui, generated from the app's pages by ui.Assets: do not edit\n"), script.Bytes()...)
+		base, _ := files.ReadFile("token/base.js")
+		js = fmt.Appendf(nil, "// nobloat/ui, generated from the app's pages by ui.Assets: do not edit\n\n// token/base.js\n%s%s", base, script.Bytes())
 	}
 	return out.Bytes(), js
 }

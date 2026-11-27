@@ -1,0 +1,7 @@
+/* links: accent, always underlined (not colour alone), thicker on hover; visited dimmer. External = target="_blank":
+   the external icon after it, so opening a new tab is announced by the same attribute. :where keeps components free to override */
+:where(a) { color: var(--accent); text-decoration: underline var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+:where(a):hover { text-decoration-thickness: var(--stroke-thick); }
+:where(a):visited { color: color-mix(in oklab, var(--accent), var(--text) var(--mix-edge)); }
+:where(a):focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); border-radius: var(--radius-control); }
+:where(a[target="_blank"])::after { content: ""; display: inline-block; width: 1em; height: 1em; margin-left: var(--space-4); vertical-align: calc(-1 * var(--icon-nudge)); background: currentColor; mask: var(--icon-external) center / contain no-repeat; }

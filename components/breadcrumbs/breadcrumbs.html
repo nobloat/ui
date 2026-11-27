@@ -1,0 +1,1 @@
+<nav class="breadcrumbs" aria-label="Breadcrumbs"><ol>{{$last := len (slice . 1)}}{{range $i, $c := .}}<li>{{if eq $i $last}}<span aria-current="page">{{$c.Label}}</span>{{else}}<a href="{{$c.Href}}">{{if $c.Icon}}<i class="icon-{{$c.Icon}}" aria-hidden="true"></i>{{end}}{{$c.Label}}</a>{{end}}</li>{{end}}</ol></nav>

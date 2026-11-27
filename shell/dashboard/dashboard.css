@@ -1,0 +1,6 @@
+/* dashboard: the app's start page. Stat tiles first (what changed, each a link to its list), then cards with what needs
+   doing (lists, a chart); both fill the width in as many columns as fit. */
+.dashboard { container-type: inline-size; display: grid; gap: var(--space-16); }
+.dashboard > .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 5)), 1fr)); gap: var(--space-16); }
+@container (max-width: 40rem) { .dashboard > .tiles { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); } } /* phones: one tile per row, full width */
+.dashboard > .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 8)), 1fr)); gap: var(--space-16); align-items: start; }

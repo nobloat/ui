@@ -1,0 +1,16 @@
+.segmented:has(input:disabled) { opacity: var(--opacity-disabled); cursor: not-allowed; } .segmented:has(input:disabled) * { cursor: inherit; }
+
+/* phones (narrow container): segmented controls span the width */
+@container (max-width: 40rem) {
+  .segmented { display: flex; width: 100%; } .segmented > label { flex: 1; justify-content: center; } /* choices share the width */
+}
+
+/* segmented: one of two to five options, all visible; radios underneath, so it works without JavaScript */
+.segmented { display: inline-flex; padding: var(--space-4); gap: var(--space-4); height: var(--size-control); box-sizing: border-box; border: var(--border); border-radius: var(--radius-control); background: var(--background); }
+.segmented > label { display: inline-flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-16); border-radius: calc(var(--radius-control) - var(--space-4)); font: var(--body); font-weight: 400; color: var(--muted); cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease); }
+.segmented > label > i { font-size: 1em; }
+.segmented > label > input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.segmented > label:hover { color: var(--text); }
+.segmented > label:has(input:checked) { background: var(--surface); color: var(--text); box-shadow: 0 0 0 var(--stroke-thin) var(--line); }
+.segmented > label:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--stroke-thick); }

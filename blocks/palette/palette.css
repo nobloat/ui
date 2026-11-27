@@ -1,0 +1,19 @@
+/* command palette: a dialog with a search line over menu rows (Ctrl K). The page's own actions come first (its object as
+   the group name), then actions and places. Typing ranks the rows by how well they match (word starts and runs count most)
+   and marks the matched letters; arrows move, Enter selects, Esc closes. The search line is its title. On phones it sits at the top. */
+.command-palette { inline-size: min(var(--measure), 100% - var(--space-32)); } /* centred like every dialog */
+.command-palette > form { gap: 0; padding: 0; }
+.command-palette .search { display: flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-16); border-bottom: var(--border); }
+.command-palette .search:focus-within { border-bottom-color: var(--accent); }
+.command-palette .search > .prompt { font-weight: 600; color: var(--muted); } /* the prompt >_ in the mono face, not an icon */
+.command-palette .search > input { all: unset; flex: 1; block-size: calc(var(--size-control) + var(--space-16)); font: var(--subheading); font-weight: 400; color: var(--text); }
+.command-palette .search > input::placeholder { color: var(--muted); }
+.command-palette .menu { padding: var(--space-8); border: 0; box-shadow: none; block-size: calc(var(--size-control) * 8); overflow-y: auto; align-content: start; } /* fixed: the line stays put while typing */
+.command-palette .menu > .no-match { padding: var(--space-16) var(--space-8); color: var(--muted); }
+.command-palette .menu mark { background: none; color: inherit; font-weight: 600; text-decoration: underline; text-decoration-thickness: var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+.command-palette > form > footer { display: flex; gap: var(--space-16); padding: var(--space-8) var(--space-16); border-top: var(--border); font: var(--small); color: var(--muted); }
+.command-palette > form > footer .kbd { margin-right: var(--space-4); }
+@media (width < 40rem) { .command-palette > form > footer { display: none; } } /* no key hints on phones */
+.menu > .group { padding: var(--space-8) var(--space-8) var(--space-4); font: var(--small); color: var(--muted); }
+.menu > [aria-selected="true"] { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); } /* as hover */
+@media (width < 40rem) { .command-palette:modal { inset: 0 0 auto; inline-size: auto; max-inline-size: none; margin: 0; border-radius: 0 0 var(--radius-panel) var(--radius-panel); } }

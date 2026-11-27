@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-//go:embed token components shell icons.css
+//go:embed token components blocks shell icons.css
 var files embed.FS
 
 // Node is anything that renders into a slot: ui's parts and an app's own.
@@ -95,17 +95,28 @@ func init() {
 		if err != nil || d.IsDir() || !strings.HasSuffix(path, ".html") {
 			return err
 		}
-		part := path[:strings.LastIndex(path, "/")]
+		key, dir := strings.TrimSuffix(path, ".html"), path[:strings.LastIndex(path, "/")]
+		if key == dir+dir[strings.LastIndex(dir, "/"):] {
+			key = dir // the part's main template: <level>/<part>/<part>.html is "<level>/<part>"
+		}
 		b, _ := files.ReadFile(path)
-		tmpl[part] = template.Must(template.New(part).Parse(strings.TrimSpace(string(b))))
+		tmpl[key] = template.Must(template.New(key).Parse(strings.TrimSpace(string(b))))
 		return nil
 	})
 }
 
-// exec records the part and runs its template.
-func (c *Ctx) exec(w io.Writer, part string, v any) error {
+// exec records the part and runs its template: "<level>/<part>" (the main one) or "<level>/<part>/<name>".
+func (c *Ctx) exec(w io.Writer, name string, v any) error {
+	part := name
+	if strings.Count(name, "/") == 2 {
+		part = name[:strings.LastIndex(name, "/")]
+	}
 	c.use(part)
-	return tmpl[part].Execute(w, v)
+	t := tmpl[name]
+	if t == nil {
+		return fmt.Errorf("no template %s", name)
+	}
+	return t.Execute(w, v)
 }
 
 // Render renders a page completely before writing it, so a failed render never sends half a page.

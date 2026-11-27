@@ -1,0 +1,5 @@
+/* date and time: a text field in dd.mm.yyyy or hh:mm (24 h), a picker button inside on the right */
+.picker { position: relative; display: block; }
+.picker > .input { padding-right: calc(var(--size-control-small) + var(--space-8)); font-variant-numeric: tabular-nums; }
+.picker > button { position: absolute; right: var(--space-4); top: 50%; translate: 0 -50%; }
+.picker > input[type="date"], .picker > input[type="time"] { position: absolute; right: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }

@@ -1,0 +1,23 @@
+/* stat tile: a card that is one link to its list: label, value, change, then a sparkline or a meter with its period */
+.stat-tile { display: grid; align-content: start; gap: var(--space-4); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel);
+  background: var(--surface); color: var(--text); text-decoration: none; }
+.stat-tile:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.stat-tile:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.stat-tile > .label { font: var(--body); }
+.stat-tile > .value { font: var(--title); font-variant-numeric: tabular-nums; }
+.stat-tile > .delta { display: flex; align-items: center; gap: var(--space-4); font: var(--small); color: var(--muted); }
+.stat-tile > .delta > i { color: var(--c, var(--muted)); }
+.stat-tile > .delta[data-state="ok"] { --c: var(--ok); } .stat-tile > .delta[data-state="danger"] { --c: var(--danger); }
+.stat-tile > .sparkline { inline-size: 100%; block-size: var(--size-control); margin-block-start: var(--space-8); overflow: visible; }
+.sparkline polyline { fill: none; stroke: var(--muted); stroke-width: var(--stroke-thin); vector-effect: non-scaling-stroke; }
+.menu > [hidden] { display: none; }
+.stat-tile > .meter-bar { margin-block-start: var(--space-8); }
+.stat-tile > .period { font: var(--small); color: var(--muted); }
+/* phones: the full width and low: label and change left, the value right, the chart a thin line under them with its period */
+@container (max-width: 40rem) {
+  .stat-tile { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label value" "delta value" "chart period"; align-items: center; gap: var(--space-4) var(--space-16); padding: var(--space-8) var(--space-16); }
+  .stat-tile > .label { grid-area: label; } .stat-tile > .delta { grid-area: delta; } .stat-tile > .period { grid-area: period; justify-self: end; }
+  .stat-tile > .value { grid-area: value; justify-self: end; font: var(--heading); }
+  .stat-tile > :is(.sparkline, .meter-bar) { grid-area: chart; margin-block-start: 0; }
+  .stat-tile > .sparkline { block-size: var(--space-16); }
+}

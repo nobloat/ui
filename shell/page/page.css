@@ -2,3 +2,8 @@
    footer at the end, at the bottom of the window when the page is short. A specimen of a page uses .app-main, a page has one <main>. */
 .app-page { display: grid; grid-template-rows: auto 1fr auto; min-block-size: 100dvh; background: var(--background); }
 .app-page > :is(main, .app-main) { container-type: inline-size; inline-size: 100%; max-inline-size: calc(var(--size-control) * 30); margin-inline: auto; padding: 0 var(--space-16) var(--space-32); box-sizing: border-box; }
+/* skip link: the first stop for the keyboard on an app page, visible only while focused */
+.skip-link { position: absolute; inset-inline-start: var(--space-8); inset-block-start: var(--space-8); z-index: var(--layer-modal); padding: var(--space-8) var(--space-16);
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); translate: 0 -200%; }
+.skip-link:focus { translate: 0; }
+.app-page > :is(main, .app-main) > :not(.page-head, h1) + * { margin-block-start: var(--space-16); } /* the blocks of a page, one under the other */

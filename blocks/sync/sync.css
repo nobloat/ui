@@ -1,0 +1,5 @@
+/* sync state (apps that work offline): a status before Commands; synced, syncing, offline with the changes waiting */
+.sync { white-space: nowrap; }
+.sync > .progress-bar { inline-size: calc(var(--size-control) * 2); } /* syncing: count, percent and the running bar */
+@container (max-width: 40rem) { .app-header .sync > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } } /* phones: the dot, the word for screen readers and the title */
+.app-footer a > i { margin-right: var(--space-4); }

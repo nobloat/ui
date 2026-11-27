@@ -1,0 +1,10 @@
+/* table: hairline rows, numbers right, the header sorts */
+.data-table { width: 100%; border-collapse: collapse; font: var(--body); color: var(--text); }
+.data-table th { font-weight: 400; color: var(--muted); text-align: left; white-space: nowrap; }
+.data-table th a { color: inherit; text-decoration: none; } .data-table th a:hover { color: var(--text); }
+.data-table :is(th, td) { padding: var(--space-8); border-bottom: var(--border); }
+.data-table :is(.number, .number a) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.data-table tfoot td { font-weight: 600; border-bottom: 0; }
+.data-table tbody tr:hover { background: color-mix(in oklab, var(--background), var(--text) var(--mix-tint)); }
+.data-table td a { color: inherit; }
+.data-table td code { font: inherit; white-space: nowrap; }

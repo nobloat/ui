@@ -1,0 +1,43 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "nb-editable",
+      "description": "Editable: a value that saves on its own, edited in place (custom element nb-editable). The attr tags are its attributes; a test checks them against observedAttributes in editable.js.",
+      "attributes": [
+        {
+          "name": "label"
+        },
+        {
+          "name": "value"
+        },
+        {
+          "name": "type",
+          "description": "input type, default text"
+        },
+        {
+          "name": "unit",
+          "description": "shown after the value"
+        },
+        {
+          "name": "min"
+        },
+        {
+          "name": "pattern"
+        },
+        {
+          "name": "error",
+          "description": "what is valid, with an example"
+        },
+        {
+          "name": "name",
+          "description": "the posted name; default the label"
+        },
+        {
+          "name": "action",
+          "description": "where it posts name=value; default the nearest data-action"
+        }
+      ]
+    }
+  ]
+}

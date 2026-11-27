@@ -1,0 +1,15 @@
+.choice:has(input:disabled) { opacity: var(--opacity-disabled); cursor: not-allowed; } .choice:has(input:disabled) * { cursor: inherit; }
+
+/* choice: a checkbox or radio with its label; the whole row is the target */
+.choice { display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--size-control-small); font: var(--body); font-weight: 400; color: var(--text); cursor: pointer; }
+.choice > input { all: unset; box-sizing: border-box; flex: none; display: grid; place-items: center; width: var(--size-icon); height: var(--size-icon);
+  border: var(--border-field); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--surface); cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease); }
+.choice > input[type="radio"] { border-radius: var(--radius-round); }
+.choice:hover > input:not(:checked) { border-color: var(--text); }
+.choice > input:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.choice > input:checked { border-color: var(--accent); background: var(--accent); }
+.choice > input[type="checkbox"]:checked::before { content: ""; width: 100%; height: 100%; background: var(--text-on-accent); mask: var(--icon-check) center / 80% no-repeat; }
+.choice > input[type="radio"]:checked { background: var(--surface); box-shadow: inset 0 0 0 var(--space-4) var(--surface), inset 0 0 0 var(--space-8) var(--accent); }
+.choices { display: grid; gap: var(--space-8); justify-items: start; }
+fieldset.choices { margin: 0; padding: 0; border: 0; } /* radios: a group without the browser frame */

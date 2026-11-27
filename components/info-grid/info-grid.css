@@ -1,0 +1,4 @@
+/* info grid: label left, value right */
+.info-grid { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-8) var(--space-32); margin: 0; font: var(--body); }
+.info-grid > dt { color: var(--muted); } .info-grid > dd { margin: 0; color: var(--text); }
+@container (max-width: 40rem) { .info-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } .info-grid > dd { margin-bottom: var(--space-8); } }

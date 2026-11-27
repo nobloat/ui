@@ -1,0 +1,3 @@
+/* user menu: who is signed in, preferences inline, the app's own rows, then Settings and Sign out after a line, in every app */
+.menu > .who { display: grid; padding: var(--space-8); font: var(--body); } .menu > .who > span { font: var(--small); color: var(--muted); }
+.menu > .pref { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); padding: var(--space-4) var(--space-8); }

@@ -1,0 +1,6 @@
+/* labels: small marks next to or on other things. A state is always a dot and a word; the word stays in --text. */
+[data-state="ok"] { --c: var(--ok); } [data-state="warn"] { --c: var(--warn); } [data-state="danger"] { --c: var(--danger); }
+[data-state="info"] { --c: var(--info); } [data-state="disabled"] { --c: var(--disabled); }
+.status { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8); border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); font: var(--body); color: var(--text); white-space: nowrap; }
+.status::before { content: ""; flex: none; width: var(--space-8); height: var(--space-8); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--c, var(--disabled)); }

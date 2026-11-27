@@ -1,0 +1,2 @@
+/* spinner: busy, in the slot of what it replaces */
+.busy-ring { display: inline-block; inline-size: 1em; block-size: 1em; box-sizing: border-box; border: var(--stroke-thick) solid currentColor; border-right-color: transparent; border-radius: var(--radius-round); animation: spin var(--duration-spin) linear infinite; }

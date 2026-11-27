@@ -1,0 +1,13 @@
+/* breadcrumbs: parents as muted links with their object icon, chevrons between, the current page last without link;
+   a narrow container shows only "← parent" (the title says where you are) */
+.breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin: 0; padding: 0; font: var(--small); color: var(--muted); }
+.breadcrumbs li { display: inline-flex; align-items: center; gap: var(--space-4); }
+.breadcrumbs li + li::before { content: ""; width: var(--size-icon); height: var(--size-icon); background: var(--muted); mask: var(--icon-chevron-right) center / contain no-repeat; }
+.breadcrumbs a { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--muted); text-decoration: none; }
+.breadcrumbs a:hover { color: var(--text); text-decoration: underline var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+.breadcrumbs [aria-current] { color: var(--text); }
+@container (max-width: 40rem) {
+  .breadcrumbs li:not(:nth-last-child(2)) { display: none; } .breadcrumbs li + li::before { content: none; }
+  .breadcrumbs a > i { display: none; }
+  .breadcrumbs a::before { content: ""; width: var(--size-icon); height: var(--size-icon); background: currentColor; mask: var(--icon-arrow-left) center / contain no-repeat; }
+}

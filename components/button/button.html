@@ -1,3 +1,4 @@
-{{define "in"}}<i class="icon-{{.Icon}}" aria-hidden="true"></i>{{if not .IconOnly}}<span>{{.Label}}</span>{{if .Key}}<kbd class="kbd">{{.Key}}</kbd>{{end}}{{end}}{{end -}}
-{{if .Href}}<a class="{{.Class}}" href="{{.Href}}"{{if .Key}} data-key="{{.Key}}"{{end}}{{if .Title}} aria-label="{{.Title}}" title="{{.Title}}"{{end}}>{{template "in" .}}</a>
-{{- else}}<button type="{{.Type}}" class="{{.Class}}"{{if .Name}} name="{{.Name}}" value="{{.Value}}"{{end}}{{if .Key}} data-key="{{.Key}}"{{end}}{{if .Title}} aria-label="{{.Title}}" title="{{.Title}}"{{end}}>{{template "in" .}}</button>{{end}}
+{{define "in"}}<i class="icon-{{.Icon}}" aria-hidden="true"></i>{{if not .IconOnly}}<span>{{.Label}}</span>{{if .Key}}<kbd class="kbd">{{.Key}}</kbd>{{end}}{{end}}{{if .Badge}}<span class="badge"{{if .IconOnly}} aria-hidden="true"{{end}}>{{.Badge}}</span>{{end}}{{end -}}
+{{define "attrs"}}{{if .Key}} data-key="{{.Key}}"{{end}}{{if .Pressed}} aria-pressed="{{.Pressed}}"{{end}}{{if .Popover}} popovertarget="{{.Popover}}"{{end}}{{if .Dialog}} command="show-modal" commandfor="{{.Dialog}}"{{end}}{{if .Form}} form="{{.Form}}"{{end}}{{if .Title}} aria-label="{{.Title}}{{if .Badge}}, {{.Badge}}{{end}}" title="{{.Title}}"{{end}}{{end -}}
+{{if .Href}}<a class="{{.Class}}" href="{{.Href}}"{{template "attrs" .}}>{{template "in" .}}</a>
+{{- else}}<button type="{{.Type}}" class="{{.Class}}"{{if .Name}} name="{{.Name}}" value="{{.Value}}"{{else if .Value}} value="{{.Value}}"{{end}}{{template "attrs" .}}>{{template "in" .}}</button>{{end}}

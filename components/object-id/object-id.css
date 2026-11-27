@@ -1,0 +1,3 @@
+/* object id: a ticket key in code style, with a copy button */
+.object-id { display: inline-flex; align-items: center; gap: var(--space-4); font: var(--body); font-variant-numeric: tabular-nums; }
+.object-id > code { font: inherit; padding: 0 var(--space-4); border-radius: var(--space-4); background: var(--line); }

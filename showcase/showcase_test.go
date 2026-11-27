@@ -1,37 +1,20 @@
 package showcase
 
 import (
-	"bytes"
 	"flag"
-	"os"
-	"path/filepath"
 	"testing"
-
-	"github.com/nobloat/ui"
 )
 
-var update = flag.Bool("update", false, "rewrite sample/")
+var update = flag.Bool("update", false, "rewrite the generated files")
 
-// TestSample renders every page to sample/ and its bundle next to it; stale output fails, -update rewrites.
-func TestSample(t *testing.T) {
-	var pages []ui.Node
-	for name, p := range Pages {
-		pages = append(pages, p)
-		var b bytes.Buffer
-		if err := ui.Render(&b, "en", nil, p); err != nil {
-			t.Fatalf("%s: %v", name, err)
-		}
-		path := filepath.Join("sample", name+".html")
-		if old, _ := os.ReadFile(path); bytes.Equal(old, b.Bytes()) {
-			continue
-		}
-		if !*update {
-			t.Errorf("%s is stale: run go test -update", path)
-		} else if err := os.WriteFile(path, b.Bytes(), 0o644); err != nil {
-			t.Fatal(err)
-		}
+// TestGenerated: the design system pages, fragments, samples, bundle, components.js, typedefs and HTML data match the Go
+// values; stale output fails, -update (or nbui gen) rewrites it.
+func TestGenerated(t *testing.T) {
+	stale, err := Generate("..", *update)
+	if err != nil {
+		t.Fatal(err)
 	}
-	if err := ui.WriteAssets("sample", *update, pages...); err != nil {
-		t.Error(err)
+	if !*update && len(stale) > 0 {
+		t.Errorf("stale, run nbui gen (go test ./showcase -update): %v", stale)
 	}
 }

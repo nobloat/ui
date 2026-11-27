@@ -1,0 +1,1 @@
+<fieldset class="choices" aria-label="{{.Label}}">{{$n := .Name}}{{range .Options}}<label class="choice"><input type="radio" name="{{$n}}" value="{{.Value}}"{{if .Checked}} checked{{end}}> {{.Label}}</label>{{end}}</fieldset>

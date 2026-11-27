@@ -1,0 +1,4 @@
+/* tag: a user's own word in a colour they chose; the text keeps full contrast */
+.tag-chip { display: inline-flex; align-items: center; gap: var(--space-4); height: var(--size-control-small); padding: 0 var(--space-8) 0 var(--space-4); border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap; }
+.tag-chip > i { font-size: 1em; color: var(--c, var(--disabled)); } /* the # says it is a tag */

@@ -1,0 +1,1 @@
+<div class="segmented" role="radiogroup" aria-label="{{.Label}}">{{$n := .Name}}{{range .Options}}<label><input type="radio" name="{{$n}}" value="{{.Value}}"{{if .Checked}} checked{{end}}>{{if .Icon}}<i class="icon-{{.Icon}}" aria-hidden="true"></i> {{end}}{{.Label}}</label>{{end}}</div>

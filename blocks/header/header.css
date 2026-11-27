@@ -1,0 +1,17 @@
+/* ---- the frame's blocks: app header and nav, user menu, sync state, page head, app footer (the shell places them) ---- */
+
+/* app header: logo left; the commands button and the user menu right; nothing else. On the surface with a hairline, sticky.
+   Commands opens the command palette (searching is one of its commands). The user button is the avatar and opens the user
+   menu. On phones commands shows only its icon. */
+.app-header { container-type: inline-size; position: sticky; top: 0; z-index: var(--layer-raised);
+  border-bottom: var(--border); background: var(--surface); color: var(--text); }
+.app-header > div { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16);
+  block-size: calc(var(--size-control) + var(--space-16)); padding: 0 var(--space-16); }
+.app-header .logo { display: inline-flex; align-items: center; gap: var(--space-8); min-inline-size: 0; font: var(--subheading); color: inherit; text-decoration: none; border-radius: var(--radius-control); }
+.app-header .logo:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.app-header .logo > .mark { block-size: var(--size-control-small); inline-size: auto; } .app-header .logo > .mark path { stroke: var(--muted); } .app-header .logo > .mark text { fill: var(--accent); }
+.app-header .logo > img { block-size: var(--size-control-small); inline-size: auto; }
+.app-header .end { display: flex; align-items: center; gap: var(--space-8); }
+.app-header .user { all: unset; display: inline-flex; border-radius: var(--radius-round); cursor: pointer; } /* a button around the avatar */
+.app-header .user:hover > .avatar { border-color: var(--text); } .app-header .user:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+@container (max-width: 40rem) { .app-header > div { padding-right: var(--space-8); } .app-header .end { gap: var(--space-4); } }

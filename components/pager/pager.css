@@ -1,0 +1,8 @@
+/* pager: numbered links; the position in words */
+.page-nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); font: var(--body); }
+.page-nav > a { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4); box-sizing: border-box;
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); text-decoration: none; font-variant-numeric: tabular-nums; }
+.page-nav > a:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.page-nav > a[aria-current] { background: var(--selected); border-color: var(--accent); color: var(--accent); }
+.page-nav > span { color: var(--muted); padding: 0 var(--space-4); }
+.page-nav > .position { margin-left: var(--space-8); font: var(--small); }

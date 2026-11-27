@@ -2,6 +2,9 @@ package ui
 
 import (
 	"io"
+	"reflect"
+	"regexp"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -35,6 +38,41 @@ func TestText(t *testing.T) {
 	for _, s := range []string{`<html lang="de">`, "<span>Speichern</span>", `href="#ZgotmplZ"`} {
 		if !strings.Contains(b.String(), s) {
 			t.Errorf("missing %s in %s", s, b.String())
+		}
+	}
+}
+
+// TestElements: a custom element's observedAttributes (in <level>/<part>/<part>.js for nb-<part>) are exactly the attr
+// tags of its Go type, so the HTML, the script and the editors' data agree.
+func TestElements(t *testing.T) {
+	re := regexp.MustCompile(`static observedAttributes = \[([^\]]*)\]`)
+	for el, v := range Elements {
+		part := strings.TrimPrefix(el, "nb-")
+		var src []byte
+		for _, l := range levels {
+			if b, err := files.ReadFile(l + "/" + part + "/" + part + ".js"); err == nil {
+				src = b
+			}
+		}
+		m := re.FindSubmatch(src)
+		if m == nil {
+			t.Errorf("%s: no static observedAttributes in its script", el)
+			continue
+		}
+		var js, tags []string
+		for _, a := range strings.Split(string(m[1]), ",") {
+			js = append(js, strings.Trim(strings.TrimSpace(a), `'"`))
+		}
+		typ := reflect.TypeOf(v)
+		for i := range typ.NumField() {
+			if a := typ.Field(i).Tag.Get("attr"); a != "" {
+				tags = append(tags, a)
+			}
+		}
+		slices.Sort(js)
+		slices.Sort(tags)
+		if !slices.Equal(js, tags) {
+			t.Errorf("%s: observedAttributes %v, %s attr tags %v", el, js, typ.Name(), tags)
 		}
 	}
 }

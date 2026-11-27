@@ -1,0 +1,17 @@
+/* message: one sentence, or a bold title and a sentence; always floating (ui.js moves it into .toasts), always closable */
+.message { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-8) var(--space-16); align-items: start; padding: var(--space-16); padding-right: var(--space-8);
+  border-radius: var(--radius-panel); border: var(--stroke-thin) solid color-mix(in oklab, var(--c, var(--info)) var(--mix-edge), var(--surface)); background: color-mix(in oklab, var(--c, var(--info)) var(--mix-tint), var(--surface));
+  box-shadow: var(--shadow-floating); font: var(--body); color: var(--text); }
+.message > i { color: var(--c, var(--info)); translate: 0 var(--icon-nudge); }
+.message strong { font-weight: 600; }
+.message > .button { margin-block: calc(-1 * var(--space-4)); }
+.toasts { z-index: var(--layer-floating); }
+.message { transition: opacity var(--duration-slow) var(--ease), translate var(--duration-slow) var(--ease); } .message.closing { opacity: 0; translate: 0 var(--space-8); }
+/* a message that closes by itself (data-auto; never an error): a bar on its bottom edge runs down while it stays, duration-read or style="--stay: …";
+   hover or focus pauses it; with reduced motion the bar is hidden and the message still closes; components.js closes it when the bar ends */
+.message[data-auto]:not([data-state="danger"]) { position: relative; overflow: hidden;
+  &::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: var(--stroke-thick); background: var(--c, var(--info)); transform-origin: left;
+    animation: message-stay var(--stay, var(--duration-read)) linear forwards; }
+  &:is(:hover, :focus-within)::after { animation-play-state: paused; } }
+@keyframes message-stay { to { scale: 0 1; } }
+@media (prefers-reduced-motion: reduce) { .message[data-auto]::after { visibility: hidden; } }

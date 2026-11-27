@@ -8,6 +8,7 @@
 {{if .JS}}<script src="{{.Static}}ui.js" defer></script>
 {{end}}</head>
 <body>
-<div class="app-page"><main id="main"><h1 class="t-title">{{.Title}}</h1>{{.Main}}</main></div>
-</body>
+{{if .Header}}<a class="skip-link" href="#main">Skip to content</a>
+{{end}}<div class="app-page">{{.Header}}<main id="main">{{if .Head}}{{.Head}}{{else}}<h1 class="t-title">{{.Title}}</h1>{{end}}{{.Main}}</main>{{.Footer}}</div>
+{{.Palette}}</body>
 </html>

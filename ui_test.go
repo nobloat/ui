@@ -290,7 +290,11 @@ func TestIcons(t *testing.T) {
 		}
 		consts += fmt.Sprintf("\t%s Icon = %q\n", ident, name)
 	}
-	src, err := format.Source([]byte(consts + ")\n"))
+	consts += ")\n\n// IconNames: every icon, for checks and editors.\nvar IconNames = []string{"
+	for _, f := range files {
+		consts += fmt.Sprintf("%q, ", strings.TrimSuffix(filepath.Base(f), ".svg"))
+	}
+	src, err := format.Source([]byte(consts + "}\n"))
 	if err != nil {
 		t.Fatal(err)
 	}

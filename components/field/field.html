@@ -1,7 +1,7 @@
-<label class="field"><span class="field-label">{{.Label}}</span><input class="input" name="{{.Name}}" type="{{.Type}}"
-{{- if .Value}} value="{{.Value}}"{{end}}{{if .Placeholder}} placeholder="{{.Placeholder}}"{{end}}{{if .Required}} required{{end}}
-{{- if .Autocomplete}} autocomplete="{{.Autocomplete}}"{{end}}{{if .InputMode}} inputmode="{{.InputMode}}"{{end}}
-{{- if .Pattern}} pattern="{{.Pattern}}" title="{{.Title}}"{{end}}{{if .MaxLength}} maxlength="{{.MaxLength}}"{{end}}
-{{- if .Err}} aria-invalid="true"{{end}}{{if .Line}} aria-describedby="{{.Line}}"{{end}}>
+{{define "attrs"}} name="{{.Name}}"{{if .Type}} type="{{.Type}}"{{end}}{{if .InputMode}} inputmode="{{.InputMode}}"{{end}}{{if .Autocomplete}} autocomplete="{{.Autocomplete}}"{{end}}{{if .MaxLength}} maxlength="{{.MaxLength}}"{{end}}{{if .Value}} value="{{.Value}}"{{end}}{{if .Placeholder}} placeholder="{{.Placeholder}}"{{end}}{{if .Pattern}} pattern="{{.Pattern}}"{{if .Title}} title="{{.Title}}"{{end}}{{end}}{{if .Required}} required{{end}}{{if .Err}} aria-invalid="true"{{end}}{{if .Line}} aria-describedby="{{.Line}}"{{end}}{{end -}}
+<label class="field"><span class="field-label">{{.Label}}</span>
+{{- if .Area}}<textarea class="input" name="{{.Name}}"{{if .Placeholder}} placeholder="{{.Placeholder}}"{{end}}{{if .Required}} required{{end}}{{if .Err}} aria-invalid="true"{{end}}{{if .Line}} aria-describedby="{{.Line}}"{{end}}>{{.Value}}</textarea>
+{{- else if .Picker}}<span class="picker"><input class="input"{{template "attrs" .}}><button type="button" class="button icon-only" aria-label="{{.PickLabel}}" title="{{.PickLabel}}" hidden><i class="icon-{{.PickIcon}}" aria-hidden="true"></i></button><input type="{{.Picker}}"{{if .Step}} step="{{.Step}}"{{end}} tabindex="-1" aria-hidden="true"></span>
+{{- else}}<input class="input{{if .Class}} {{.Class}}{{end}}"{{template "attrs" .}}>{{end}}
 {{- if .Err}}<span class="field-error" id="{{.Line}}"><i class="icon-{{.Icon}}" aria-hidden="true"></i> {{.Err}}{{if .Hint}} <span>{{.Hint}}</span>{{end}}</span>
 {{- else if .Hint}}<span class="field-hint" id="{{.Line}}">{{.Hint}}</span>{{end}}</label>

@@ -1,0 +1,18 @@
+/* calendar, month: weeks down, days across; each day a link to its week, with its total and a bar of its entries' colours.
+   Days outside the month and closed days on the background, today in the accent. Phones: no totals, the bar stays. */
+.month-grid { container-type: inline-size; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--stroke-thin); overflow: hidden;
+  border: var(--border); border-radius: var(--radius-panel); background: var(--line); font: var(--small); color: var(--text); }
+.month-grid > .wd { padding: var(--space-4) var(--space-8); background: var(--surface); color: var(--muted); }
+.month-grid > a { display: grid; align-content: start; gap: var(--space-4); min-block-size: calc(var(--size-control) * 2); padding: var(--space-4) var(--space-8);
+  background: var(--surface); color: inherit; text-decoration: none; }
+.month-grid > a:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.month-grid > a:focus-visible { outline: var(--focus); outline-offset: calc(-1 * var(--stroke-thick)); }
+.month-grid > a > b { font: var(--body); font-variant-numeric: tabular-nums; } .month-grid > a > span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.month-grid > a:is(.out, .closed) { background: var(--background); } .month-grid > a.out > b { color: var(--muted); }
+.month-grid > a.today > b { color: var(--accent); font-weight: 600; }
+.month-grid .stack { display: flex; gap: var(--stroke-thin); block-size: var(--space-4); }
+.month-grid .stack > i { flex: var(--n, 1); border-radius: var(--radius-round); background: var(--c, var(--accent)); }
+@container (max-width: 40rem) { .month-grid > a { min-block-size: var(--size-control); padding: var(--space-4); } .month-grid > a > span { display: none; } }
+.week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; }
+.week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; } /* the week number */
+.month-grid > .month-name { grid-column: 1 / -1; padding: var(--space-8); background: var(--surface); font: var(--subheading); } /* the month and year over the weekdays */

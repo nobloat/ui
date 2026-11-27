@@ -1,0 +1,3 @@
+/* nav: the app's places as a tab bar inside the header, under its row (on the surface, so page tabs below stay distinct).
+   Icon, name, a badge for what waits; no keys (every place is in the palette). On phones it scrolls sideways. */
+.app-header > .app-nav { border-bottom: 0; padding: 0 var(--space-8); scrollbar-width: none; }

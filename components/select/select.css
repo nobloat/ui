@@ -1,0 +1,4 @@
+/* select: the native control with a chevron */
+.select { position: relative; display: block; }
+.select > select.input { padding-right: calc(var(--space-16) + var(--space-16)); line-height: calc(var(--size-control) - 2 * var(--stroke-thin)); cursor: pointer; }
+.select::after { content: ""; position: absolute; right: var(--space-8); top: 50%; width: 1em; height: 1em; translate: 0 -50%; background: var(--muted); mask: var(--icon-chevron-down) center / contain no-repeat; pointer-events: none; }

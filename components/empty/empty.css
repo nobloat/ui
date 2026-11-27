@@ -1,0 +1,6 @@
+/* empty state: what is missing, why, and the way on */
+.empty-state { display: grid; justify-items: center; gap: var(--space-8); padding: var(--space-32) var(--space-16); text-align: center; font: var(--body); color: var(--text); }
+.empty-state > i { font-size: var(--size-control); color: var(--muted); }
+.empty-state > strong { font-weight: 600; }
+.empty-state > span { color: var(--muted); max-width: 40ch; }
+.empty-state > .button { margin-top: var(--space-8); }

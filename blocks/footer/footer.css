@@ -1,0 +1,11 @@
+/* app footer: the product (to nobloat.org) and its version (to the changelog) left; shortcuts, report a problem and the
+   source right. Small and muted under a hairline, at the end of every page with a signed-in user. */
+.app-footer { container-type: inline-size; border-top: var(--border); color: var(--muted); font: var(--small); }
+.app-footer > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4) var(--space-16); padding: var(--space-16); }
+.app-footer .product { display: inline-flex; align-items: center; gap: var(--space-8); }
+.app-footer .product > :first-child { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--text); font-weight: 600; text-decoration: none; } .app-footer .product > :first-child::after { content: none; } /* the product needs no external mark */
+.app-footer .product .mark { block-size: 1em; inline-size: auto; } .app-footer .product .mark path { stroke: var(--muted); } .app-footer .product .mark text { fill: var(--accent); }
+.app-footer ul { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-16); margin: 0; padding: 0; list-style: none; }
+.app-footer a { color: inherit; } .app-footer a:hover { color: var(--text); }
+@container (max-width: 40rem) { .app-footer .key-hint { display: none; } } /* no key hints on phones */
+.app-footer li { display: inline-flex; align-items: center; gap: var(--space-4); }

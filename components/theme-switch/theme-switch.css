@@ -1,0 +1,12 @@
+/* theme switch: three radios (auto, light, dark) set the page's colour scheme with CSS alone. Where there is room they are a
+   segmented control; where not, one icon button shows the current mode and selects the next. The server renders the saved
+   choice as the checked radio; components.js only remembers it where there is no server (static pages). */
+:root:has(input[name="theme"][value="light"]:checked) { color-scheme: light; }
+:root:has(input[name="theme"][value="dark"]:checked) { color-scheme: dark; }
+.theme-cycle { display: none; } .theme-cycle > label { display: none; }
+:root:has(#theme-auto:checked) .theme-cycle > [data-when="auto"], :root:has(#theme-light:checked) .theme-cycle > [data-when="light"], :root:has(#theme-dark:checked) .theme-cycle > [data-when="dark"] { display: inline-flex; }
+.theme-switch:has(input:focus-visible) .theme-cycle > label { outline: var(--focus); outline-offset: var(--stroke-thick); }
+@container (max-width: 40rem) {
+  .theme-switch > .segmented { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } /* still reachable by keyboard */
+  .theme-cycle { display: inline-flex; }
+}

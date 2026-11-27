@@ -1,0 +1,9 @@
+/* row list: short lists of objects; one hairline row each */
+.row-list { list-style: none; margin: 0; padding: 0; font: var(--body); }
+.row-list > li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: var(--space-4) var(--space-16); align-items: center; padding: var(--space-8) 0; border-bottom: var(--border); }
+.row-list > li::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--c, var(--disabled)); }
+.row-list a { color: var(--text); font-weight: 600; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-list a:hover { text-decoration: underline; }
+.row-list .meta { font: var(--small); color: var(--muted); }
+.row-list .number { color: var(--muted); font-variant-numeric: tabular-nums; }
+@container (max-width: 40rem) { .row-list > li { grid-template-columns: auto minmax(0, 1fr) auto; } .row-list .meta { grid-column: 2; grid-row: 2; } }

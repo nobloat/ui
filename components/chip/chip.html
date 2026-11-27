@@ -1,0 +1,1 @@
+<nav class="filter-chips" aria-label="{{.Label}}">{{range .Items}}<a class="filter-chip" href="{{.Href}}"{{if .On}} aria-current="true"{{end}}><i class="icon-{{.Icon}}" aria-hidden="true"></i> {{.Label}}{{if .Count}} <span class="count">{{.Count}}</span>{{end}}</a>{{end}}</nav>

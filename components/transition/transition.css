@@ -1,0 +1,6 @@
+/* navigation: a page load cross-fades the content (CSS view transitions, no script); the page header with its tabs stays put.
+   Browsers without support just load the page; reduced motion turns it off. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--duration-fast); animation-timing-function: var(--ease); }
+:is(body, main) > header:first-child { view-transition-name: chrome; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }

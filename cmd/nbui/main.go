@@ -2,6 +2,7 @@
 //
 //	go -C ../ui run ./cmd/nbui copy -to ../bill/ui          # write the copy (replaces an earlier one)
 //	go -C ../ui run ./cmd/nbui copy -to ../bill/ui -check   # fail if the copy differs
+//	go run ./cmd/nbui gen                                    # in ui: regenerate pages, fragments, samples, typedefs
 //
 // The app imports it as <its module>/ui; its CSS and JS come from ui.WriteAssets in the app's test.
 package main
@@ -15,11 +16,24 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+
+	"github.com/nobloat/ui/showcase"
 )
 
 func main() {
+	if len(os.Args) == 2 && os.Args[1] == "gen" {
+		stale, err := showcase.Generate(".", true)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "nbui:", err)
+			os.Exit(1)
+		}
+		for _, f := range stale {
+			fmt.Println("wrote", f)
+		}
+		return
+	}
 	if len(os.Args) < 2 || os.Args[1] != "copy" {
-		fmt.Fprintln(os.Stderr, "usage: nbui copy -to <app>/ui [-check]")
+		fmt.Fprintln(os.Stderr, "usage: nbui gen | nbui copy -to <app>/ui [-check]")
 		os.Exit(2)
 	}
 	flags := flag.NewFlagSet("copy", flag.ExitOnError)

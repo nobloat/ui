@@ -1,0 +1,6 @@
+/* quote: someone else's words, set apart by a stroke and the reading face; who said it below, small and muted */
+.quote { margin: 0; padding-left: var(--space-16); border-left: var(--stroke-thick) solid var(--line); display: grid; gap: var(--space-4); }
+.quote > blockquote { margin: 0; font: var(--prose); font-style: italic; color: var(--text); }
+.quote > blockquote > p { margin: 0; }
+.quote > figcaption { font: var(--small); color: var(--muted); }
+.quote > figcaption::before { content: "— "; }
