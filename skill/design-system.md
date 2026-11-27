@@ -120,9 +120,9 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 
 ### Dates and times
 
-- **Shown** to the user always as `dd.mm.yyyy` and `hh:mm:ss` in 24 h (`27.11.2026 14:05:00`), in lists, details and forms alike, in the user's time zone. Never the US order, never AM/PM, never ISO on screen. Recent events may read relative ("2 h ago") with the exact date and time in `title`. Durations `h:mm`.
-- **Entered**: every date or time field is a text field the user can always type into by hand, `dd.mm.yyyy` and `hh:mm:ss` (24 h), with a pattern, a sample as placeholder and the usual one-line error naming the valid form. A picker button beside it opens the browser's own picker (`components.js`) and writes the choice back in the same form. The picker is a help, never the only way in.
-- **Sent** to the server always as RFC 3339 **with the time zone offset**, never without: `2026-11-27T14:05:00+01:00`. The offset is the user's zone (the browser's) at that date, so summer time is right. A value without an offset is refused by the server, not guessed. The page converts on submit; the text field the user sees keeps the local form.
+- **Shown** to the user always as `dd.mm.yyyy` and `hh:mm:ss` in 24 h (`27.11.2026 14:05:00`), in the user's time zone; lists and other dense places show `hh:mm` with the full time in `title`. Never the US order, never AM/PM, never ISO on screen. Recent events may read relative ("2 h ago") with the exact date and time in `title`. Durations `h:mm`.
+- **Entered**: every date or time field is a text field the user can always type into by hand, `dd.mm.yyyy` and `hh:mm:ss` (24 h; `hh:mm` is accepted and gets `:00`), with a pattern, a sample as placeholder and the usual one-line error naming the valid form. A picker button beside it opens the browser's own picker (`components.js`) and writes the choice back in the same form. The picker is a help, never the only way in.
+- **Sent** to the server always as RFC 3339 **with the time zone offset**, never without: `2026-11-27T14:05:00+01:00`. The offset is the user's zone (the browser's) at that date, so summer time is right. A date alone is the start of that day: `2026-11-27T00:00:00+01:00`. A value without an offset is refused by the server, not guessed. The page converts on submit; the text field the user sees keeps the local form.
 - **Stored and passed between apps** as RFC 3339 with the offset; the server renders it back in the user's zone.
 
 
