@@ -11,27 +11,6 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 .otp::placeholder { color: var(--muted); opacity: 1; }
 
 
-/* board: one column per state, cards in rank order, a new-task button per column. Columns sit on the background, cards on
-   the surface; dragging a card (draggable, the app moves it) lifts it and outlines the column it would land in. Narrow
-   containers scroll the columns sideways, one column and a peek of the next at a time. */
-.board { container-type: inline-size; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(calc(100% - var(--space-32)), calc(var(--size-control) * 7)), 1fr); /* narrow: one column and a peek of the next */
-  gap: var(--space-16); align-items: start; overflow-x: auto; scroll-snap-type: x mandatory; font: var(--body); color: var(--text); }
-.board > section { display: grid; gap: var(--space-8); padding: var(--space-8); border: var(--border); border-radius: var(--radius-panel); background: var(--background); scroll-snap-align: start; }
-.board > section > header { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control-small); padding-left: var(--space-8); }
-.board > section > header > h2 { display: flex; align-items: center; gap: var(--space-8); flex: 1; margin: 0; font: var(--body); font-weight: 600; letter-spacing: 0; text-transform: none; color: inherit; }
-.board > section > header > h2::before { content: ""; inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--c, var(--disabled)); }
-.board > section > header .count { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
-.board > section.drop-target { outline: var(--stroke-thick) dashed var(--accent); outline-offset: calc(-1 * var(--stroke-thick)); }
-.board > section > .empty { padding: var(--space-8); font: var(--small); color: var(--muted); text-align: center; }
-.board-card { display: grid; gap: var(--space-8); padding: var(--space-8); border: var(--border); border-radius: var(--radius-control); background: var(--surface); cursor: grab; }
-.board-card:hover { border-color: var(--muted); }
-.board-card:focus-within { border-color: var(--accent); }
-.board-card > a { color: var(--text); text-decoration: none; overflow-wrap: anywhere; } .board-card > a:hover { text-decoration: underline; }
-.board-card > a:focus-visible { outline: none; }
-.board-card > .meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); font: var(--small); color: var(--muted); }
-.board-card > .meta > .due { margin-left: auto; } .board-card > .meta > .due[data-state="danger"] { color: var(--text); } .board-card > .meta > .due > i { color: var(--danger); }
-.board-card.dragging { box-shadow: var(--shadow-floating); rotate: -1deg; cursor: grabbing; }
-
 /* calendar, week: hours down, days across; entries are boxes at their time in their colour (calendar.js draws, moves and
    resizes them and reports to the app; without it every entry is a link). Today's head in the accent, a line at now,
    closed days on the background. The grid scrolls inside itself, the day heads stay. Phones show one day (calendar.js
@@ -78,7 +57,6 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 .month-grid .stack { display: flex; gap: var(--stroke-thin); block-size: var(--space-4); }
 .month-grid .stack > i { flex: var(--n, 1); border-radius: var(--radius-round); background: var(--c, var(--accent)); }
 @container (max-width: 40rem) { .month-grid > a { min-block-size: var(--size-control); padding: var(--space-4); } .month-grid > a > span { display: none; } }
-.board > section > header > .button { block-size: var(--size-control-small); border-color: transparent; background: none; } /* inside the column head: no frame, small */
 
 /* sign in: the shell without nav and user menu. One column in the middle of the background: the logo, the title, the
    fields, the primary spanning the width, then the way back and the theme and language. Steps (password, then the
@@ -112,28 +90,6 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 /* week entries: the time line is shown only by the compact variant (E) */
 .week .ev > time { display: none; }
 
-/* board B, open: no panels, hairlines between the columns */
-.board.p-open { gap: 0; }
-.board.p-open > section { padding: 0 var(--space-16); border: 0; border-left: var(--border); border-radius: 0; background: none; }
-.board.p-open > section:first-child { border-left: 0; padding-left: 0; }
-.board.p-open > section.drop-target { background: var(--selected); }
-
-/* board C, dense: cards are hairline rows inside the panel, the title on one line */
-.board.p-rows > section { gap: 0; }
-.board.p-rows > section > header { margin-bottom: var(--space-4); }
-.board.p-rows .board-card { gap: var(--space-4); padding: var(--space-8); border: 0; border-top: var(--border); border-radius: 0; background: none; }
-.board.p-rows .board-card:hover { background: color-mix(in oklab, var(--background), var(--text) var(--mix-tint)); }
-.board.p-rows .board-card > a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.board.p-rows .board-card.dragging { background: var(--surface); }
-
-/* board D, state bar: no fill, a thick stroke in the state colour on top, raised cards without a border */
-.board.p-bar > section { border: 0; border-top: var(--stroke-thick) solid var(--c, var(--disabled)); border-radius: 0; background: none; padding-inline: 0; }
-.board.p-bar > section > header > h2::before { content: none; }
-.board.p-bar .board-card { border-color: transparent; box-shadow: var(--shadow-raised); }
-.board.p-bar .board-card:hover { border-color: var(--line); }
-
-/* board E, wrap: as many columns as fit, the rest wrap into rows; no sideways scrolling */
-.board.p-stack { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 7)), 1fr)); overflow-x: visible; scroll-snap-type: none; }
 
 /* week B, strong: the whole box in a stronger tint of the colour */
 .week-grid.p-strong .ev { border-left: 0; background: color-mix(in oklab, var(--c, var(--accent)) var(--mix-edge), var(--surface)); }
@@ -151,3 +107,61 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 .week-grid.p-compact .week > .hours > div:first-child { visibility: hidden; }
 .week-grid.p-compact .ev { padding-block: 0; }
 .week-grid.p-compact .ev > time { display: block; color: var(--muted); font-variant-numeric: tabular-nums; } .week-grid.p-compact .ev > small { display: none; }
+
+/* board columns (iteration 1: the columns; cards are placeholders). One column per state: its head (state dot, name,
+   count, new) over its items. Desktop is the same in every proposal; the proposals differ in how phones show them. */
+.columns { container-type: inline-size; display: grid; gap: var(--space-8); font: var(--body); color: var(--text); }
+.col-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(calc(var(--size-control) * 4), 1fr); overflow-x: auto; gap: var(--space-16); align-items: start; }
+.column { display: grid; gap: var(--space-8); padding: var(--space-8); border: var(--border); border-radius: var(--radius-panel); background: var(--background); min-inline-size: 0; }
+.column > input { position: absolute; opacity: 0; inline-size: var(--stroke-thin); block-size: var(--stroke-thin); pointer-events: none; }
+.column > :is(header, summary) { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control-small); padding-left: var(--space-8); list-style: none; }
+.column > summary::-webkit-details-marker { display: none; }
+.column h2 { display: flex; align-items: center; gap: var(--space-8); flex: 1; margin: 0; font: var(--body); font-weight: 600; letter-spacing: 0; text-transform: none; color: inherit; }
+.column h2::before { content: ""; flex: none; inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--c, var(--disabled)); }
+.column .count { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.column > :is(header, summary) > .button { block-size: var(--size-control-small); border-color: transparent; background: none; }
+.column > div { display: grid; gap: var(--space-8); }
+.column .placeholder { block-size: calc(var(--size-control) * 1.5); border: var(--border); border-radius: var(--radius-control); background: var(--surface); }
+.column .empty { margin: 0; padding: var(--space-8); font: var(--small); color: var(--muted); text-align: center; }
+.col-switch { display: none; }
+
+@container (max-width: 40rem) {
+  /* A, swipe: one column wide with the next peeking, snapping sideways */
+  .columns.p-swipe .col-track { grid-auto-columns: calc(100% - var(--space-32)); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .columns.p-swipe .column { scroll-snap-align: start; }
+
+  /* B, switcher: a tab per column with its count; only the chosen column shows, full width */
+  .columns.p-switch .col-switch { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .columns.p-switch .col-track { grid-auto-flow: row; }
+  .columns.p-switch .column:not(:has(> input:checked)) { display: none; }
+  .columns.p-switch .column { border: 0; padding: 0; background: none; }
+  .columns.p-switch .column > header { display: none; }
+
+  /* C, stacked: the columns become sections under each other; each folds (details) */
+  .columns.p-stack .col-track { grid-auto-flow: row; }
+  .columns.p-stack .column > summary { cursor: pointer; }
+  .columns.p-stack .column > summary > h2::after { content: ""; inline-size: var(--size-icon); block-size: var(--size-icon); margin-left: auto; background: var(--muted); mask: var(--icon-chevron-down) center / contain no-repeat; }
+  .columns.p-stack .column:not([open]) > summary > h2::after { rotate: -90deg; }
+
+  /* D, overview: every column as a bar sized by its count; tap one to show it below */
+  .columns.p-overview .col-switch { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: var(--space-4); }
+  .columns.p-overview .col-track { grid-auto-flow: row; }
+  .columns.p-overview .column:not(:has(> input:checked)) { display: none; }
+
+  /* E, swipe with tabs: the swipe of A, the tabs of B as an index that scrolls to the column */
+  .columns.p-swipetabs .col-switch { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .columns.p-swipetabs .col-track { grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .columns.p-swipetabs .column { scroll-snap-align: start; }
+}
+/* the switcher's tabs (B, E) and the overview bars (D) */
+.col-switch > :is(label, a) { display: inline-flex; align-items: center; gap: var(--space-8); flex: none; min-block-size: var(--size-control); padding: 0 var(--space-8);
+  border-bottom: var(--stroke-thick) solid transparent; color: var(--muted); text-decoration: none; white-space: nowrap; cursor: pointer; }
+.col-switch > :is(label, a)::before { content: ""; inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--c, var(--disabled)); }
+.col-switch > :is(label, a):hover { color: var(--text); }
+.columns:has(.column:nth-child(1) > input:checked) .col-switch > :nth-child(1), .columns:has(.column:nth-child(2) > input:checked) .col-switch > :nth-child(2),
+.columns:has(.column:nth-child(3) > input:checked) .col-switch > :nth-child(3), .columns:has(.column:nth-child(4) > input:checked) .col-switch > :nth-child(4) { color: var(--text); border-bottom-color: var(--accent); }
+.columns.p-overview .col-switch > label { display: grid; justify-items: start; gap: var(--space-4); min-block-size: 0; padding: var(--space-8); border: var(--border); border-radius: var(--radius-control); background: var(--surface); font: var(--small); }
+.columns.p-overview .col-switch > label::before { inline-size: 100%; block-size: var(--space-4); border-radius: var(--radius-round);
+  background: linear-gradient(to right, var(--c, var(--disabled)) var(--share), var(--line) 0); }
+.columns.p-overview:has(.column:nth-child(1) > input:checked) .col-switch > :nth-child(1), .columns.p-overview:has(.column:nth-child(2) > input:checked) .col-switch > :nth-child(2),
+.columns.p-overview:has(.column:nth-child(3) > input:checked) .col-switch > :nth-child(3), .columns.p-overview:has(.column:nth-child(4) > input:checked) .col-switch > :nth-child(4) { border-color: var(--accent); box-shadow: 0 0 0 var(--stroke-thin) var(--accent); }
