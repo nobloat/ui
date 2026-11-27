@@ -51,6 +51,14 @@
 .menu > [hidden] { display: none; }
 .stat-tile > .meter-bar { margin-block-start: var(--space-8); }
 .stat-tile > .period { font: var(--small); color: var(--muted); }
+/* phones: the full width and low: label and change left, the value right, the chart a thin line under them with its period */
+@container (max-width: 40rem) {
+  .stat-tile { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label value" "delta value" "chart period"; align-items: center; gap: var(--space-4) var(--space-16); padding: var(--space-8) var(--space-16); }
+  .stat-tile > .label { grid-area: label; } .stat-tile > .delta { grid-area: delta; } .stat-tile > .period { grid-area: period; justify-self: end; }
+  .stat-tile > .value { grid-area: value; justify-self: end; font: var(--heading); }
+  .stat-tile > :is(.sparkline, .meter-bar) { grid-area: chart; margin-block-start: 0; }
+  .stat-tile > .sparkline { block-size: var(--space-16); }
+}
 
 /* command palette: a dialog with a search line over menu rows (Ctrl K). The page's own actions come first (its object as
    the group name), then actions and places. Typing ranks the rows by how well they match (word starts and runs count most)
@@ -135,6 +143,8 @@
 .week-agenda li > i { display: block; block-size: var(--size-control-small); border-radius: var(--radius-control); background: color-mix(in oklab, var(--disabled) var(--mix-tint), var(--surface)); border-left: var(--stroke-thick) solid var(--disabled); }
 .week-agenda .none { color: var(--muted); font: var(--small); }
 
+.week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
+
 /* calendar, month: weeks down, days across; each day a link to its week, with its total and a bar of its entries' colours.
    Days outside the month and closed days on the background, today in the accent. Phones: no totals, the bar stays. */
 .month-grid { container-type: inline-size; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--stroke-thin); overflow: hidden;
@@ -153,3 +163,81 @@
 .week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; }
 .week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; } /* the week number */
 .month-grid > .month-name { grid-column: 1 / -1; padding: var(--space-8); background: var(--surface); font: var(--subheading); } /* the month and year over the weekdays */
+
+/* settings section: the settings page (/settings, Ctrl ,) is only a stack of these. The topic (and one line on it, and a
+   dangerous action) left, label and value rows right; a hairline between sections; phones: the topic on top, each label
+   small over its value. Every control saves as it changes: an editable field (components.css) for typed values; a checkbox,
+   radio or segmented control saves on change, disabled while saving, with a spinner and then a check in a slot that is there
+   from the start (.save-state); a failed save puts the old value back and shows an error toast (components.js). */
+.settings { container-type: inline-size; display: grid; max-inline-size: calc(var(--size-control) * 20); }
+.settings > section { display: grid; grid-template-columns: calc(var(--size-control) * 6) minmax(0, 1fr); gap: var(--space-8) var(--space-32); padding-block: var(--space-32); border-top: var(--border); }
+.settings > section:first-child { border-top: 0; padding-top: 0; }
+.settings > section > header > h2 { margin: 0; font: var(--subheading); letter-spacing: 0; text-transform: none; color: inherit; }
+.settings > section > header > p { margin: var(--space-4) 0 0; font: var(--small); color: var(--muted); }
+.settings > section > header > .buttons { margin-top: var(--space-16); }
+.setting-rows { display: grid; margin: 0; }
+.setting-rows > div { display: grid; grid-template-columns: calc(var(--size-control) * 4) minmax(0, 1fr); gap: var(--space-4) var(--space-16); align-items: start; padding-block: var(--space-4); }
+.setting-rows dt { display: flex; align-items: center; min-block-size: var(--size-control); color: var(--muted); font: var(--body); }
+.setting-rows dd { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); min-block-size: var(--size-control); margin: 0; font: var(--body); }
+.setting-rows dd > .field-hint { flex-basis: 100%; font: var(--small); color: var(--muted); }
+.setting-rows dd > .editable { inline-size: calc(var(--size-control) * 6); max-inline-size: 100%; }
+.setting-rows dd > code + .button { margin-inline-start: auto; } /* Sign out at the end of the User row */
+.save-state { display: inline-flex; align-items: center; inline-size: 1em; color: var(--muted); } .save-state.is-saved { color: var(--ok); } /* reserved: empty until saving */
+.save-state > .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@container (max-width: 40rem) {
+  .settings > section { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-16); }
+  .settings > section > header > .buttons > .button { flex: 1 1 100%; } /* the section's action spans the width, like a primary */
+  .setting-rows > div { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: var(--space-8); }
+  .setting-rows :is(dt, dd) { min-block-size: 0; } .setting-rows dt { font: var(--small); }
+  .setting-rows dd > :is(.segmented, .editable) { flex: 1 1 0; min-inline-size: 0; } /* shares the line with its save slot */
+}
+
+/* ---- the frame's blocks: app header and nav, user menu, sync state, page head, app footer (the shell places them) ---- */
+
+/* app header: logo left; the commands button and the user menu right; nothing else. On the surface with a hairline, sticky.
+   Commands opens the command palette (searching is one of its commands). The user button is the avatar and opens the user
+   menu. On phones commands shows only its icon. */
+.app-header { container-type: inline-size; position: sticky; top: 0; z-index: var(--layer-raised);
+  border-bottom: var(--border); background: var(--surface); color: var(--text); }
+.app-header > div { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16);
+  block-size: calc(var(--size-control) + var(--space-16)); padding: 0 var(--space-16); }
+.app-header .logo { display: inline-flex; align-items: center; gap: var(--space-8); min-inline-size: 0; font: var(--subheading); color: inherit; text-decoration: none; border-radius: var(--radius-control); }
+.app-header .logo:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.app-header .logo > .mark { block-size: var(--size-control-small); inline-size: auto; } .app-header .logo > .mark path { stroke: var(--muted); } .app-header .logo > .mark text { fill: var(--accent); }
+.app-header .logo > img { block-size: var(--size-control-small); inline-size: auto; }
+.app-header .end { display: flex; align-items: center; gap: var(--space-8); }
+.app-header .user { all: unset; display: inline-flex; border-radius: var(--radius-round); cursor: pointer; } /* a button around the avatar */
+.app-header .user:hover > .avatar { border-color: var(--text); } .app-header .user:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+@container (max-width: 40rem) { .app-header > div { padding-right: var(--space-8); } .app-header .end { gap: var(--space-4); } }
+
+/* user menu: who is signed in, preferences inline, the app's own rows, then Settings and Sign out after a line, in every app */
+.menu > .who { display: grid; padding: var(--space-8); font: var(--body); } .menu > .who > span { font: var(--small); color: var(--muted); }
+.menu > .pref { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); padding: var(--space-4) var(--space-8); }
+
+/* app footer: the product (to nobloat.org) and its version (to the changelog) left; shortcuts, report a problem and the
+   source right. Small and muted under a hairline, at the end of every page with a signed-in user. */
+.app-footer { container-type: inline-size; border-top: var(--border); color: var(--muted); font: var(--small); }
+.app-footer > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4) var(--space-16); padding: var(--space-16); }
+.app-footer .product { display: inline-flex; align-items: center; gap: var(--space-8); }
+.app-footer .product > :first-child { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--text); font-weight: 600; text-decoration: none; } .app-footer .product > :first-child::after { content: none; } /* the product needs no external mark */
+.app-footer .product .mark { block-size: 1em; inline-size: auto; } .app-footer .product .mark path { stroke: var(--muted); } .app-footer .product .mark text { fill: var(--accent); }
+.app-footer ul { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-16); margin: 0; padding: 0; list-style: none; }
+.app-footer a { color: inherit; } .app-footer a:hover { color: var(--text); }
+@container (max-width: 40rem) { .app-footer .key-hint { display: none; } } /* no key hints on phones */
+.app-footer li { display: inline-flex; align-items: center; gap: var(--space-4); }
+/* sync state (apps that work offline): a status before Commands; synced, syncing, offline with the changes waiting */
+.sync { white-space: nowrap; }
+.sync > .progress-bar { inline-size: calc(var(--size-control) * 2); } /* syncing: count, percent and the running bar */
+@container (max-width: 40rem) { .app-header .sync > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } } /* phones: the dot, the word for screen readers and the title */
+.app-footer a > i { margin-right: var(--space-4); }
+
+/* nav: the app's places as a tab bar inside the header, under its row (on the surface, so page tabs below stay distinct).
+   Icon, name, a badge for what waits; no keys (every place is in the palette). On phones it scrolls sideways. */
+.app-header > .app-nav { border-bottom: 0; padding: 0 var(--space-8); scrollbar-width: none; }
+
+/* page head: breadcrumbs (below the top level), then the title, with its state, and the page's actions right of it;
+   on phones the crumbs are "← parent" and the actions wrap under the title, the primary spanning the width. */
+.page-head { container-type: inline-size; display: grid; gap: var(--space-8); padding-block: var(--space-16); }
+.page-head > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8) var(--space-16); }
+.page-head h1 { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); min-inline-size: 0; margin: 0; font: var(--title); overflow-wrap: anywhere; }
+@container (max-width: 40rem) { .page-head h1 { font: var(--heading); } .page-head > div > .buttons { inline-size: 100%; } }

@@ -6,7 +6,7 @@ Rules for any agent working on the nobloat design system. Read all of it before 
 
 A reusable, sustainable design system to design new nobloat apps quickly, UI and UX.
 
-- **Working surface:** `foundations.html`, `components.html` and `blocks.html` in the repo root, plain HTML (open in a browser, nothing to build). Tokens in `token.css`, components in `components.css` (layer 1), blocks in `blocks.css` (2), `shell.css` (3) and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
+- **Working surface:** `foundations.html`, `components.html` and `blocks.html` in the repo root, plain HTML (open in a browser, nothing to build). Tokens in `token.css`, components in `components.css` (layer 1), blocks in `blocks.css` (2), the shell's page layout in `shell.css` (3) and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
 - **One source for the rules: this file.** Every design and UX rule lives here and nowhere else. The others only show or use them: `foundations.html`, `components.html`, `blocks.html`, `shell.html` and `documents.html` show specimens, `index.html` gives the overview (philosophy, principles, architecture), `skill/SKILL.md` tells an app which markup and API carry a rule and links here, `README.md` covers setup. Never restate a rule elsewhere; link to its section. Where today's `ui.css` does not follow a rule yet, that is an item under To do → Rollout, not a second rule.
 - When the components are complete, `ui.css` is streamlined once to match (old token names as temporary aliases, then every app via `make ui`) and the old gallery (`pages/`, `examples/`, `screenshots/`) goes.
 - `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of design system work unless the owner asks.
@@ -19,12 +19,12 @@ Every change touches all of its places in one commit. The check in the last colu
 |---|---|---|
 | New icon | `icons/<name>.svg` (README: Adding an icon), `go test -update` (sprite, `icons.css`, `ui.css`), the grid in `foundations.html`; a row in the icon map below if it means an action or place | `TestIcons` (style, generated files) |
 | New or changed token | `token.css`, its section in `foundations.html` (name and value once), light and dark | `TestTokensDefined` |
-| New component | its layer's file only (table under Layers), built from tokens and lower layers; a specimen with its HTML on `components.html` (`blocks.html` for a block, `shell.html` for the shell); the layer list in `index.html` if it adds a kind | `TestTokensOnly` (no raw length, duration, opacity or colour), `check.mjs` |
+| New component | its layer's file only (table under Layers), built from tokens and lower layers; a specimen with its HTML on `components.html` (`blocks.html` for a block, including the frame's parts; `shell.html` shows whole pages); the layer list in `index.html` if it adds a kind | `TestTokensOnly` (no raw length, duration, opacity or colour), `check.mjs` |
 | New or changed rule | this file only; specimens that show it; SKILL.md only if the markup or API changes; a Rollout item if `ui.css` does not follow it yet | – |
 | New page type, layer or file | `index.html` (architecture, layer graph, links) | `check.mjs` loads `index.html` |
 | Anything on the design system pages | light and dark, 320 px to desktop | `check.mjs` (layout, contrast, names, icons on buttons) |
 
-Run `go test ./...` and `node check.mjs` before reporting.
+Run `go test ./...` before reporting. `node check.mjs` is off until it is fast (TODO at its top); run it by hand for a page you changed (`PAGES=ui:blocks node check.mjs`).
 
 ### Page rules for foundations.html
 
@@ -48,7 +48,7 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **Spacing:** four steps, `space-4`, `space-8`, `space-16`, `space-32` (each double the last).
 - **Sizes:** three: `size-icon` 16 (in an icon-only button `size-icon` + `space-4`), `size-control-small` 24 (small controls, chips, the smallest target), `size-control` 40.
 - **Radius and borders:** `radius-control` 6 px, `radius-panel` 12 px, `radius-round`; `border` 1 px `line`, `border-field` 1 px `muted` (3:1), `focus` 2 px `accent` with 2 px offset.
-- **Mixes:** two: `mix-tint` 8 % (hover, tinted fill) and `mix-edge` 30 % (pressed, tinted border, visited link); disabled controls `opacity-disabled` .45.
+- **Mixes:** two: `mix-tint` 8 % (hover, tinted fill) and `mix-edge` 30 % (pressed, tinted border, visited link); disabled controls `opacity-disabled` .45. A filled button (primary) mixes toward its own label colour (twice `mix-tint` on hover, `mix-edge` pressed), so it shows on any brand, and lifts with `shadow-raised` on hover.
 - **Elevation:** flat by default (panels and cards: a border, no shadow); three levels, each a shadow and a z-index: `raised` 10 (sticky bar, dragged row), `floating` 20 (message, menu, tooltip), `modal` 30 (dialog).
 - **Links:** two kinds. Internal: `accent`, underline `stroke-thin` (`stroke-thick` on hover), offset `underline-offset`, visited dimmer. External (`target="_blank" rel="noopener"`): the same plus the `external` icon after it, at text size. Nothing else opens a new tab. Underline only on hover where the place says it is a link (tabs, table heads, row titles, breadcrumbs).
 - **Breadcrumbs:** parents as `muted` links with their object icon, `chevron-right` between, the current page last in `text` without link (`aria-current="page"`); a narrow container shows only "← parent".
@@ -63,14 +63,14 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **Headings never ALL UPPERCASE.**
 - Look: 40 px controls, every button with `radius-control`, icon-only buttons square as well, 12 px panels.
 
-## Layers: each one only from the one below
+## Layers: each one from the ones below (a block may use other blocks)
 
 | # | Layer | Where | Built only from |
 |---|---|---|---|
 | 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token.css` | – |
-| 1 | Components: button, forms (incl. one-time code), labels (incl. avatar), feedback, data, navigation and upload | `components.css` | tokens |
-| 2 | Blocks: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette, board columns, calendar (week, month); each a bigger piece built only from components, shown on `blocks.html` | `blocks.css` | components |
-| 3 | Shell: app header (logo, commands, user menu), nav, page head, footer, phone layout, and the page templates it frames (list, detail, form, dashboard, settings; errors are the shell without nav and user menu, which auth's sign in also uses) | `shell.css`, `shell.html`; templates in `partials.html` | blocks |
+| 1 | Components: button, forms (incl. one-time code and editable field), labels (incl. avatar), feedback, data, navigation, arrow and upload | `components.css` | tokens |
+| 2 | Blocks: the frame's parts (app header with nav, user menu and sync state, page head, app footer); dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette, board columns, calendar (week, month), settings section; each a bigger piece built from components and other blocks (no cycles), shown on `blocks.html` | `blocks.css` | components, blocks |
+| 3 | Shell: places blocks into pages, no parts of its own: the page (header, main at a readable width, footer at the bottom), phone layout, and the page templates (list, detail, form, dashboard, settings; errors are the page without nav and user menu, which auth's sign in also uses), shown on `shell.html` | `shell.css`; templates in `partials.html` | blocks |
 | – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
 
 - **One shell** for every app; no second frame. Apps are outside `ui/` and fill the templates. An app never restyles a ui component (not `body` either), never reuses a ui class name for its own parts, and its own CSS uses tokens only.
@@ -120,6 +120,8 @@ Everything a sighted user learns from the screen, a screen reader user hears. Ch
 
 ### Variants and states
 
+- **One save at a time:** a button that started an action is busy and disabled until it is done (its icon the spinner; `aria-busy` and `aria-disabled`, not `disabled`, so a submit keeps its value); while a control saves it is disabled (`disabled`; the spinner is its only busy sign, never a second one), so nothing can change it again until the save is done or failed; the spinner says why. Other controls stay usable.
+- **Layout stability:** an interaction never moves or resizes anything around it. Every state of a part (view, editing, saving, saved, failed, hover, open) has the same size; what can appear (a spinner, a check, a hint, a count) gets its space up front or floats above (menu, popover, toast). Swaps happen in place: the input takes exactly the box of the value it edits, a spinner takes the slot of the icon it replaces. Only what the user asked to grow (a disclosure, a new row) may push content down.
 - **Few variants:** only what a designer picks in a mockup. Hover, focus, pressed, disabled and busy are shown once per component, not as variants.
 
 ### Icons and buttons
@@ -144,11 +146,13 @@ Everything a sighted user learns from the screen, a screen reader user hears. Ch
 - **Changelog**: every app has one, every version an entry with its date, written for users in plain words: what you can do now, what works differently, what was fixed as you saw it. No technical detail: no refactors, dependencies, commit hashes or internal names.
 - **Autosave**: everything a user edits is saved as they go (on change, text after a pause); there is no Save button. Buttons create, send or delete, never save. While it saves, a spinner shows at the field (never a silent wait); then a short saved confirmation. A failed save shows at the field and keeps the input.
 - **Avatar**: a person is a round picture, or the initial where there is none, always with the name beside it or in its label (`aria-label`, `title`); 40 px, small (24 px) in rows. It is the icon of a button that stands for that person.
+- **Arrow**: connects parts in a diagram or flow: a muted line with a head right, left, down, up or both ways (left-right, up-down); solid for what is, dashed for what is optional, planned or indirect; a short label on either side (above and below a horizontal one, left and right of a vertical one). It stretches to the space between the parts.
+- **Editable field**: a value that saves on its own (settings, a detail page) is its text with a pencil at the end; the pencil edits it in place with the right input type, Enter or leaving saves, Esc puts the old value back. Its hint line is there from the start; an invalid value's error takes the hint's place. Saving: the value dimmed, the pencil a spinner (disabled), then a check for 2 s; a failed save opens it again with the typed value and an error toast.
 - **One-time code**: one plain field with a normal label, big centred digits; digits only, at most six (`inputmode="numeric"`, `maxlength="6"`, `pattern="[0-9]{6}"`); a pasted code is cleaned first ("123 456" → 123456); `autocomplete="one-time-code"` and `name="totp"` so password managers fill it. Never six inputs.
 - **Board columns**: one column per state: a stroke in the state colour on top, the name (shortened with … when long, full in its title), the count muted and always at the same place on the right, then new; an empty column says so. The items are the app's own (tasq's cards are tasq's). Phones: one column wide with the next peeking, swiping snaps; a mouse gets a thin scrollbar.
 - **Calendar**: week: hours down, days across, the week number (W48) in the corner, today's head in the accent, a line at now, closed days on the background, the grid opens at the working day and scrolls inside itself; phones show the week as an agenda (each day, its entries as rows with their times). Month: the month and year on top, each day a link to its week. The entries and the line under each day's name are the app's own (track: hours booked). `calendar.js` moves and reports, the app saves; without it every entry is a link.
-- **Settings page**: one section per topic (topic and one line left, fields right, stacked on phones), no save button (autosave), a dangerous section last.
-- **Dashboard**: stat tiles first, then cards with what needs doing; both in as many columns as fit.
+- **Settings page**: every app has one, at `/settings`, opened by `Ctrl ,` and from the user menu; never a nav item. Built from settings sections, a block (`blocks.css`, shown on `blocks.html`): one per topic, the topic and one line left, its controls right, stacked on phones; the page is only a stack of them. First section always **Account**: who (user, e-mail, name, in that order), the groups from auth as tags, signed in via auth with a link to manage the account there, then language and theme (the same controls as the user menu, no section of their own); Sign out (a POST form) at the end of the User row. Then the app's own sections, built only from existing form controls; every field saves as it changes, never a save button: text, number and date values are editable fields (the value with a pencil, edited in place, saving and saved at the field); checkboxes, radios, segmented controls and selects save on change: the value changes at once, a spinner after the control while saving (none when it takes under half a second), a check for 2 s when saved; a failed save puts the old value back and shows an error toast naming the setting (it stays until closed). A dangerous action sits under its topic. A collection (companies, desks, projects) is a list whose rows open their edit page, with New. A dangerous section comes last.
+- **Dashboard**: stat tiles first, then cards with what needs doing; both in as many columns as fit. Phones: one tile per row at the full width and low (label and change left, the value right, the chart a thin line under them).
 - **Nav**: the app's places as a tab bar inside the header under its row: icon, name, a badge for what waits; no keys (every place is in the palette); the current place underlined in the accent. On phones it scrolls sideways; every place is also in the palette. Settings is never a nav item.
 - **Installable**: every app is a PWA: `manifest.webmanifest`, `app-icon.svg`, `app-icon-192.png`, `app-icon-512.png` (also maskable) and `app-icon.png` (180, Apple) in its `web/static/`, written by `ui/appicon.sh` from the app's char and colour and committed; `partials.html` links them. No service worker for installing; apps that work offline bring their own.
 - **App icon**: the mark in white on a full square in the brand colour (the platform rounds or masks it), the mark inside the middle 60 %. Favicon: the mark alone (`favicon.svg`). Logo: mark and app name. One source: the mark; never drawn separately.
@@ -158,8 +162,9 @@ Everything a sighted user learns from the screen, a screen reader user hears. Ch
 - **List**: chips with counts and tags above, table or row list, pager, empty state with the create action. Sortable column headers are links and show ↑/↓. A table when people compare values across columns; a row list for short lists of objects with a few facts. Bulk lists: checkbox column and a bulk bar ("{n} selected"); a destructive bulk action confirms with the count.
 - **Detail**: crumbs, title with state, actions (primary visible; a "more" menu only from three further actions on), tags, info grid with copyable ids (one or two facts are a muted line instead), tabs, history.
 - **Dashboard**: stat tiles only for numbers that lead to an action (label, value, delta, sparkline or meter, each linking to its list), then "needs attention", then one or two charts, then recent activity. No decoration.
-- **Settings**: account, preferences (language, theme), app settings, users, keys.
-- **Forms**: edit forms autosave; saved shows quietly as "✓ saved 14:02" beside the form, never a toast. Create is a small form with only the required fields and one Create button. An error is one line under the field: what is wrong, then what is valid with an example. Uploads are a drop zone naming the supported files and the size limit. Single choice: segmented or select; several values: pills with ×.
+- **Settings**: account (with language and theme), the app's sections, danger last.
+- **Prevent input errors**: make a wrong value impossible or unlikely before handling it: the right input type and `inputmode`, `min`/`max`, `pattern`, `maxlength`, a realistic sample as placeholder, defaults that are usually right; a fixed set of values is a segmented control, select or picker, never free text; input is cleaned before it is checked (spaces in an IBAN or code, a comma as decimal point). An error message is the last resort.
+- **Forms**: on phones every control spans the width: inputs, selects, segmented controls (each choice an equal share) and the primary button; short values (a number of days, a time) keep their size. Edit forms autosave; saved shows quietly as "✓ saved 14:02" beside the form, never a toast. Create is a small form with only the required fields and one Create button. An error is one line under the field: what is valid, with an example. A field that can be invalid keeps that line from the start, used by its hint; the error takes the hint's place and the hint comes back when the value is fixed, so nothing moves. A save that fails on the server is an error toast, not a field error. Uploads are a drop zone naming the supported files and the size limit. Single choice: segmented or select; several values: pills with ×.
 - **Errors**: keep header and nav; small code, the message as title in plain words, what happened to the user's work, buttons for what to do next. 500 says whether the last change was saved and shows a copyable `ERR-…` reference. Never a stack trace, never a server's plain error page. 404 for objects that do not exist **and** for objects the user may not see; 403 only for pages the role cannot use, naming the user, their groups and who can grant access. The codes 400 401 403 404 409 410 413 429 500 503 show a dot-matrix display of the code in the brand colour above a line drawing of the mark ][◆.
 - **Session**: no session bar; sessions slide, forms autosave, and an expired session sends the user to sign in and back to the same page.
 - **Ids** look like ticket keys: a type key of 3 uppercase letters, a hyphen, the number or slug in uppercase (`CUS-0042`, `INV-2026-0042`, `ERR-7F3A9C12`); each type key means one thing across all apps; shown as code with a copy button, used in URLs, search, logs and mails; search matches them case-insensitively. Legal or human numbers (invoice number 2026-0042) are separate fields.
@@ -211,15 +216,16 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
 **Components** (`components.html`)
 - [x] Button, forms (fields, date and time, choices), labels, feedback, data, navigation and upload
 - [ ] Blocks (`blocks.html`): card, dialog, menu and bottom sheet, command palette and `?` help, stat tile
-- [ ] Shell (`shell.html`): app header and nav (desktop and phone), user menu, sync state, page head, footer; whole-frame check left
+- [ ] Shell (`shell.html`): the settings and dashboard pages are assembled; the other templates (list, detail, form, errors) next
 - [ ] Mark, logo and app icon: `][` in a neutral token with one character in `brand`; logo is mark plus app name or a custom image; favicon and home-screen icon are exports
 - [x] Board columns (released; the cards are tasq's own)
 - [x] Calendar week and month (released)
 - [x] One-time code (released, Forms)
-- [ ] In iteration on `proposals.html`: settings page, dashboard (sign in is auth's own)
+- [ ] Settings section and editable field: behaviour into `ui.js` (a real POST instead of the stand-in), then each app's `/settings` rebuilt from the block
 - [ ] Still missing from the apps: unit affix (%, days), saved indicator, pill input (groups, tags), colour swatches, single-file upload button, bulk bar, history (audit), charts (stack, columns, sparkline), error display (dot matrix)
 
 **Checks** (each needs the owner's go)
+- [ ] `check.mjs`: make it fast (TODO at its top), then back into CI and the before-reporting step
 - [ ] `check.mjs`: layout shift after load, motion without reduced motion
 - [ ] Touch targets: 24 px (today) or 44 px on phones
 

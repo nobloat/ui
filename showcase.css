@@ -71,7 +71,7 @@ button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; p
 .cp-fields > div > .cp-cap:first-child { color: var(--text); }
 .cp-fields > div > .cp-cap:last-child { flex-wrap: nowrap; justify-content: space-between; margin: 0; }
 .cp-box { display: grid; align-content: center; gap: var(--space-16); min-width: 0; padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); }
-.cp-box:has(> :is(.cp-stage, .card, .stat-tile, .app-header, .app-footer):only-child) { align-content: stretch; padding: 0; border: 0; background: none; } /* it brings its own frame */
+.cp-box:has(> :is(.cp-stage, .card, .stat-tile, .app-header, .app-footer, .app-page):only-child) { align-content: stretch; padding: 0; border: 0; background: none; } /* it brings its own frame */
 .cp-box > :is(.app-header, .app-footer) { position: static; align-self: start; border: var(--border); border-radius: var(--radius-panel); } /* a specimen: framed, not sticky */
 .cp-fields + h3, .cp-two + h3, .cp-states + h3 { margin-top: var(--space-32); }
 /* page switch: Foundations and Components; the current page is the h1 */
@@ -160,3 +160,10 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 @media (max-width: 60rem) { .rl-graph.rl-layers > .cr-down { display: block; } .rl-layers > .rl-node > code { grid-column: 2; grid-row: auto; } }
 .cp-box:has(> :is(.page-head, .columns, .week-grid, .month-grid, .settings, .dashboard):only-child) { align-content: start; } /* a specimen of a page part: from the top, not centred */
 .column .cp-item { block-size: calc(var(--size-control) * 1.5); border: var(--border); border-radius: var(--radius-control); background: var(--surface); } /* a stand-in for the app's own card */
+.cp-box > .app-page { min-block-size: 0; overflow: hidden; border: var(--border); border-radius: var(--radius-panel); } /* a specimen page: framed, its own height */
+.cp-box > .app-page .app-header { position: static; }
+/* arrow specimens */
+.ar-demo { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-control) * 5), 1fr)); gap: var(--space-32) var(--space-16); align-items: center; }
+.ar-demo > div { display: grid; gap: var(--space-8); justify-items: center; } .ar-demo > div > .arrow { justify-self: stretch; }
+.ar-flow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); } .ar-flow > .arrow { flex: 1; }
+.ar-col { display: grid; justify-items: center; }

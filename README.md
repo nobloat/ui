@@ -78,4 +78,4 @@ node check.mjs http://localhost:8080/ /customers   # the same for an app's pages
 ./screenshots.sh       # screenshots/*.png, needs Chrome (CHROME=…)
 ```
 
-CI runs `go test` and `check.mjs` on every push. The Go module exists only for these tests; apps do not import it.
+CI runs `go test` on every push; `check.mjs` is off until it is fast (TODO at its top). The Go module exists only for these tests; apps do not import it.

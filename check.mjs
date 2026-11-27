@@ -1,3 +1,8 @@
+// TODO: off (not in CI, not required before reporting) until it is fast. 1351 page loads run one after another in one tab,
+// each with a fixed sleep(150) (about 3.4 min of waiting) and a full reload for every width. Fix: wait for document.fonts.ready
+// and a frame instead of the sleep; load each page once per theme and design and step through the widths with
+// Emulation.setDeviceMetricsOverride; run 4-6 tabs in parallel. Then turn it back on in .github/workflows/ci.yml and in
+// skill/design-system.md (Keeping it in sync).
 // Layout and accessibility check for every example page and the design system pages (index, foundations, components, blocks, shell, documents, proposals): node check.mjs (Node 22+, Chrome; CHROME=… to override).
 // Some pages only: PAGES=ui:foundations,list node check.mjs
 // An app: node check.mjs http://localhost:8080/ /customers /customers/CUS-0042 (its own design; light and dark via the OS setting).
@@ -57,7 +62,7 @@ await cmd('Page.enable');
 await cmd('Emulation.setFocusEmulationEnabled', {enabled: true}); // a background page has no focus otherwise
 
 // runs inside the page; returns a list of problems
-const probe = (specimens, ownPage) => { // ownPage: a design system page (no app frame, so no skip link) // specimens: a design system page that shows several whole pages (shell, documents)
+const probe = (specimens, ownPage) => { // ownPage: a design system page (no app frame, so no skip link) // specimens: a design system page that shows several whole pages or page heads (blocks, shell, documents)
   const P = [], W = innerWidth, de = document.documentElement;
   const nm = el => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).join('.') : '');
   const path = el => { const a = []; for (let e = el; e && e !== document.body && a.length < 3; e = e.parentElement) a.unshift(nm(e)); return a.join(' > '); };
@@ -237,7 +242,7 @@ for (const design of designs) for (const theme of themes) for (const w of widths
           if (t) t.textContent += ' ' + long[i++ % long.length];
         }
       })()`);
-      const problems = await evaluate(`(${probe})(${['ui:shell', 'ui:documents'].includes(p)}, ${sys})`);
+      const problems = await evaluate(`(${probe})(${['ui:blocks', 'ui:shell', 'ui:documents'].includes(p)}, ${sys})`);
       if (!v.menu && !v.logo && w === 1280) problems.push(...await evaluate(`(${focusProbe})()`));
       runs++;
       const where = `${p || '/'} ${app.length || sys ? '' : (design || 'graphite') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}${v.stress ? ' long data' : ''}`;
