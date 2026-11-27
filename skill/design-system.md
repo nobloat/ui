@@ -182,7 +182,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 ### Iteration: how a new part enters the system
 
 1. **Propose**: five designs on `proposals.html`, each its own section with a letter (A–E), derived from the existing foundations and components (same tokens, same patterns); they differ in real choices (structure, density, framing), not in shades. Each shows desktop and phone, light and dark, with realistic content from the apps. No captions beyond a one-line name per proposal.
-   Then open them for the owner yourself (`start proposals.html#<part>` on Windows, `open` on macOS, `xdg-open` on Linux); never only name the file.
+   Then open them for the owner yourself (in the browser at `file:///…/ui/proposals.html#<part>`: `chrome.exe <url>` on Windows, since `start` drops the `#`; `open` on macOS, `xdg-open` on Linux); never only name the file.
 2. **Pick**: the owner picks one or more; the rest are deleted.
 3. **Refine**: iterate on the picked ones with the owner's comments, one round at a time, until the owner says it is done. Do not ask questions the proposals can answer; show instead.
 4. **Release**: on the owner's word the part moves into its layer (`components.css`, `composed.css` or `shell.css`), its specimen into `components.html` or `shell.html`, its rule into this file, and leaves `proposals.html` and `proposals.css`.
