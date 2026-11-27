@@ -46,3 +46,14 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 
 
 .week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
+
+/* one-time code variants (iteration 1); A is the slots above */
+/* B, cells: six tinted cells behind the digits instead of lines */
+input.otp.o-cells { padding: 0; background: repeating-linear-gradient(to right, transparent 0 var(--space-4), color-mix(in oklab, var(--edge) var(--mix-tint), var(--line)) 0 calc(var(--slot) - var(--space-4)), transparent 0 var(--slot)); border-radius: var(--radius-control); }
+/* C, field: the normal input, digits spaced in the mono face, a grouped placeholder */
+.input.o-field { max-inline-size: calc(var(--size-control) * 6); letter-spacing: var(--space-8); font-variant-numeric: tabular-nums; }
+/* D, large: the plain field in the heading face, centred, full width */
+.input.o-large { block-size: calc(var(--size-control) * 1.5); font: var(--heading); letter-spacing: var(--space-16); text-align: center; font-variant-numeric: tabular-nums; }
+/* E, field with paste: C, with a paste button inside on the right (clipboard, one tap on phones) */
+.o-paste { max-inline-size: calc(var(--size-control) * 6); }
+.field:has(> :is(input.otp, .o-field, .o-paste)) { justify-self: start; } /* the error strip as wide as the field, not the page */
