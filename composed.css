@@ -92,3 +92,64 @@
 .column h2 > .name { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* the count always sits at the same place: right, before the new button; long names shorten with an ellipsis */
 .column .count { flex: none; margin-left: auto; min-inline-size: 2ch; text-align: right; white-space: nowrap; }
+
+/* calendar, week (W48 in the corner): hours down, days across; entries are boxes at their time in their colour (calendar.js draws, moves and
+   resizes them and reports to the app; without it every entry is a link). Today's head in the accent, a line at now,
+   closed days on the background. The grid scrolls inside itself, the day heads stay. Phones show the week as an agenda
+   (each day, its entries as rows with their times). calendar.js needs: #calwrap, #cal, .hd, .hours, .day, .ev, .grip; it sets .cur, .sel, .draw. */
+.week-grid { --hour: var(--size-control); container-type: inline-size; overflow: hidden;
+  border: var(--border); border-radius: var(--radius-panel); background: var(--surface); font: var(--small); color: var(--text); }
+.week { display: grid; grid-template-columns: var(--hc) repeat(7, minmax(0, 1fr)); max-block-size: var(--calh, calc(var(--hour) * 11.5)); overflow-y: auto; } /* the grid scrolls inside itself */
+.week > .hd { position: sticky; top: 0; z-index: var(--layer-floating); display: grid; padding: var(--space-4) var(--space-8); border-bottom: var(--border); background: var(--surface); white-space: nowrap; overflow: hidden; }
+.week > .hd > b { font: var(--body); font-weight: 600; } .week > .hd > span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.week > .hd.today > b { color: var(--accent); }
+.week > .hours > div { block-size: var(--hour); padding-right: var(--space-8); color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; translate: 0 calc(-1 * var(--space-8)); }
+.week > .hours > div:first-child { visibility: hidden; }
+.week > .hours > .start { scroll-initial-target: nearest; scroll-margin-top: calc(var(--size-control) * 1.5); } /* the grid opens at the working day without script (calendar.js also scrolls there) */
+.week > .day { position: relative; block-size: calc(var(--hour) * 24); border-left: var(--border); touch-action: pan-y;
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(var(--hour) - var(--stroke-thin)), var(--line) 0 var(--hour)); }
+.week > .day.closed { background-color: var(--background); }
+.week .ev { position: absolute; inset-inline: var(--stroke-thick); display: block; overflow: hidden; padding: var(--space-4) var(--space-8); box-sizing: border-box;
+  border: 0; border-left: var(--stroke-thick) solid var(--c, var(--accent)); border-radius: var(--radius-control); box-shadow: none;
+  background: color-mix(in oklab, var(--c, var(--accent)) var(--mix-tint), var(--surface)); color: var(--text); font: var(--small); text-decoration: none; cursor: grab; user-select: none; }
+.week .ev > b { display: block; font-weight: 600; } .week .ev > small { display: block; font: inherit; }
+.week .ev[data-ro] { cursor: pointer; }
+.week .ev:focus-visible, .week .ev.sel { outline: var(--focus); outline-offset: var(--stroke-thin); z-index: var(--layer-raised); }
+.week .ev.draw { border: var(--stroke-thin) dashed var(--accent); background: var(--selected); pointer-events: none; z-index: var(--layer-raised); }
+.week .ev > .grip { position: absolute; inset: auto 0 0; block-size: var(--space-8); cursor: ns-resize; }
+.week .now { position: absolute; inset-inline: 0; border-top: var(--stroke-thick) solid var(--danger); pointer-events: none; z-index: var(--layer-raised); }
+.week .now::before { content: ""; position: absolute; left: calc(-1 * var(--space-4)); top: calc(-1 * var(--space-4) - var(--stroke-thin)); inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--danger); }
+/* phones: no grid, the week as an agenda: each day with its entries as rows with their times (decided) */
+.week-grid { --hc: calc(3ch + var(--space-16)); } /* the hours column: "00" or "W48" and a little air */
+.week-agenda { display: none; }
+@container (max-width: 40rem) {
+  .week-grid > .week { display: none; }
+  .week-grid > .week-agenda { display: grid; }
+}
+.week-agenda { gap: var(--space-16); padding: var(--space-16); font: var(--body); }
+.week-agenda > section > h3 { margin: 0 0 var(--space-8); font: var(--body); font-weight: 600; } .week-agenda > section.today > h3 { color: var(--accent); }
+.week-agenda > section > h3 > span { font-weight: 400; color: var(--muted); }
+.week-agenda ul { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+.week-agenda li { display: grid; grid-template-columns: calc(var(--size-control) * 2.5) minmax(0, 1fr); gap: var(--space-8); align-items: center; }
+.week-agenda li > time { color: var(--muted); font: var(--small); font-variant-numeric: tabular-nums; }
+.week-agenda li > i { display: block; block-size: var(--size-control-small); border-radius: var(--radius-control); background: color-mix(in oklab, var(--disabled) var(--mix-tint), var(--surface)); border-left: var(--stroke-thick) solid var(--disabled); }
+.week-agenda .none { color: var(--muted); font: var(--small); }
+
+/* calendar, month: weeks down, days across; each day a link to its week, with its total and a bar of its entries' colours.
+   Days outside the month and closed days on the background, today in the accent. Phones: no totals, the bar stays. */
+.month-grid { container-type: inline-size; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--stroke-thin); overflow: hidden;
+  border: var(--border); border-radius: var(--radius-panel); background: var(--line); font: var(--small); color: var(--text); }
+.month-grid > .wd { padding: var(--space-4) var(--space-8); background: var(--surface); color: var(--muted); }
+.month-grid > a { display: grid; align-content: start; gap: var(--space-4); min-block-size: calc(var(--size-control) * 2); padding: var(--space-4) var(--space-8);
+  background: var(--surface); color: inherit; text-decoration: none; }
+.month-grid > a:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.month-grid > a:focus-visible { outline: var(--focus); outline-offset: calc(-1 * var(--stroke-thick)); }
+.month-grid > a > b { font: var(--body); font-variant-numeric: tabular-nums; } .month-grid > a > span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.month-grid > a:is(.out, .closed) { background: var(--background); } .month-grid > a.out > b { color: var(--muted); }
+.month-grid > a.today > b { color: var(--accent); font-weight: 600; }
+.month-grid .stack { display: flex; gap: var(--stroke-thin); block-size: var(--space-4); }
+.month-grid .stack > i { flex: var(--n, 1); border-radius: var(--radius-round); background: var(--c, var(--accent)); }
+@container (max-width: 40rem) { .month-grid > a { min-block-size: var(--size-control); padding: var(--space-4); } .month-grid > a > span { display: none; } }
+.week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; }
+.week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; } /* the week number */
+.month-grid > .month-name { grid-column: 1 / -1; padding: var(--space-8); background: var(--surface); font: var(--subheading); } /* the month and year over the weekdays */
