@@ -15,9 +15,9 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
    resizes them and reports to the app; without it every entry is a link). Today's head in the accent, a line at now,
    closed days on the background. The grid scrolls inside itself, the day heads stay. Phones show one day (calendar.js
    switches it with the day switch). calendar.js needs: #calwrap, #cal, .hd, .hours, .day, .ev, .grip; it sets .cur, .sel, .draw. */
-.week-grid { --hour: var(--size-control); container-type: inline-size; max-block-size: var(--calh, calc(var(--hour) * 11.5)); overflow-y: auto;
+.week-grid { --hour: var(--size-control); container-type: inline-size; overflow: hidden;
   border: var(--border); border-radius: var(--radius-panel); background: var(--surface); font: var(--small); color: var(--text); }
-.week { display: grid; grid-template-columns: var(--hc) repeat(7, minmax(0, 1fr)); }
+.week { display: grid; grid-template-columns: var(--hc) repeat(7, minmax(0, 1fr)); max-block-size: var(--calh, calc(var(--hour) * 11.5)); overflow-y: auto; } /* the grid scrolls inside itself */
 .week > .hd { position: sticky; top: 0; z-index: var(--layer-floating); display: grid; padding: var(--space-4) var(--space-8); border-bottom: var(--border); background: var(--surface); white-space: nowrap; overflow: hidden; }
 .week > .hd > b { font: var(--body); font-weight: 600; } .week > .hd > span { color: var(--muted); font-variant-numeric: tabular-nums; }
 .week > .hd.today > b { color: var(--accent); }
@@ -37,40 +37,13 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 .week .ev > .grip { position: absolute; inset: auto 0 0; block-size: var(--space-8); cursor: ns-resize; }
 .week .now { position: absolute; inset-inline: 0; border-top: var(--stroke-thick) solid var(--danger); pointer-events: none; z-index: var(--layer-raised); }
 .week .now::before { content: ""; position: absolute; left: calc(-1 * var(--space-4)); top: calc(-1 * var(--space-4) - var(--stroke-thin)); inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--danger); }
-/* week on phones (iteration 1: the phone mechanism; entries are grey stand-ins for the app's own) */
+/* phones: no grid, the week as an agenda: each day with its entries as rows with their times (decided) */
 .week-grid { --hc: calc(3ch + var(--space-16)); } /* the hours column: "00" or "W48" and a little air */
-.week > .hours { position: sticky; left: 0; z-index: var(--layer-raised); background: var(--surface); }
-.week > .hd.corner { left: 0; z-index: calc(var(--layer-floating) + var(--layer-raised)); }
-.week-bar, .week-agenda { display: none; }
+.week-agenda { display: none; }
 @container (max-width: 40rem) {
-  /* A, one day: ← day → above the grid, one day at a time (calendar.js switches it; links without it) */
-  .week-grid.p-day .week { grid-template-columns: var(--hc) minmax(0, 1fr); }
-  .week-grid.p-day .week > .hd, .week-grid.p-day .week > .day:not(.cur) { display: none; } /* the switch names the day */
-  /* B, swipe days: every day one wide with the next peeking; swiping snaps day by day, the hours stay */
-  .week-grid.p-swipe { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--hc); }
-  .week-grid.p-swipe .week { grid-template-columns: var(--hc) repeat(7, calc(100cqi - var(--hc) - var(--space-32))); }
-  .week-grid.p-swipe .week > :is(.hd, .day):not(.corner) { scroll-snap-align: start; }
-  /* C, three days: three days side by side, swiping snaps a day at a time */
-  .week-grid.p-three { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--hc); }
-  .week-grid.p-three .week { grid-template-columns: var(--hc) repeat(7, calc((100cqi - var(--hc)) / 3)); }
-  .week-grid.p-three .week > :is(.hd, .day):not(.corner) { scroll-snap-align: start; }
-  /* D, agenda: no grid; the days as a list, each entry a row with its times */
-  .week-grid.p-agenda { max-block-size: none; overflow: visible; }
-  .week-grid.p-agenda .week { display: none; }
-  .week-grid.p-agenda .week-agenda { display: grid; }
-  /* E, week strip: the seven days as a strip on top (today marked), the chosen day below */
-  .week-grid.p-strip .week-bar { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); position: sticky; top: 0; z-index: calc(var(--layer-floating) + var(--layer-raised)); border-bottom: var(--border); background: var(--surface); }
-  .week-grid.p-strip .week { grid-template-columns: var(--hc) minmax(0, 1fr); }
-  .week-grid.p-strip .week > .hd { display: none; }
-  .week-grid.p-strip .week > .day:not(.cur) { display: none; }
+  .week-grid > .week { display: none; }
+  .week-grid > .week-agenda { display: grid; }
 }
-.week-day-switch { display: none; }
-@container (max-width: 40rem) { .week-grid.p-day .week-day-switch { display: flex; } }
-.week-day-switch { align-items: center; justify-content: space-between; gap: var(--space-8); position: sticky; top: 0; z-index: calc(var(--layer-floating) + var(--layer-raised)); padding: var(--space-4); border-bottom: var(--border); background: var(--surface); }
-.week-day-switch > b { font: var(--body); font-weight: 600; }
-.week-bar > a { display: grid; justify-items: center; gap: var(--space-4); padding: var(--space-8) 0; color: var(--muted); text-decoration: none; border-bottom: var(--stroke-thick) solid transparent; }
-.week-bar > a > b { font: var(--body); color: var(--text); font-variant-numeric: tabular-nums; }
-.week-bar > a.today > b { color: var(--accent); font-weight: 600; } .week-bar > a.cur { border-bottom-color: var(--accent); }
 .week-agenda { gap: var(--space-16); padding: var(--space-16); font: var(--body); }
 .week-agenda > section > h3 { margin: 0 0 var(--space-8); font: var(--body); font-weight: 600; } .week-agenda > section.today > h3 { color: var(--accent); }
 .week-agenda > section > h3 > span { font-weight: 400; color: var(--muted); }
@@ -130,7 +103,7 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 
 
 
-/* the calendar week: in the corner over the hours (desktop), in the day switch (A), before the strip (E), over the agenda (D) */
 .week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; }
-.week-bar { grid-template-columns: auto repeat(7, minmax(0, 1fr)) !important; } .week-bar > .wk { align-self: center; padding: 0 var(--space-8); color: var(--muted); font: var(--small); font-weight: 600; }
 .week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
+.week > .hd.corner { align-content: start; padding-inline: var(--space-8) 0; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; } /* the week number */
+.month-grid > .month-name { grid-column: 1 / -1; padding: var(--space-8); background: var(--surface); font: var(--subheading); } /* the month and year over the weekdays */
