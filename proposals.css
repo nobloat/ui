@@ -108,14 +108,13 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 .week-grid.p-compact .ev { padding-block: 0; }
 .week-grid.p-compact .ev > time { display: block; color: var(--muted); font-variant-numeric: tabular-nums; } .week-grid.p-compact .ev > small { display: none; }
 
-/* board columns (iteration 2: the look; cards are placeholders). One column per state: its head (state dot, name, count,
+/* board columns (iteration 3: refining the state bar; cards are placeholders). One column per state: its head (state dot, name, count,
    new) over its items. Phones: one column wide, the next peeking, swiping snaps (decided). */
 .columns { container-type: inline-size; font: var(--body); color: var(--text); }
 .col-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(calc(var(--size-control) * 4), 1fr); gap: var(--space-16); align-items: start; overflow-x: auto; }
-.column { display: grid; gap: var(--space-8); padding: var(--space-8); border: var(--border); border-radius: var(--radius-panel); background: var(--background); min-inline-size: 0; }
-.column > header { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control-small); padding-left: var(--space-8); }
+.column { display: grid; gap: var(--space-8); padding-top: var(--space-8); border-top: var(--stroke-thick) solid var(--c, var(--disabled)); min-inline-size: 0; } /* the state bar (C, picked) */
+.column > header { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control-small); }
 .column h2 { display: flex; align-items: center; gap: var(--space-8); flex: 1; margin: 0; font: var(--body); font-weight: 600; letter-spacing: 0; text-transform: none; color: inherit; }
-.column h2::before { content: ""; flex: none; inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--c, var(--disabled)); }
 .column .count { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
 .column > header > .button { block-size: var(--size-control-small); border-color: transparent; background: none; }
 .column > div { display: grid; gap: var(--space-8); }
@@ -127,18 +126,12 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 }
 @media (pointer: fine) { .col-track { scrollbar-width: thin; } } /* a mouse cannot swipe: a thin scrollbar (Shift + wheel also scrolls) */
 
-/* B, open: no panels, hairlines between the columns */
-.columns.p-open .col-track { gap: 0; }
-.columns.p-open .column { padding: 0 var(--space-16); border: 0; border-left: var(--border); border-radius: 0; background: none; }
-.columns.p-open .column:first-child { padding-left: 0; border-left: 0; }
-
-/* C, state bar: no fill, a thick stroke in the state colour on top instead of the dot */
-.columns.p-bar .column { padding: var(--space-8) 0 0; border: 0; border-top: var(--stroke-thick) solid var(--c, var(--disabled)); border-radius: 0; background: none; }
-.columns.p-bar .column > header { padding-left: 0; } .columns.p-bar .column h2::before { content: none; }
-
-/* D, tinted: the column in a faint tint of its state colour, no border */
-.columns.p-tint .column { border-color: transparent; background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); }
-
-/* E, head bar: the head is its own bar on the surface, the items free below it */
-.columns.p-head .column { padding: 0; border: 0; background: none; }
-.columns.p-head .column > header { padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16); border: var(--border); border-radius: var(--radius-control); background: var(--surface); }
+/* C2, divided: a hairline under the head separates it from the items */
+.columns.r-divided .column > header { padding-bottom: var(--space-8); border-bottom: var(--border); }
+/* C3, glow: a faint tint of the state colour fades down from the bar */
+.columns.r-glow .column { padding-inline: var(--space-8); background: linear-gradient(color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), transparent), transparent calc(var(--size-control) * 2)); }
+/* C4, badge: the count as a badge in the state colour's tint, the name in the state colour's edge */
+.columns.r-badge .column .count { padding: 0 var(--space-8); border-radius: var(--radius-round); background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-edge), transparent); color: var(--text); }
+/* C5, thick: a heavier bar (one control-small high band) with the name on it */
+.columns.r-band .column { padding-top: 0; border-top: 0; }
+.columns.r-band .column > header { padding: 0 var(--space-4) 0 var(--space-8); border-radius: var(--radius-control); background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-edge), var(--surface)); }
