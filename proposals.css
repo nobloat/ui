@@ -25,3 +25,25 @@
 
 
 .week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
+
+/* editable field (iteration 1): a saved value shown as text, edited in place; autosave: Enter or leaving saves, Esc cancels.
+   States: view, editing, saved (a check for a moment), error (at the field, the input kept). */
+.editable { display: grid; gap: var(--space-4); font: var(--body); color: var(--text); }
+.editable > .field-label { font: var(--body); }
+.editable .value { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control); }
+.editable .value > span { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.editable .value > .button { block-size: var(--size-control-small); border: 0; background: none; color: var(--muted); }
+.editable .value > .button:hover { color: var(--text); }
+.editable .saved { display: inline-flex; align-items: center; gap: var(--space-4); font: var(--small); color: var(--muted); } .editable .saved > i { color: var(--ok); }
+.editable .saving { font: var(--small); color: var(--muted); }
+/* B, looks like text: no button; hovering shows the dashed edge of a read-only field, clicking makes it a field */
+.editable.e-text .value { padding: 0 var(--space-8); border: var(--stroke-thin) dashed transparent; border-radius: var(--radius-control); cursor: text; }
+.editable.e-text .value:hover { border-color: var(--muted); }
+/* C, row: label, value and an Edit button on one line, a hairline under it (settings lists) */
+.editable.e-row { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; gap: var(--space-16); padding-block: var(--space-8); border-bottom: var(--border); }
+.editable.e-row > :not(.field-label):not(.value) { grid-column: 2; }
+/* D, quiet field: always an input, without its edge until hover or focus */
+.editable.e-quiet .input:not(:hover, :focus-visible, [aria-invalid="true"]) { border-color: transparent; background: transparent; }
+/* E, panel: the pencil opens a small panel under the value with the field, a hint and the way back */
+.editable.e-panel .panel { display: grid; gap: var(--space-8); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--background); }
+.editable .value > .button.icon-only.text { inline-size: auto; aspect-ratio: auto; padding: 0 var(--space-8); }
