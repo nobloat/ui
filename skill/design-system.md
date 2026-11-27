@@ -134,7 +134,6 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **One-time code**: one plain field with a normal label, big centred digits; digits only, at most six (`inputmode="numeric"`, `maxlength="6"`, `pattern="[0-9]{6}"`); a pasted code is cleaned first ("123 456" → 123456); `autocomplete="one-time-code"` and `name="totp"` so password managers fill it. Never six inputs.
 - **Board columns**: one column per state: a stroke in the state colour on top, the name (shortened with … when long, full in its title), the count muted and always at the same place on the right, then new; an empty column says so. The items are the app's own (tasq's cards are tasq's). Phones: one column wide with the next peeking, swiping snaps; a mouse gets a thin scrollbar.
 - **Calendar**: week: hours down, days across, the week number (W48) in the corner, today's head in the accent, a line at now, closed days on the background, the grid opens at the working day and scrolls inside itself; phones show the week as an agenda (each day, its entries as rows with their times). Month: the month and year on top, each day a link to its week. The entries and the line under each day's name are the app's own (track: hours booked). `calendar.js` moves and reports, the app saves; without it every entry is a link.
-- **Sign in**: the shell without nav and user menu: one column on the background, logo, title, fields, the primary spanning the width, then the way back and language. Each step (password, one-time code) is its own page.
 - **Settings page**: one section per topic (topic and one line left, fields right, stacked on phones), no save button (autosave), a dangerous section last.
 - **Dashboard**: stat tiles first, then cards with what needs doing; both in as many columns as fit.
 - **Nav**: the app's places as a tab bar inside the header under its row: icon, name, a badge for what waits; no keys (every place is in the palette); the current place underlined in the accent. On phones it scrolls sideways; every place is also in the palette. Settings is never a nav item.
@@ -204,7 +203,7 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
 - [x] Board columns (released; the cards are tasq's own)
 - [x] Calendar week and month (released)
 - [x] One-time code (released, Forms)
-- [ ] In iteration on `proposals.html`: sign in, settings page, dashboard
+- [ ] In iteration on `proposals.html`: settings page, dashboard (sign in is auth's own)
 - [ ] Still missing from the apps: unit affix (%, days), saved indicator, pill input (groups, tags), colour swatches, single-file upload button, bulk bar, history (audit), charts (stack, columns, sparkline), error display (dot matrix)
 
 **Checks** (each needs the owner's go)
