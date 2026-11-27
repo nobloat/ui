@@ -31,6 +31,7 @@ html { background: var(--background); } body { background: transparent; max-widt
 button.fd-copy { border: 0; background: none; box-shadow: none; min-height: 0; padding: 0; font: var(--small); font-variant-numeric: tabular-nums; cursor: copy; color: var(--muted); white-space: nowrap; }
 .fd-copy::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: var(--space-4); vertical-align: -.1em; background: currentColor; mask: var(--icon-copy) center / contain no-repeat; }
 .fd-copy:hover, .fd-copy:focus-visible { color: var(--text); text-decoration: underline; } .fd-copy:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.fd-copy[data-demo-auto] { cursor: pointer; } .fd-copy[data-demo-auto]::before { mask-image: var(--icon-refresh); }
 .fd-copy.done::after { content: " ✓"; color: var(--ok); }
 
 /* typography and spacing rows */

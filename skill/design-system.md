@@ -157,7 +157,7 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **Menu**: actions that do not fit beside the title, from the third on, behind "More" (popover, no script). Rows: icon, name, key; a dangerous row last after a line, its icon in `danger`. On a phone a bottom sheet without keys.
 - **Command palette**: Ctrl K (or the header's Commands button) on every page; a centred dialog (top of the screen on a phone) whose input line, starting with the prompt `>_` in the mono face, is its title. The page's own actions come first under the name of its object, then actions and places. Typing matches the letters in order (word starts and runs count most), ranks within each group and marks the matched letters; a fixed height so the line stays put; "No match for …" when empty. Rows have no keys (typing goes into the search); the footer names ↑↓, Enter, Esc on desktop.
 - **Card**: any content, flat (border, no shadow), a head with its title and at most its own actions. A stat tile is a card that is one link to its list.
-- **Messages**: error, ok, warning, info; one sentence or a bold title plus text. **Toasts** always have a close button; errors stay until closed, successes fade after 5 s; saving never shows one.
+- **Messages**: error, ok, warning, info; one sentence or a bold title plus text. **Toasts** always have a close button; errors stay until closed; others may close by themselves after `duration-read` (5 s, longer for longer text), and then a bar along the bottom edge runs down to show the time left; hover or focus pauses it; with reduced motion the bar is hidden and the message still closes. Saving never shows one.
 - **Progress**: a labelled bar with count and percent for long tasks; a short wait is the button spinner.
 - **Charts**: stat tile with sparkline and a caption naming its period; ranked parts as bars (one hue, largest first); one ratio a meter; a split a stack; a trend columns (past grey, current in brand with its value). Never a pie, never two y-axes. Every chart has a table view and a tooltip on hover and focus.
 
@@ -226,4 +226,5 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
   - [ ] buttons `.round`, `.ico` and the small type: default, primary, danger; icon-only and toggle as shapes
   - [ ] footer credits `nobloat/<app>` only: product, version to the changelog, `?`, support, source
   - [ ] sign out icon `log-out`: `power`
+  - [ ] toasts that close by themselves: the bar on the bottom edge and the pause on hover or focus (`data-auto`)
   - [ ] date and time fields: `hh:mm:ss`, and RFC 3339 with the offset on the wire (today `components.js` takes `hh:mm` and posts the typed text; the apps post the date without a zone)

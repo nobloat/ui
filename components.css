@@ -22,7 +22,7 @@ main, .cp-phone { container-type: inline-size; }
 .button.primary { background: var(--accent); color: var(--text-on-accent);
   --hover: color-mix(in oklab, var(--accent), var(--text) var(--mix-tint)); --pressed: color-mix(in oklab, var(--accent), var(--text) var(--mix-edge)); }
 .button.danger { background: var(--danger); color: var(--text-on-danger);
-  --hover: color-mix(in oklab, var(--danger), black var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), black var(--mix-edge)); }
+  --hover: color-mix(in oklab, var(--danger), var(--shade) var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), var(--shade) var(--mix-edge)); }
 
 /* a button inside another component (picker, id, message) takes its look from there: no frame, small; there is no quiet or small type */
 :is(.picker, .object-id, .message) > .button { height: var(--size-control-small); border-color: transparent; background: transparent; }
@@ -211,6 +211,14 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .message > .button { margin-block: calc(-1 * var(--space-4)); }
 .toasts { z-index: var(--layer-floating); }
 .message { transition: opacity var(--duration-slow) var(--ease), translate var(--duration-slow) var(--ease); } .message.closing { opacity: 0; translate: 0 var(--space-8); }
+/* a message that closes by itself (data-auto; never an error): a bar on its bottom edge runs down while it stays, duration-read or style="--stay: …";
+   hover or focus pauses it; with reduced motion the bar is hidden and the message still closes; components.js closes it when the bar ends */
+.message[data-auto]:not([data-state="danger"]) { position: relative; overflow: hidden;
+  &::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: var(--stroke-thick); background: var(--c, var(--info)); transform-origin: left;
+    animation: message-stay var(--stay, var(--duration-read)) linear forwards; }
+  &:is(:hover, :focus-within)::after { animation-play-state: paused; } }
+@keyframes message-stay { to { scale: 0 1; } }
+@media (prefers-reduced-motion: reduce) { .message[data-auto]::after { visibility: hidden; } }
 
 /* table: hairline rows, numbers right, the header sorts */
 .data-table { width: 100%; border-collapse: collapse; font: var(--body); color: var(--text); }

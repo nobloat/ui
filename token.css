@@ -39,8 +39,10 @@
   --shadow-raised: 1px 1px 2px color-mix(in oklab, var(--text) 10%, transparent); --layer-raised: 10; /* light from the top left */
   --shadow-floating: .25rem .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent); --layer-floating: 20;
   --shadow-modal: 1rem 1rem 2rem color-mix(in oklab, var(--text) 22%, transparent); --layer-modal: 30;
+  --shade: #000; /* stays dark in both modes: dims the page behind a modal, darkens a pressed danger fill */
   /* motion: two durations, one easing; only state changes and overlays move */
   --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
+  --duration-read: 5s; /* how long a message that closes by itself stays; reduced motion keeps it */
   --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
 }
 

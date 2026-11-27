@@ -4,7 +4,7 @@
    action last); the close button sits in the head. Width follows the content, at most one measure. */
 .dialog { padding: 0; border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text);
   box-shadow: var(--shadow-modal); inline-size: fit-content; max-inline-size: min(var(--measure), 100% - var(--space-32)); }
-.dialog::backdrop { background: color-mix(in oklab, black var(--mix-edge), transparent); }
+.dialog::backdrop { background: color-mix(in oklab, var(--shade) var(--mix-edge), transparent); }
 .dialog > form, .dialog > div { display: grid; gap: var(--space-16); padding: var(--space-16) var(--space-16) var(--space-16) var(--space-32); }
 .dialog header { display: flex; align-items: start; gap: var(--space-16); margin-right: calc(-1 * var(--space-8)); }
 .dialog header > :first-child { flex: 1; margin: 0; padding-top: var(--space-8); }

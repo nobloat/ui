@@ -63,6 +63,7 @@
 <div class="ty-list"><div class="ty-r"><span class="fd-n">raised</span><span class="rb-s"><i class="rb-box" style="border:0;box-shadow:var(--shadow-raised)"></i><span class="t-small">lifted while it moves or sticks: sticky bar, dragged row</span></span><span class="fd-v"><button type="button" class="fd-copy">var(--shadow-raised)</button><button type="button" class="fd-copy">z-index: 10</button></span></div>
 <div class="ty-r"><span class="fd-n">floating</span><span class="rb-s"><i class="rb-box" style="border:0;box-shadow:var(--shadow-floating)"></i><span class="t-small">above the page, the page stays usable: message, menu, tooltip</span></span><span class="fd-v"><button type="button" class="fd-copy">var(--shadow-floating)</button><button type="button" class="fd-copy">z-index: 20</button></span></div>
 <div class="ty-r"><span class="fd-n">modal</span><span class="rb-s"><i class="rb-box" style="border:0;box-shadow:var(--shadow-modal)"></i><span class="t-small">blocks the page until closed: dialog</span></span><span class="fd-v"><button type="button" class="fd-copy">var(--shadow-modal)</button><button type="button" class="fd-copy">z-index: 30</button></span></div>
+<div class="ty-r"><span class="fd-n">shade</span><span class="rb-s"><i class="rb-box" style="border:0;background:color-mix(in oklab, var(--shade) var(--mix-edge), transparent)"></i><span class="t-small">dark in both modes: dims the page behind a dialog, darkens a pressed danger fill</span></span><span class="fd-v"><button type="button" class="fd-copy">var(--shade)</button><button type="button" class="fd-copy">#000</button></span></div>
 <div class="ty-r"><span class="ty-rule">everything else is flat: panels and cards have a border, not a shadow</span></div>
 </div>
 </div>
@@ -72,9 +73,10 @@
 <div class="ty-list"><div class="ty-r"><span class="fd-n">duration-fast</span><span class="rb-s"><i class="mo-demo" style="--d:var(--duration-fast)"></i><span class="t-small">hover, focus, small state changes</span></span><span class="fd-v"><button type="button" class="fd-copy">150ms</button></span></div>
 <div class="ty-r"><span class="fd-n">duration-slow</span><span class="rb-s"><i class="mo-demo" style="--d:var(--duration-slow)"></i><span class="t-small">dialogs, menus, messages appearing</span></span><span class="fd-v"><button type="button" class="fd-copy">250ms</button></span></div>
 <div class="ty-r"><span class="fd-n">ease</span><span class="rb-s"><i class="mo-demo" style="--d:var(--duration-slow)"></i><span class="t-small">one easing for everything: quick start, soft stop</span></span><span class="fd-v"><button type="button" class="fd-copy">cubic-bezier(.2, 0, 0, 1)</button></span></div>
+<div class="ty-r"><span class="fd-n">duration-read</span><span class="rb-s"><span class="t-small">how long a message that closes by itself stays; its bar shows the time left</span></span><span class="fd-v"><button type="button" class="fd-copy">5s</button></span></div>
 <div class="ty-r"><span class="fd-n">spin</span><span class="rb-s"><span class="mo-demo mo-spin"><i class="icon-refresh spin" aria-hidden="true"></i></span><span class="t-small">busy</span></span><span class="fd-v"><button type="button" class="fd-copy">class="spin"</button><button type="button" class="fd-copy">.8s</button></span></div>
 <div class="ty-r"><span class="fd-n">navigation</span><span class="rb-s"><span class="t-small">a page load cross-fades the content; the header and tabs stay put</span></span><span class="fd-v"><button type="button" class="fd-copy">@view-transition { navigation: auto; }</button></span></div>
-<div class="ty-r"><span class="ty-rule">with reduced motion, every duration is 0 and spinners slow down; nothing moves for decoration</span></div>
+<div class="ty-r"><span class="ty-rule">with reduced motion, every duration is 0 (reading time stays) and spinners slow down; nothing moves for decoration</span></div>
 </div>
 </div>
 </section>
