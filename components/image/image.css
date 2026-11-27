@@ -1,0 +1,2 @@
+/* image: a picture in the flow (a QR code, a logo); never wider than its column */
+.image { display: block; max-inline-size: 100%; block-size: auto; }

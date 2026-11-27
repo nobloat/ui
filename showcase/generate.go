@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"github.com/nobloat/ui"
+	"github.com/nobloat/ui/screens/auth"
 )
 
 // Generate writes everything made from the Go values in root (the ui repo): the specimens into the design system pages,
@@ -46,20 +47,36 @@ func Generate(root string, update bool) ([]string, error) {
 		}
 		want[page] = []byte(out)
 	}
-	var pages []ui.Node
-	for name, p := range Pages {
-		var b bytes.Buffer
-		if err := ui.Render(&b, "en", nil, p); err != nil {
-			return nil, fmt.Errorf("sample %s: %w", name, err)
+	for dir, set := range map[string]map[string]ui.Page{"showcase/sample": Pages, "screens/auth": auth.Pages} {
+		var pages []ui.Node
+		for name, p := range set {
+			var b bytes.Buffer
+			if err := ui.Render(&b, "en", nil, p); err != nil {
+				return nil, fmt.Errorf("%s/%s: %w", dir, name, err)
+			}
+			want[dir+"/"+name+".html"] = b.Bytes()
+			pages = append(pages, p)
 		}
-		want["showcase/sample/"+name+".html"] = b.Bytes()
-		pages = append(pages, p)
+		// index.html: the screens of the set, one link each
+		names := mapsKeys(set)
+		slices.Sort(names)
+		var rows ui.Rows
+		for _, n := range names {
+			rows = append(rows, ui.Row{Href: n + ".html", Label: n, Meta: string(set[n].Title)})
+		}
+		index := ui.Page{Title: ui.Text(dir), App: "nobloat/ui", Static: "./", Main: rows}
+		var b bytes.Buffer
+		if err := ui.Render(&b, "en", nil, index); err != nil {
+			return nil, err
+		}
+		want[dir+"/index.html"] = b.Bytes()
+		css, js, err := ui.Assets(append(pages, index)...)
+		if err != nil {
+			return nil, err
+		}
+		want[dir+"/ui.css"], want[dir+"/ui.js"] = css, js
 	}
-	css, js, err := ui.Assets(pages...)
-	if err != nil {
-		return nil, err
-	}
-	want["showcase/sample/ui.css"], want["showcase/sample/ui.js"] = css, js
+	var err error
 	if want["components.js"], err = allJS(root); err != nil {
 		return nil, err
 	}

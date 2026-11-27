@@ -1,0 +1,2 @@
+/* paragraph: running text in the flow of a page or card, mixed with links; at most a readable measure */
+.para { margin: 0; max-inline-size: var(--measure); }

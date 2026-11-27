@@ -18,6 +18,7 @@ type Page struct {
 	Main    Node
 	Footer  *Footer
 	Palette *Palette
+	Narrow  bool // a bare page with one small form: sign in, second step, new password
 }
 
 func (p Page) Render(c *Ctx, w io.Writer) error {
@@ -49,9 +50,9 @@ func (p Page) Render(c *Ctx, w io.Writer) error {
 	}
 	return c.exec(w, "shell/page", struct {
 		Lang, Title, App, Static            string
-		JS                                  bool
+		JS, Narrow                          bool
 		Header, Head, Main, Footer, Palette template.HTML
-	}{c.Lang, c.text(p.Title), p.App, static, c.hasJS(), template.HTML(header.String()), template.HTML(head.String()),
+	}{c.Lang, c.text(p.Title), p.App, static, c.hasJS(), p.Narrow, template.HTML(header.String()), template.HTML(head.String()),
 		template.HTML(main.String()), template.HTML(footer.String()), template.HTML(palette.String())})
 }
 

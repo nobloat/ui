@@ -1,0 +1,568 @@
+/* nobloat/ui, generated from the app's pages by ui.Assets: do not edit */
+
+/* token/token.css */
+/* nobloat foundations: the tokens. Proposal; ui.css is streamlined to match once the foundations are done.
+   light-dark() resolves where a colour is used, so a panel can set its own color-scheme. */
+:root {
+  /* colours: three sources per mode, the rest derived (neutral mixes in OKLab keep greys grey) */
+  --background: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --text: light-dark(#1b1c1e, #e5e5e4);
+  --line: color-mix(in oklab, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
+  --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
+  --brand: #18181b; /* the one colour an app sets; nobloat itself is monochrome, its near black (nobloat.org) */
+  /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
+  --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand-dark, var(--brand)) max(l, .72) c h)); /* --brand-dark: optional, the brand on dark */
+  --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
+  --text-on-accent: light-dark(#fff, var(--background));
+  /* states: one colour for both modes, for dots, icons and edges; the word next to it stays in --text */
+  --ok: #5f8a2e; --warn: #c2620a; --danger: #dc2626; --info: #3b82f6; --disabled: #7c7c85;
+  --text-on-danger: #fff;
+  /* typography: emphasis is weight 600, never another size */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* the one family: the system monospace */
+  --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
+  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 1.0625rem/1.65 ui-serif, serif;
+  --measure: 90ch; /* the longest line of running text, in the width of its own font */
+  /* spacing: four steps, each double the last */
+  --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
+  /* radius, strokes and borders: three corners, two stroke widths, one line, one focus ring */
+  --radius-control: .375rem; --radius-panel: .75rem; --radius-round: 999px;
+  --stroke-thin: 1px; --stroke-thick: 2px;
+  --border: var(--stroke-thin) solid var(--line); --border-field: var(--stroke-thin) solid var(--muted); --focus: var(--stroke-thick) solid var(--accent);
+  --underline-offset: .2em; /* links: underline stroke-thin, stroke-thick on hover */
+  /* sizes */
+  --size-control: 2.5rem; --size-control-small: 1.5rem; /* small also the smallest target */
+  --size-icon: 1rem; --icon-nudge: .125em; /* icons sit on the text; 1em = the text size */
+  /* mixes: a tint (hover, tinted fill) and an edge (pressed, tinted border); a colour mixed into a surface by one of them */
+  --mix-tint: 8%; --mix-edge: 30%;
+  --opacity-disabled: .45; /* a disabled control steps back as a whole */
+  /* page: A4 documents; DIN 5008 form B for the address window; print type in pt */
+  --page-width: 210mm; --page-height: 297mm; --page-margin: 20mm; --page-margin-left: 25mm;
+  --window-top: 45mm; --window-left: 20mm; --window-width: 85mm; --window-height: 45mm; --info-left: 125mm;
+  --print-title: 600 22pt/1.15 var(--mono); --print-heading: 600 13pt/1.25 var(--mono); --print-body: 400 10.5pt/1.45 ui-serif, serif;
+  --print-data: 400 9pt/1.45 var(--mono); --print-small: 400 7.5pt/1.4 var(--mono);
+  /* elevation: flat by default; three levels, each a shadow and a stacking order */
+  --shadow-raised: 1px 1px 2px color-mix(in oklab, var(--text) 10%, transparent); --layer-raised: 10; /* light from the top left */
+  --shadow-floating: .25rem .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent); --layer-floating: 20;
+  --shadow-modal: 1rem 1rem 2rem color-mix(in oklab, var(--text) 22%, transparent); --layer-modal: 30;
+  --shade: #000; /* stays dark in both modes: dims the page behind a modal, darkens a pressed danger fill */
+  /* motion: two durations, one easing; only state changes and overlays move */
+  --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
+  --duration-read: 5s; /* how long a message that closes by itself stays; reduced motion keeps it */
+  --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
+}
+
+/* type roles as classes: a role is more than a font */
+.t-title { font: var(--title); } .t-heading { font: var(--heading); } .t-subheading { font: var(--subheading); }
+.t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
+.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: var(--measure); }
+.t-prose strong { font-weight: 600; }
+
+/* motion utilities */
+.spin { animation: spin var(--duration-spin) linear infinite; }
+@keyframes spin { to { rotate: 1turn; } }
+@media (prefers-reduced-motion: reduce) { :root { --duration-fast: 0ms; --duration-slow: 0ms; --duration-spin: 2.4s; } }
+
+/* token/base.css */
+/* base: the only rules on plain elements; everything else is a part. The theme radios pin the scheme (components: theme switch). */
+:root { color-scheme: light dark; }
+html { overflow-x: clip; } /* never a sideways scrollbar (clip keeps sticky working) */
+body { margin: 0; font: var(--body); background: var(--background); color: var(--text); overflow-wrap: break-word; }
+[hidden] { display: none !important; }
+
+/* icons */
+:is([class^="icon-"], [class*=" icon-"]) { display: inline-block; width: 1em; height: 1em; flex: none; vertical-align: -.125em; background: currentColor; mask: var(--icon) center / contain no-repeat; } :is([class^="icon-"], [class*=" icon-"]).off { --icon-slash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.25' stroke-linecap='square'%3E%3Cpath d='M2.5 2.5l11 11'/%3E%3C/svg%3E"); --icon-slash-gap: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='3.25' stroke-linecap='square'%3E%3Cpath d='M2.5 2.5l11 11'/%3E%3C/svg%3E"); mask: var(--icon-slash) center / contain no-repeat, var(--icon) center / contain no-repeat, var(--icon-slash-gap) center / contain no-repeat; mask-composite: add, subtract, add; } /* .off strikes any icon through: <i class="icon-mic off"> */ :is([class^="icon-"], [class*=" icon-"]).fw { width: 1.25em; } /* .fw: fixed width, so text after icons lines up in menus and lists */
+:where(:root) {
+  --icon-archive: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='2' y='2.5' width='12' height='3' rx='.8'/%3E%3Cpath d='M3 5.5v7a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-7M6.5 8.5h3'/%3E%3C/svg%3E");
+  --icon-arrow-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M13 8H3M7 4 3 8l4 4'/%3E%3C/svg%3E");
+  --icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E");
+  --icon-audit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M2.5 2.5h11V8c0 3-2.5 5-5.5 6-3-1-5.5-3-5.5-6z'/%3E%3Cpath d='M5.5 7.5l2 2 3-3'/%3E%3C/svg%3E");
+  --icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M3 8.5l3 3 7-7'/%3E%3C/svg%3E");
+  --icon-chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M6 3.5 10.5 8 6 12.5'/%3E%3C/svg%3E");
+  --icon-cog: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M13.06 6.43 15.01 6.85 15.01 9.15 13.06 9.57 12.69 10.47 13.77 12.14 12.14 13.77 10.47 12.69 9.57 13.06 9.15 15.01 6.85 15.01 6.43 13.06 5.53 12.69 3.86 13.77 2.23 12.14 3.31 10.47 2.94 9.57 .99 9.15 .99 6.85 2.94 6.43 3.31 5.53 2.23 3.86 3.86 2.23 5.53 3.31 6.43 2.94 6.85 .99 9.15 .99 9.57 2.94 10.47 3.31 12.14 2.23 13.77 3.86 12.69 5.53Z'/%3E%3Ccircle cx='8' cy='8' r='2.3'/%3E%3C/svg%3E");
+  --icon-contrast: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='8' cy='8' r='5.8'/%3E%3Cpath d='M8 2.2a5.8 5.8 0 0 1 0 11.6z' fill='currentColor' stroke='none'/%3E%3C/svg%3E");
+  --icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5'/%3E%3Cpath d='M10.5 3.5V3A1.5 1.5 0 0 0 9 1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5'/%3E%3C/svg%3E");
+  --icon-edit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M10.5 2.5l3 3-8 8h-3v-3zM9 4l3 3'/%3E%3C/svg%3E");
+  --icon-error: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='2' y='2' width='12' height='12' rx='1.5'/%3E%3Cpath d='M5.9 5.9l4.2 4.2M10.1 5.9l-4.2 4.2'/%3E%3C/svg%3E");
+  --icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9 2.5h4.5V7M13.5 2.5 7.5 8.5M11.5 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3'/%3E%3C/svg%3E");
+  --icon-file: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9 1.5H4.5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V5zM9 1.5V5h3.5'/%3E%3C/svg%3E");
+  --icon-home: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M2.5 7.5 8 3l5.5 4.5M4 6.5V13h3V9.5h2V13h3V6.5'/%3E%3C/svg%3E");
+  --icon-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='5' cy='8' r='3'/%3E%3Cpath d='M8 8h6M12 8v2.5M14 8v2'/%3E%3C/svg%3E");
+  --icon-list: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M5.5 4h8M5.5 8h8M5.5 12h8'/%3E%3Ccircle cx='2.5' cy='4' r='0.95' fill='currentColor' stroke='none'/%3E%3Ccircle cx='2.5' cy='8' r='0.95' fill='currentColor' stroke='none'/%3E%3Ccircle cx='2.5' cy='12' r='0.95' fill='currentColor' stroke='none'/%3E%3C/svg%3E");
+  --icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='3.5' y='7' width='9' height='6.5' rx='1.5'/%3E%3Cpath d='M5.5 7V5a2.5 2.5 0 0 1 5 0v2'/%3E%3C/svg%3E");
+  --icon-log-in: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M9.5 2.5h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-3M2.5 8h7M6.5 5l3 3-3 3'/%3E%3C/svg%3E");
+  --icon-mail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='2' y='3.5' width='12' height='9' rx='1.5'/%3E%3Cpath d='M2.5 4.5 8 9l5.5-4.5'/%3E%3C/svg%3E");
+  --icon-moon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M13.2 9.6A5.5 5.5 0 1 1 6.4 2.8a6.5 6.5 0 0 0 6.8 6.8z'/%3E%3C/svg%3E");
+  --icon-more: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='3.5' cy='8' r='1.1' fill='currentColor' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='1.1' fill='currentColor' stroke='none'/%3E%3Ccircle cx='12.5' cy='8' r='1.1' fill='currentColor' stroke='none'/%3E%3C/svg%3E");
+  --icon-ok: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='2' y='2' width='12' height='12' rx='1.5'/%3E%3Cpath d='M5.5 7.75l2 2 3-3'/%3E%3C/svg%3E");
+  --icon-pause: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M5.5 3.5v9M10.5 3.5v9'/%3E%3C/svg%3E");
+  --icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M8 3v10M3 8h10'/%3E%3C/svg%3E");
+  --icon-power: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M8 2v6M4.6 4.4a5 5 0 1 0 6.8 0'/%3E%3C/svg%3E");
+  --icon-refresh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M13.2 8A5.2 5.2 0 1 1 11.6 4.3M13.2 2.5v3h-3'/%3E%3C/svg%3E");
+  --icon-send: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M14 2 7 9M14 2l-4.5 12L7 9 2 6.5z'/%3E%3C/svg%3E");
+  --icon-sun: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='8' cy='8' r='2.8'/%3E%3Cpath d='M12.60 8.00L14.20 8.00M11.25 11.25L12.38 12.38M8.00 12.60L8.00 14.20M4.75 11.25L3.62 12.38M3.40 8.00L1.80 8.00M4.75 4.75L3.62 3.62M8.00 3.40L8.00 1.80M11.25 4.75L12.38 3.62'/%3E%3C/svg%3E");
+  --icon-support: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='8' cy='8' r='5.8'/%3E%3Ccircle cx='8' cy='8' r='2.8'/%3E%3Cpath d='M6 6L4 4M10 6l2-2M6 10l-2 2M10 10l2 2'/%3E%3C/svg%3E");
+  --icon-tag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M6.5 2.5 5 13.5M11 2.5 9.5 13.5M3 6h10.5M2.5 10H13'/%3E%3C/svg%3E");
+  --icon-trash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M2.5 4.5h11M6 4.5v-2h4v2M4 4.5l.8 9h6.4l.8-9'/%3E%3C/svg%3E");
+  --icon-user: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='8' cy='5.5' r='2.5'/%3E%3Cpath d='M3 13.5c.8-2.6 2.8-4 5-4s4.2 1.4 5 4'/%3E%3C/svg%3E");
+  --icon-users: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Ccircle cx='6' cy='5.5' r='2.2'/%3E%3Cpath d='M1.8 13c.6-2.3 2.2-3.6 4.2-3.6s3.6 1.3 4.2 3.6'/%3E%3Ccircle cx='11.2' cy='5' r='1.8'/%3E%3Cpath d='M11 9.4c1.7 0 3 1.1 3.4 3.1'/%3E%3C/svg%3E");
+  --icon-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='2' y='2' width='12' height='12' rx='1.5'/%3E%3Cpath d='M8 5.25V8'/%3E%3Ccircle cx='8' cy='10.75' r='1' fill='currentColor' stroke='none'/%3E%3C/svg%3E");
+  --icon-x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M4 4l8 8M12 4l-8 8'/%3E%3C/svg%3E");
+}
+.icon-archive { --icon: var(--icon-archive); }
+.icon-arrow-left { --icon: var(--icon-arrow-left); }
+.icon-arrow-right { --icon: var(--icon-arrow-right); }
+.icon-audit { --icon: var(--icon-audit); }
+.icon-check { --icon: var(--icon-check); }
+.icon-chevron-right { --icon: var(--icon-chevron-right); }
+.icon-cog { --icon: var(--icon-cog); }
+.icon-contrast { --icon: var(--icon-contrast); }
+.icon-copy { --icon: var(--icon-copy); }
+.icon-edit { --icon: var(--icon-edit); }
+.icon-error { --icon: var(--icon-error); }
+.icon-external { --icon: var(--icon-external); }
+.icon-file { --icon: var(--icon-file); }
+.icon-home { --icon: var(--icon-home); }
+.icon-key { --icon: var(--icon-key); }
+.icon-list { --icon: var(--icon-list); }
+.icon-lock { --icon: var(--icon-lock); }
+.icon-log-in { --icon: var(--icon-log-in); }
+.icon-mail { --icon: var(--icon-mail); }
+.icon-moon { --icon: var(--icon-moon); }
+.icon-more { --icon: var(--icon-more); }
+.icon-ok { --icon: var(--icon-ok); }
+.icon-pause { --icon: var(--icon-pause); }
+.icon-plus { --icon: var(--icon-plus); }
+.icon-power { --icon: var(--icon-power); }
+.icon-refresh { --icon: var(--icon-refresh); }
+.icon-send { --icon: var(--icon-send); }
+.icon-sun { --icon: var(--icon-sun); }
+.icon-support { --icon: var(--icon-support); }
+.icon-tag { --icon: var(--icon-tag); }
+.icon-trash { --icon: var(--icon-trash); }
+.icon-user { --icon: var(--icon-user); }
+.icon-users { --icon: var(--icon-users); }
+.icon-warning { --icon: var(--icon-warning); }
+.icon-x { --icon: var(--icon-x); }
+
+/* components/avatar */
+/* avatar: a person as a round picture, or their initial where there is none; the name is always beside it or in its label */
+.avatar { display: inline-grid; place-items: center; inline-size: var(--size-control); block-size: var(--size-control); flex: none; box-sizing: border-box; overflow: hidden;
+  border: var(--border); border-radius: var(--radius-round); background: var(--background); color: var(--text); font: var(--body); font-weight: 600; line-height: 1; }
+.avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.avatar.small { inline-size: var(--size-control-small); block-size: var(--size-control-small); font: var(--small); font-weight: 600; }
+
+/* components/breadcrumbs */
+/* breadcrumbs: parents as muted links with their object icon, chevrons between, the current page last without link;
+   a narrow container shows only "← parent" (the title says where you are) */
+.breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin: 0; padding: 0; font: var(--small); color: var(--muted); }
+.breadcrumbs li { display: inline-flex; align-items: center; gap: var(--space-4); }
+.breadcrumbs li + li::before { content: ""; width: var(--size-icon); height: var(--size-icon); background: var(--muted); mask: var(--icon-chevron-right) center / contain no-repeat; }
+.breadcrumbs a { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--muted); text-decoration: none; }
+.breadcrumbs a:hover { color: var(--text); text-decoration: underline var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+.breadcrumbs [aria-current] { color: var(--text); }
+@container (max-width: 40rem) {
+  .breadcrumbs li:not(:nth-last-child(2)) { display: none; } .breadcrumbs li + li::before { content: none; }
+  .breadcrumbs a > i { display: none; }
+  .breadcrumbs a::before { content: ""; width: var(--size-icon); height: var(--size-icon); background: currentColor; mask: var(--icon-arrow-left) center / contain no-repeat; }
+}
+
+/* components/button */
+/* button: always an icon before the text; one primary per page; states are not variants */
+.button {
+  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
+  height: var(--size-control); min-width: var(--size-control); padding: 0 calc(var(--space-16) + var(--space-8)); /* 24 px sides */
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
+  font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
+  transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+  --hover: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); --pressed: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint));
+}
+.button > i { font-size: 1em; } /* the icon takes the text size, so it lines up with the capitals */
+.button:not(:disabled, [aria-disabled="true"]):hover { background: var(--hover); }
+.button:not(:disabled, [aria-disabled="true"]):active { background: var(--pressed); }
+.button.primary:not(:disabled, [aria-disabled="true"]):hover { box-shadow: var(--shadow-raised); } .button.primary:active { box-shadow: none; } /* hover lifts it a little, pressing puts it down */
+.button:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+
+/* filled: one strong action; the fill carries the weight, the text stays 400 */
+.button:is(.primary, .danger) { border-color: transparent; }
+.button.primary { background: var(--accent); color: var(--text-on-accent);
+  --hover: color-mix(in oklab, var(--accent), var(--text-on-accent) calc(var(--mix-tint) * 2)); --pressed: color-mix(in oklab, var(--accent), var(--text-on-accent) var(--mix-edge)); } /* toward its own label colour: visible on any brand, light or dark */
+.button.danger { background: var(--danger); color: var(--text-on-danger);
+  --hover: color-mix(in oklab, var(--danger), var(--shade) var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), var(--shade) var(--mix-edge)); }
+
+/* a button inside another component (picker, id, message) takes its look from there: no frame, small; there is no quiet or small type */
+:is(.picker, .object-id, .message) > .button { height: var(--size-control-small); border-color: transparent; background: transparent; }
+
+/* toggle: aria-pressed="true" (mute, pin, favourite) */
+.button[aria-pressed="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent);
+  --hover: color-mix(in oklab, var(--selected), var(--accent) var(--mix-tint)); --pressed: color-mix(in oklab, var(--selected), var(--accent) var(--mix-edge)); }
+
+/* sizes and shape */
+.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; } .button.icon-only > i { font-size: calc(var(--size-icon) + var(--space-4)); }
+
+.button:is(:disabled, [aria-disabled="true"]) { opacity: var(--opacity-disabled); cursor: not-allowed; } .button[aria-disabled="true"] { pointer-events: none; }
+/* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
+.button[aria-busy="true"] { cursor: progress; } /* busy is also disabled (aria-disabled, set with it): one run at a time */ .button[aria-busy="true"]::after { content: none; }
+.button[aria-busy="true"] > i { mask: none; background: none; border: var(--stroke-thick) solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }
+
+.button > .kbd { margin-left: var(--space-4); border-color: color-mix(in oklab, currentColor var(--mix-edge), transparent); color: inherit; }
+
+/* a row of buttons */
+.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
+
+/* phones (narrow container): no key hints; create, edit, delete and copy show only the icon; the primary spans the width */
+@container (max-width: 40rem) {
+  .button > .kbd { display: none; }
+  .button.phone-icon > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .button.phone-icon { min-width: 0; aspect-ratio: 1; padding: 0; }
+  .button.primary { flex: 1 1 100%; }
+}
+
+/* components/chip */
+/* filter chip: a link that filters a list; the count is muted; the active one is selected */
+.filter-chip { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8);
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease); }
+.filter-chip > i { font-size: 1em; } .filter-chip > .count { color: var(--muted); font-variant-numeric: tabular-nums; }
+.filter-chip:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.filter-chip:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.filter-chip[aria-current="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent); }
+.filter-chips { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+
+/* components/choice */
+.choice:has(input:disabled) { opacity: var(--opacity-disabled); cursor: not-allowed; } .choice:has(input:disabled) * { cursor: inherit; }
+
+/* choice: a checkbox or radio with its label; the whole row is the target */
+.choice { display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--size-control-small); font: var(--body); font-weight: 400; color: var(--text); cursor: pointer; }
+.choice > input { all: unset; box-sizing: border-box; flex: none; display: grid; place-items: center; width: var(--size-icon); height: var(--size-icon);
+  border: var(--border-field); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--surface); cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease); }
+.choice > input[type="radio"] { border-radius: var(--radius-round); }
+.choice:hover > input:not(:checked) { border-color: var(--text); }
+.choice > input:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.choice > input:checked { border-color: var(--accent); background: var(--accent); }
+.choice > input[type="checkbox"]:checked::before { content: ""; width: 100%; height: 100%; background: var(--text-on-accent); mask: var(--icon-check) center / 80% no-repeat; }
+.choice > input[type="radio"]:checked { background: var(--surface); box-shadow: inset 0 0 0 var(--space-4) var(--surface), inset 0 0 0 var(--space-8) var(--accent); }
+.choices { display: grid; gap: var(--space-8); justify-items: start; }
+fieldset.choices { margin: 0; padding: 0; border: 0; } /* radios: a group without the browser frame */
+
+/* components/editable */
+nb-editable { display: block; } /* a custom element is inline until told otherwise */
+/* editable field: the value as text with a pencil; editing in place (components.js): Enter or leaving saves, Esc puts the old
+   value back. Its hint line (.field-hint right after it) is there from the start; an invalid value's error takes its place, so
+   nothing moves. Saving: the value dimmed, the pencil a spinner and disabled, then a check for 2 s. A failed save is an error toast. */
+.editable .value { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control); font: var(--body); color: var(--text); }
+.editable .value > span:first-child { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.editable .value > .button { margin-left: auto; block-size: var(--size-control-small); border: 0; background: none; color: var(--muted); }
+.editable .value > .button:hover { color: var(--text); } .editable .value > .button:disabled { opacity: 1; cursor: progress; }
+.editable .value > .button.is-saved { color: var(--ok); }
+.editable.is-saving .value > span:first-child { opacity: var(--opacity-disabled); } .editable.is-saving .value { cursor: progress; }
+.editable + .field-hint { min-block-size: 1lh; } /* reserved: the hint, or the error in its place */
+.editable + .field-hint.is-error { color: var(--text); } .editable + .field-hint.is-error > i { margin-right: var(--space-4); color: var(--danger); }
+
+/* components/empty */
+/* empty state: what is missing, why, and the way on */
+.empty-state { display: grid; justify-items: center; gap: var(--space-8); padding: var(--space-32) var(--space-16); text-align: center; font: var(--body); color: var(--text); }
+.empty-state > i { font-size: var(--size-control); color: var(--muted); }
+.empty-state > strong { font-weight: 600; }
+.empty-state > span { color: var(--muted); max-width: 40ch; }
+.empty-state > .button { margin-top: var(--space-8); }
+
+/* components/field */
+/* field: label above, the control, then one line of hint or error */
+.field { display: grid; gap: var(--space-4); font: var(--body); color: var(--text); }
+.field * { font-weight: 400; } /* labels are not bold here, whatever the page sets */
+.field > .field-label { font: var(--body); }
+.field > .field-hint { font: var(--small); color: var(--muted); }
+/* error: a tinted strip attached to the bottom of the field, so it visibly belongs to it */
+.field > .field-error { margin-top: calc(var(--space-4) * -1); padding: var(--space-4) var(--space-8); border: var(--stroke-thin) solid var(--danger); border-top: 0; border-radius: 0 0 var(--radius-control) var(--radius-control); background: color-mix(in oklab, var(--danger) var(--mix-tint), var(--background)); font: var(--small); color: var(--text); }
+.field > .field-error > i { margin-right: var(--space-4); color: var(--danger); }
+.field > .field-error > span { color: var(--muted); }
+.input {
+  all: unset; box-sizing: border-box; width: 100%; height: var(--size-control); padding: 0 var(--space-8) 0 calc(var(--space-8) + var(--space-4));
+  border: var(--border-field); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--body);
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+.input::placeholder { color: var(--muted); opacity: 1; } /* a realistic sample of the expected value; muted reaches 4.5:1 */
+textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
+.input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+/* focus shows on the border (no outline ring), as for every field */
+.input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 var(--stroke-thin) var(--accent); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.input[aria-invalid="true"]:has(+ .field-error) { border-radius: var(--radius-control) var(--radius-control) 0 0; }
+.input[readonly] { border-style: dashed; background: transparent; }
+
+/* components/form */
+/* form: the fields stacked, then the row of its actions */
+.form { display: grid; gap: var(--space-16); }
+.form > .buttons { margin-top: var(--space-8); }
+
+/* components/image */
+/* image: a picture in the flow (a QR code, a logo); never wider than its column */
+.image { display: block; max-inline-size: 100%; block-size: auto; }
+
+/* components/info-grid */
+/* info grid: label left, value right */
+.info-grid { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-8) var(--space-32); margin: 0; font: var(--body); }
+.info-grid > dt { color: var(--muted); } .info-grid > dd { margin: 0; color: var(--text); }
+@container (max-width: 40rem) { .info-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } .info-grid > dd { margin-bottom: var(--space-8); } }
+
+/* components/kbd */
+/* key hint after the text, desktop only */
+.kbd { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4) var(--icon-nudge); box-sizing: border-box;
+  border: var(--border); border-radius: var(--space-4); font: var(--small); line-height: 1; color: var(--muted); }
+
+/* components/link */
+/* links: accent, always underlined (not colour alone), thicker on hover; visited dimmer. External = target="_blank":
+   the external icon after it, so opening a new tab is announced by the same attribute. :where keeps components free to override */
+:where(a) { color: var(--accent); text-decoration: underline var(--stroke-thin); text-underline-offset: var(--underline-offset); }
+:where(a):hover { text-decoration-thickness: var(--stroke-thick); }
+:where(a):visited { color: color-mix(in oklab, var(--accent), var(--text) var(--mix-edge)); }
+:where(a):focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); border-radius: var(--radius-control); }
+:where(a[target="_blank"])::after { content: ""; display: inline-block; width: 1em; height: 1em; margin-left: var(--space-4); vertical-align: calc(-1 * var(--icon-nudge)); background: currentColor; mask: var(--icon-external) center / contain no-repeat; }
+
+/* components/message */
+/* message: one sentence, or a bold title and a sentence; always floating (ui.js moves it into .toasts), always closable */
+.message { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-8) var(--space-16); align-items: start; padding: var(--space-16); padding-right: var(--space-8);
+  border-radius: var(--radius-panel); border: var(--stroke-thin) solid color-mix(in oklab, var(--c, var(--info)) var(--mix-edge), var(--surface)); background: color-mix(in oklab, var(--c, var(--info)) var(--mix-tint), var(--surface));
+  box-shadow: var(--shadow-floating); font: var(--body); color: var(--text); }
+.message > i { color: var(--c, var(--info)); translate: 0 var(--icon-nudge); }
+.message strong { font-weight: 600; }
+.message > .button { margin-block: calc(-1 * var(--space-4)); }
+.toasts { z-index: var(--layer-floating); }
+.message { transition: opacity var(--duration-slow) var(--ease), translate var(--duration-slow) var(--ease); } .message.closing { opacity: 0; translate: 0 var(--space-8); }
+/* a message that closes by itself (data-auto; never an error): a bar on its bottom edge runs down while it stays, duration-read or style="--stay: …";
+   hover or focus pauses it; with reduced motion the bar is hidden and the message still closes; components.js closes it when the bar ends */
+.message[data-auto]:not([data-state="danger"]) { position: relative; overflow: hidden;
+  &::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: var(--stroke-thick); background: var(--c, var(--info)); transform-origin: left;
+    animation: message-stay var(--stay, var(--duration-read)) linear forwards; }
+  &:is(:hover, :focus-within)::after { animation-play-state: paused; } }
+@keyframes message-stay { to { scale: 0 1; } }
+@media (prefers-reduced-motion: reduce) { .message[data-auto]::after { visibility: hidden; } }
+
+/* components/object-id */
+/* object id: a ticket key in code style, with a copy button */
+.object-id { display: inline-flex; align-items: center; gap: var(--space-4); font: var(--body); font-variant-numeric: tabular-nums; }
+.object-id > code { font: inherit; padding: 0 var(--space-4); border-radius: var(--space-4); background: var(--line); }
+
+/* components/otp */
+/* one-time code: one plain field, so password managers fill it and a pasted code just works; big centred digits.
+   autocomplete="one-time-code" and name="totp" let password managers find it; inputmode="numeric", maxlength="6",
+   pattern="[0-9]{6}": digits only, at most six (components.js cleans a pasted "123 456" first). The label is a normal field label. */
+.input.otp-code { block-size: calc(var(--size-control) * 1.5); font: var(--heading); letter-spacing: var(--space-16); text-align: center; font-variant-numeric: tabular-nums; }
+
+/* components/pager */
+/* pager: numbered links; the position in words */
+.page-nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); font: var(--body); }
+.page-nav > a { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4); box-sizing: border-box;
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); text-decoration: none; font-variant-numeric: tabular-nums; }
+.page-nav > a:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.page-nav > a[aria-current] { background: var(--selected); border-color: var(--accent); color: var(--accent); }
+.page-nav > span { color: var(--muted); padding: 0 var(--space-4); }
+.page-nav > .position { margin-left: var(--space-8); font: var(--small); }
+
+/* components/para */
+/* paragraph: running text in the flow of a page or card, mixed with links; at most a readable measure */
+.para { margin: 0; max-inline-size: var(--measure); }
+
+/* components/row-list */
+/* row list: short lists of objects; one hairline row each */
+.row-list { list-style: none; margin: 0; padding: 0; font: var(--body); }
+.row-list > li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: var(--space-4) var(--space-16); align-items: center; padding: var(--space-8) 0; border-bottom: var(--border); }
+.row-list > li::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--c, var(--disabled)); }
+.row-list a { color: var(--text); font-weight: 600; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-list a:hover { text-decoration: underline; }
+.row-list .meta { font: var(--small); color: var(--muted); }
+.row-list .number { color: var(--muted); font-variant-numeric: tabular-nums; }
+@container (max-width: 40rem) { .row-list > li { grid-template-columns: auto minmax(0, 1fr) auto; } .row-list .meta { grid-column: 2; grid-row: 2; } }
+
+/* components/segmented */
+.segmented:has(input:disabled) { opacity: var(--opacity-disabled); cursor: not-allowed; } .segmented:has(input:disabled) * { cursor: inherit; }
+
+/* phones (narrow container): segmented controls span the width */
+@container (max-width: 40rem) {
+  .segmented { display: flex; width: 100%; } .segmented > label { flex: 1; justify-content: center; } /* choices share the width */
+}
+
+/* segmented: one of two to five options, all visible; radios underneath, so it works without JavaScript */
+.segmented { display: inline-flex; padding: var(--space-4); gap: var(--space-4); height: var(--size-control); box-sizing: border-box; border: var(--border); border-radius: var(--radius-control); background: var(--background); }
+.segmented > label { display: inline-flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-16); border-radius: calc(var(--radius-control) - var(--space-4)); font: var(--body); font-weight: 400; color: var(--muted); cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease); }
+.segmented > label > i { font-size: 1em; }
+.segmented > label > input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.segmented > label:hover { color: var(--text); }
+.segmented > label:has(input:checked) { background: var(--surface); color: var(--text); box-shadow: 0 0 0 var(--stroke-thin) var(--line); }
+.segmented > label:has(input:focus-visible) { outline: var(--focus); outline-offset: var(--stroke-thick); }
+
+/* components/spinner */
+/* spinner: busy, in the slot of what it replaces */
+.busy-ring { display: inline-block; inline-size: 1em; block-size: 1em; box-sizing: border-box; border: var(--stroke-thick) solid currentColor; border-right-color: transparent; border-radius: var(--radius-round); animation: spin var(--duration-spin) linear infinite; }
+
+/* components/status */
+/* labels: small marks next to or on other things. A state is always a dot and a word; the word stays in --text. */
+[data-state="ok"] { --c: var(--ok); } [data-state="warn"] { --c: var(--warn); } [data-state="danger"] { --c: var(--danger); }
+[data-state="info"] { --c: var(--info); } [data-state="disabled"] { --c: var(--disabled); }
+.status { display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-small); padding: 0 var(--space-8); border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); font: var(--body); color: var(--text); white-space: nowrap; }
+.status::before { content: ""; flex: none; width: var(--space-8); height: var(--space-8); border-radius: calc(var(--radius-control) - var(--space-4)); background: var(--c, var(--disabled)); }
+
+/* components/table */
+/* table: hairline rows, numbers right, the header sorts */
+.data-table { width: 100%; border-collapse: collapse; font: var(--body); color: var(--text); }
+.data-table th { font-weight: 400; color: var(--muted); text-align: left; white-space: nowrap; }
+.data-table th a { color: inherit; text-decoration: none; } .data-table th a:hover { color: var(--text); }
+.data-table :is(th, td) { padding: var(--space-8); border-bottom: var(--border); }
+.data-table :is(.number, .number a) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.data-table tfoot td { font-weight: 600; border-bottom: 0; }
+.data-table tbody tr:hover { background: color-mix(in oklab, var(--background), var(--text) var(--mix-tint)); }
+.data-table td a { color: inherit; }
+.data-table td code { font: inherit; white-space: nowrap; }
+
+/* components/tabs */
+/* tabs: links under each other's line; the current one is underlined in the accent */
+.tab-bar { display: flex; gap: var(--space-4); border-bottom: var(--border); overflow-x: auto; font: var(--body); }
+.tab-bar > a { display: inline-flex; align-items: center; gap: var(--space-8); padding: var(--space-8) var(--space-16); color: var(--muted); text-decoration: none; white-space: nowrap; }
+.tab-bar > a > i { font-size: 1em; }
+.tab-bar > a:hover { color: var(--text); }
+.tab-bar > a[aria-current] { color: var(--text); box-shadow: inset 0 calc(-1 * var(--stroke-thick)) 0 var(--accent); }
+.tab-bar > a:focus-visible { outline: var(--focus); outline-offset: calc(var(--stroke-thick) * -1); }
+
+/* components/tag */
+/* tag: a user's own word in a colour they chose; the text keeps full contrast */
+.tag-chip { display: inline-flex; align-items: center; gap: var(--space-4); height: var(--size-control-small); padding: 0 var(--space-8) 0 var(--space-4); border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--c, var(--disabled)) var(--mix-tint), var(--background)); color: var(--text); font: var(--small); text-decoration: none; white-space: nowrap; }
+.tag-chip > i { font-size: 1em; color: var(--c, var(--disabled)); } /* the # says it is a tag */
+
+/* components/theme-switch */
+/* theme switch: three radios (auto, light, dark) set the page's colour scheme with CSS alone. Where there is room they are a
+   segmented control; where not, one icon button shows the current mode and selects the next. The server renders the saved
+   choice as the checked radio; components.js only remembers it where there is no server (static pages). */
+:root:has(input[name="theme"][value="light"]:checked) { color-scheme: light; }
+:root:has(input[name="theme"][value="dark"]:checked) { color-scheme: dark; }
+.theme-cycle { display: none; } .theme-cycle > label { display: none; }
+:root:has(#theme-auto:checked) .theme-cycle > [data-when="auto"], :root:has(#theme-light:checked) .theme-cycle > [data-when="light"], :root:has(#theme-dark:checked) .theme-cycle > [data-when="dark"] { display: inline-flex; }
+.theme-switch:has(input:focus-visible) .theme-cycle > label { outline: var(--focus); outline-offset: var(--stroke-thick); }
+@container (max-width: 40rem) {
+  .theme-switch > .segmented { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } /* still reachable by keyboard */
+  .theme-cycle { display: inline-flex; }
+}
+
+/* blocks/card */
+/* card: a panel with any content; an optional head with a title and its actions. Flat: a border, no shadow. */
+.card { display: grid; align-content: start; gap: var(--space-16); padding: var(--space-16); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text); }
+.card > header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-block-size: var(--size-control); margin-block: calc(-1 * var(--space-8)); }
+.card > header > :first-child { margin: 0; }
+
+/* blocks/footer */
+/* app footer: the product (to nobloat.org) and its version (to the changelog) left; shortcuts, report a problem and the
+   source right. Small and muted under a hairline, at the end of every page with a signed-in user. */
+.app-footer { container-type: inline-size; border-top: var(--border); color: var(--muted); font: var(--small); }
+.app-footer > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4) var(--space-16); padding: var(--space-16); }
+.app-footer .product { display: inline-flex; align-items: center; gap: var(--space-8); }
+.app-footer .product > :first-child { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--text); font-weight: 600; text-decoration: none; } .app-footer .product > :first-child::after { content: none; } /* the product needs no external mark */
+.app-footer .product .mark { block-size: 1em; inline-size: auto; } .app-footer .product .mark path { stroke: var(--muted); } .app-footer .product .mark text { fill: var(--accent); }
+.app-footer ul { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-16); margin: 0; padding: 0; list-style: none; }
+.app-footer a { color: inherit; } .app-footer a:hover { color: var(--text); }
+@container (max-width: 40rem) { .app-footer .key-hint { display: none; } } /* no key hints on phones */
+.app-footer li { display: inline-flex; align-items: center; gap: var(--space-4); }
+
+/* blocks/header */
+/* ---- the frame's blocks: app header and nav, user menu, sync state, page head, app footer (the shell places them) ---- */
+
+/* app header: logo left; the commands button and the user menu right; nothing else. On the surface with a hairline, sticky.
+   Commands opens the command palette (searching is one of its commands). The user button is the avatar and opens the user
+   menu. On phones commands shows only its icon. */
+.app-header { container-type: inline-size; position: sticky; top: 0; z-index: var(--layer-raised);
+  border-bottom: var(--border); background: var(--surface); color: var(--text); }
+.app-header > div { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16);
+  block-size: calc(var(--size-control) + var(--space-16)); padding: 0 var(--space-16); }
+.app-header .logo { display: inline-flex; align-items: center; gap: var(--space-8); min-inline-size: 0; font: var(--subheading); color: inherit; text-decoration: none; border-radius: var(--radius-control); }
+.app-header .logo:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+.app-header .logo > .mark { block-size: var(--size-control-small); inline-size: auto; } .app-header .logo > .mark path { stroke: var(--muted); } .app-header .logo > .mark text { fill: var(--accent); }
+.app-header .logo > img { block-size: var(--size-control-small); inline-size: auto; }
+.app-header .end { display: flex; align-items: center; gap: var(--space-8); }
+.app-header .user { all: unset; display: inline-flex; border-radius: var(--radius-round); cursor: pointer; } /* a button around the avatar */
+.app-header .user:hover > .avatar { border-color: var(--text); } .app-header .user:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+@container (max-width: 40rem) { .app-header > div { padding-right: var(--space-8); } .app-header .end { gap: var(--space-4); } }
+
+/* blocks/menu */
+/* menu: a popover list of actions (popover + popovertarget: opens, closes on Esc and outside click, no script).
+   Rows are links or buttons, icon first, key hint at the end; a dangerous row comes last after a line, its icon in danger. */
+.menu { display: grid; padding: var(--space-4); border: var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--text);
+  box-shadow: var(--shadow-floating); min-inline-size: max-content; }
+.menu > :is(a, button) { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control); padding: 0 var(--space-8);
+  border: 0; border-radius: var(--radius-control); background: none; color: inherit; font: inherit; text-align: start; text-decoration: none; cursor: pointer; }
+.menu > :is(a, button):is(:hover, :focus-visible) { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); outline: none; }
+.menu > :is(a, button) > .kbd { margin-left: auto; padding-left: var(--space-16); }
+.menu > .danger > i { color: var(--danger); }
+.menu > hr { margin: var(--space-4) 0; border: 0; border-top: var(--border); }
+.menu[popover]:not(:popover-open) { display: none; }
+.menu[popover] { margin: 0; margin-top: var(--space-4); position-area: block-end span-inline-start; position-try-fallbacks: flip-block, flip-inline; }
+/* phones, and browsers without anchor positioning: a sheet from the bottom */
+@media (width < 40rem) { .menu kbd { display: none; } .menu[popover] { position-area: none; inset: auto 0 0; margin: 0; inline-size: auto; min-inline-size: 0; padding-bottom: var(--space-16); border-radius: var(--radius-panel) var(--radius-panel) 0 0; } }
+@supports not (position-area: block-end) { .menu[popover] { position-area: none; inset: auto 0 0; margin: 0; inline-size: auto; padding-bottom: var(--space-16); border-radius: var(--radius-panel) var(--radius-panel) 0 0; } }
+
+/* blocks/nav */
+/* nav: the app's places as a tab bar inside the header, under its row (on the surface, so page tabs below stay distinct).
+   Icon, name, a badge for what waits; no keys (every place is in the palette). On phones it scrolls sideways. */
+.app-header > .app-nav { border-bottom: 0; padding: 0 var(--space-8); scrollbar-width: none; }
+
+/* blocks/page-head */
+/* page head: breadcrumbs (below the top level), then the title, with its state, and the page's actions right of it;
+   on phones the crumbs are "← parent" and the actions wrap under the title, the primary spanning the width. */
+.page-head { container-type: inline-size; display: grid; gap: var(--space-8); padding-block: var(--space-16); }
+.page-head > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8) var(--space-16); }
+.page-head h1 { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); min-inline-size: 0; margin: 0; font: var(--title); overflow-wrap: anywhere; }
+@container (max-width: 40rem) { .page-head h1 { font: var(--heading); } .page-head > div > .buttons { inline-size: 100%; } }
+
+/* blocks/settings */
+/* settings section: the settings page (/settings, Ctrl ,) is only a stack of these. The topic (and one line on it, and a
+   dangerous action) left, label and value rows right; a hairline between sections; phones: the topic on top, each label
+   small over its value. Every control saves as it changes: an editable field (components.css) for typed values; a checkbox,
+   radio or segmented control saves on change, disabled while saving, with a spinner and then a check in a slot that is there
+   from the start (.save-state); a failed save puts the old value back and shows an error toast (components.js). */
+.settings { container-type: inline-size; display: grid; max-inline-size: calc(var(--size-control) * 20); }
+.settings > section { display: grid; grid-template-columns: calc(var(--size-control) * 6) minmax(0, 1fr); gap: var(--space-8) var(--space-32); padding-block: var(--space-32); border-top: var(--border); }
+.settings > section:first-child { border-top: 0; padding-top: 0; }
+.settings > section > header > h2 { margin: 0; font: var(--subheading); letter-spacing: 0; text-transform: none; color: inherit; }
+.settings > section > header > p { margin: var(--space-4) 0 0; font: var(--small); color: var(--muted); }
+.settings > section > header > .buttons { margin-top: var(--space-16); }
+.setting-rows { display: grid; margin: 0; }
+.setting-rows > div { display: grid; grid-template-columns: calc(var(--size-control) * 4) minmax(0, 1fr); gap: var(--space-4) var(--space-16); align-items: start; padding-block: var(--space-4); }
+.setting-rows dt { display: flex; align-items: center; min-block-size: var(--size-control); color: var(--muted); font: var(--body); }
+.setting-rows dd { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); min-block-size: var(--size-control); margin: 0; font: var(--body); }
+.setting-rows dd > .field-hint { flex-basis: 100%; font: var(--small); color: var(--muted); }
+.setting-rows dd > .editable { inline-size: calc(var(--size-control) * 6); max-inline-size: 100%; }
+.setting-rows dd > code + .button { margin-inline-start: auto; } /* Sign out at the end of the User row */
+.save-state { display: inline-flex; align-items: center; inline-size: 1em; color: var(--muted); } .save-state.is-saved { color: var(--ok); } /* reserved: empty until saving */
+.save-state > .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@container (max-width: 40rem) {
+  .settings > section { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-16); }
+  .settings > section > header > .buttons > .button { flex: 1 1 100%; } /* the section's action spans the width, like a primary */
+  .setting-rows > div { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: var(--space-8); }
+  .setting-rows :is(dt, dd) { min-block-size: 0; } .setting-rows dt { font: var(--small); }
+  .setting-rows dd > :is(.segmented, .editable) { flex: 1 1 0; min-inline-size: 0; } /* shares the line with its save slot */
+}
+
+/* blocks/user-menu */
+/* user menu: who is signed in, preferences inline, the app's own rows, then Settings and Sign out after a line, in every app */
+.menu > .who { display: grid; padding: var(--space-8); font: var(--body); } .menu > .who > span { font: var(--small); color: var(--muted); }
+.menu > .pref { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); padding: var(--space-4) var(--space-8); }
+
+/* shell/dashboard */
+/* dashboard: the app's start page. Stat tiles first (what changed, each a link to its list), then cards with what needs
+   doing (lists, a chart); both fill the width in as many columns as fit. */
+.dashboard { container-type: inline-size; display: grid; gap: var(--space-16); }
+.dashboard > .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 5)), 1fr)); gap: var(--space-16); }
+@container (max-width: 40rem) { .dashboard > .tiles { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); } } /* phones: one tile per row, full width */
+.dashboard > .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 8)), 1fr)); gap: var(--space-16); align-items: start; }
+
+/* shell/page */
+/* page: the app header (with the nav) on top, then main (the page head, then the page's blocks) at a readable width, the
+   footer at the end, at the bottom of the window when the page is short. A specimen of a page uses .app-main, a page has one <main>. */
+.app-page { display: grid; grid-template-rows: auto 1fr auto; min-block-size: 100dvh; background: var(--background); }
+.app-page > :is(main, .app-main) { container-type: inline-size; inline-size: 100%; max-inline-size: calc(var(--size-control) * 30); margin-inline: auto; padding: 0 var(--space-16) var(--space-32); box-sizing: border-box; }
+/* skip link: the first stop for the keyboard on an app page, visible only while focused */
+.skip-link { position: absolute; inset-inline-start: var(--space-8); inset-block-start: var(--space-8); z-index: var(--layer-modal); padding: var(--space-8) var(--space-16);
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); translate: 0 -200%; }
+.skip-link:focus { translate: 0; }
+.app-page > :is(main, .app-main) > :not(.page-head, h1) + * { margin-block-start: var(--space-16); } /* the blocks of a page, one under the other */
+.app-page.narrow > main { max-inline-size: calc(var(--size-control) * 12); } /* one small form alone: sign in */

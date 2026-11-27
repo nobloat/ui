@@ -30,6 +30,9 @@
 @import url("components/bars/bars.css");
 @import url("components/drop/drop.css");
 @import url("components/arrow/arrow.css");
+@import url("components/image/image.css");
+@import url("components/form/form.css");
+@import url("components/para/para.css");
 
 /* Components respond to the width of their container, not the window, so a narrow column behaves like a phone. */
 main, .cp-phone { container-type: inline-size; }

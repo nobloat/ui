@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Protect your account · auth</title>
+<link rel="stylesheet" href="./ui.css">
+<script src="./ui.js" defer></script>
+</head>
+<body>
+<div class="app-page narrow"><main id="main"><h1 class="t-title">Protect your account</h1><p class="para">bill requires a second step. Scan the code with an authenticator app or password manager.</p> <img class="image" src="qr-demo.svg" alt="QR code for your authenticator app" width="200"> <dl class="info-grid"><dt>Or enter</dt><dd><span class="object-id"><code>JBSWY3DPEHPK3PXP</code><button type="button" class="button icon-only" aria-label="Copy JBSWY3DPEHPK3PXP" title="Copy"><i class="icon-copy" aria-hidden="true"></i></button></span></dd><dt>Type</dt><dd>SHA1 · 6 digits · 30 s</dd></dl> <form class="form" method="post" action="/totp/setup"><label class="field"><span class="field-label">Code shown in the app</span><input class="input otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required></label><div class="buttons"><button type="submit" class="button primary"><i class="icon-check" aria-hidden="true"></i><span>Activate</span></button></div></form></main></div>
+</body>
+</html>

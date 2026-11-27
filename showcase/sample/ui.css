@@ -579,3 +579,4 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
   border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text); translate: 0 -200%; }
 .skip-link:focus { translate: 0; }
 .app-page > :is(main, .app-main) > :not(.page-head, h1) + * { margin-block-start: var(--space-16); } /* the blocks of a page, one under the other */
+.app-page.narrow > main { max-inline-size: calc(var(--size-control) * 12); } /* one small form alone: sign in */

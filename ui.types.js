@@ -226,6 +226,15 @@
  * @property {User} [User]
  * @property {NavItem[]} [Nav]
  */
+
+/**
+ * Image: a picture in the flow. Alt says what it shows; Decorative leaves it empty on purpose.
+ * @typedef {Object} Image
+ * @property {string} [Src]
+ * @property {string} [Alt]
+ * @property {boolean} [Decorative]
+ * @property {number} [Width]
+ */
 /** @typedef {Fact[]} InfoGrid InfoGrid: facts of an object, label left, value right. */
 
 /**
@@ -306,6 +315,7 @@
  * @property {Node} [Main]
  * @property {Footer} [Footer]
  * @property {Palette} [Palette]
+ * @property {boolean} [Narrow] - a bare page with one small form: sign in, second step, new password
  */
 
 /**
@@ -347,6 +357,7 @@
  * @property {string} [Label]
  * @property {MenuItem[]} [Items]
  */
+/** @typedef {Node[]} Para Para: a paragraph of running text, mixed with links: Para{Plain("Check "), Link{…}, Plain(" first.")}. */
 /** @typedef {string} Plain Plain is text in a slot (escaped); Code the same in code style. */
 
 /**

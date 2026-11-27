@@ -633,3 +633,34 @@ func (t ThemeSwitch) Render(c *Ctx, w io.Writer) error {
 	c.use("components/segmented", "components/button")
 	return c.exec(w, "components/theme-switch", t.Saved)
 }
+
+// Image: a picture in the flow. Alt says what it shows; Decorative leaves it empty on purpose.
+type Image struct {
+	Src        string
+	Alt        Text
+	Decorative bool
+	Width      int
+}
+
+func (i Image) Render(c *Ctx, w io.Writer) error {
+	if i.Alt == "" && !i.Decorative {
+		return fmt.Errorf("image %q: needs an alt text (or Decorative)", i.Src)
+	}
+	return c.exec(w, "components/image", struct {
+		Src, Alt string
+		Width    int
+	}{i.Src, c.text(i.Alt), i.Width})
+}
+
+// Para: a paragraph of running text, mixed with links: Para{Plain("Check "), Link{…}, Plain(" first.")}.
+type Para []Node
+
+func (p Para) Render(c *Ctx, w io.Writer) error {
+	var b strings.Builder
+	for _, n := range p {
+		if err := n.Render(c, &b); err != nil {
+			return err
+		}
+	}
+	return c.exec(w, "components/para", template.HTML(b.String()))
+}
