@@ -5,7 +5,7 @@
 //   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
 //   a11y:   text contrast < 4.5:1 (3:1 large), state graphics and form field edges < 3:1, missing accessible names,
 //           labels or alt, duplicate ids, missing lang/title/main/h1, targets < 24×24 px without spacing, no focus indicator
-//   icons:  a button, .btn, tab, pager link, chip or menu item without an icon
+//   icons:  a button, .btn, tab, pager link, chip or menu item without an icon (a person's avatar counts as one)
 // No dependencies: Chrome DevTools protocol over Node's built-in WebSocket.
 import {spawn} from 'node:child_process';
 import {existsSync, mkdtempSync} from 'node:fs';
@@ -79,7 +79,7 @@ const probe = specimens => { // specimens: a design system page that shows sever
     return (Math.max(...rs.map(r => r.bottom)) - Math.min(...rs.map(r => r.top))) / lh;
   };
   const oneLine = 'button, .btn, .button, .chip, .tag, kbd, nav.app a, .tabs a, th, .seg label, .pager a, .logo, .who, td.num, .st, .results .sub, .calhead .btn, .cal .hd b, .month .c > span:first-child, .dayhead b, .foot b';
-  for (const el of all.filter(e => e.matches(oneLine) && !e.matches('.ic-c') && parseFloat(getComputedStyle(e).fontSize) > 0)) // font-size 0: icon-only on purpose
+  for (const el of all.filter(e => e.matches(oneLine) && !e.matches('.ic-c') && !e.querySelector('.avatar') && parseFloat(getComputedStyle(e).fontSize) > 0)) // font-size 0: icon-only on purpose
   if (lines(el) > 1.6) add('layout', `wraps onto ${Math.round(lines(el))} lines: "${el.textContent.trim().slice(0, 30)}"`, el);
   for (const el of all) { // clipped text without an ellipsis (calendar entries clip by design)
     const s = getComputedStyle(el);
@@ -137,7 +137,7 @@ const probe = specimens => { // specimens: a design system page that shows sever
   const drawn = el => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && (b.maskImage || b.webkitMaskImage || 'none') !== 'none'; };
   const closedDlg = [...document.querySelectorAll('dialog:not([open]):not(.palette) :is(button, .btn)')]; // a closed dialog's buttons count too
   for (const el of [...new Set([...all, ...closedDlg])].filter(e => e.matches('button, .btn, .button, summary.round, .tabs a, .pager a, a.chip, :is(.menu, .umenu) a') && !e.closest('dialog.palette, [hidden]:not(dialog)')))
-    if (!el.matches('[class*="icon-"]') && !el.querySelector('[class*="icon-"]') && !drawn(el)) add('icon', `no icon: "${(el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 40)}"`, el);
+    if (!el.matches('[class*="icon-"]') && !el.querySelector('[class*="icon-"], .avatar') && !drawn(el)) add('icon', `no icon: "${(el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 40)}"`, el);
   for (const el of document.querySelectorAll('img:not([alt])')) add('a11y', 'img without alt', el);
   const ids = {}; for (const el of document.querySelectorAll('[id]')) ids[el.id] = (ids[el.id] || 0) + 1;
   for (const [k, n] of Object.entries(ids)) if (n > 1) add('a11y', `duplicate id #${k} (${n}×)`);
