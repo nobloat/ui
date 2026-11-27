@@ -130,3 +130,7 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 
 
 
+/* the calendar week: in the corner over the hours (desktop), in the day switch (A), before the strip (E), over the agenda (D) */
+.week > .hd.corner { align-content: start; } .week > .hd.corner > b { color: var(--muted); font: var(--small); font-weight: 600; }
+.week-bar { grid-template-columns: auto repeat(7, minmax(0, 1fr)) !important; } .week-bar > .wk { align-self: center; padding: 0 var(--space-8); color: var(--muted); font: var(--small); font-weight: 600; }
+.week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
