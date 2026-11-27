@@ -1,4 +1,4 @@
-/* nobloat shell (layer 3): built only from the composed parts in composed.css. */
+/* nobloat shell (layer 3): built only from the blocks in blocks.css. */
 
 /* app header: logo left; the commands button and the user menu right; nothing else. On the surface with a hairline, sticky.
    Commands opens the command palette (searching is one of its commands). The user button is the avatar and opens the user

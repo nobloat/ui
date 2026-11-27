@@ -1,4 +1,4 @@
-// Layout and accessibility check for every example page and the design system pages (index, foundations, components, shell, documents): node check.mjs (Node 22+, Chrome; CHROME=… to override).
+// Layout and accessibility check for every example page and the design system pages (index, foundations, components, blocks, shell, documents, proposals): node check.mjs (Node 22+, Chrome; CHROME=… to override).
 // Some pages only: PAGES=ui:foundations,list node check.mjs
 // An app: node check.mjs http://localhost:8080/ /customers /customers/CUS-0042 (its own design; light and dark via the OS setting).
 // Loads each page in each design, theme and width (and the open burger menu on phones) and fails on:
@@ -33,7 +33,7 @@ import {pathToFileURL} from 'node:url';
 const app = process.argv.slice(2);
 const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'icons', '400', '401', '403', '404', '409', '410', '413', '429', '500', '503', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login',
   // the design system pages in the repo root, once per theme and width (they have no design switch)
-  'ui:index', 'ui:foundations', 'ui:components', 'ui:shell', 'ui:documents', 'ui:proposals'];
+  'ui:index', 'ui:foundations', 'ui:components', 'ui:blocks', 'ui:shell', 'ui:documents', 'ui:proposals'];
 const designs = app.length ? [''] : (process.env.DESIGNS ?? ',paper').split(','), themes = ['light', 'dark'], widths = [320, 360, 375, 390, 414, 430, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);

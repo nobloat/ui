@@ -1,4 +1,4 @@
-/* nobloat composed parts (layer 2): built only from the components in components.css. */
+/* nobloat blocks (layer 2): built only from the components in components.css. */
 
 /* dialog: the native <dialog> (showModal: focus trap, Esc, backdrop). Title, content, actions at the end (Cancel first, the
    action last); the close button sits in the head. Width follows the content, at most one measure. */

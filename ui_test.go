@@ -335,11 +335,11 @@ func TestBrand(t *testing.T) {
 	}
 }
 
-// TestTokensOnly: components.css, composed.css, shell.css and documents.css take every length, duration and opacity from the foundations tokens. Allowed:
+// TestTokensOnly: components.css, blocks.css, shell.css and documents.css take every length, duration and opacity from the foundations tokens. Allowed:
 // 1em (the text size), the 1px of a visually hidden element, percentages of an element's own box (centring, corners),
 // and the container width in @container (custom properties cannot be used there).
 func TestTokensOnly(t *testing.T) {
-	for _, file := range []string{"components.css", "composed.css", "shell.css", "documents.css", "proposals.css"} {
+	for _, file := range []string{"components.css", "blocks.css", "shell.css", "documents.css", "proposals.css"} {
 		tokensOnly(t, file)
 	}
 }
@@ -382,7 +382,7 @@ func TestTokensDefined(t *testing.T) {
 	for _, m := range regexp.MustCompile(`(--[\w-]+)\s*:`).FindAllStringSubmatch(all.String(), -1) {
 		defined[m[1]] = true
 	}
-	for _, file := range []string{"components.css", "composed.css", "shell.css", "documents.css", "proposals.css"} {
+	for _, file := range []string{"components.css", "blocks.css", "shell.css", "documents.css", "proposals.css"} {
 		b, _ := os.ReadFile(file)
 		for i, line := range strings.Split(string(b), "\n") {
 			for _, m := range regexp.MustCompile(`var\((--[\w-]+)\)`).FindAllStringSubmatch(line, -1) {

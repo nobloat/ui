@@ -6,8 +6,8 @@ Rules for any agent working on the nobloat design system. Read all of it before 
 
 A reusable, sustainable design system to design new nobloat apps quickly, UI and UX.
 
-- **Working surface:** `foundations.html` and `components.html` in the repo root, plain HTML (open in a browser, nothing to build). Tokens in `token.css`, components in `components.css` (layer 1), `composed.css` (2), `shell.css` (3) and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
-- **One source for the rules: this file.** Every design and UX rule lives here and nowhere else. The others only show or use them: `foundations.html`, `components.html`, `shell.html` and `documents.html` show specimens, `index.html` gives the overview (philosophy, principles, architecture), `skill/SKILL.md` tells an app which markup and API carry a rule and links here, `README.md` covers setup. Never restate a rule elsewhere; link to its section. Where today's `ui.css` does not follow a rule yet, that is an item under To do → Rollout, not a second rule.
+- **Working surface:** `foundations.html`, `components.html` and `blocks.html` in the repo root, plain HTML (open in a browser, nothing to build). Tokens in `token.css`, components in `components.css` (layer 1), blocks in `blocks.css` (2), `shell.css` (3) and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
+- **One source for the rules: this file.** Every design and UX rule lives here and nowhere else. The others only show or use them: `foundations.html`, `components.html`, `blocks.html`, `shell.html` and `documents.html` show specimens, `index.html` gives the overview (philosophy, principles, architecture), `skill/SKILL.md` tells an app which markup and API carry a rule and links here, `README.md` covers setup. Never restate a rule elsewhere; link to its section. Where today's `ui.css` does not follow a rule yet, that is an item under To do → Rollout, not a second rule.
 - When the components are complete, `ui.css` is streamlined once to match (old token names as temporary aliases, then every app via `make ui`) and the old gallery (`pages/`, `examples/`, `screenshots/`) goes.
 - `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of design system work unless the owner asks.
 
@@ -19,7 +19,7 @@ Every change touches all of its places in one commit. The check in the last colu
 |---|---|---|
 | New icon | `icons/<name>.svg` (README: Adding an icon), `go test -update` (sprite, `icons.css`, `ui.css`), the grid in `foundations.html`; a row in the icon map below if it means an action or place | `TestIcons` (style, generated files) |
 | New or changed token | `token.css`, its section in `foundations.html` (name and value once), light and dark | `TestTokensDefined` |
-| New component | its layer's file only (table under Layers), built from tokens and lower layers; a specimen with its HTML on `components.html` (`shell.html` for the shell); the layer list in `index.html` if it adds a kind | `TestTokensOnly` (no raw length, duration, opacity or colour), `check.mjs` |
+| New component | its layer's file only (table under Layers), built from tokens and lower layers; a specimen with its HTML on `components.html` (`blocks.html` for a block, `shell.html` for the shell); the layer list in `index.html` if it adds a kind | `TestTokensOnly` (no raw length, duration, opacity or colour), `check.mjs` |
 | New or changed rule | this file only; specimens that show it; SKILL.md only if the markup or API changes; a Rollout item if `ui.css` does not follow it yet | – |
 | New page type, layer or file | `index.html` (architecture, layer graph, links) | `check.mjs` loads `index.html` |
 | Anything on the design system pages | light and dark, 320 px to desktop | `check.mjs` (layout, contrast, names, icons on buttons) |
@@ -69,8 +69,8 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 |---|---|---|---|
 | 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token.css` | – |
 | 1 | Components: button, forms (incl. one-time code), labels (incl. avatar), feedback, data, navigation and upload | `components.css` | tokens |
-| 2 | Composed parts: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette, board columns, calendar (week, month) | `composed.css` | components |
-| 3 | Shell: app header (logo, commands, user menu), nav, page head, footer, phone layout, and the page templates it frames (list, detail, form, dashboard, settings; errors are the shell without nav and user menu, which auth's sign in also uses) | `shell.css`, `shell.html`; templates in `partials.html` | composed parts |
+| 2 | Blocks: dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette, board columns, calendar (week, month); each a bigger piece built only from components, shown on `blocks.html` | `blocks.css` | components |
+| 3 | Shell: app header (logo, commands, user menu), nav, page head, footer, phone layout, and the page templates it frames (list, detail, form, dashboard, settings; errors are the shell without nav and user menu, which auth's sign in also uses) | `shell.css`, `shell.html`; templates in `partials.html` | blocks |
 | – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
 
 - **One shell** for every app; no second frame. Apps are outside `ui/` and fill the templates. An app never restyles a ui component (not `body` either), never reuses a ui class name for its own parts, and its own CSS uses tokens only.
@@ -198,7 +198,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
    One part per iteration: split a compound part into its pieces and iterate them in order (board: the columns first, then the cards in them); the proposals vary only the piece under iteration, everything else stays neutral placeholder.
 2. **Pick**: the owner picks one or more; the rest are deleted.
 3. **Refine**: iterate on the picked ones with the owner's comments, one round at a time, until the owner says it is done. Do not ask questions the proposals can answer; show instead.
-4. **Release**: on the owner's word the part moves into its layer (`components.css`, `composed.css` or `shell.css`), its specimen into `components.html` or `shell.html`, its rule into this file, and leaves `proposals.html` and `proposals.css`.
+4. **Release**: on the owner's word the part moves into its layer (`components.css`, `blocks.css` or `shell.css`), its specimen into `components.html`, `blocks.html` or `shell.html`, its rule into this file, and leaves `proposals.html` and `proposals.css`.
 
 Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and is loaded only by `proposals.html`.
 
@@ -210,7 +210,7 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
 
 **Components** (`components.html`)
 - [x] Button, forms (fields, date and time, choices), labels, feedback, data, navigation and upload
-- [ ] Composed parts: card, dialog, menu and bottom sheet, command palette and `?` help, stat tile
+- [ ] Blocks (`blocks.html`): card, dialog, menu and bottom sheet, command palette and `?` help, stat tile
 - [ ] Shell (`shell.html`): app header and nav (desktop and phone), user menu, sync state, page head, footer; whole-frame check left
 - [ ] Mark, logo and app icon: `][` in a neutral token with one character in `brand`; logo is mark plus app name or a custom image; favicon and home-screen icon are exports
 - [x] Board columns (released; the cards are tasq's own)
