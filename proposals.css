@@ -165,3 +165,5 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
   background: linear-gradient(to right, var(--c, var(--disabled)) var(--share), var(--line) 0); }
 .columns.p-overview:has(.column:nth-child(1) > input:checked) .col-switch > :nth-child(1), .columns.p-overview:has(.column:nth-child(2) > input:checked) .col-switch > :nth-child(2),
 .columns.p-overview:has(.column:nth-child(3) > input:checked) .col-switch > :nth-child(3), .columns.p-overview:has(.column:nth-child(4) > input:checked) .col-switch > :nth-child(4) { border-color: var(--accent); box-shadow: 0 0 0 var(--stroke-thin) var(--accent); }
+/* a mouse cannot swipe: where the pointer is fine, the swiping tracks keep a thin scrollbar (Shift + wheel also scrolls) */
+@media (pointer: fine) { .columns:is(.p-swipe, .p-swipetabs) .col-track { scrollbar-width: thin; } }
