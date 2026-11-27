@@ -5,6 +5,8 @@
 //   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
 //   a11y:   text contrast < 4.5:1 (3:1 large), state graphics and form field edges < 3:1, missing accessible names,
 //           labels or alt, duplicate ids, missing lang/title/main/h1, targets < 24×24 px without spacing, no focus indicator
+//   sr:     messages with role status/alert, field errors linked (aria-invalid, aria-describedby), icons aria-hidden or named,
+//           nothing focusable inside aria-hidden, one aria-current per nav, one aria-sort per sortable table, no skipped heading level, skip link
 //   icons:  a button, .btn, tab, pager link, chip or menu item without an icon (a person's avatar counts as one)
 // No dependencies: Chrome DevTools protocol over Node's built-in WebSocket.
 import {spawn} from 'node:child_process';
@@ -55,7 +57,7 @@ await cmd('Page.enable');
 await cmd('Emulation.setFocusEmulationEnabled', {enabled: true}); // a background page has no focus otherwise
 
 // runs inside the page; returns a list of problems
-const probe = specimens => { // specimens: a design system page that shows several whole pages (shell, documents)
+const probe = (specimens, ownPage) => { // ownPage: a design system page (no app frame, so no skip link) // specimens: a design system page that shows several whole pages (shell, documents)
   const P = [], W = innerWidth, de = document.documentElement;
   const nm = el => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).join('.') : '');
   const path = el => { const a = []; for (let e = el; e && e !== document.body && a.length < 3; e = e.parentElement) a.unshift(nm(e)); return a.join(' > '); };
@@ -160,6 +162,31 @@ const probe = specimens => { // specimens: a design system page that shows sever
     const near = targets.find(o => { if (o === el || o.contains(el) || el.contains(o)) return false; const q = box(o); const dx = Math.max(q.left - cx, 0, cx - q.right), dy = Math.max(q.top - cy, 0, cy - q.bottom); return Math.hypot(dx, dy) < 12; });
     if (near) add('a11y', `target ${Math.round(r.width)}×${Math.round(r.height)} px, too close to ${nm(near)}`, el);
   }
+
+  // ---- screen readers (design-system.md → Accessibility → Screen readers) ----
+  for (const el of all.filter(e => e.matches('.message'))) { const want = el.dataset.state === 'danger' ? 'alert' : 'status'; if (el.getAttribute('role') !== want) add('sr', `message without role="${want}"`, el); }
+  for (const el of document.querySelectorAll('[aria-invalid="true"]'))
+    if (!(el.getAttribute('aria-describedby') || '').split(/\s+/).some(i => i && document.getElementById(i))) add('sr', 'aria-invalid without aria-describedby pointing to its error', el);
+  for (const el of all.filter(e => e.matches('.field-error, .err')))
+    if (!el.id || !document.querySelector(`[aria-describedby~="${CSS.escape(el.id)}"]`)) add('sr', 'field error not named by its field (aria-describedby)', el);
+  for (const el of document.querySelectorAll('i[class*="icon-"]'))
+    if (el.getAttribute('aria-hidden') !== 'true' && !(el.getAttribute('role') === 'img' && el.getAttribute('aria-label'))) add('sr', 'icon neither aria-hidden="true" nor role="img" with aria-label', el);
+  const focusable = 'a[href], button, input:not([type=hidden]), select, textarea, summary, [tabindex]';
+  for (const h of document.querySelectorAll('[aria-hidden="true"]'))
+    for (const el of [h, ...h.querySelectorAll(focusable)]) if (el.matches(focusable) && el.tabIndex >= 0 && !el.disabled) add('sr', 'focusable inside aria-hidden', el);
+  // a nav marks the entry that is this page (crumbs: always the last one); never more than one; in-page tables of contents have none
+  const url = u => u.split(/[?#]/)[0];
+  for (const n of all.filter(e => e.matches('nav') && e.querySelector('a[href]'))) {
+    const cur = n.querySelectorAll('[aria-current]:not([aria-current="false"])').length;
+    const here = [...n.querySelectorAll('a[href]:not([href^="#"], [rel])')].some(a => url(a.href) === url(location.href)) || n.matches('.breadcrumbs, [aria-label="Breadcrumbs"]');
+    if (cur > 1 || (here && cur !== 1)) add('sr', `nav with ${cur} aria-current, needs exactly one (the entry that is this page)`, n);
+  }
+  for (const t of all.filter(e => e.matches('table') && e.querySelector('th a[href*="sort="]')))
+    if (t.querySelectorAll('th[aria-sort]').length !== 1) add('sr', 'sortable table without exactly one th[aria-sort]', t);
+  let level = 0;
+  for (const h of all.filter(e => e.matches('h1, h2, h3, h4, h5, h6'))) { const l = +h.tagName[1]; if (level && l > level + 1) add('sr', `heading skips from h${level} to h${l}`, h); level = l; }
+  // a skip link where something focusable comes before main (header, nav)
+  if (!ownPage && !specimens && [...document.querySelectorAll('header, nav')].some(e => !e.closest('main') && e.querySelector(focusable))) { const first = document.body.querySelector(focusable); if (first && !first.closest('main') && !(first.matches('a[href^="#"]') && document.querySelector(`main${first.getAttribute('href')}, main ${first.getAttribute('href')}`))) add('sr', 'no skip link to main as the first focusable element'); }
   return P;
 };
 
@@ -210,7 +237,7 @@ for (const design of designs) for (const theme of themes) for (const w of widths
           if (t) t.textContent += ' ' + long[i++ % long.length];
         }
       })()`);
-      const problems = await evaluate(`(${probe})(${['ui:shell', 'ui:documents'].includes(p)})`);
+      const problems = await evaluate(`(${probe})(${['ui:shell', 'ui:documents'].includes(p)}, ${sys})`);
       if (!v.menu && !v.logo && w === 1280) problems.push(...await evaluate(`(${focusProbe})()`));
       runs++;
       const where = `${p || '/'} ${app.length || sys ? '' : (design || 'graphite') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}${v.stress ? ' long data' : ''}`;

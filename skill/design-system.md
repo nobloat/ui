@@ -99,6 +99,19 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - Every control has a name, every image `alt` (decorative `alt=""`), ids are unique, one `main` and one `h1` per page, `lang` and a title; a skip link; dialogs are native `<dialog>`; motion respects reduced motion.
 - Every page works with the keyboard alone and without JavaScript (forms post, filters are links).
 
+### Screen readers
+
+Everything a sighted user learns from the screen, a screen reader user hears. Checked by `check.mjs` (`sr:`) where a machine can.
+
+- **Messages** announce themselves: `role="status"` for ok, info and warn, `role="alert"` for errors. A toast that closes by itself is a status, never an alert.
+- **Field errors**: the field has `aria-invalid="true"` and `aria-describedby` naming the error line's `id`; the error says what is wrong and what is valid.
+- **Icons**: decorative ones (next to a word) `aria-hidden="true"`; one that means something alone (a state) is `role="img"` with an `aria-label`. Icon-only controls carry the name themselves (`aria-label` and `title`).
+- **Hidden means hidden**: nothing inside `aria-hidden="true"` can take focus (`tabindex="-1"` where a hidden control must exist, like the picker's native input).
+- **Where am I**: a nav marks the entry that is this page with `aria-current` (`page` for places, crumbs and pages, `true` for the current filter), exactly one; breadcrumbs always (the last); a page that is none of the entries (an error page), a pager with only previous and next, and an in-page table of contents mark none. The page title (`{page} · {app}`) and the `h1` name the page.
+- **Structure**: landmarks `header`, `nav` (each with an `aria-label` when there is more than one), `main`, `footer`; headings in order without skipping a level; a skip link to `main` as the first focusable element of every page with a header or nav before `main`.
+- **State in attributes, not only in looks**: sorted column `aria-sort`, toggle buttons `aria-pressed`, menus and disclosures `aria-expanded` (popover and `details` give it), busy buttons and regions `aria-busy`, disabled controls `disabled` or `aria-disabled`.
+- Labels are real: every field has a `<label>` (or `aria-label` where the place names it, like a search line); a group of choices is a `fieldset` with a `legend` or `role="radiogroup"` with an `aria-label`.
+
 ### Widths
 
 - Frames: phone 390, desktop 1280. A phone design must also work from 320 to 500 px without sideways scrolling; the breakpoint is 640 px (40rem).
