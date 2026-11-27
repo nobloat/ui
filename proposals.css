@@ -1,15 +1,6 @@
 /* proposals: parts in iteration (see skill/design-system.md, Iteration). Tokens only; loaded only by proposals.html.
    A released part moves into its layer and leaves this file. */
 
-/* one-time code (TOTP): one field, so pasting and the phone's autofill work (inputmode="numeric", autocomplete="one-time-code",
-   maxlength="6"); six slots are drawn under the digits, the mono face lines them up. The app may submit at the sixth digit (auth does). */
-input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content-box; inline-size: calc(6 * var(--slot)); block-size: var(--size-control);
-  padding: 0 0 var(--space-4); font: var(--heading); font-variant-numeric: tabular-nums; letter-spacing: var(--space-16); text-indent: var(--space-8);
-  color: var(--text); caret-color: var(--accent); --edge: var(--muted);
-  background: repeating-linear-gradient(to right, transparent 0 var(--space-4), var(--edge) 0 calc(var(--slot) - var(--space-4)), transparent 0 var(--slot)) left bottom / 100% var(--stroke-thick) no-repeat; }
-.otp:hover { --edge: var(--text); } .otp:focus-visible { --edge: var(--accent); } .otp[aria-invalid="true"] { --edge: var(--danger); }
-.otp::placeholder { color: var(--muted); opacity: 1; }
-
 
 /* sign in: the shell without nav and user menu. One column in the middle of the background: the logo, the title, the
    fields, the primary spanning the width, then the way back and the theme and language. Steps (password, then the
@@ -47,13 +38,8 @@ input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content
 
 .week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
 
-/* one-time code variants (iteration 1); A is the slots above */
-/* B, cells: six tinted cells behind the digits instead of lines */
-input.otp.o-cells { padding: 0; background: repeating-linear-gradient(to right, transparent 0 var(--space-4), color-mix(in oklab, var(--edge) var(--mix-tint), var(--line)) 0 calc(var(--slot) - var(--space-4)), transparent 0 var(--slot)); border-radius: var(--radius-control); }
-/* C, field: the normal input, digits spaced in the mono face, a grouped placeholder */
-.input.o-field { max-inline-size: calc(var(--size-control) * 6); letter-spacing: var(--space-8); font-variant-numeric: tabular-nums; }
-/* D, large: the plain field in the heading face, centred, full width */
-.input.o-large { block-size: calc(var(--size-control) * 1.5); font: var(--heading); letter-spacing: var(--space-16); text-align: center; font-variant-numeric: tabular-nums; }
-/* E, field with paste: C, with a paste button inside on the right (clipboard, one tap on phones) */
-.o-paste { max-inline-size: calc(var(--size-control) * 6); }
-.field:has(> :is(input.otp, .o-field, .o-paste)) { justify-self: start; } /* the error strip as wide as the field, not the page */
+
+/* one-time code (D, picked): one plain field, so password managers fill it and a pasted code just works; big centred digits.
+   autocomplete="one-time-code" and name="totp" let password managers find it; inputmode="numeric"; no maxlength, so a
+   pasted "123 456" is not cut off (the app strips spaces). The label is a normal field label. */
+.input.otp-code { block-size: calc(var(--size-control) * 1.5); font: var(--heading); letter-spacing: var(--space-16); text-align: center; font-variant-numeric: tabular-nums; }
