@@ -37,9 +37,3 @@
 
 
 .week-agenda > .wk { margin: 0; color: var(--muted); font: var(--small); font-weight: 600; }
-
-
-/* one-time code (D, picked): one plain field, so password managers fill it and a pasted code just works; big centred digits.
-   autocomplete="one-time-code" and name="totp" let password managers find it; inputmode="numeric", maxlength="6",
-   pattern="[0-9]{6}": digits only, at most six (script cleans a pasted "123 456" first). The label is a normal field label. */
-.input.otp-code { block-size: calc(var(--size-control) * 1.5); font: var(--heading); letter-spacing: var(--space-16); text-align: center; font-variant-numeric: tabular-nums; }

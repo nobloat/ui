@@ -89,7 +89,7 @@ for (const dlg of document.querySelectorAll('.command-palette')) {
 }
 
 // one-time code: digits only, at most six; a pasted code is cleaned first ("123 456", "123-456" → 123456), so maxlength
-// does not cut it. Without script maxlength="6" and the pattern still hold. Moves into ui.js at release.
+// does not cut it. Without script maxlength="6" and the pattern still hold. Apps get it with ui.js at the streamlining.
 document.addEventListener('paste', e => {
   const el = e.target.closest?.('input[autocomplete="one-time-code"]'); if (!el) return;
   e.preventDefault(); el.value = (e.clipboardData.getData('text').match(/\d/g) || []).join('').slice(0, 6);

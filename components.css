@@ -110,6 +110,11 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .picker > .input { padding-right: calc(var(--size-control-small) + var(--space-8)); font-variant-numeric: tabular-nums; }
 .picker > button { position: absolute; right: var(--space-4); top: 50%; translate: 0 -50%; }
 .picker > input[type="date"], .picker > input[type="time"] { position: absolute; right: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+/* one-time code: one plain field, so password managers fill it and a pasted code just works; big centred digits.
+   autocomplete="one-time-code" and name="totp" let password managers find it; inputmode="numeric", maxlength="6",
+   pattern="[0-9]{6}": digits only, at most six (components.js cleans a pasted "123 456" first). The label is a normal field label. */
+.input.otp-code { block-size: calc(var(--size-control) * 1.5); font: var(--heading); letter-spacing: var(--space-16); text-align: center; font-variant-numeric: tabular-nums; }
+
 /* labels: small marks next to or on other things. A state is always a dot and a word; the word stays in --text. */
 [data-state="ok"] { --c: var(--ok); } [data-state="warn"] { --c: var(--warn); } [data-state="danger"] { --c: var(--danger); }
 [data-state="info"] { --c: var(--info); } [data-state="disabled"] { --c: var(--disabled); }
