@@ -158,3 +158,4 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .rl-layers > .cr-down { grid-column: auto; margin: 0; }
 @media (max-width: 60rem) { .rl-graph.rl-layers > .cr-down { display: block; } .rl-layers > .rl-node > code { grid-column: 2; grid-row: auto; } }
 .cp-box:has(> :is(.page-head, .columns, .week-grid, .month-grid, .settings, .dashboard):only-child) { align-content: start; } /* a specimen of a page part: from the top, not centred */
+.column .cp-item { block-size: calc(var(--size-control) * 1.5); border: var(--border); border-radius: var(--radius-control); background: var(--surface); } /* a stand-in for the app's own card */
