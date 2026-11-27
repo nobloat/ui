@@ -92,9 +92,9 @@ Rules: Pages and content (Errors, Session).
 
 ## Data display
 
-Rules: Pages and content (Money, Tags, Messages, Progress), Foundations and look (Dates and times, Waiting).
+Rules: Pages and content (Money, Tags, Messages, Progress), Dates and times, Foundations and look (Waiting).
 - Money: integer cents on the server, the format configured by example (`1.234,56`, `{amount} {symbol}`); `<data class="money" value="cents">`, `.pos` and `.neg` for explicit signs. Inputs: `.affix` with the unit and `data-money="1.234,56"` (accepts both conventions, rewrites to the example; a single separator with three digits follows the example: with `1.234,56`, `1.500` is 1500 and `0,125` is refused).
-- Dates: text fields with a pattern and a sample placeholder; the picker button is from ui.js; recent events show the exact time in `title`.
+- Dates and times: text fields with a pattern and a sample placeholder; the picker button is from ui.js; recent events show the exact time in `title`. Today's ui.js sends dates without a zone (Rollout).
 - Tags: `a.tag` with `style="--c:#…"`, picked from `.swatches` (plus a `value="custom"` radio and `input[type=color] name="custom"`; the server takes `custom` when that radio is checked).
 - Row list: `ul.rows` > `<li id="PRJ-WEBSITE" data-href="…">` with `.dot`, `a.main`, `.meta`, `.num`, row buttons.
 - Status: `.dot.ok/.pend/.bad/.run/.off` or `.st` glyphs, always labelled.

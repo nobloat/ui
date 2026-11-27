@@ -58,7 +58,7 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **Quote:** `figure.quote` > `blockquote` + `figcaption` (who, `cite` for the work); prose face in italic, a `stroke-thick` `line` on the left, the source small and muted.
 - **Buttons:** default, primary, danger; icon-only and toggle as shapes. No quiet and no small type: a button inside another component (picker, id, message) takes a frameless 24 px look from that component.
 - **Documents and print:** every document prints fully readable on a cheap black-and-white printer with as little ink as possible: black text on white, no colour, no filled or shaded areas, thin lines only, no grey lighter than `text` mixed with `mix-edge`; the screen preview shows exactly what prints.
-- **Dates and times:** always dd.mm.yyyy and hh:mm (24 h), typed into text fields with a pattern; a picker button opens the browser picker (components.js). ISO on the wire.
+- **Dates and times:** see Ground rules → Dates and times.
 - **Waiting:** an unknown length (spinner) only for operations under 3 s; everything longer shows what runs and how far (count and percent), updated as it runs.
 - **Headings never ALL UPPERCASE.**
 - Look: 40 px controls, every button with `radius-control`, icon-only buttons square as well, 12 px panels.
@@ -118,7 +118,13 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **Key hints on desktop**: a button with a shortcut shows it as a `kbd` after its text; an icon-only button names it in its tooltip (`Mute (m)`). Nav links show no keys (places are in the palette); Settings is `Ctrl ,`. Tabs, pager, chips and labels show none. Menu rows show their key; palette rows do not (typing goes into the search).
 - **Keys**: `c` create, `e` edit, `Del` delete, `j`/`k` rows, `Enter` open, `Esc` leaves a field, closes, or goes one breadcrumb up, `?` help, `Ctrl K` palette, `Ctrl ,` settings. Every shortcut also has a visible control. `?` lists only what works on this view. Handled keys never type into fields. Options of a form (checkboxes, radios, choices a user votes on) get no letter or digit keys. Shortcuts need at most Shift on a German/Austrian ISO layout: never brackets, braces, backslash, `@` or anything behind AltGr. Phones show no key hints.
 
-### Pages and content
+### Dates and times
+
+- **Shown** to the user always as `dd.mm.yyyy` and `hh:mm:ss` in 24 h (`27.11.2026 14:05:00`), in lists, details and forms alike, in the user's time zone. Never the US order, never AM/PM, never ISO on screen. Recent events may read relative ("2 h ago") with the exact date and time in `title`. Durations `h:mm`.
+- **Entered**: every date or time field is a text field the user can always type into by hand, `dd.mm.yyyy` and `hh:mm:ss` (24 h), with a pattern, a sample as placeholder and the usual one-line error naming the valid form. A picker button beside it opens the browser's own picker (`components.js`) and writes the choice back in the same form. The picker is a help, never the only way in.
+- **Sent** to the server always as RFC 3339 **with the time zone offset**, never without: `2026-11-27T14:05:00+01:00`. The offset is the user's zone (the browser's) at that date, so summer time is right. A value without an offset is refused by the server, not guessed. The page converts on submit; the text field the user sees keeps the local form.
+- **Stored and passed between apps** as RFC 3339 with the offset; the server renders it back in the user's zone.
+
 
 - **Header**: logo left; right the Commands button (`terminal`, `Ctrl K`; opens the palette, searching is one of its commands; icon only on phones) and the user menu (the avatar: who, theme, language, the app's rows (shortcuts are in the footer), then Settings and Sign out after a line, fixed in every app). Apps that work offline add their sync state before Commands, a status: synced (with the time in its title), syncing n of m with percent and a progress bar, offline · n waiting, sync failed; on phones only the dot. Sign out is a POST form, never a GET link. Nothing else loose in the header. Settings is never a nav item. Apps without a palette (call) show no Commands button.
 - **Footer**: at the end of every page with a signed-in user, small and muted under a hairline. Left the product `][◆ nobloat/<app>` (links to nobloat.org) and its version (links to its changelog entry); right `?` shortcuts (desktop only), support (`support` icon; a new issue with page, version and browser filled in) and source. Nothing else.
@@ -146,7 +152,7 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 - **Session**: no session bar; sessions slide, forms autosave, and an expired session sends the user to sign in and back to the same page.
 - **Ids** look like ticket keys: a type key of 3 uppercase letters, a hyphen, the number or slug in uppercase (`CUS-0042`, `INV-2026-0042`, `ERR-7F3A9C12`); each type key means one thing across all apps; shown as code with a copy button, used in URLs, search, logs and mails; search matches them case-insensitively. Legal or human numbers (invoice number 2026-0042) are separate fields.
 - **Deep links: the URL is the UI state.** Everything a user can set up or open is in the URL, so reload, Back, a bookmark or a sent link shows the same view; not in it: preferences, secrets, passing states (hover, focus). Search, filters, sort, page, tab, period are query parameters the server renders (defaults omitted); every control that changes the view is a link or a GET form. Create forms take their fields from the query (other apps and mails link instead of copying data); a link never chooses roles, groups or permissions. The open dialog, the selected row and an anchor are the hash. Objects have one canonical URL with their id; a POST answers with a redirect.
-- **Money** always with the currency, a real minus sign; inputs with the unit as an affix. **Dates** ISO in lists, recent events relative; durations `h:mm`.
+- **Money** always with the currency, a real minus sign; inputs with the unit as an affix.
 - **Tags** are tinted pills in a user-chosen colour from preset swatches safe on light and dark; the text keeps full contrast.
 - **Dialog**: for one decision or one or two fields, anything longer is a page. A title that asks or names the task, × top right, one action at the end; no Cancel button: Esc, the backdrop and × cancel, Enter takes the action (it has the focus on open). On a phone it comes up from the bottom.
 - **Menu**: actions that do not fit beside the title, from the third on, behind "More" (popover, no script). Rows: icon, name, key; a dangerous row last after a line, its icon in `danger`. On a phone a bottom sheet without keys.
@@ -176,6 +182,7 @@ Never report "built but not looked at". If a check could not run, finish it befo
 ### Iteration: how a new part enters the system
 
 1. **Propose**: five designs on `proposals.html`, each its own section with a letter (A–E), derived from the existing foundations and components (same tokens, same patterns); they differ in real choices (structure, density, framing), not in shades. Each shows desktop and phone, light and dark, with realistic content from the apps. No captions beyond a one-line name per proposal.
+   Then open them for the owner yourself (`start proposals.html#<part>` on Windows, `open` on macOS, `xdg-open` on Linux); never only name the file.
 2. **Pick**: the owner picks one or more; the rest are deleted.
 3. **Refine**: iterate on the picked ones with the owner's comments, one round at a time, until the owner says it is done. Do not ask questions the proposals can answer; show instead.
 4. **Release**: on the owner's word the part moves into its layer (`components.css`, `composed.css` or `shell.css`), its specimen into `components.html` or `shell.html`, its rule into this file, and leaves `proposals.html` and `proposals.css`.
@@ -216,3 +223,4 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
   - [ ] buttons `.round`, `.ico` and the small type: default, primary, danger; icon-only and toggle as shapes
   - [ ] footer credits `nobloat/<app>` only: product, version to the changelog, `?`, support, source
   - [ ] sign out icon `log-out`: `power`
+  - [ ] date and time fields: `hh:mm:ss`, and RFC 3339 with the offset on the wire (today `components.js` takes `hh:mm` and posts the typed text; the apps post the date without a zone)
