@@ -61,3 +61,11 @@ since we have so many issues with penpot, let's do this in html? · this should 
 can you delete all legacy stuff from the ui module? · do that. what is the actual skill file that now has all the valid rules?
 
 (Decided: `penpot/` and the Penpot parts of `skill/design-system.md` are removed; the file now describes the HTML working surface. The old gallery (`pages/`, `examples/`, `screenshots/`, `index.html`) stays until `ui.css` is streamlined, because the apps, `ui_test.go`, `check.mjs` and CI still use it; its removal is on the to-do list.)
+
+---
+
+## 2026-11-27 — web components, typed UI descriptions, auth screens, the system on the index
+
+[TODO.md: web components with defined properties, modular so each app grabs what it needs, no npm or build tools · auth screens · index: the system below the introduction] · packages per level (tokens, components, blocks, shell), easy to grab; a Go based "build" that smartly copies is fine · check attributes, obviously · screens here in ui, all of them · not everything is a skill, some are just components · on index.html · define user interfaces via a code description, type checked, that knows how to stitch the UI together · let's iterate over ideas and rough directions first · A (Go values) sounds really good · we can still render copyable fragments for apps not in Go? · can't we include JSDoc comments? · also we can then ditch check.mjs, since we can enforce the rules in Go? · all 8, but directly on main; commit all that is there and push before we start
+
+(Decided in `PLAN.md`, all eight open questions with their defaults, work on `main`: screens as Go values rendered by one `html/template` per part, open slots, assets from usage, a generated showcase, light-DOM custom elements only with behaviour, parts in level folders copied by `nbui`; fragments, VS Code HTML data and JSDoc typedefs for apps not in Go; structure enforced by the types, `check.mjs` reduced to what needs a browser.)
