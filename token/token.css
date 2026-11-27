@@ -14,6 +14,7 @@
   --ok: #5f8a2e; --warn: #c2620a; --danger: #dc2626; --info: #3b82f6; --disabled: #7c7c85;
   --text-on-danger: #fff;
   /* typography: emphasis is weight 600, never another size */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* the one family: the system monospace */
   --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
   --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 1.0625rem/1.65 ui-serif, serif;
   --measure: 90ch; /* the longest line of running text, in the width of its own font */

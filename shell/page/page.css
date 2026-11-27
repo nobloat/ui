@@ -1,0 +1,4 @@
+/* page: the app header (with the nav) on top, then main (the page head, then the page's blocks) at a readable width, the
+   footer at the end, at the bottom of the window when the page is short. A specimen of a page uses .app-main, a page has one <main>. */
+.app-page { display: grid; grid-template-rows: auto 1fr auto; min-block-size: 100dvh; background: var(--background); }
+.app-page > :is(main, .app-main) { container-type: inline-size; inline-size: 100%; max-inline-size: calc(var(--size-control) * 30); margin-inline: auto; padding: 0 var(--space-16) var(--space-32); box-sizing: border-box; }

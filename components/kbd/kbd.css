@@ -1,0 +1,3 @@
+/* key hint after the text, desktop only */
+.kbd { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4) var(--icon-nudge); box-sizing: border-box;
+  border: var(--border); border-radius: var(--space-4); font: var(--small); line-height: 1; color: var(--muted); }

@@ -6,9 +6,10 @@ Rules for any agent working on the nobloat design system. Read all of it before 
 
 A reusable, sustainable design system to design new nobloat apps quickly, UI and UX.
 
-- **Working surface:** `foundations.html`, `components.html` and `blocks.html` in the repo root, plain HTML (open in a browser, nothing to build). Tokens in `token.css`, components in `components.css` (layer 1), blocks in `blocks.css` (2), the shell's page layout in `shell.css` (3) and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
+- **Working surface:** `foundations.html`, `components.html` and `blocks.html` in the repo root, HTML (open in a browser). Tokens in `token/token.css` (base rules on elements in `token/base.css`), components in `components.css` (layer 1), blocks in `blocks.css` (2), the shell's page layout in `shell.css` (3); a part that has been split out lives in its own folder (Parts and typed pages, below), and the layer file imports it and `components.js`, the page frame in `showcase.css` and `showcase.js`. Each foundation and each group of components is a section, linked from the sticky bar; the two pages link to each other at the top.
 - **One source for the rules: this file.** Every design and UX rule lives here and nowhere else. The others only show or use them: `foundations.html`, `components.html`, `blocks.html`, `shell.html` and `documents.html` show specimens, `index.html` gives the overview (philosophy, principles, architecture), `skill/SKILL.md` tells an app which markup and API carry a rule and links here, `README.md` covers setup. Never restate a rule elsewhere; link to its section. Where today's `ui.css` does not follow a rule yet, that is an item under To do → Rollout, not a second rule.
 - When the components are complete, `ui.css` is streamlined once to match (old token names as temporary aliases, then every app via `make ui`) and the old gallery (`pages/`, `examples/`, `screenshots/`) goes.
+- **Parts and typed pages** (`PLAN.md`): each part is a folder `<level>/<part>/` with its CSS, its template (`<part>.html`) and, only with behaviour, its JS; its Go type (`<part>.go`, package `ui`) is its API: the fields are its properties, `Render` refuses what the rules forbid (a button without an icon, a second primary, a field without a label, a pattern without an example, an id twice). A page is a Go value; `ui.Assets` builds the CSS and JS from what the pages render. Specimens are Go values in `showcase/specimens.go`, rendered by its test to `showcase/sample/`. Until phase 2 of the plan generates them, `components.html`, `blocks.html` and `shell.html` stay hand-written.
 - `ui.css`, `ui.js`, `partials.html` and `skill/SKILL.md` are not changed as part of design system work unless the owner asks.
 
 ### Keeping it in sync
@@ -17,9 +18,9 @@ Every change touches all of its places in one commit. The check in the last colu
 
 | Change | Also | Check |
 |---|---|---|
-| New icon | `icons/<name>.svg` (README: Adding an icon), `go test -update` (sprite, `icons.css`, `ui.css`), the grid in `foundations.html`; a row in the icon map below if it means an action or place | `TestIcons` (style, generated files) |
-| New or changed token | `token.css`, its section in `foundations.html` (name and value once), light and dark | `TestTokensDefined` |
-| New component | its layer's file only (table under Layers), built from tokens and lower layers; a specimen with its HTML on `components.html` (`blocks.html` for a block, including the frame's parts; `shell.html` shows whole pages); the layer list in `index.html` if it adds a kind | `TestTokensOnly` (no raw length, duration, opacity or colour), `check.mjs` |
+| New icon | `icons/<name>.svg` (README: Adding an icon), `go test -update` (sprite, `icons.css`, `ui.css`, `icons_gen.go`), the grid in `foundations.html`; a row in the icon map below if it means an action or place | `TestIcons` (style, generated files) |
+| New or changed token | `token/token.css`, its section in `foundations.html` (name and value once), light and dark | `TestTokensDefined` |
+| New component | its folder `<level>/<part>/` (CSS, template, JS only with behaviour) and its Go type `<part>.go`, imported by its layer's file until the split is done (table under Layers); a specimen in `showcase/specimens.go` once it has a type, built from tokens and lower layers; a specimen with its HTML on `components.html` (`blocks.html` for a block, including the frame's parts; `shell.html` shows whole pages); the layer list in `index.html` if it adds a kind | `TestTokensOnly` (no raw length, duration, opacity or colour), `check.mjs` |
 | New or changed rule | this file only; specimens that show it; SKILL.md only if the markup or API changes; a Rollout item if `ui.css` does not follow it yet | – |
 | New page type, layer or file | `index.html` (architecture, layer graph, links) | `check.mjs` loads `index.html` |
 | Anything on the design system pages | light and dark, 320 px to desktop | `check.mjs` (layout, contrast, names, icons on buttons) |
@@ -67,10 +68,10 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 
 | # | Layer | Where | Built only from |
 |---|---|---|---|
-| 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token.css` | – |
-| 1 | Components: button, forms (incl. one-time code and editable field), labels (incl. avatar), feedback, data, navigation, arrow and upload | `components.css` | tokens |
+| 0 | Foundations: colours, typography, spacing, radius and borders, sizes, icons, elevation, motion | `token/token.css`, `token/base.css` | – |
+| 1 | Components: button, forms (incl. one-time code and editable field), labels (incl. avatar), feedback, data, navigation, arrow and upload | `components/<part>/`, the rest still in `components.css` | tokens |
 | 2 | Blocks: the frame's parts (app header with nav, user menu and sync state, page head, app footer); dialog, menu and bottom sheet, card, stat tile, bulk bar, command palette, board columns, calendar (week, month), settings section; each a bigger piece built from components and other blocks (no cycles), shown on `blocks.html` | `blocks.css` | components, blocks |
-| 3 | Shell: places blocks into pages, no parts of its own: the page (header, main at a readable width, footer at the bottom), phone layout, and the page templates (list, detail, form, dashboard, settings; errors are the page without nav and user menu, which auth's sign in also uses), shown on `shell.html` | `shell.css`; templates in `partials.html` | blocks |
+| 3 | Shell: places blocks into pages, no parts of its own: the page (header, main at a readable width, footer at the bottom), phone layout, and the page templates (list, detail, form, dashboard, settings; errors are the page without nav and user menu, which auth's sign in also uses), shown on `shell.html` | `shell/<part>/` (the page), the rest still in `shell.css`; templates in `partials.html` | blocks |
 | – | Documents: invoice, letter, report, help page (print) | `documents.css` | foundations |
 
 - **One shell** for every app; no second frame. Apps are outside `ui/` and fill the templates. An app never restyles a ui component (not `body` either), never reuses a ui class name for its own parts, and its own CSS uses tokens only.
@@ -230,6 +231,8 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
 - [ ] Touch targets: 24 px (today) or 44 px on phones
 
 **Rollout**
+- [ ] Split every part into its folder with a Go type and specimens (PLAN.md phase 2); then generate `components.html`, `blocks.html`, `shell.html`, `fragments/`, `nb.html-data.json`, `ui.types.js`
+- [ ] Apps move to typed pages one at a time, auth first: `go -C ../ui run ./cmd/nbui copy -to ../<app>/ui` and `ui.WriteAssets` in the app's test
 - [ ] Streamline `ui.css` to the foundations and components; old token names as aliases; `make ui` in every app
 - [ ] Apps: `icon-mic off`, `icon-camera off` (call), `icon-user off` (asq, tasq, auth); dates as dd.mm.yyyy text fields; long operations report progress
 - [ ] Remove the old gallery (`pages/`, `examples/` with its `examples/index.html`, `screenshots/`) once nothing uses it; the overview `index.html` in the repo root stays and is kept current

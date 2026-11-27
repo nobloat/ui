@@ -1,0 +1,3 @@
+{{define "in"}}<i class="icon-{{.Icon}}" aria-hidden="true"></i>{{if not .IconOnly}}<span>{{.Label}}</span>{{if .Key}}<kbd class="kbd">{{.Key}}</kbd>{{end}}{{end}}{{end -}}
+{{if .Href}}<a class="{{.Class}}" href="{{.Href}}"{{if .Key}} data-key="{{.Key}}"{{end}}{{if .Title}} aria-label="{{.Title}}" title="{{.Title}}"{{end}}>{{template "in" .}}</a>
+{{- else}}<button type="{{.Type}}" class="{{.Class}}"{{if .Name}} name="{{.Name}}" value="{{.Value}}"{{end}}{{if .Key}} data-key="{{.Key}}"{{end}}{{if .Title}} aria-label="{{.Title}}" title="{{.Title}}"{{end}}>{{template "in" .}}</button>{{end}}

@@ -1,0 +1,171 @@
+/* nobloat/ui, generated from the app's pages by ui.Assets: do not edit */
+
+/* token/token.css */
+/* nobloat foundations: the tokens. Proposal; ui.css is streamlined to match once the foundations are done.
+   light-dark() resolves where a colour is used, so a panel can set its own color-scheme. */
+:root {
+  /* colours: three sources per mode, the rest derived (neutral mixes in OKLab keep greys grey) */
+  --background: light-dark(#f6f6f5, #18191b); --surface: light-dark(#fff, #1f2022); --text: light-dark(#1b1c1e, #e5e5e4);
+  --line: color-mix(in oklab, var(--text) 10%, var(--background)); /* dividers, borders, chip fill, hover */
+  --muted: color-mix(in oklab, var(--text) 67%, var(--background)); /* secondary text, field edges */
+  --brand: #18181b; /* the one colour an app sets; nobloat itself is monochrome, its near black (nobloat.org) */
+  /* accent: the brand, adapted only where it would fail: OKLCH lightness at most .52 in light, at least .72 in dark */
+  --accent: light-dark(oklch(from var(--brand) min(l, .52) c h), oklch(from var(--brand-dark, var(--brand)) max(l, .72) c h)); /* --brand-dark: optional, the brand on dark */
+  --selected: color-mix(in oklab, var(--accent) 7%, var(--background));
+  --text-on-accent: light-dark(#fff, var(--background));
+  /* states: one colour for both modes, for dots, icons and edges; the word next to it stays in --text */
+  --ok: #5f8a2e; --warn: #c2620a; --danger: #dc2626; --info: #3b82f6; --disabled: #7c7c85;
+  --text-on-danger: #fff;
+  /* typography: emphasis is weight 600, never another size */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* the one family: the system monospace */
+  --title: 600 2rem/1.2 var(--mono); --heading: 600 1.5rem/1.2 var(--mono); --subheading: 600 1.125rem/1.3 var(--mono);
+  --body: 400 .875rem/1.6 var(--mono); --small: 400 .75rem/1.6 var(--mono); --prose: 400 1.0625rem/1.65 ui-serif, serif;
+  --measure: 90ch; /* the longest line of running text, in the width of its own font */
+  /* spacing: four steps, each double the last */
+  --space-4: .25rem; --space-8: .5rem; --space-16: 1rem; --space-32: 2rem;
+  /* radius, strokes and borders: three corners, two stroke widths, one line, one focus ring */
+  --radius-control: .375rem; --radius-panel: .75rem; --radius-round: 999px;
+  --stroke-thin: 1px; --stroke-thick: 2px;
+  --border: var(--stroke-thin) solid var(--line); --border-field: var(--stroke-thin) solid var(--muted); --focus: var(--stroke-thick) solid var(--accent);
+  --underline-offset: .2em; /* links: underline stroke-thin, stroke-thick on hover */
+  /* sizes */
+  --size-control: 2.5rem; --size-control-small: 1.5rem; /* small also the smallest target */
+  --size-icon: 1rem; --icon-nudge: .125em; /* icons sit on the text; 1em = the text size */
+  /* mixes: a tint (hover, tinted fill) and an edge (pressed, tinted border); a colour mixed into a surface by one of them */
+  --mix-tint: 8%; --mix-edge: 30%;
+  --opacity-disabled: .45; /* a disabled control steps back as a whole */
+  /* page: A4 documents; DIN 5008 form B for the address window; print type in pt */
+  --page-width: 210mm; --page-height: 297mm; --page-margin: 20mm; --page-margin-left: 25mm;
+  --window-top: 45mm; --window-left: 20mm; --window-width: 85mm; --window-height: 45mm; --info-left: 125mm;
+  --print-title: 600 22pt/1.15 var(--mono); --print-heading: 600 13pt/1.25 var(--mono); --print-body: 400 10.5pt/1.45 ui-serif, serif;
+  --print-data: 400 9pt/1.45 var(--mono); --print-small: 400 7.5pt/1.4 var(--mono);
+  /* elevation: flat by default; three levels, each a shadow and a stacking order */
+  --shadow-raised: 1px 1px 2px color-mix(in oklab, var(--text) 10%, transparent); --layer-raised: 10; /* light from the top left */
+  --shadow-floating: .25rem .25rem 1rem color-mix(in oklab, var(--text) 14%, transparent); --layer-floating: 20;
+  --shadow-modal: 1rem 1rem 2rem color-mix(in oklab, var(--text) 22%, transparent); --layer-modal: 30;
+  --shade: #000; /* stays dark in both modes: dims the page behind a modal, darkens a pressed danger fill */
+  /* motion: two durations, one easing; only state changes and overlays move */
+  --duration-fast: 150ms; --duration-slow: 250ms; --ease: cubic-bezier(.2, 0, 0, 1); --duration-spin: .8s;
+  --duration-read: 5s; /* how long a message that closes by itself stays; reduced motion keeps it */
+  --bg: var(--background); --fg: var(--text); /* ui.css still reads --bg and --fg */
+}
+
+/* type roles as classes: a role is more than a font */
+.t-title { font: var(--title); } .t-heading { font: var(--heading); } .t-subheading { font: var(--subheading); }
+.t-body { font: var(--body); } .t-small { font: var(--small); color: var(--muted); }
+.t-prose { font: var(--prose); text-align: justify; hyphens: auto; text-wrap: pretty; max-width: var(--measure); }
+.t-prose strong { font-weight: 600; }
+
+/* motion utilities */
+.spin { animation: spin var(--duration-spin) linear infinite; }
+@keyframes spin { to { rotate: 1turn; } }
+@media (prefers-reduced-motion: reduce) { :root { --duration-fast: 0ms; --duration-slow: 0ms; --duration-spin: 2.4s; } }
+
+/* token/base.css */
+/* base: the only rules on plain elements; everything else is a part. The theme radios pin the scheme (components: theme switch). */
+:root { color-scheme: light dark; }
+html { overflow-x: clip; } /* never a sideways scrollbar (clip keeps sticky working) */
+body { margin: 0; font: var(--body); background: var(--background); color: var(--text); overflow-wrap: break-word; }
+[hidden] { display: none !important; }
+
+/* icons */
+:is([class^="icon-"], [class*=" icon-"]) { display: inline-block; width: 1em; height: 1em; flex: none; vertical-align: -.125em; background: currentColor; mask: var(--icon) center / contain no-repeat; } :is([class^="icon-"], [class*=" icon-"]).off { --icon-slash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.25' stroke-linecap='square'%3E%3Cpath d='M2.5 2.5l11 11'/%3E%3C/svg%3E"); --icon-slash-gap: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='3.25' stroke-linecap='square'%3E%3Cpath d='M2.5 2.5l11 11'/%3E%3C/svg%3E"); mask: var(--icon-slash) center / contain no-repeat, var(--icon) center / contain no-repeat, var(--icon-slash-gap) center / contain no-repeat; mask-composite: add, subtract, add; } /* .off strikes any icon through: <i class="icon-mic off"> */ :is([class^="icon-"], [class*=" icon-"]).fw { width: 1.25em; } /* .fw: fixed width, so text after icons lines up in menus and lists */
+:where(:root) {
+  --icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M3 8.5l3 3 7-7'/%3E%3C/svg%3E");
+  --icon-error: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Crect x='2' y='2' width='12' height='12' rx='1.5'/%3E%3Cpath d='M5.9 5.9l4.2 4.2M10.1 5.9l-4.2 4.2'/%3E%3C/svg%3E");
+  --icon-x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.25' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M4 4l8 8M12 4l-8 8'/%3E%3C/svg%3E");
+}
+.icon-check { --icon: var(--icon-check); }
+.icon-error { --icon: var(--icon-error); }
+.icon-x { --icon: var(--icon-x); }
+
+/* components/button */
+/* button: always an icon before the text; one primary per page; states are not variants */
+.button {
+  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
+  height: var(--size-control); min-width: var(--size-control); padding: 0 calc(var(--space-16) + var(--space-8)); /* 24 px sides */
+  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
+  font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
+  transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+  --hover: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); --pressed: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint));
+}
+.button > i { font-size: 1em; } /* the icon takes the text size, so it lines up with the capitals */
+.button:not(:disabled, [aria-disabled="true"]):hover { background: var(--hover); }
+.button:not(:disabled, [aria-disabled="true"]):active { background: var(--pressed); }
+.button.primary:not(:disabled, [aria-disabled="true"]):hover { box-shadow: var(--shadow-raised); } .button.primary:active { box-shadow: none; } /* hover lifts it a little, pressing puts it down */
+.button:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
+
+/* filled: one strong action; the fill carries the weight, the text stays 400 */
+.button:is(.primary, .danger) { border-color: transparent; }
+.button.primary { background: var(--accent); color: var(--text-on-accent);
+  --hover: color-mix(in oklab, var(--accent), var(--text-on-accent) calc(var(--mix-tint) * 2)); --pressed: color-mix(in oklab, var(--accent), var(--text-on-accent) var(--mix-edge)); } /* toward its own label colour: visible on any brand, light or dark */
+.button.danger { background: var(--danger); color: var(--text-on-danger);
+  --hover: color-mix(in oklab, var(--danger), var(--shade) var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), var(--shade) var(--mix-edge)); }
+
+/* a button inside another component (picker, id, message) takes its look from there: no frame, small; there is no quiet or small type */
+:is(.picker, .object-id, .message) > .button { height: var(--size-control-small); border-color: transparent; background: transparent; }
+
+/* toggle: aria-pressed="true" (mute, pin, favourite) */
+.button[aria-pressed="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent);
+  --hover: color-mix(in oklab, var(--selected), var(--accent) var(--mix-tint)); --pressed: color-mix(in oklab, var(--selected), var(--accent) var(--mix-edge)); }
+
+/* sizes and shape */
+.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; } .button.icon-only > i { font-size: calc(var(--size-icon) + var(--space-4)); }
+
+.button:is(:disabled, [aria-disabled="true"]) { opacity: var(--opacity-disabled); cursor: not-allowed; } .button[aria-disabled="true"] { pointer-events: none; }
+/* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
+.button[aria-busy="true"] { cursor: progress; } /* busy is also disabled (aria-disabled, set with it): one run at a time */ .button[aria-busy="true"]::after { content: none; }
+.button[aria-busy="true"] > i { mask: none; background: none; border: var(--stroke-thick) solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }
+
+.button > .kbd { margin-left: var(--space-4); border-color: color-mix(in oklab, currentColor var(--mix-edge), transparent); color: inherit; }
+
+/* a row of buttons */
+.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
+
+/* phones (narrow container): no key hints; create, edit, delete and copy show only the icon; the primary spans the width */
+@container (max-width: 40rem) {
+  .button > .kbd { display: none; }
+  .button.phone-icon > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .button.phone-icon { min-width: 0; aspect-ratio: 1; padding: 0; }
+  .button.primary { flex: 1 1 100%; }
+}
+
+/* components/field */
+/* field: label above, the control, then one line of hint or error */
+.field { display: grid; gap: var(--space-4); font: var(--body); color: var(--text); }
+.field * { font-weight: 400; } /* labels are not bold here, whatever the page sets */
+.field > .field-label { font: var(--body); }
+.field > .field-hint { font: var(--small); color: var(--muted); }
+/* error: a tinted strip attached to the bottom of the field, so it visibly belongs to it */
+.field > .field-error { margin-top: calc(var(--space-4) * -1); padding: var(--space-4) var(--space-8); border: var(--stroke-thin) solid var(--danger); border-top: 0; border-radius: 0 0 var(--radius-control) var(--radius-control); background: color-mix(in oklab, var(--danger) var(--mix-tint), var(--background)); font: var(--small); color: var(--text); }
+.field > .field-error > i { margin-right: var(--space-4); color: var(--danger); }
+.field > .field-error > span { color: var(--muted); }
+.input {
+  all: unset; box-sizing: border-box; width: 100%; height: var(--size-control); padding: 0 var(--space-8) 0 calc(var(--space-8) + var(--space-4));
+  border: var(--border-field); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--body);
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+.input::placeholder { color: var(--muted); opacity: 1; } /* a realistic sample of the expected value; muted reaches 4.5:1 */
+textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
+.input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+/* focus shows on the border (no outline ring), as for every field */
+.input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 var(--stroke-thin) var(--accent); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.input[aria-invalid="true"]:has(+ .field-error) { border-radius: var(--radius-control) var(--radius-control) 0 0; }
+.input[readonly] { border-style: dashed; background: transparent; }
+
+/* components/form */
+/* form: the fields stacked, then the row of its actions */
+.form { display: grid; gap: var(--space-16); }
+.form > .buttons { margin-top: var(--space-8); }
+
+/* components/kbd */
+/* key hint after the text, desktop only */
+.kbd { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4) var(--icon-nudge); box-sizing: border-box;
+  border: var(--border); border-radius: var(--space-4); font: var(--small); line-height: 1; color: var(--muted); }
+
+/* shell/page */
+/* page: the app header (with the nav) on top, then main (the page head, then the page's blocks) at a readable width, the
+   footer at the end, at the bottom of the window when the page is short. A specimen of a page uses .app-main, a page has one <main>. */
+.app-page { display: grid; grid-template-rows: auto 1fr auto; min-block-size: 100dvh; background: var(--background); }
+.app-page > :is(main, .app-main) { container-type: inline-size; inline-size: 100%; max-inline-size: calc(var(--size-control) * 30); margin-inline: auto; padding: 0 var(--space-16) var(--space-32); box-sizing: border-box; }

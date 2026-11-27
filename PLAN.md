@@ -71,9 +71,9 @@ func Assets(c *Ctx) (css, js []byte)
 ```
 
 ```
-nbui gen                       showcase pages, fragments, nb.html-data.json, ui.types.js
-nbui copy -to <app>/ui         Go package + assets into the app, unchanged
-nbui copy -to <app>/ui -check  fails if the copy differs
+go -C ../ui run ./cmd/nbui gen                       showcase pages, fragments, nb.html-data.json, ui.types.js
+go -C ../ui run ./cmd/nbui copy -to ../<app>/ui         Go package + assets into the app, unchanged
+go -C ../ui run ./cmd/nbui copy -to ../<app>/ui -check  fails if the copy differs
 ```
 
 ## Checks
@@ -91,7 +91,7 @@ nbui copy -to <app>/ui -check  fails if the copy differs
 
 ## Phases
 
-1. **Core:** `Node`, `Ctx`, `Text`, icon constants, `Assets`, `nbui gen` and `copy`; tokens; button, field, form and the bare page, with specimens and tests.
+1. **Core** (done 2026-11-27): `Node`, `Ctx`, `Text`, icon constants (`icons_gen.go`), `Render`, `Assets` and `WriteAssets`, `nbui copy`; `token/token.css` and `token/base.css`; button, kbd, field, form and the bare page, split out of the layer files (which import them, so the showcase pages are unchanged); the specimens render to `showcase/sample/`; `TestRules` shows what cannot be built. `nbui gen` comes with phase 2, when there are pages to generate.
 2. **Every released part:** components and blocks split out of `components.css`, `blocks.css`, `shell.css` and `components.js` into part folders, with types and specimens; the showcase pages generated; fragments, HTML data, typedefs. Today's `ui.css`, `ui.js` and `partials.html` stay for the apps until each migrates.
 3. **Auth screens, all of them,** as Go values rendered to HTML: sign in, TOTP, forgot, setup, token, apps (portal), account, history, users, user, new user, roles, role, SAML, sign out, message, error. Parts they need that are not released yet go through the iteration (proposals, pick, refine, release) first, one at a time.
 4. **Index:** "The system" on `index.html`, after Architecture (see below).

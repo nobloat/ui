@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="{{.Lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{.Title}}{{if .App}} · {{.App}}{{end}}</title>
+<link rel="stylesheet" href="{{.Static}}ui.css">
+{{if .JS}}<script src="{{.Static}}ui.js" defer></script>
+{{end}}</head>
+<body>
+<div class="app-page"><main id="main"><h1 class="t-title">{{.Title}}</h1>{{.Main}}</main></div>
+</body>
+</html>

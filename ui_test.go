@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go/format"
 	"html/template"
 	"math"
 	"os"
@@ -21,38 +22,38 @@ import (
 
 var update = flag.Bool("update", false, "rewrite examples/*.html")
 
-type Brand struct{ App, Char, Name, Color, ColorDark, Logo, LogoDark, Icon, Design string }
-type Link struct {
+type exBrand struct{ App, Char, Name, Color, ColorDark, Logo, LogoDark, Icon, Design string }
+type exLink struct {
 	Href, Label, Key string
 	On               bool
 }
 
 // Action and ErrorInfo: what an app passes as .Error to nb-error (partials.html documents the fields)
-type Action struct {
+type exAction struct {
 	Href, Label, Icon, Key string
 	Palette                bool
 }
-type ErrorInfo struct {
+type exErrorInfo struct {
 	Code                   int
 	What, Need, Limit, Ref string
 	Groups                 []string
 	Retry                  int
-	Actions                []Action
+	Actions                []exAction
 }
-type Page struct {
-	Error                                      *ErrorInfo
+type exPage struct {
+	Error                                      *exErrorInfo
 	Lang, Title, Here, Q, Version, Err, Notice string
-	Brand                                      Brand
-	Nav                                        []Link
+	Brand                                      exBrand
+	Nav                                        []exLink
 	Search, SearchAPI                          string
 	User, UserURL, LogoutURL, SettingsURL      string
-	Crumbs                                     []Link
+	Crumbs                                     []exLink
 	SessionEnd, SessionRenew                   string
 	Texts                                      map[string]string
 	texts                                      map[string]string
 }
 
-func (p Page) T(key string, args ...any) string {
+func (p exPage) T(key string, args ...any) string {
 	if s, ok := p.texts[key]; ok {
 		return fmt.Sprintf(s, args...)
 	}
@@ -115,37 +116,37 @@ func TestExamples(t *testing.T) {
 			return Columns(title, strings.Fields(labels), v, eur)
 		}}
 		tpl := template.Must(template.Must(template.New("").Funcs(funcs).ParseFiles("partials.html")).ParseFiles(p))
-		nav := []Link{{"index.html", "Gallery", "a", false}, {"dashboard.html", "Dashboard", "b", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
+		nav := []exLink{{"index.html", "Gallery", "a", false}, {"dashboard.html", "Dashboard", "b", false}, {"list.html", "Customers", "c", false}, {"detail.html", "Detail", "d", false},
 			{"form.html", "Form", "f", false}, {"dates.html", "Formats", "t", false}, {"week.html", "Week", "w", false}, {"month.html", "Month", "m", false}, {"icons.html", "Icons", "i", false}}
 		for i := range nav {
 			nav[i].On = nav[i].Href == name
 		}
-		page := Page{Lang: "en", Here: "/" + name, Version: "v1 (3f2a9c1)", Texts: js, texts: texts, Nav: nav,
-			Brand:  Brand{App: "demo", Char: "◆"},
+		page := exPage{Lang: "en", Here: "/" + name, Version: "v1 (3f2a9c1)", Texts: js, texts: texts, Nav: nav,
+			Brand:  exBrand{App: "demo", Char: "◆"},
 			Search: "list.html", SearchAPI: "/api/search", User: "peter", UserURL: "settings.html", LogoutURL: "login.html", SettingsURL: "settings.html"}
 		if src, _ := os.ReadFile(p); bytes.Contains(src, []byte("nb-bare")) { // public pages: no nav, search or user
 			page.Nav, page.Search, page.User, page.LogoutURL, page.SettingsURL = nil, "", "", "", ""
 		}
-		page.Crumbs = map[string][]Link{
+		page.Crumbs = map[string][]exLink{
 			"detail.html": {{Href: "list.html", Label: "Customers"}, {Label: "ACME GmbH"}},
 			"form.html":   {{Href: "list.html", Label: "Customers"}, {Href: "detail.html", Label: "ACME GmbH"}, {Label: "Edit"}},
 			"week.html":   {{Href: "month.html", Label: "November 2026"}, {Label: "Week 45"}},
 		}[name]
 		page.Title = map[string]string{"index.html": "Gallery", "icons.html": "Icons", "dashboard.html": "Dashboard", "400.html": "Bad request", "401.html": "Signed out", "403.html": "No access", "404.html": "Not found", "409.html": "Changed elsewhere", "410.html": "Link expired", "413.html": "Too large", "429.html": "Slow down", "500.html": "Error", "503.html": "Unavailable", "list.html": "Customers", "detail.html": "ACME GmbH", "form.html": "New customer",
 			"settings.html": "Settings", "status.html": "Status", "login.html": "Log in", "dates.html": "Formats", "week.html": "Week 45", "month.html": "November 2026"}[name]
-		home, account := Action{"dashboard.html", "Dashboard", "dashboard", "", false}, Action{"settings.html", "Your account", "user", "", false}
-		signin := Action{"login.html", "Sign in", "log-in", "", false}
-		page.Error = map[string]*ErrorInfo{
-			"400.html": {Code: 400, Actions: []Action{{"list.html", "Back to customers", "arrow-left", "", false}, home}},
-			"401.html": {Code: 401, Actions: []Action{signin}},
-			"403.html": {Code: 403, Need: "the admin role", Groups: []string{"acme-editor"}, Actions: []Action{home, account, {"login.html", "Sign in as someone else", "log-in", "", false}}},
-			"404.html": {Code: 404, What: "customer CUS-9999", Actions: []Action{{"list.html", "All customers", "users", "", false}, {Label: "Search", Icon: "search", Palette: true}}},
-			"409.html": {Code: 409, Actions: []Action{{"", "Reload", "refresh", "", false}, {"detail.html", "ACME GmbH", "arrow-left", "", false}}},
-			"410.html": {Code: 410, Actions: []Action{{"index.html", "Newsletter home", "mail", "", false}}},
-			"413.html": {Code: 413, Limit: "25 MB", Actions: []Action{{"form.html", "Back to the upload", "upload", "", false}}},
-			"429.html": {Code: 429, Retry: 30, Actions: []Action{{"", "Try again now", "refresh", "", false}}},
-			"500.html": {Code: 500, Ref: "ERR-7F3A9C12", Actions: []Action{{"", "Try again", "refresh", "", false}, home}},
-			"503.html": {Code: 503, Retry: 15, Actions: []Action{{"", "Try again now", "refresh", "", false}}},
+		home, account := exAction{"dashboard.html", "Dashboard", "dashboard", "", false}, exAction{"settings.html", "Your account", "user", "", false}
+		signin := exAction{"login.html", "Sign in", "log-in", "", false}
+		page.Error = map[string]*exErrorInfo{
+			"400.html": {Code: 400, Actions: []exAction{{"list.html", "Back to customers", "arrow-left", "", false}, home}},
+			"401.html": {Code: 401, Actions: []exAction{signin}},
+			"403.html": {Code: 403, Need: "the admin role", Groups: []string{"acme-editor"}, Actions: []exAction{home, account, {"login.html", "Sign in as someone else", "log-in", "", false}}},
+			"404.html": {Code: 404, What: "customer CUS-9999", Actions: []exAction{{"list.html", "All customers", "users", "", false}, {Label: "Search", Icon: "search", Palette: true}}},
+			"409.html": {Code: 409, Actions: []exAction{{"", "Reload", "refresh", "", false}, {"detail.html", "ACME GmbH", "arrow-left", "", false}}},
+			"410.html": {Code: 410, Actions: []exAction{{"index.html", "Newsletter home", "mail", "", false}}},
+			"413.html": {Code: 413, Limit: "25 MB", Actions: []exAction{{"form.html", "Back to the upload", "upload", "", false}}},
+			"429.html": {Code: 429, Retry: 30, Actions: []exAction{{"", "Try again now", "refresh", "", false}}},
+			"500.html": {Code: 500, Ref: "ERR-7F3A9C12", Actions: []exAction{{"", "Try again", "refresh", "", false}, home}},
+			"503.html": {Code: 503, Retry: 15, Actions: []exAction{{"", "Try again now", "refresh", "", false}}},
 		}[name]
 		var b bytes.Buffer
 		if err := tpl.ExecuteTemplate(&b, name, page); err != nil {
@@ -280,7 +281,20 @@ func TestIcons(t *testing.T) {
 		t.Fatal("ui.css: the :is([class^=\"icon-\"] …) rule is missing")
 	}
 	only := "/* nobloat/ui icons, generated from icons/*.svg by go test -update: for pages that do not load ui.css */\n" + rule + block
-	for path, want := range map[string]string{"ui.css": newCSS, "icons.svg": sprite.String(), "icons.css": only} {
+	consts := "// Code generated from icons/*.svg by go test -update; DO NOT EDIT.\n\npackage ui\n\n// Icon is one of the icons in icons/; a name that does not exist does not compile.\ntype Icon string\n\nconst (\n"
+	for _, f := range files {
+		name := strings.TrimSuffix(filepath.Base(f), ".svg")
+		ident := "Icon"
+		for _, w := range strings.Split(name, "-") {
+			ident += strings.ToUpper(w[:1]) + w[1:]
+		}
+		consts += fmt.Sprintf("\t%s Icon = %q\n", ident, name)
+	}
+	src, err := format.Source([]byte(consts + ")\n"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for path, want := range map[string]string{"ui.css": newCSS, "icons.svg": sprite.String(), "icons.css": only, "icons_gen.go": string(src)} {
 		old, _ := os.ReadFile(path)
 		if string(old) == want {
 			continue
@@ -320,7 +334,7 @@ func iconNames() []string {
 
 func TestBrand(t *testing.T) {
 	tpl := template.Must(template.ParseFiles("partials.html"))
-	p := Page{Brand: Brand{App: "bill", Char: "€", Name: "ACME", Color: "#7c3aed", ColorDark: "#a78bfa", Logo: "/brand/logo", LogoDark: "/brand/logo-dark", Design: "paper"}}
+	p := exPage{Brand: exBrand{App: "bill", Char: "€", Name: "ACME", Color: "#7c3aed", ColorDark: "#a78bfa", Logo: "/brand/logo", LogoDark: "/brand/logo-dark", Design: "paper"}}
 	var b bytes.Buffer
 	for _, n := range []string{"nb-head", "nb-logo"} {
 		if err := tpl.ExecuteTemplate(&b, n, p); err != nil {
@@ -339,7 +353,7 @@ func TestBrand(t *testing.T) {
 // 1em (the text size), the 1px of a visually hidden element, percentages of an element's own box (centring, corners),
 // and the container width in @container (custom properties cannot be used there).
 func TestTokensOnly(t *testing.T) {
-	for _, file := range []string{"components.css", "blocks.css", "shell.css", "documents.css", "proposals.css"} {
+	for _, file := range layerFiles() {
 		tokensOnly(t, file)
 	}
 }
@@ -367,11 +381,11 @@ func tokensOnly(t *testing.T, file string) {
 	}
 }
 
-// TestTokensDefined: every var(--x) without a fallback in the layer files is defined: in token.css, in a layer file
+// TestTokensDefined: every var(--x) without a fallback in the layer files is defined: in token/token.css, in a layer file
 // (a component's own formula, e.g. --hover) or set inline on a specimen (style="--value:26%").
 func TestTokensDefined(t *testing.T) {
 	var all strings.Builder
-	for _, g := range []string{"*.css", "*.html"} {
+	for _, g := range []string{"*.css", "*.html", "token/*.css", "components/*/*.css", "blocks/*/*.css", "shell/*/*.css"} {
 		files, _ := filepath.Glob(g)
 		for _, f := range files {
 			b, _ := os.ReadFile(f)
@@ -382,7 +396,7 @@ func TestTokensDefined(t *testing.T) {
 	for _, m := range regexp.MustCompile(`(--[\w-]+)\s*:`).FindAllStringSubmatch(all.String(), -1) {
 		defined[m[1]] = true
 	}
-	for _, file := range []string{"components.css", "blocks.css", "shell.css", "documents.css", "proposals.css"} {
+	for _, file := range layerFiles() {
 		b, _ := os.ReadFile(file)
 		for i, line := range strings.Split(string(b), "\n") {
 			for _, m := range regexp.MustCompile(`var\((--[\w-]+)\)`).FindAllStringSubmatch(line, -1) {
@@ -392,4 +406,14 @@ func TestTokensDefined(t *testing.T) {
 			}
 		}
 	}
+}
+
+// layerFiles: the CSS of every layer, the old files and the parts' own (<level>/<part>/<part>.css).
+func layerFiles() []string {
+	files := []string{"components.css", "blocks.css", "shell.css", "documents.css", "proposals.css", "token/base.css"}
+	for _, level := range levels {
+		parts, _ := filepath.Glob(level + "/*/*.css")
+		files = append(files, parts...)
+	}
+	return files
 }

@@ -1,0 +1,5 @@
+/* base: the only rules on plain elements; everything else is a part. The theme radios pin the scheme (components: theme switch). */
+:root { color-scheme: light dark; }
+html { overflow-x: clip; } /* never a sideways scrollbar (clip keeps sticky working) */
+body { margin: 0; font: var(--body); background: var(--background); color: var(--text); overflow-wrap: break-word; }
+[hidden] { display: none !important; }

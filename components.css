@@ -1,85 +1,16 @@
-/* nobloat components: built only from the tokens in token.css. Proposal; moves into ui.css at the streamlining. */
+/* nobloat components: built only from the tokens in token/token.css. Proposal; moves into ui.css at the streamlining. */
+@import url("components/button/button.css"); @import url("components/kbd/kbd.css"); @import url("components/field/field.css");
 
 /* Components respond to the width of their container, not the window, so a narrow column behaves like a phone. */
 main, .cp-phone { container-type: inline-size; }
 
-/* button: always an icon before the text; one primary per page; states are not variants */
-.button {
-  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
-  height: var(--size-control); min-width: var(--size-control); padding: 0 calc(var(--space-16) + var(--space-8)); /* 24 px sides */
-  border: var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--text);
-  font: var(--body); white-space: nowrap; cursor: pointer; user-select: none;
-  transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
-  --hover: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); --pressed: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint));
-}
-.button > i { font-size: 1em; } /* the icon takes the text size, so it lines up with the capitals */
-.button:not(:disabled, [aria-disabled="true"]):hover { background: var(--hover); }
-.button:not(:disabled, [aria-disabled="true"]):active { background: var(--pressed); }
-.button.primary:not(:disabled, [aria-disabled="true"]):hover { box-shadow: var(--shadow-raised); } .button.primary:active { box-shadow: none; } /* hover lifts it a little, pressing puts it down */
-.button:focus-visible { outline: var(--focus); outline-offset: var(--stroke-thick); }
-
-/* filled: one strong action; the fill carries the weight, the text stays 400 */
-.button:is(.primary, .danger) { border-color: transparent; }
-.button.primary { background: var(--accent); color: var(--text-on-accent);
-  --hover: color-mix(in oklab, var(--accent), var(--text-on-accent) calc(var(--mix-tint) * 2)); --pressed: color-mix(in oklab, var(--accent), var(--text-on-accent) var(--mix-edge)); } /* toward its own label colour: visible on any brand, light or dark */
-.button.danger { background: var(--danger); color: var(--text-on-danger);
-  --hover: color-mix(in oklab, var(--danger), var(--shade) var(--mix-tint)); --pressed: color-mix(in oklab, var(--danger), var(--shade) var(--mix-edge)); }
-
-/* a button inside another component (picker, id, message) takes its look from there: no frame, small; there is no quiet or small type */
-:is(.picker, .object-id, .message) > .button { height: var(--size-control-small); border-color: transparent; background: transparent; }
-
-/* toggle: aria-pressed="true" (mute, pin, favourite) */
-.button[aria-pressed="true"] { background: var(--selected); border-color: var(--accent); color: var(--accent);
-  --hover: color-mix(in oklab, var(--selected), var(--accent) var(--mix-tint)); --pressed: color-mix(in oklab, var(--selected), var(--accent) var(--mix-edge)); }
-
-/* sizes and shape */
-.button.icon-only { min-width: 0; aspect-ratio: 1; padding: 0; } .button.icon-only > i { font-size: calc(var(--size-icon) + var(--space-4)); }
-
-.button:is(:disabled, [aria-disabled="true"]) { opacity: var(--opacity-disabled); cursor: not-allowed; } .button[aria-disabled="true"] { pointer-events: none; }
 .choice:has(input:disabled), .segmented:has(input:disabled) { opacity: var(--opacity-disabled); cursor: not-allowed; } .choice:has(input:disabled) *, .segmented:has(input:disabled) * { cursor: inherit; }
-/* busy: the icon becomes a spinner; set by ui.js on submit (aria-busy) */
-.button[aria-busy="true"] { cursor: progress; } /* busy is also disabled (aria-disabled, set with it): one run at a time */ .button[aria-busy="true"]::after { content: none; }
-.button[aria-busy="true"] > i { mask: none; background: none; border: var(--stroke-thick) solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin var(--duration-spin) linear infinite; }
 
-/* key hint after the text, desktop only */
-.kbd { display: inline-grid; place-items: center; min-width: var(--size-control-small); height: var(--size-control-small); padding: 0 var(--space-4) var(--icon-nudge); box-sizing: border-box;
-  border: var(--border); border-radius: var(--space-4); font: var(--small); line-height: 1; color: var(--muted); }
-.button > .kbd { margin-left: var(--space-4); border-color: color-mix(in oklab, currentColor var(--mix-edge), transparent); color: inherit; }
-
-/* a row of buttons */
-.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
-
-/* phones (narrow container): no key hints; create, edit, delete and copy show only the icon; the primary and segmented controls span the width */
+/* phones (narrow container): segmented controls span the width */
 @container (max-width: 40rem) {
-  .button > .kbd { display: none; }
-  .button.phone-icon > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .button.phone-icon { min-width: 0; aspect-ratio: 1; padding: 0; }
-  .button.primary { flex: 1 1 100%; }
   .segmented { display: flex; width: 100%; } .segmented > label { flex: 1; justify-content: center; } /* choices share the width */
 }
 
-/* field: label above, the control, then one line of hint or error */
-.field { display: grid; gap: var(--space-4); font: var(--body); color: var(--text); }
-.field * { font-weight: 400; } /* labels are not bold here, whatever the page sets */
-.field > .field-label { font: var(--body); }
-.field > .field-hint { font: var(--small); color: var(--muted); }
-/* error: a tinted strip attached to the bottom of the field, so it visibly belongs to it */
-.field > .field-error { margin-top: calc(var(--space-4) * -1); padding: var(--space-4) var(--space-8); border: var(--stroke-thin) solid var(--danger); border-top: 0; border-radius: 0 0 var(--radius-control) var(--radius-control); background: color-mix(in oklab, var(--danger) var(--mix-tint), var(--background)); font: var(--small); color: var(--text); }
-.field > .field-error > i { margin-right: var(--space-4); color: var(--danger); }
-.field > .field-error > span { color: var(--muted); }
-.input {
-  all: unset; box-sizing: border-box; width: 100%; height: var(--size-control); padding: 0 var(--space-8) 0 calc(var(--space-8) + var(--space-4));
-  border: var(--border-field); border-radius: var(--radius-control); background: var(--surface); color: var(--text); font: var(--body);
-  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
-}
-.input::placeholder { color: var(--muted); opacity: 1; } /* a realistic sample of the expected value; muted reaches 4.5:1 */
-textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padding-block: var(--space-8); resize: vertical; white-space: pre-wrap; }
-.input:hover:not([readonly], :focus-visible, [aria-invalid="true"]) { border-color: var(--text); background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
-/* focus shows on the border (no outline ring), as for every field */
-.input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 var(--stroke-thin) var(--accent); }
-.input[aria-invalid="true"] { border-color: var(--danger); }
-.input[aria-invalid="true"]:has(+ .field-error) { border-radius: var(--radius-control) var(--radius-control) 0 0; }
-.input[readonly] { border-style: dashed; background: transparent; }
 /* select: the native control with a chevron */
 .select { position: relative; display: block; }
 .select > select.input { padding-right: calc(var(--space-16) + var(--space-16)); line-height: calc(var(--size-control) - 2 * var(--stroke-thin)); cursor: pointer; }

@@ -1,0 +1,7 @@
+<label class="field"><span class="field-label">{{.Label}}</span><input class="input" name="{{.Name}}" type="{{.Type}}"
+{{- if .Value}} value="{{.Value}}"{{end}}{{if .Placeholder}} placeholder="{{.Placeholder}}"{{end}}{{if .Required}} required{{end}}
+{{- if .Autocomplete}} autocomplete="{{.Autocomplete}}"{{end}}{{if .InputMode}} inputmode="{{.InputMode}}"{{end}}
+{{- if .Pattern}} pattern="{{.Pattern}}" title="{{.Title}}"{{end}}{{if .MaxLength}} maxlength="{{.MaxLength}}"{{end}}
+{{- if .Err}} aria-invalid="true"{{end}}{{if .Line}} aria-describedby="{{.Line}}"{{end}}>
+{{- if .Err}}<span class="field-error" id="{{.Line}}"><i class="icon-{{.Icon}}" aria-hidden="true"></i> {{.Err}}{{if .Hint}} <span>{{.Hint}}</span>{{end}}</span>
+{{- else if .Hint}}<span class="field-hint" id="{{.Line}}">{{.Hint}}</span>{{end}}</label>
