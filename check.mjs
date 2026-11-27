@@ -59,7 +59,8 @@ const probe = specimens => { // specimens: a design system page that shows sever
   const P = [], W = innerWidth, de = document.documentElement;
   const nm = el => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).join('.') : '');
   const path = el => { const a = []; for (let e = el; e && e !== document.body && a.length < 3; e = e.parentElement) a.unshift(nm(e)); return a.join(' > '); };
-  const shown = el => { const r = el.getBoundingClientRect(), s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && !el.closest('#demo, dialog:not([open]), [hidden], details:not([open]) > :not(summary)'); };
+  const offscreen = el => { for (let e = el; e; e = e.parentElement) if (getComputedStyle(e).clipPath === 'inset(50%)') return true; return el.closest('[aria-hidden="true"]') && el.tabIndex < 0; };
+  const shown = el => { if (offscreen(el)) return false; const r = el.getBoundingClientRect(), s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && !el.closest('#demo, dialog:not([open]), [hidden], details:not([open]) > :not(summary)'); };
   const clips = el => { for (let e = el.parentElement; e && e !== document.body; e = e.parentElement) if (getComputedStyle(e).overflowX !== 'visible') return e; return null; };
   const add = (kind, msg, el) => P.push(`${kind}: ${msg}${el ? ' — ' + path(el) : ''}`);
   const all = [...document.body.querySelectorAll('*')].filter(shown);
@@ -72,8 +73,12 @@ const probe = specimens => { // specimens: a design system page that shows sever
       add('layout', `sticks out of the viewport (${Math.round(r.left)}…${Math.round(r.right)} of ${W})`, el);
   }
   const lines = el => { // height of the text box versus one line
-    const range = document.createRange(); range.selectNodeContents(el);
-    const rs = [...range.getClientRects()].filter(r => r.width && r.height);
+    const rs = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let n; (n = walk.nextNode());) {
+      let out = false; for (let e = n.parentElement; e && e !== el; e = e.parentElement) if (getComputedStyle(e).position === 'absolute') out = true;
+      if (out) continue;
+      const range = document.createRange(); range.selectNodeContents(n); rs.push(...[...range.getClientRects()].filter(r => r.width && r.height));
+    }
     if (!rs.length) return 1;
     const lh = parseFloat(getComputedStyle(el).lineHeight) || parseFloat(getComputedStyle(el).fontSize) * 1.2;
     return (Math.max(...rs.map(r => r.bottom)) - Math.min(...rs.map(r => r.top))) / lh;
@@ -132,7 +137,7 @@ const probe = specimens => { // specimens: a design system page that shows sever
   const named = el => (el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.title || el.labels?.length || el.alt ||
     [...el.childNodes].some(n => (n.nodeType === 3 && n.textContent.trim()) || (n.nodeType === 1 && n.tagName !== 'KBD' && (n.textContent.trim() || n.alt))));
   for (const el of document.querySelectorAll('a[href], button, summary, input:not([type=hidden]), select, textarea'))
-    if (!el.closest('[hidden]') && !named(el)) add('a11y', 'no accessible name', el);
+    if (!el.closest('[hidden]') && !(el.closest('[aria-hidden="true"]') && el.tabIndex < 0) && !named(el)) add('a11y', 'no accessible name', el);
   // every button, .btn, tab, pager link, chip and menu item has an icon: <i class="icon-…"> or a class that draws one (::before)
   const drawn = el => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && (b.maskImage || b.webkitMaskImage || 'none') !== 'none'; };
   const closedDlg = [...document.querySelectorAll('dialog:not([open]):not(.palette) :is(button, .btn)')]; // a closed dialog's buttons count too
