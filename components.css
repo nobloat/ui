@@ -110,7 +110,6 @@ textarea.input { height: auto; min-height: calc(var(--size-control) * 2.5); padd
 .picker > .input { padding-right: calc(var(--size-control-small) + var(--space-8)); font-variant-numeric: tabular-nums; }
 .picker > button { position: absolute; right: var(--space-4); top: 50%; translate: 0 -50%; }
 .picker > input[type="date"], .picker > input[type="time"] { position: absolute; right: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-
 /* labels: small marks next to or on other things. A state is always a dot and a word; the word stays in --text. */
 [data-state="ok"] { --c: var(--ok); } [data-state="warn"] { --c: var(--warn); } [data-state="danger"] { --c: var(--danger); }
 [data-state="info"] { --c: var(--info); } [data-state="disabled"] { --c: var(--disabled); }

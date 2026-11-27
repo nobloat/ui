@@ -1,0 +1,153 @@
+/* proposals: parts in iteration (see skill/design-system.md, Iteration). Tokens only; loaded only by proposals.html.
+   A released part moves into its layer and leaves this file. */
+
+/* one-time code (TOTP): one field, so pasting and the phone's autofill work (inputmode="numeric", autocomplete="one-time-code",
+   maxlength="6"); six slots are drawn under the digits, the mono face lines them up. The app may submit at the sixth digit (auth does). */
+input.otp { --slot: calc(1ch + var(--space-16)); all: unset; box-sizing: content-box; inline-size: calc(6 * var(--slot)); block-size: var(--size-control);
+  padding: 0 0 var(--space-4); font: var(--heading); font-variant-numeric: tabular-nums; letter-spacing: var(--space-16); text-indent: var(--space-8);
+  color: var(--text); caret-color: var(--accent); --edge: var(--muted);
+  background: repeating-linear-gradient(to right, transparent 0 var(--space-4), var(--edge) 0 calc(var(--slot) - var(--space-4)), transparent 0 var(--slot)) left bottom / 100% var(--stroke-thick) no-repeat; }
+.otp:hover { --edge: var(--text); } .otp:focus-visible { --edge: var(--accent); } .otp[aria-invalid="true"] { --edge: var(--danger); }
+.otp::placeholder { color: var(--muted); opacity: 1; }
+
+
+/* board: one column per state, cards in rank order, a new-task button per column. Columns sit on the background, cards on
+   the surface; dragging a card (draggable, the app moves it) lifts it and outlines the column it would land in. Narrow
+   containers scroll the columns sideways, one column and a peek of the next at a time. */
+.board { container-type: inline-size; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(calc(100% - var(--space-32)), calc(var(--size-control) * 7)), 1fr); /* narrow: one column and a peek of the next */
+  gap: var(--space-16); align-items: start; overflow-x: auto; scroll-snap-type: x mandatory; font: var(--body); color: var(--text); }
+.board > section { display: grid; gap: var(--space-8); padding: var(--space-8); border: var(--border); border-radius: var(--radius-panel); background: var(--background); scroll-snap-align: start; }
+.board > section > header { display: flex; align-items: center; gap: var(--space-8); min-block-size: var(--size-control-small); padding-left: var(--space-8); }
+.board > section > header > h2 { display: flex; align-items: center; gap: var(--space-8); flex: 1; margin: 0; font: var(--body); font-weight: 600; letter-spacing: 0; text-transform: none; color: inherit; }
+.board > section > header > h2::before { content: ""; inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--c, var(--disabled)); }
+.board > section > header .count { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.board > section.drop-target { outline: var(--stroke-thick) dashed var(--accent); outline-offset: calc(-1 * var(--stroke-thick)); }
+.board > section > .empty { padding: var(--space-8); font: var(--small); color: var(--muted); text-align: center; }
+.board-card { display: grid; gap: var(--space-8); padding: var(--space-8); border: var(--border); border-radius: var(--radius-control); background: var(--surface); cursor: grab; }
+.board-card:hover { border-color: var(--muted); }
+.board-card:focus-within { border-color: var(--accent); }
+.board-card > a { color: var(--text); text-decoration: none; overflow-wrap: anywhere; } .board-card > a:hover { text-decoration: underline; }
+.board-card > a:focus-visible { outline: none; }
+.board-card > .meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); font: var(--small); color: var(--muted); }
+.board-card > .meta > .due { margin-left: auto; } .board-card > .meta > .due[data-state="danger"] { color: var(--text); } .board-card > .meta > .due > i { color: var(--danger); }
+.board-card.dragging { box-shadow: var(--shadow-floating); rotate: -1deg; cursor: grabbing; }
+
+/* calendar, week: hours down, days across; entries are boxes at their time in their colour (calendar.js draws, moves and
+   resizes them and reports to the app; without it every entry is a link). Today's head in the accent, a line at now,
+   closed days on the background. The grid scrolls inside itself, the day heads stay. Phones show one day (calendar.js
+   switches it with the day switch). calendar.js needs: #calwrap, #cal, .hd, .hours, .day, .ev, .grip; it sets .cur, .sel, .draw. */
+.week-grid { --hour: var(--size-control); container-type: inline-size; max-block-size: var(--calh, calc(var(--hour) * 11.5)); overflow-y: auto;
+  border: var(--border); border-radius: var(--radius-panel); background: var(--surface); font: var(--small); color: var(--text); }
+.week { display: grid; grid-template-columns: calc(var(--size-control) * 1.25) repeat(7, minmax(0, 1fr)); }
+.week > .hd { position: sticky; top: 0; z-index: var(--layer-floating); display: grid; padding: var(--space-4) var(--space-8); border-bottom: var(--border); background: var(--surface); white-space: nowrap; overflow: hidden; }
+.week > .hd > b { font: var(--body); font-weight: 600; } .week > .hd > span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.week > .hd.today > b { color: var(--accent); }
+.week > .hours > div { block-size: var(--hour); padding-right: var(--space-8); color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; translate: 0 calc(-1 * var(--space-8)); }
+.week > .hours > div:first-child { visibility: hidden; }
+.week > .hours > .start { scroll-initial-target: nearest; scroll-margin-top: calc(var(--size-control) * 1.5); } /* the grid opens at the working day without script (calendar.js also scrolls there) */
+.week > .day { position: relative; block-size: calc(var(--hour) * 24); border-left: var(--border); touch-action: pan-y;
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(var(--hour) - var(--stroke-thin)), var(--line) 0 var(--hour)); }
+.week > .day.closed { background-color: var(--background); }
+.week .ev { position: absolute; inset-inline: var(--stroke-thick); display: block; overflow: hidden; padding: var(--space-4) var(--space-8); box-sizing: border-box;
+  border: 0; border-left: var(--stroke-thick) solid var(--c, var(--accent)); border-radius: var(--radius-control); box-shadow: none;
+  background: color-mix(in oklab, var(--c, var(--accent)) var(--mix-tint), var(--surface)); color: var(--text); font: var(--small); text-decoration: none; cursor: grab; user-select: none; }
+.week .ev > b { display: block; font-weight: 600; } .week .ev > small { display: block; font: inherit; }
+.week .ev[data-ro] { cursor: pointer; }
+.week .ev:focus-visible, .week .ev.sel { outline: var(--focus); outline-offset: var(--stroke-thin); z-index: var(--layer-raised); }
+.week .ev.draw { border: var(--stroke-thin) dashed var(--accent); background: var(--selected); pointer-events: none; z-index: var(--layer-raised); }
+.week .ev > .grip { position: absolute; inset: auto 0 0; block-size: var(--space-8); cursor: ns-resize; }
+.week .now { position: absolute; inset-inline: 0; border-top: var(--stroke-thick) solid var(--danger); pointer-events: none; z-index: var(--layer-raised); }
+.week .now::before { content: ""; position: absolute; left: calc(-1 * var(--space-4)); top: calc(-1 * var(--space-4) - var(--stroke-thin)); inline-size: var(--space-8); block-size: var(--space-8); border-radius: var(--radius-round); background: var(--danger); }
+@container (max-width: 40rem) {
+  .week { grid-template-columns: calc(var(--size-control) * 1.25) minmax(0, 1fr); }
+  .week > .hd:not(.corner, .cur), .week > .day:not(.cur) { display: none; }
+}
+
+/* calendar, month: weeks down, days across; each day a link to its week, with its total and a bar of its entries' colours.
+   Days outside the month and closed days on the background, today in the accent. Phones: no totals, the bar stays. */
+.month-grid { container-type: inline-size; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--stroke-thin); overflow: hidden;
+  border: var(--border); border-radius: var(--radius-panel); background: var(--line); font: var(--small); color: var(--text); }
+.month-grid > .wd { padding: var(--space-4) var(--space-8); background: var(--surface); color: var(--muted); }
+.month-grid > a { display: grid; align-content: start; gap: var(--space-4); min-block-size: calc(var(--size-control) * 2); padding: var(--space-4) var(--space-8);
+  background: var(--surface); color: inherit; text-decoration: none; }
+.month-grid > a:hover { background: color-mix(in oklab, var(--surface), var(--text) var(--mix-tint)); }
+.month-grid > a:focus-visible { outline: var(--focus); outline-offset: calc(-1 * var(--stroke-thick)); }
+.month-grid > a > b { font: var(--body); font-variant-numeric: tabular-nums; } .month-grid > a > span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.month-grid > a:is(.out, .closed) { background: var(--background); } .month-grid > a.out > b { color: var(--muted); }
+.month-grid > a.today > b { color: var(--accent); font-weight: 600; }
+.month-grid .stack { display: flex; gap: var(--stroke-thin); block-size: var(--space-4); }
+.month-grid .stack > i { flex: var(--n, 1); border-radius: var(--radius-round); background: var(--c, var(--accent)); }
+@container (max-width: 40rem) { .month-grid > a { min-block-size: var(--size-control); padding: var(--space-4); } .month-grid > a > span { display: none; } }
+.board > section > header > .button { block-size: var(--size-control-small); border-color: transparent; background: none; } /* inside the column head: no frame, small */
+
+/* sign in: the shell without nav and user menu. One column in the middle of the background: the logo, the title, the
+   fields, the primary spanning the width, then the way back and the theme and language. Steps (password, then the
+   one-time code) are separate pages with the same frame. */
+.sign-in { container-type: inline-size; display: grid; justify-items: center; align-content: start; min-block-size: 100%; padding: var(--space-32) var(--space-16); background: var(--background); color: var(--text); }
+.sign-in > form, .sign-in > div { display: grid; gap: var(--space-16); inline-size: min(100%, calc(var(--size-control) * 9)); }
+.sign-in .logo { display: inline-flex; align-items: center; gap: var(--space-8); justify-self: start; font: var(--subheading); color: inherit; text-decoration: none; }
+.sign-in .logo > .mark { block-size: var(--size-control-small); inline-size: auto; } .sign-in .logo > .mark path { stroke: var(--muted); } .sign-in .logo > .mark text { fill: var(--accent); }
+.sign-in h1 { margin: var(--space-16) 0 0; font: var(--heading); }
+.sign-in h1 + p { margin: calc(-1 * var(--space-8)) 0 0; color: var(--muted); }
+.sign-in .button.primary { inline-size: 100%; justify-content: center; }
+.sign-in .links { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8) var(--space-16); font: var(--small); color: var(--muted); }
+
+/* settings page: the page behind Settings (Ctrl ,). One section per topic, a hairline between: the topic and one line on
+   it left, its fields right (stacked on phones). No save button: every field saves as it changes; a dangerous section comes last. */
+.settings { container-type: inline-size; display: grid; }
+.settings > section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--space-16) var(--space-32); padding-block: var(--space-32); border-top: var(--border); }
+.settings > section:first-child { border-top: 0; padding-top: var(--space-16); }
+.settings > section > header > h2 { margin: 0; font: var(--subheading); letter-spacing: 0; text-transform: none; color: inherit; }
+.settings > section > header > p { margin: var(--space-4) 0 0; font: var(--small); color: var(--muted); }
+.settings > section > div { display: grid; gap: var(--space-16); justify-items: start; max-inline-size: calc(var(--size-control) * 12); }
+.settings > section > div > .field { justify-self: stretch; }
+@container (max-width: 40rem) { .settings > section { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-16); } }
+
+/* dashboard: the app's start page. Stat tiles first (what changed, each a link to its list), then cards with what needs
+   doing (lists, a chart); both fill the width in as many columns as fit. */
+.dashboard { container-type: inline-size; display: grid; gap: var(--space-16); }
+.dashboard > .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 5)), 1fr)); gap: var(--space-16); }
+.dashboard > .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 8)), 1fr)); gap: var(--space-16); align-items: start; }
+
+/* week entries: the time line is shown only by the compact variant (E) */
+.week .ev > time { display: none; }
+
+/* board B, open: no panels, hairlines between the columns */
+.board.p-open { gap: 0; }
+.board.p-open > section { padding: 0 var(--space-16); border: 0; border-left: var(--border); border-radius: 0; background: none; }
+.board.p-open > section:first-child { border-left: 0; padding-left: 0; }
+.board.p-open > section.drop-target { background: var(--selected); }
+
+/* board C, dense: cards are hairline rows inside the panel, the title on one line */
+.board.p-rows > section { gap: 0; }
+.board.p-rows > section > header { margin-bottom: var(--space-4); }
+.board.p-rows .board-card { gap: var(--space-4); padding: var(--space-8); border: 0; border-top: var(--border); border-radius: 0; background: none; }
+.board.p-rows .board-card:hover { background: color-mix(in oklab, var(--background), var(--text) var(--mix-tint)); }
+.board.p-rows .board-card > a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board.p-rows .board-card.dragging { background: var(--surface); }
+
+/* board D, state bar: no fill, a thick stroke in the state colour on top, raised cards without a border */
+.board.p-bar > section { border: 0; border-top: var(--stroke-thick) solid var(--c, var(--disabled)); border-radius: 0; background: none; padding-inline: 0; }
+.board.p-bar > section > header > h2::before { content: none; }
+.board.p-bar .board-card { border-color: transparent; box-shadow: var(--shadow-raised); }
+.board.p-bar .board-card:hover { border-color: var(--line); }
+
+/* board E, wrap: as many columns as fit, the rest wrap into rows; no sideways scrolling */
+.board.p-stack { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--size-control) * 7)), 1fr)); overflow-x: visible; scroll-snap-type: none; }
+
+/* week B, strong: the whole box in a stronger tint of the colour */
+.week-grid.p-strong .ev { border-left: 0; background: color-mix(in oklab, var(--c, var(--accent)) var(--mix-edge), var(--surface)); }
+
+/* week C, outline: the surface, a border in the colour, a dot before the name */
+.week-grid.p-outline .ev { border: var(--stroke-thin) solid var(--c, var(--accent)); background: var(--surface); }
+.week-grid.p-outline .ev > b::before { content: ""; display: inline-block; inline-size: var(--space-8); block-size: var(--space-8); margin-right: var(--space-4); border-radius: var(--radius-round); background: var(--c, var(--accent)); }
+
+/* week D, line: only the stroke on the left, the text on the grid */
+.week-grid.p-line .ev { background: color-mix(in oklab, var(--surface), transparent var(--mix-edge)); border-radius: 0; }
+
+/* week E, compact: half the hour height, the time first, the name, no description */
+.week-grid.p-compact { --hour: calc(var(--size-control) / 2); max-block-size: calc(var(--size-control) * 9); }
+.week-grid.p-compact .week > .hours > div { visibility: hidden; } .week-grid.p-compact .week > .hours > div:nth-child(odd) { visibility: visible; }
+.week-grid.p-compact .week > .hours > div:first-child { visibility: hidden; }
+.week-grid.p-compact .ev { padding-block: 0; }
+.week-grid.p-compact .ev > time { display: block; color: var(--muted); font-variant-numeric: tabular-nums; } .week-grid.p-compact .ev > small { display: none; }

@@ -295,6 +295,20 @@ func TestIcons(t *testing.T) {
 	}
 }
 
+// TestIconMap: every icon the rules name in the icon map (skill/design-system.md) exists in icons/ (`off` is a modifier).
+func TestIconMap(t *testing.T) {
+	b, _ := os.ReadFile("skill/design-system.md")
+	line := regexp.MustCompile(`(?m)^- The same action has the same icon everywhere\..*$`).FindString(string(b))
+	if line == "" {
+		t.Fatal("skill/design-system.md: the icon map line is missing")
+	}
+	for _, m := range regexp.MustCompile("`([a-z-]+)`").FindAllStringSubmatch(line, -1) {
+		if _, err := os.Stat("icons/" + m[1] + ".svg"); err != nil && m[1] != "off" {
+			t.Errorf("icon map names %s, which is not in icons/", m[1])
+		}
+	}
+}
+
 func iconNames() []string {
 	files, _ := filepath.Glob("icons/*.svg")
 	var n []string
@@ -325,7 +339,7 @@ func TestBrand(t *testing.T) {
 // 1em (the text size), the 1px of a visually hidden element, percentages of an element's own box (centring, corners),
 // and the container width in @container (custom properties cannot be used there).
 func TestTokensOnly(t *testing.T) {
-	for _, file := range []string{"components.css", "composed.css", "shell.css", "documents.css"} {
+	for _, file := range []string{"components.css", "composed.css", "shell.css", "documents.css", "proposals.css"} {
 		tokensOnly(t, file)
 	}
 }
@@ -339,10 +353,42 @@ func tokensOnly(t *testing.T, file string) {
 	css = regexp.MustCompile(`@(container|media) [^{]*\([^)]*\)`).ReplaceAllString(css, "")
 	css = strings.ReplaceAll(css, "width: 1px; height: 1px", "")
 	raw := regexp.MustCompile(`(?:^|[^\w.-])(-?\d*\.?\d+(?:px|rem|em|ms|s))\b|opacity:\s*(\.\d+|0\.\d+)`)
+	// colours: hex, colour functions and named colours; transparent and currentColor are not values
+	colour := regexp.MustCompile(`(#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch)\(|(?:^|[^\w-])(?:white|black|gr[ae]y|red|green|blue|yellow|orange|purple|pink)(?:[^\w-]|$))`)
 	for i, line := range strings.Split(css, "\n") {
 		for _, m := range raw.FindAllStringSubmatch(line, -1) {
 			if v := m[1] + m[2]; v != "1em" {
 				t.Errorf("%s:%d: %s is not a token", file, i+1, v)
+			}
+		}
+		for _, m := range colour.FindAllString(line, -1) {
+			t.Errorf("%s:%d: colour %q is not a token", file, i+1, strings.Trim(m, " ,;:()"))
+		}
+	}
+}
+
+// TestTokensDefined: every var(--x) without a fallback in the layer files is defined: in token.css, in a layer file
+// (a component's own formula, e.g. --hover) or set inline on a specimen (style="--value:26%").
+func TestTokensDefined(t *testing.T) {
+	var all strings.Builder
+	for _, g := range []string{"*.css", "*.html"} {
+		files, _ := filepath.Glob(g)
+		for _, f := range files {
+			b, _ := os.ReadFile(f)
+			all.Write(b)
+		}
+	}
+	defined := map[string]bool{}
+	for _, m := range regexp.MustCompile(`(--[\w-]+)\s*:`).FindAllStringSubmatch(all.String(), -1) {
+		defined[m[1]] = true
+	}
+	for _, file := range []string{"components.css", "composed.css", "shell.css", "documents.css", "proposals.css"} {
+		b, _ := os.ReadFile(file)
+		for i, line := range strings.Split(string(b), "\n") {
+			for _, m := range regexp.MustCompile(`var\((--[\w-]+)\)`).FindAllStringSubmatch(line, -1) {
+				if !defined[m[1]] {
+					t.Errorf("%s:%d: %s is not defined", file, i+1, m[1])
+				}
 			}
 		}
 	}

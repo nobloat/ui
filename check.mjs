@@ -1,4 +1,5 @@
-// Layout and accessibility check for every example page: node check.mjs (Node 22+, Chrome; CHROME=… to override).
+// Layout and accessibility check for every example page and the design system pages (index, foundations, components, shell, documents): node check.mjs (Node 22+, Chrome; CHROME=… to override).
+// Some pages only: PAGES=ui:foundations,list node check.mjs
 // An app: node check.mjs http://localhost:8080/ /customers /customers/CUS-0042 (its own design; light and dark via the OS setting).
 // Loads each page in each design, theme and width (and the open burger menu on phones) and fails on:
 //   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
@@ -28,7 +29,9 @@ import {pathToFileURL} from 'node:url';
 }
 
 const app = process.argv.slice(2);
-const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'icons', '400', '401', '403', '404', '409', '410', '413', '429', '500', '503', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login'];
+const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'icons', '400', '401', '403', '404', '409', '410', '413', '429', '500', '503', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login',
+  // the design system pages in the repo root, once per theme and width (they have no design switch)
+  'ui:index', 'ui:foundations', 'ui:components', 'ui:shell', 'ui:documents'];
 const designs = app.length ? [''] : (process.env.DESIGNS ?? ',paper').split(','), themes = ['light', 'dark'], widths = [320, 360, 375, 390, 414, 430, 768, 1280];
 const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);
@@ -52,7 +55,7 @@ await cmd('Page.enable');
 await cmd('Emulation.setFocusEmulationEnabled', {enabled: true}); // a background page has no focus otherwise
 
 // runs inside the page; returns a list of problems
-const probe = () => {
+const probe = specimens => { // specimens: a design system page that shows several whole pages (shell, documents)
   const P = [], W = innerWidth, de = document.documentElement;
   const nm = el => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).join('.') : '');
   const path = el => { const a = []; for (let e = el; e && e !== document.body && a.length < 3; e = e.parentElement) a.unshift(nm(e)); return a.join(' > '); };
@@ -75,8 +78,8 @@ const probe = () => {
     const lh = parseFloat(getComputedStyle(el).lineHeight) || parseFloat(getComputedStyle(el).fontSize) * 1.2;
     return (Math.max(...rs.map(r => r.bottom)) - Math.min(...rs.map(r => r.top))) / lh;
   };
-  const oneLine = 'button, .btn, .chip, .tag, kbd, nav.app a, .tabs a, th, .seg label, .pager a, .logo, .who, td.num, .st, .results .sub, .calhead .btn, .cal .hd b, .month .c > span:first-child, .dayhead b, .foot b';
-  for (const el of all.filter(e => e.matches(oneLine) && parseFloat(getComputedStyle(e).fontSize) > 0)) // font-size 0: icon-only on purpose
+  const oneLine = 'button, .btn, .button, .chip, .tag, kbd, nav.app a, .tabs a, th, .seg label, .pager a, .logo, .who, td.num, .st, .results .sub, .calhead .btn, .cal .hd b, .month .c > span:first-child, .dayhead b, .foot b';
+  for (const el of all.filter(e => e.matches(oneLine) && !e.matches('.ic-c') && parseFloat(getComputedStyle(e).fontSize) > 0)) // font-size 0: icon-only on purpose
   if (lines(el) > 1.6) add('layout', `wraps onto ${Math.round(lines(el))} lines: "${el.textContent.trim().slice(0, 30)}"`, el);
   for (const el of all) { // clipped text without an ellipsis (calendar entries clip by design)
     const s = getComputedStyle(el);
@@ -85,10 +88,11 @@ const probe = () => {
   }
 
   // ---- accessibility ----
-  const rgb = c => { // rgb()/rgba() in 0–255, color(srgb …) in 0–1 (what color-mix computes to)
-    const m = c.match(/[\d.]+/g); if (!m) return {r: 0, g: 0, b: 0, a: 0};
-    const k = c.startsWith('color(') ? 255 : 1;
-    return {r: m[0] * k, g: m[1] * k, b: m[2] * k, a: m[3] === undefined ? 1 : +m[3]};
+  const cx2d = Object.assign(document.createElement('canvas'), {width: 1, height: 1}).getContext('2d', {willReadFrequently: true});
+  const rgb = c => { // any computed colour (rgb, color(srgb), oklab, oklch …) to sRGB 0–255 through a canvas pixel
+    cx2d.clearRect(0, 0, 1, 1); cx2d.fillStyle = 'transparent'; cx2d.fillStyle = c; cx2d.fillRect(0, 0, 1, 1);
+    const [r, g, b, a] = cx2d.getImageData(0, 0, 1, 1).data;
+    return {r, g, b, a: a / 255};
   };
   const over = (f, b) => ({r: f.r * f.a + b.r * (1 - f.a), g: f.g * f.a + b.g * (1 - f.a), b: f.b * f.a + b.b * (1 - f.a), a: 1});
   const bgOf = el => { // composited background behind el
@@ -116,7 +120,7 @@ const probe = () => {
   }
   // state graphics 3:1 (a rim counts), field edges 3:1 (border or fill)
   for (const el of all.filter(e => e.matches('.dot, .st, .bar, .stack i, .bars .b, .meter i, .chart .col path'))) {
-    const s = getComputedStyle(el), bg = bgOf(el.parentElement), rim = s.boxShadow.match(/(rgba?|color)\([^)]*\)/)?.[0];
+    const s = getComputedStyle(el), bg = bgOf(el.parentElement), rim = s.boxShadow.match(/(rgba?|color|oklab|oklch|lab|lch)\([^)]*\)/)?.[0];
     const c = el.matches('.st') ? rgb(s.color) : rgb(rim && rgb(rim).a ? rim : s.backgroundColor);
     if (c.a && ratio(over(c, bg), bg) < 3 - .005) add('a11y', `state graphic contrast ${ratio(over(c, bg), bg).toFixed(2)}:1 < 3:1`, el);
   }
@@ -132,7 +136,7 @@ const probe = () => {
   // every button, .btn, tab, pager link, chip and menu item has an icon: <i class="icon-…"> or a class that draws one (::before)
   const drawn = el => { const b = getComputedStyle(el, '::before'); return b.content !== 'none' && (b.maskImage || b.webkitMaskImage || 'none') !== 'none'; };
   const closedDlg = [...document.querySelectorAll('dialog:not([open]):not(.palette) :is(button, .btn)')]; // a closed dialog's buttons count too
-  for (const el of [...new Set([...all, ...closedDlg])].filter(e => e.matches('button, .btn, summary.round, .tabs a, .pager a, a.chip, :is(.menu, .umenu) a') && !e.closest('dialog.palette, [hidden]:not(dialog)')))
+  for (const el of [...new Set([...all, ...closedDlg])].filter(e => e.matches('button, .btn, .button, summary.round, .tabs a, .pager a, a.chip, :is(.menu, .umenu) a') && !e.closest('dialog.palette, [hidden]:not(dialog)')))
     if (!el.matches('[class*="icon-"]') && !el.querySelector('[class*="icon-"]') && !drawn(el)) add('icon', `no icon: "${(el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 40)}"`, el);
   for (const el of document.querySelectorAll('img:not([alt])')) add('a11y', 'img without alt', el);
   const ids = {}; for (const el of document.querySelectorAll('[id]')) ids[el.id] = (ids[el.id] || 0) + 1;
@@ -140,9 +144,9 @@ const probe = () => {
   if (!de.lang) add('a11y', 'html without lang');
   if (!document.title.trim()) add('a11y', 'empty title');
   if (document.querySelectorAll('main').length !== 1) add('a11y', `${document.querySelectorAll('main').length} <main> elements`);
-  if (document.querySelectorAll('main h1').length !== 1) add('a11y', `${document.querySelectorAll('main h1').length} h1 in main`);
+  if (!specimens && document.querySelectorAll('main h1').length !== 1) add('a11y', `${document.querySelectorAll('main h1').length} h1 in main`);
   // targets: at least 24×24, or nothing else within 12 px of the centre (WCAG 2.5.8); links inside text are exempt
-  const targets = all.filter(e => e.matches('button, .btn, .chip, nav a, .tabs a, summary, select, input:not([type=hidden]):not(.sr), .pager a, .logo, header.app .right a, .tag') && !e.closest('p, li:not(.card), .info, td:not(.num), .menu'));
+  const targets = all.filter(e => e.matches('button, .btn, .button, .chip, nav a, .tabs a, summary, select, input:not([type=hidden]):not(.sr), .pager a, .logo, header.app .right a, .tag') && !e.closest('p, li:not(.card), .info, td:not(.num), .menu'));
   const box = el => (el.matches('input[type=checkbox], input[type=radio], input[type=file]') && el.closest('label')) ? el.closest('label').getBoundingClientRect() : el.getBoundingClientRect();
   for (const el of targets) {
     const r = box(el);
@@ -159,7 +163,7 @@ const focusProbe = () => {
   const P = [], seen = new Set();
   for (const el of document.querySelectorAll('main a[href], main button, main summary, main input, main select, main textarea, header a, header button, header input')) {
     const kind = el.tagName + '.' + el.className + '.' + el.type;
-    if (seen.has(kind) || !el.getClientRects().length || el.closest('[hidden], dialog:not([open])')) continue;
+    if (seen.has(kind) || el.matches('.is-focus, .is-hover, .is-active') || !el.getClientRects().length || el.closest('[hidden], dialog:not([open])')) continue;
     seen.add(kind);
     if (document.activeElement === el) el.blur();
     // the element and its 3 nearest ancestors: a field may show focus on its frame (:focus-within), not on itself
@@ -174,20 +178,22 @@ const focusProbe = () => {
   return P;
 };
 
-const base = pathToFileURL(resolve('examples')).href + '/';
+const root = pathToFileURL(resolve('.')).href + '/', base = root + 'examples/';
 let failed = 0, runs = 0;
 const seen = new Map();
 for (const design of designs) for (const theme of themes) for (const w of widths) {
   await cmd('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: theme}]});
   await cmd('Emulation.setDeviceMetricsOverride', {width: w, height: 900, deviceScaleFactor: 1, mobile: w < 640});
-  for (const p of pages) {
+  for (const p of pages.filter(p => !process.env.PAGES || process.env.PAGES.split(',').includes(p))) {
+    const sys = p.startsWith('ui:');
+    if (sys && design !== designs[0]) continue;
     const variants = [{}];
-    if (w < 640 && !['status', 'login'].includes(p)) variants.push({menu: true});
+    if (w < 640 && !sys && !['status', 'login'].includes(p)) variants.push({menu: true});
     if (w === 320 && p === 'list' && !app.length) variants.push({logo: true});
     if (w === 320 && theme === 'light') variants.push({stress: true}); // real data: long words, emails, ids in every text
     for (const v of variants) {
       const loaded = new Promise(r => loads.push(r));
-      await cmd('Page.navigate', {url: app.length ? new URL(p, app[0]).href : `${base}${p}.html?nopanel&design=${design}&brand=&logo=${v.logo ? 1 : ''}&theme=${theme}`});
+      await cmd('Page.navigate', {url: app.length ? new URL(p, app[0]).href : sys ? `${root}${p.slice(3)}.html` : `${base}${p}.html?nopanel&design=${design}&brand=&logo=${v.logo ? 1 : ''}&theme=${theme}`});
       await loaded; await sleep(150);
       if (v.menu) await evaluate(`document.getElementById('menu')?.click()`);
       if (v.stress) await evaluate(`(() => {
@@ -199,10 +205,10 @@ for (const design of designs) for (const theme of themes) for (const w of widths
           if (t) t.textContent += ' ' + long[i++ % long.length];
         }
       })()`);
-      const problems = await evaluate(`(${probe})()`);
+      const problems = await evaluate(`(${probe})(${['ui:shell', 'ui:documents'].includes(p)})`);
       if (!v.menu && !v.logo && w === 1280) problems.push(...await evaluate(`(${focusProbe})()`));
       runs++;
-      const where = `${p || '/'} ${app.length ? '' : (design || 'graphite') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}${v.stress ? ' long data' : ''}`;
+      const where = `${p || '/'} ${app.length || sys ? '' : (design || 'graphite') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}${v.stress ? ' long data' : ''}`;
       for (const msg of problems) { // group identical problems across variants
         if (!seen.has(msg)) seen.set(msg, []);
         seen.get(msg).push(where);

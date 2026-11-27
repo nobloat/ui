@@ -10,4 +10,4 @@ document.addEventListener('change', e => { if (e.target.name === 'theme') fdShow
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fdShow);
 addEventListener('load', fdShow); // after components.js restored the saved theme
 document.addEventListener('click', e => { const b = e.target.closest('.fd-copy'); if (!b) return;
-  navigator.clipboard.writeText(b.dataset.copy ?? b.textContent).then(() => { b.classList.add('done'); setTimeout(() => b.classList.remove('done'), 1200); }); });
+  navigator.clipboard.writeText(b.dataset.copy ?? (b.dataset.from ? document.querySelector(b.dataset.from).outerHTML : b.textContent)).then(() => { b.classList.add('done'); setTimeout(() => b.classList.remove('done'), 1200); }); });

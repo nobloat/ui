@@ -24,7 +24,7 @@ Desktop and phone (500 px, dark):
 
 Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](screenshots/brand-light.png) ![brand dark](screenshots/brand-dark.png)
 
-**How to use it, and every rule (layout, light/dark, mobile, accessibility, navigation, forms, money, ids, charts, keyboard):** [`skill/SKILL.md`](skill/SKILL.md). It is an [Agent Skill](https://agentskills.io) named `nobloat-ui`, so coding agents follow the same rules: link it like the other nobloat skills (`ln -s ~/git/nobloat/ui/skill ~/.claude/skills/nobloat-ui`, or `.agents/skills/nobloat-ui` per project), or tell agents without skill support to read `../ui/skill/SKILL.md`.
+**Every rule (layout, light/dark, mobile, accessibility, navigation, forms, money, ids, charts, keyboard):** [`skill/design-system.md`](skill/design-system.md), the only source. **How an app uses it** (markup, classes, ui.js): [`skill/SKILL.md`](skill/SKILL.md). It is an [Agent Skill](https://agentskills.io) named `nobloat-ui`, so coding agents follow the same rules: link it like the other nobloat skills (`ln -s ~/git/nobloat/ui/skill ~/.claude/skills/nobloat-ui`, or `.agents/skills/nobloat-ui` per project), or tell agents without skill support to read `../ui/skill/SKILL.md`.
 
 ## Files
 
@@ -38,7 +38,8 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 | `i18n/{en,de}.json` | the texts the partials and `ui.js` use | merge into the app's i18n files |
 | `icons/*.svg`, `icons.svg`, `icons.css` | the icon set (one file per icon), its sprite, and the icon classes alone for pages without `ui.css`; the classes are generated into `ui.css` and `icons.css` | use `<i class="icon-cog">`; new icons go here first; a page without ui.css (public pages) loads a copy of `icons.css` |
 | `favicon.svg` | the `][` mark favicon | replace `◆` and the two colors |
-| `skill/SKILL.md` | the rules, for people and agents | link as a skill |
+| `skill/design-system.md` | the rules, the one source | read by the skill |
+| `skill/SKILL.md` | how an app uses ui (markup, classes, ui.js) | link as a skill |
 | `check.mjs` | layout and accessibility check, and every button has an icon (Node 22, Chrome) | run against the app's pages |
 | `pages/*.html` | example page templates | copy the markup you need |
 | `examples/*.html` | the pages rendered (generated, do not edit) | open in a browser |

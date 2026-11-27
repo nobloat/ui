@@ -3,8 +3,8 @@
 Follow the nobloat skills ([nobloat/skill](https://github.com/nobloat/skill), checked out next to this repo as `../skill`):
 
 - `nobloat`: stack, code, HTTP, config, tests, UI and the plan-first workflow. Always.
-- `nobloat-ui`: this repo, [`skill/SKILL.md`](skill/SKILL.md); keep it in sync with `ui.css`, `ui.js`, `partials.html` and the designs.
-- Design system work: [`skill/design-system.md`](skill/design-system.md): the foundations (`foundations.html`), the rules and the to-do list. Read it before any design system work.
+- Rules: [`skill/design-system.md`](skill/design-system.md) is the only source of every design and UX rule, with "Keeping it in sync" (what else a change touches), the to-do list and the Rollout differences. Read it before any UI or design system work.
+- `nobloat-ui`: [`skill/SKILL.md`](skill/SKILL.md), how an app uses ui (markup, classes, ui.js); it links to the rules and never restates them. Keep it in sync with `ui.css`, `ui.js` and `partials.html`.
 
 Every app copies `ui.css`, `ui.js`, `partials.html` and `i18n/ui/*.json` unchanged (`make ui` in the app). A change here is rolled out by running `make ui` in each app in nobloat/system and checking the screenshots there.
 

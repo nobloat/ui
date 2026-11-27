@@ -157,3 +157,4 @@ a.rl-node:hover { box-shadow: var(--shadow-floating); }
 .rl-layers > .rl-node > i { grid-row: 1 / span 2; }
 .rl-layers > .cr-down { grid-column: auto; margin: 0; }
 @media (max-width: 60rem) { .rl-graph.rl-layers > .cr-down { display: block; } .rl-layers > .rl-node > code { grid-column: 2; grid-row: auto; } }
+.cp-box:has(> :is(.page-head, .board, .week-grid, .month-grid, .settings, .dashboard):only-child) { align-content: start; } /* a specimen of a page part: from the top, not centred */
