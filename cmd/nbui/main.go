@@ -3,6 +3,7 @@
 //	go -C ../ui run ./cmd/nbui copy -to ../bill/ui          # write the copy (replaces an earlier one)
 //	go -C ../ui run ./cmd/nbui copy -to ../bill/ui -check   # fail if the copy differs
 //	go run ./cmd/nbui gen                                    # in ui: regenerate pages, fragments, samples, typedefs
+//	go -C ../ui run ./cmd/nbui check [flags] [<base url> <paths>…] # layout and accessibility in Chrome and Firefox (check.go)
 //
 // The app imports it as <its module>/ui; its CSS and JS come from ui.WriteAssets in the app's test.
 package main
@@ -32,8 +33,11 @@ func main() {
 		}
 		return
 	}
+	if len(os.Args) >= 2 && os.Args[1] == "check" {
+		os.Exit(check(os.Args[2:]))
+	}
 	if len(os.Args) < 2 || os.Args[1] != "copy" {
-		fmt.Fprintln(os.Stderr, "usage: nbui gen | nbui copy -to <app>/ui [-check]")
+		fmt.Fprintln(os.Stderr, "usage: nbui gen | nbui copy -to <app>/ui [-check] | nbui check [-h]")
 		os.Exit(2)
 	}
 	flags := flag.NewFlagSet("copy", flag.ExitOnError)

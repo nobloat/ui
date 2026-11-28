@@ -20,12 +20,12 @@ Every change touches all of its places in one commit. The check in the last colu
 |---|---|---|
 | New icon | `icons/<name>.svg` (README: Adding an icon), `go test -update` (sprite, `icons.css`, `ui.css`, `icons_gen.go`), the grid in `foundations.html`; a row in the icon map below if it means an action or place | `TestIcons` (style, generated files) |
 | New or changed token | `token/token.css`, its section in `foundations.html` (name and value once), light and dark | `TestTokensDefined` |
-| New component | its folder `<level>/<part>/` (CSS, template, JS only with behaviour), imported by its layer's file; its Go type; a specimen in `showcase/specimens.go` with `data-spec` on its copy button on `components.html` (`blocks.html` for a block; `shell.html` shows whole pages), then `go run ./cmd/nbui gen`; the layer list in `index.html` if it adds a kind | `TestTokensOnly`, `TestRules`, `TestElements`, `TestGenerated` (stale output), `check.mjs` |
+| New component | its folder `<level>/<part>/` (CSS, template, JS only with behaviour), imported by its layer's file; its Go type; a specimen in `showcase/specimens.go` with `data-spec` on its copy button on `components.html` (`blocks.html` for a block; `shell.html` shows whole pages), then `go run ./cmd/nbui gen`; the layer list in `index.html` if it adds a kind | `TestTokensOnly`, `TestRules`, `TestElements`, `TestGenerated` (stale output), `make check` |
 | New or changed rule | this file only; specimens that show it; SKILL.md only if the markup or API changes; a Rollout item if `ui.css` does not follow it yet | – |
-| New page type, layer or file | `index.html` (architecture, layer graph, links) | `check.mjs` loads `index.html` |
-| Anything on the design system pages | light and dark, 320 px to desktop | `check.mjs` (layout, contrast, names, icons on buttons) |
+| New page type, layer or file | `index.html` (architecture, layer graph, links) | `make check` loads `index.html` |
+| Anything on the design system pages | light and dark, 320 px to desktop, Chrome and Firefox | `make check` (layout, contrast, names, icons on buttons) |
 
-Run `go test ./...` before reporting. `node check.mjs` is off until it is fast (TODO at its top); run it by hand for a page you changed (`PAGES=ui:blocks node check.mjs`).
+Run `make test` before reporting, and `make check` for a page you changed (`make check ARGS="-pages ui:blocks"`, both browsers). It is not in CI until what it found on 2026-11-28 is fixed (To do → Checks).
 
 ### Page rules for foundations.html
 
@@ -102,7 +102,7 @@ Shown in `foundations.html`; where today's `ui.css` still differs, see To do →
 
 ### Screen readers
 
-Everything a sighted user learns from the screen, a screen reader user hears. Checked by `check.mjs` (`sr:`) where a machine can.
+Everything a sighted user learns from the screen, a screen reader user hears. Checked by `make check` (`sr:`) where a machine can.
 
 - **Messages** announce themselves: `role="status"` for ok, info and warn, `role="alert"` for errors. A toast that closes by itself is a status, never an alert.
 - **Field errors**: the field has `aria-invalid="true"` and `aria-describedby` naming the error line's `id`; the error says what is wrong and what is valid.
@@ -226,8 +226,8 @@ Proposal CSS lives only in `proposals.css` (tokens only, like every layer) and i
 - [ ] Still missing from the apps: unit affix (%, days), saved indicator, pill input (groups, tags), colour swatches, single-file upload button, bulk bar, history (audit), charts (stack, columns, sparkline), error display (dot matrix)
 
 **Checks** (each needs the owner's go)
-- [ ] `check.mjs`: make it fast (TODO at its top), then back into CI and the before-reporting step
-- [ ] `check.mjs`: layout shift after load, motion without reduced motion
+- [ ] `make check`: fix what it found when it moved to Go and Chrome stopped hiding sideways overflow (phone emulation widened `innerWidth` to fit it; 2026-11-28): long data at 320 px on the example pages (`ui.css`: page head, error page, ids, chips, calendar head), and the design system pages at 320–390 px (components, documents, blocks, foundations, icons); then into CI
+- [ ] `make check`: layout shift after load, motion without reduced motion
 - [ ] Touch targets: 24 px (today) or 44 px on phones
 
 **Rollout**

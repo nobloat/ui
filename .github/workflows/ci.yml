@@ -11,9 +11,6 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: go test ./...            # examples match the partials, i18n keys complete, brand rendering
-      # TODO: check.mjs is off until it is fast (see the TODO at its top); turn this back on then.
-      # - run: node check.mjs           # layout and accessibility on every page, design, theme and width (Chrome is on the runner)
+      - run: make test                # vet and tests; the browser driver runs in Chrome and Firefox (both on the runner)
+      # TODO: make check (Chrome and Firefox) once what it found is fixed (skill/design-system.md → To do → Checks)
+      # - run: make check

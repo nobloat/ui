@@ -46,7 +46,7 @@ ui.Render(w, lang, texts, ui.Page{Title: "Users", Header: &header, Footer: &foot
 | regenerate | `go run ./cmd/nbui gen`: the specimens on `components.html` and `blocks.html`, `fragments/`, `nb.html-data.json`, `ui.types.js`, `components.js`, `showcase/sample/`, `screens/auth/` (`go test ./...` fails when any is stale) |
 | screens | [`screens/auth/`](screens/auth/index.html): every screen of auth; [`showcase/sample/`](showcase/sample/index.html): an app's dashboard, list, settings and form |
 | not in Go | `fragments/<part>.html` (markup), `nb.html-data.json` (VS Code `html.customData`), `ui.types.js` (JSDoc, `// @ts-check`) |
-| demo | `node video/record.mjs <frames dir>` then `go run ./video/encode <frames dir> video/demo.gif` (headless Chrome over the DevTools protocol, a GIF from Go's standard library) |
+| demo | `make video` (`go run ./video video/demo.gif`: headless Chrome over the DevTools protocol, a GIF from Go's standard library) |
 
 ## Files
 
@@ -62,7 +62,7 @@ ui.Render(w, lang, texts, ui.Page{Title: "Users", Header: &header, Footer: &foot
 | `favicon.svg` | the `][` mark favicon | replace `◆` and the two colors |
 | `skill/design-system.md` | the rules, the one source | read by the skill |
 | `skill/SKILL.md` | how an app uses ui (markup, classes, ui.js) | link as a skill |
-| `check.mjs` | layout and accessibility check, and every button has an icon (Node 22, Chrome) | run against the app's pages |
+| `cmd/nbui` (`nbui check`), `browser/` | layout and accessibility check in Chrome and Firefox, and every button has an icon; `browser/` drives both from Go (DevTools protocol, WebDriver BiDi) | run against the app's pages |
 | `pages/*.html` | example page templates | copy the markup you need |
 | `examples/*.html` | the pages rendered (generated, do not edit) | open in a browser |
 | `examples/demo.js`, `calendar-demo.js`, `preview.html` | demo only: switcher, fake backend, calendar handlers, desktop + phone preview | not copied |
@@ -90,14 +90,19 @@ The set has one style, **precise**: thin lines, square ends, sharp corners, draw
 
 ## Development
 
+Every page works in current Chrome and Firefox (`skill/nobloat` → Browsers). Go, Chrome and Firefox are all it needs (`CHROME=…`, `FIREFOX=…` to override where they are); no Node.
+
 ```sh
-go test ./...          # examples match pages/ + partials.html, i18n keys complete, brand rendering
+make test              # go vet, go test: examples match pages/ + partials.html, i18n keys complete, brand rendering, the browser driver
 go test -update ./...  # regenerate examples/*.html
-node check.mjs         # every example page × graphite/paper × light/dark × 320–430, 768, 1280 px (+ open menu, custom logo, long data):
-                       # layout (no sideways scroll, nothing sticking out, no wrapping or clipped labels) and
-                       # accessibility (contrast, names, labels, alt, ids, landmarks, target size, focus), money parsing
-node check.mjs http://localhost:8080/ /customers   # the same for an app's pages (Git Bash on Windows: MSYS_NO_PATHCONV=1, or it rewrites the paths)
-./screenshots.sh       # screenshots/*.png, needs Chrome (CHROME=…)
+make gen               # regenerate what comes from the Go types (nbui gen)
+make check             # every example page × graphite/paper × light/dark × 320–430, 768, 1280 px (+ open menu, custom logo, long data),
+                       # in Chrome and Firefox: layout (no sideways scroll, nothing sticking out, no wrapping or clipped labels) and
+                       # accessibility (contrast, names, labels, alt, ids, landmarks, target size, focus), the picker, money parsing
+make check ARGS="-pages ui:blocks,list -browsers firefox"
+go -C ../ui run ./cmd/nbui check http://localhost:8080/ /customers   # the same for an app's pages (Git Bash on Windows: MSYS_NO_PATHCONV=1)
+make video             # video/demo.gif
+make screenshots       # screenshots/*.png, needs Chrome (CHROME=…)
 ```
 
-CI runs `go test` on every push; `check.mjs` is off until it is fast (TODO at its top). The Go module is also the typed UI (`PLAN.md`): apps that moved to it get a copy with `go -C ../ui run ./cmd/nbui copy -to ../<app>/ui`; the others still copy `ui.css`, `ui.js` and `partials.html`.
+CI runs `make test` on every push. The Go module is also the typed UI (`PLAN.md`): apps that moved to it get a copy with `go -C ../ui run ./cmd/nbui copy -to ../<app>/ui`; the others still copy `ui.css`, `ui.js` and `partials.html`.

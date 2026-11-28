@@ -1,69 +1,10 @@
-// TODO: off (not in CI, not required before reporting) until it is fast. 1351 page loads run one after another in one tab,
-// each with a fixed sleep(150) (about 3.4 min of waiting) and a full reload for every width. Fix: wait for document.fonts.ready
-// and a frame instead of the sleep; load each page once per theme and design and step through the widths with
-// Emulation.setDeviceMetricsOverride; run 4-6 tabs in parallel. Then turn it back on in .github/workflows/ci.yml and in
-// skill/design-system.md (Keeping it in sync).
-// Layout and accessibility check for every example page and the design system pages (index, foundations, components, blocks, shell, documents, proposals): node check.mjs (Node 22+, Chrome; CHROME=… to override).
-// Some pages only: PAGES=ui:foundations,list node check.mjs
-// An app: node check.mjs http://localhost:8080/ /customers /customers/CUS-0042 (its own design; light and dark via the OS setting).
-// Loads each page in each design, theme and width (and the open burger menu on phones) and fails on:
-//   layout: horizontal page scroll, elements sticking out of the viewport, one-line components that wrap, clipped text
-//   a11y:   text contrast < 4.5:1 (3:1 large), state graphics and form field edges < 3:1, missing accessible names,
-//           labels or alt, duplicate ids, missing lang/title/main/h1, targets < 24×24 px without spacing, no focus indicator
-//   sr:     messages with role status/alert, field errors linked (aria-invalid, aria-describedby), icons aria-hidden or named,
-//           nothing focusable inside aria-hidden, one aria-current per nav, one aria-sort per sortable table, no skipped heading level, skip link
-//   icons:  a button, .btn, tab, pager link, chip or menu item without an icon (a person's avatar counts as one)
-// No dependencies: Chrome DevTools protocol over Node's built-in WebSocket.
-import {spawn} from 'node:child_process';
-import {existsSync, mkdtempSync} from 'node:fs';
-import {tmpdir} from 'node:os';
-import {join, resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
-
-// money parsing and formatting from ui.js, checked without a browser
-{
-  const src = (await import('node:fs')).readFileSync(new URL('./ui.js', import.meta.url), 'utf8');
-  const money = new Function(src.match(/window\.money = (\{[\s\S]*?\n\});/)[0].replace('window.money =', 'return'))();
-  const cases = [['1.240,00', 124000], ['1,240.50', 124050], ['1240', 124000], ['1240.5', 124050], ['-12', -1200], ['−3,5', -350],
-    ['1.234.567,89', 123456789], ['1 240,00 €', 124000], ['12,3456', NaN], ['1.2.3', NaN], ['abc', NaN],
-    // one separator and three digits follows the example; mixed group separators are refused
-    ['0,125', NaN], ['19,999', NaN], ['1.500', 150000], ['0.999', NaN, '1,234.56'], ['1,500', 150000, '1,234.56'], ['1,500', NaN, '1234.56'],
-    ['1.234,567.89', NaN], ['1,234.567,89', NaN], ['1.234.567', 123456700]];
-  const bad = cases.filter(([s, c, ex]) => !Object.is(money.parse(s, ex), c)).concat(
-    [[124050, '1.234,56', '1.240,50'], [123456789, '1,234.56', '1,234,567.89'], [-30000, '1.234,56', '−300,00'], [5, '1234.56', '0.05'], [124000, '1.234,56', '+1.240,00', true], [0, '1.234,56', '0,00', true]]
-      .filter(([c, ex, want, signed]) => money.format(c, ex, signed) !== want));
-  if (bad.length) { console.log('✕ money:', JSON.stringify(bad)); process.exit(1); }
-}
-
-const app = process.argv.slice(2);
-const pages = app.length ? app.map((u, i) => i === 0 ? '' : u) : ['index', 'icons', '400', '401', '403', '404', '409', '410', '413', '429', '500', '503', 'dashboard', 'list', 'detail', 'form', 'dates', 'week', 'month', 'settings', 'status', 'login',
-  // the design system pages in the repo root, once per theme and width (they have no design switch)
-  'ui:index', 'ui:foundations', 'ui:components', 'ui:blocks', 'ui:shell', 'ui:documents', 'ui:proposals'];
-const designs = app.length ? [''] : (process.env.DESIGNS ?? ',paper').split(','), themes = ['light', 'dark'], widths = [320, 360, 375, 390, 414, 430, 768, 1280];
-const chrome = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(existsSync);
-if (!chrome) { console.error('Chrome not found, set CHROME'); process.exit(2); }
-
-const port = 9400 + Math.floor(Math.random() * 500);
-const proc = spawn(chrome, ['--headless', '--disable-gpu', '--hide-scrollbars', '--force-prefers-reduced-motion', '--no-first-run',
-  `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'nbui-'))}`, 'about:blank'], {stdio: 'ignore'});
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-let target;
-for (let i = 0; i < 150 && !target; i++) { await sleep(200); target = await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, {method: 'PUT'}).then(r => r.json()).catch(() => null); }
-if (!target) { console.error('Chrome did not start'); proc.kill(); process.exit(2); }
-const ws = new WebSocket(target.webSocketDebuggerUrl);
-await new Promise(r => ws.onopen = r);
-let id = 0;
-const pend = {}, loads = [];
-ws.onmessage = m => { const d = JSON.parse(m.data); if (d.id) pend[d.id]?.(d); else if (d.method === 'Page.loadEventFired') loads.splice(0).forEach(f => f()); };
-const cmd = (method, params = {}) => new Promise(r => { const i = ++id; pend[i] = r; ws.send(JSON.stringify({id: i, method, params})); });
-const evaluate = async expr => { const r = await cmd('Runtime.evaluate', {expression: expr, awaitPromise: true, returnByValue: true}); if (r.result.exceptionDetails) throw new Error(JSON.stringify(r.result.exceptionDetails).slice(0, 400)); return r.result.result.value; };
-await cmd('Page.enable');
-await cmd('Emulation.setFocusEmulationEnabled', {enabled: true}); // a background page has no focus otherwise
-
-// runs inside the page; returns a list of problems
-const probe = (specimens, ownPage) => { // ownPage: a design system page (no app frame, so no skip link) // specimens: a design system page that shows several whole pages or page heads (blocks, shell, documents)
-  const P = [], W = innerWidth, de = document.documentElement;
+// The checks nbui check runs inside each page, in Chrome and Firefox (cmd/nbui/check.go evaluates one method at a time).
+// Rules: skill/design-system.md (Layout, Accessibility, Screen readers, Icons).
+({
+// returns a list of problems; specimens: a design system page that shows several whole pages or page heads (blocks, shell,
+// documents); ownPage: a design system page (no app frame, so no skip link)
+probe: (specimens, ownPage) => {
+  const P = [], de = document.documentElement, W = de.clientWidth; // not innerWidth: a phone (Chrome's mobile emulation) widens it to fit what overflows
   const nm = el => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).join('.') : '');
   const path = el => { const a = []; for (let e = el; e && e !== document.body && a.length < 3; e = e.parentElement) a.unshift(nm(e)); return a.join(' > '); };
   const offscreen = el => { for (let e = el; e; e = e.parentElement) if (getComputedStyle(e).clipPath === 'inset(50%)') return true; return el.closest('[aria-hidden="true"]') && el.tabIndex < 0; };
@@ -193,10 +134,10 @@ const probe = (specimens, ownPage) => { // ownPage: a design system page (no app
   // a skip link where something focusable comes before main (header, nav)
   if (!ownPage && !specimens && [...document.querySelectorAll('header, nav')].some(e => !e.closest('main') && e.querySelector(focusable))) { const first = document.body.querySelector(focusable); if (first && !first.closest('main') && !(first.matches('a[href^="#"]') && document.querySelector(`main${first.getAttribute('href')}, main ${first.getAttribute('href')}`))) add('sr', 'no skip link to main as the first focusable element'); }
   return P;
-};
+},
 
 // focus indicator: focus each kind of control once and compare its outline, shadow and border
-const focusProbe = () => {
+focus: () => {
   const P = [], seen = new Set();
   for (const el of document.querySelectorAll('main a[href], main button, main summary, main input, main select, main textarea, header a, header button, header input')) {
     const kind = el.tagName + '.' + el.className + '.' + el.type;
@@ -213,65 +154,28 @@ const focusProbe = () => {
     el.blur();
   }
   return P;
-};
+},
 
-const root = pathToFileURL(resolve('.')).href + '/', base = root + 'examples/';
-let failed = 0, runs = 0;
-const seen = new Map();
-for (const design of designs) for (const theme of themes) for (const w of widths) {
-  await cmd('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: theme}]});
-  await cmd('Emulation.setDeviceMetricsOverride', {width: w, height: 900, deviceScaleFactor: 1, mobile: w < 640});
-  for (const p of pages.filter(p => !process.env.PAGES || process.env.PAGES.split(',').includes(p))) {
-    const sys = p.startsWith('ui:');
-    if (sys && design !== designs[0]) continue;
-    const variants = [{}];
-    if (w < 640 && !sys && !['status', 'login'].includes(p)) variants.push({menu: true});
-    if (w === 320 && p === 'list' && !app.length) variants.push({logo: true});
-    if (w === 320 && theme === 'light') variants.push({stress: true}); // real data: long words, emails, ids in every text
-    for (const v of variants) {
-      const loaded = new Promise(r => loads.push(r));
-      await cmd('Page.navigate', {url: app.length ? new URL(p, app[0]).href : sys ? `${root}${p.slice(3)}.html` : `${base}${p}.html?nopanel&design=${design}&brand=&logo=${v.logo ? 1 : ''}&theme=${theme}`});
-      await loaded; await sleep(150);
-      if (v.menu) await evaluate(`document.getElementById('menu')?.click()`);
-      if (v.stress) await evaluate(`(() => {
-        const long = ['Donaudampfschifffahrtsgesellschaftskapitänswitwe', 'buchhaltung.oesterreich@sehr-lange-firmendomain.example', 'CUS-0123456789ABCDEF0123'];
-        let i = 0;
-        // only where user data shows up; labels of tabs, buttons and segments come from the app and stay short
-        for (const el of document.querySelectorAll('main :is(td, h1, p, li, .chip, .tag, code, .info > span, .crumbs span, .crumbs a, .value)')) {
-          const t = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
-          if (t) t.textContent += ' ' + long[i++ % long.length];
-        }
-      })()`);
-      const problems = await evaluate(`(${probe})(${['ui:blocks', 'ui:shell', 'ui:documents'].includes(p)}, ${sys})`);
-      if (!v.menu && !v.logo && w === 1280) problems.push(...await evaluate(`(${focusProbe})()`));
-      runs++;
-      const where = `${p || '/'} ${app.length || sys ? '' : (design || 'graphite') + ' '}${theme} ${w}px${v.menu ? ' menu' : ''}${v.logo ? ' logo' : ''}${v.stress ? ' long data' : ''}`;
-      for (const msg of problems) { // group identical problems across variants
-        if (!seen.has(msg)) seen.set(msg, []);
-        seen.get(msg).push(where);
-        failed++;
-      }
-    }
+// real data: long words, emails, ids in every text, only where user data shows up; labels of tabs, buttons and segments
+// come from the app and stay short
+stress: () => {
+  const long = ['Donaudampfschifffahrtsgesellschaftskapitänswitwe', 'buchhaltung.oesterreich@sehr-lange-firmendomain.example', 'CUS-0123456789ABCDEF0123'];
+  let i = 0;
+  for (const el of document.querySelectorAll('main :is(td, h1, p, li, .chip, .tag, code, .info > span, .crumbs span, .crumbs a, .value)')) {
+    const t = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+    if (t) t.textContent += ' ' + long[i++ % long.length];
   }
-}
-// pill picker (input[data-pick]) on the form page: type and pick, type a new value, Backspace, ×, leave with typed text
-if (!app.length) {
-  const loaded = new Promise(r => loads.push(r));
-  await cmd('Page.navigate', {url: `${base}form.html?nopanel`});
-  await loaded; await sleep(150);
-  const key = async (key, code = key, text) => { for (const type of ['keyDown', 'keyUp']) await cmd('Input.dispatchKeyEvent', {type, key, code, text: type === 'keyDown' ? text : undefined, windowsVirtualKeyCode: {Enter: 13, Backspace: 8, ' ': 32}[key]}); };
-  const val = () => evaluate(`document.getElementById('f-tags').value`);
-  const got = [];
-  await evaluate(`document.querySelector('label[for=f-tags]').click()`);
-  await cmd('Input.insertText', {text: 'trav'}); await key('Enter', 'Enter', '\r'); got.push(await val());
-  await cmd('Input.insertText', {text: '#new'}); await key(' ', 'Space', ' '); got.push(await val());
-  await key('Backspace'); got.push(await val());
-  await evaluate(`document.querySelector('.pill button').click()`); got.push(await val());
-  await cmd('Input.insertText', {text: '#left'}); await evaluate(`document.activeElement.blur()`); await sleep(300); got.push(await val());
-  const want = ['#consulting #eu #travel', '#consulting #eu #travel #new', '#consulting #eu #travel', '#eu #travel', '#eu #travel #left'];
-  if (JSON.stringify(got) !== JSON.stringify(want)) seen.set(`picker: got ${JSON.stringify(got)}, want ${JSON.stringify(want)}`, ['form']);
-}
-for (const [msg, where] of seen) console.log(`✕ ${msg}\n    ${where.length > 3 ? where.slice(0, 3).join(', ') + ` … (${where.length}×)` : where.join(', ')}`);
-console.log(`${runs} page loads, ${seen.size} distinct problems`);
-ws.close(); proc.kill();
-process.exit(seen.size ? 1 : 0);
+},
+
+// money parsing and formatting from ui.js (window.money); returns the cases that fail
+money: money => {
+  const cases = [['1.240,00', 124000], ['1,240.50', 124050], ['1240', 124000], ['1240.5', 124050], ['-12', -1200], ['−3,5', -350],
+    ['1.234.567,89', 123456789], ['1 240,00 €', 124000], ['12,3456', NaN], ['1.2.3', NaN], ['abc', NaN],
+    // one separator and three digits follows the example; mixed group separators are refused
+    ['0,125', NaN], ['19,999', NaN], ['1.500', 150000], ['0.999', NaN, '1,234.56'], ['1,500', 150000, '1,234.56'], ['1,500', NaN, '1234.56'],
+    ['1.234,567.89', NaN], ['1,234.567,89', NaN], ['1.234.567', 123456700]];
+  return cases.filter(([s, c, ex]) => !Object.is(money.parse(s, ex), c)).concat(
+    [[124050, '1.234,56', '1.240,50'], [123456789, '1,234.56', '1,234,567.89'], [-30000, '1.234,56', '−300,00'], [5, '1234.56', '0.05'], [124000, '1.234,56', '+1.240,00', true], [0, '1.234,56', '0,00', true]]
+      .filter(([c, ex, want, signed]) => money.format(c, ex, signed) !== want)).map(c => JSON.stringify(c));
+},
+})

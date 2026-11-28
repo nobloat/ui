@@ -9,7 +9,7 @@ The UI of nobloat apps comes from one reference repo, **nobloat/ui** (checked ou
 
 **The rules are in [`design-system.md`](design-system.md), the only source.** Read it first. This file says which markup and API carry each rule in an app today; it never restates a rule. Where today's `ui.css` does not follow a rule yet, `design-system.md` → To do → Rollout lists it; until it ships, the markup below is what works.
 
-Before writing a page, open the nearest example in `../ui/pages/` (`dashboard`, `list`, `detail`, `form`, `dates`, `week`, `month`, `settings`, `status`, `login`) and copy its structure. `node ../ui/check.mjs` enforces what a machine can check.
+Before writing a page, open the nearest example in `../ui/pages/` (`dashboard`, `list`, `detail`, `form`, `dates`, `week`, `month`, `settings`, `status`, `login`) and copy its structure. `go -C ../ui run ./cmd/nbui check` enforces what a machine can check, in Chrome and Firefox.
 
 ## Typed pages (Go apps that moved; `PLAN.md`)
 
@@ -28,7 +28,7 @@ The rest of this file describes today's `ui.css`, `ui.js` and `partials.html`, w
 1. Copy unchanged into the app: `ui.css`, `ui.js` → `web/static/`; `partials.html` → `web/`; `calendar.js` only for calendar pages; `chart.go` only for charts (change the package line, register `Spark`/`Columns` as template funcs). Merge `i18n/{en,de}.json` into the app's i18n files. App icons and manifest: `../ui/appicon.sh` (Rules: Pages and content → Installable).
 2. A diff against `../ui` must stay empty. App styles go in `web/static/app.css` (via `{{define "head"}}`), app code in `app.js` (via `{{define "scripts"}}`). A change two apps need goes into nobloat/ui first, then into both apps.
 3. Parse `partials.html` before the pages; every page is `{{template "nb-layout" .}}` + `{{define "main"}}` (public pages: `nb-bare`). The page value needs the fields listed at the top of `partials.html` (`Lang`, `Title`, `Here`, `Brand`, `Nav`, `Crumbs`, `Search`, `SearchAPI`, `User`, `UserURL`, `LogoutURL`, `SettingsURL`, `Texts`, `T(key)` …).
-4. Add the check to the app's tests or CI: `node ../ui/check.mjs http://localhost:PORT/ /customers /customers/CUS-0042 …` (every page type once, with realistic data). It must report 0 problems.
+4. Add the check to the app's tests or CI: `go -C ../ui run ./cmd/nbui check http://localhost:PORT/ /customers /customers/CUS-0042 …` (every page type once, with realistic data). It must report 0 problems.
 
 ## Brand and theme
 
@@ -74,7 +74,7 @@ Rules: Pages and content (Page head, List, Detail, Dashboard, Settings). Markup:
 
 Rules: Icons and buttons (which icon, every button has one, one primary, delete confirms, key hints).
 - Icons: `<i class="icon-cog" aria-hidden="true"></i>`, sized by the font, tinted by `color`; `off` crosses one out (`icon-user off`). A missing icon is added to nobloat/ui first (README: Adding an icon).
-- `check.mjs` fails a visible `button` or `.btn` without an `<i class="icon-…">` or a class that draws one: `new`, `edit`, `del`, `copy`, `ico`.
+- `nbui check` fails a visible `button` or `.btn` without an `<i class="icon-…">` or a class that draws one: `new`, `edit`, `del`, `copy`, `ico`.
 - `class="new"` creates an object; adding a row or value inside a form is a plain button with `<i class="icon-plus">` and its text. `.del` is red. Every delete or public action has `data-confirm="…"` naming the object and the consequence, optionally `data-confirm-title="Delete ACME GmbH?"`. Dialogs have an `h2` title (`aria-labelledby`).
 - `.pri` is the one primary action. Every submit shows a spinner (`aria-busy`, automatic); ui.js drops a second submit of the same form within 3 s and a held `[data-key]` clicks once. Mutations that must not happen twice still need an idempotency check on the server.
 - `data-key="c"` is the one source of a shortcut; ui.js adds the `<kbd>` where the markup has none; an icon-only button names it in `title="Mute (m)"`.
@@ -125,5 +125,5 @@ Rules: Pages and content (Charts), Tokens and colour (series colours). `chart.go
 
 - Started from an example page; follows the rules in `design-system.md` (apps: Layers → One shell).
 - ui's section headings (`main h2`) are styled at element weight, so an app's own component can style its `h2`; `.card h2` is a flex row (use a gap or separate elements).
-- `node ../ui/check.mjs <app urls>` reports 0 problems; then screenshot every page at desktop and phone width, light and dark, and look at it.
+- `go -C ../ui run ./cmd/nbui check <app urls>` reports 0 problems in Chrome and Firefox; then screenshot every page at desktop and phone width, light and dark, and look at it.
 - Works without JS and with the keyboard only; every state survives a reload and a copied link.
