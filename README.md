@@ -30,7 +30,7 @@ Custom brand (`--brand: #7c3aed`, logo with a dark variant): ![brand light](scre
 
 A page of a Go app is a Go value; ui renders it, refuses what the rules forbid and builds the CSS and JS from what the pages use ([`PLAN.md`](PLAN.md), rules in [`skill/design-system.md`](skill/design-system.md) → Parts and typed pages, usage in [`skill/SKILL.md`](skill/SKILL.md) → Typed pages).
 
-![demo: a page written in Go, rendered, checked and shipped (67 s)](video/demo.gif)
+![demo: a page written in Go, rendered, checked and shipped (67 s)](video/demo.png)
 
 ```go
 ui.Render(w, lang, texts, ui.Page{Title: "Users", Header: &header, Footer: &footer,
@@ -46,7 +46,7 @@ ui.Render(w, lang, texts, ui.Page{Title: "Users", Header: &header, Footer: &foot
 | regenerate | `go run ./cmd/nbui gen`: the specimens on `components.html` and `blocks.html`, `fragments/`, `nb.html-data.json`, `ui.types.js`, `components.js`, `showcase/sample/`, `screens/auth/` (`go test ./...` fails when any is stale) |
 | screens | [`screens/auth/`](screens/auth/index.html): every screen of auth; [`showcase/sample/`](showcase/sample/index.html): an app's dashboard, list, settings and form |
 | not in Go | `fragments/<part>.html` (markup), `nb.html-data.json` (VS Code `html.customData`), `ui.types.js` (JSDoc, `// @ts-check`) |
-| demo | `make video` (`go run ./video video/demo.gif`: headless Chrome over the DevTools protocol, a GIF from Go's standard library) |
+| demo | `make video` (`go run ./video video/demo.png`: headless Chrome over the DevTools protocol, an animated PNG (full colour, plays as an image everywhere) from Go's standard library) |
 
 ## Files
 
@@ -101,7 +101,7 @@ make check             # every example page × graphite/paper × light/dark × 3
                        # accessibility (contrast, names, labels, alt, ids, landmarks, target size, focus), the picker, money parsing
 make check ARGS="-pages ui:blocks,list -browsers firefox"
 go -C ../ui run ./cmd/nbui check http://localhost:8080/ /customers   # the same for an app's pages (Git Bash on Windows: MSYS_NO_PATHCONV=1)
-make video             # video/demo.gif
+make video             # video/demo.png
 make screenshots       # screenshots/*.png, needs Chrome (CHROME=…)
 ```
 

@@ -13,8 +13,8 @@ gen: # the specimens, fragments, HTML data, typedefs, sample and auth screens, c
 check: # layout and accessibility of every page in Chrome and Firefox; ARGS="-pages ui:blocks -browsers firefox"
 	go run ./cmd/nbui check $(ARGS)
 
-video: # records the demo in headless Chrome and writes video/demo.gif
-	go run ./video video/demo.gif
+video: # records the demo in headless Chrome and writes video/demo.png (an animated PNG)
+	go run ./video video/demo.png
 
 screenshots: # the old gallery's screenshots (Chrome)
 	./screenshots.sh

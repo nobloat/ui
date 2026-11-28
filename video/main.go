@@ -1,7 +1,7 @@
 // The typed UI demo: records headless Chrome over the DevTools protocol (Page.startScreencast; Firefox has no screencast)
-// and encodes the frames to an animated GIF with the standard library (no ffmpeg):
+// and encodes the frames to an animated PNG with the standard library (no ffmpeg):
 //
-//	go run ./video video/demo.gif      # in ui; make video
+//	go run ./video video/demo.png      # in ui; make video
 //
 // A caption bar and a visible cursor are injected into every page; mouse and keys move at human pace. Slides
 // (slides.html?<name>) type out code and real terminal output; phone.html frames a page at phone width.
@@ -10,13 +10,14 @@ package main
 import (
 	"bytes"
 	"encoding/base64"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
+	"hash/crc32"
 	"image"
 	"image/color"
 	"image/draw"
-	"image/gif"
-	"image/jpeg"
+	"image/png"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -42,7 +43,7 @@ const overlay = `if (window === top) addEventListener('DOMContentLoaded', () => 
 });`
 
 type frame struct {
-	jpg []byte
+	img []byte // PNG
 	ms  int
 }
 
@@ -161,9 +162,9 @@ func record() (frames []frame, err error) {
 			Metadata  struct{ Timestamp float64 }
 		}
 		json.Unmarshal(p, &f)
-		jpg, _ := base64.StdEncoding.DecodeString(f.Data)
+		img, _ := base64.StdEncoding.DecodeString(f.Data)
 		mu.Lock()
-		frames = append(frames, frame{jpg, int(f.Metadata.Timestamp * 1000)})
+		frames = append(frames, frame{img, int(f.Metadata.Timestamp * 1000)})
 		mu.Unlock()
 		go t.Call("Page.screencastFrameAck", map[string]any{"sessionId": f.SessionID})
 	})
@@ -171,7 +172,7 @@ func record() (frames []frame, err error) {
 	_, err = t.Call("Page.addScriptToEvaluateOnNewDocument", map[string]any{"source": overlay})
 	d.must(err)
 	d.must(t.Size(w, h))
-	_, err = t.Call("Page.startScreencast", map[string]any{"format": "jpeg", "quality": 85, "maxWidth": w, "maxHeight": h})
+	_, err = t.Call("Page.startScreencast", map[string]any{"format": "png", "maxWidth": w, "maxHeight": h})
 	d.must(err)
 
 	d.goTo("video/slides.html?title", "")
@@ -240,9 +241,9 @@ func record() (frames []frame, err error) {
 	return frames, nil
 }
 
-// encode: at most 15 frames a second, each lasting until the next; smaller frames (a phone) sit centred on the canvas;
-// colours map to a fixed palette (grays for text, a colour cube for the rest); each frame stores only the rectangle
-// that changed.
+// encode writes an animated PNG (APNG: full colour, plays as an <img> in every browser and on GitHub): at most 15
+// frames a second, each lasting until the next; smaller frames (a phone) sit centred on the canvas; each frame stores
+// only the rectangle that changed (the frames are PNG, so unchanged pixels are identical).
 func encode(frames []frame, out string) error {
 	const minGap = 66 // ms between kept frames
 	var keep []frame
@@ -251,89 +252,106 @@ func encode(frames []frame, out string) error {
 			keep = append(keep, f)
 		}
 	}
-	pal := palette()
-	cache := map[color.RGBA]uint8{}
-	bg := uint8(pal.Index(color.RGBA{0xe5, 0xe5, 0xe4, 0xff}))
-	var prev *image.Paletted
-	g := &gif.GIF{Config: image.Config{ColorModel: pal, Width: w, Height: h}}
+	type part struct {
+		rect  image.Rectangle
+		data  []byte // the frame's compressed image data (the IDAT contents of its own PNG)
+		delay int    // ms
+	}
+	var parts []part
+	var prev *image.RGBA
+	bg := image.NewUniform(color.RGBA{0xe5, 0xe5, 0xe4, 0xff})
+	enc := png.Encoder{CompressionLevel: png.BestCompression}
 	for i, f := range keep {
-		delay := 300 // the last frame: 3 s
+		delay := 3000 // the last frame
 		if i+1 < len(keep) {
 			delay = keep[i+1].ms - f.ms
 		}
-		src, err := jpeg.Decode(bytes.NewReader(f.jpg))
+		src, err := png.Decode(bytes.NewReader(f.img))
 		if err != nil {
 			return err
 		}
-		cur := image.NewPaletted(image.Rect(0, 0, w, h), pal)
-		for p := range cur.Pix {
-			cur.Pix[p] = bg
-		}
+		cur := image.NewRGBA(image.Rect(0, 0, w, h))
+		draw.Draw(cur, cur.Bounds(), bg, image.Point{}, draw.Src)
 		b := src.Bounds()
 		off := image.Pt((w-b.Dx())/2, (h-b.Dy())/2)
-		for y := b.Min.Y; y < b.Max.Y && y-b.Min.Y+off.Y < h; y++ {
-			for x := b.Min.X; x < b.Max.X && x-b.Min.X+off.X < w; x++ {
-				r, g, bl, _ := src.At(x, y).RGBA()
-				c := color.RGBA{uint8(r >> 8), uint8(g >> 8), uint8(bl >> 8), 0xff}
-				idx, ok := cache[c]
-				if !ok {
-					idx = uint8(pal.Index(c))
-					cache[c] = idx
-				}
-				cur.Pix[(y-b.Min.Y+off.Y)*cur.Stride+x-b.Min.X+off.X] = idx
-			}
-		}
+		draw.Draw(cur, b.Sub(b.Min).Add(off), src, b.Min, draw.Src)
 		rect := cur.Bounds()
 		if prev != nil {
 			rect = changed(prev, cur)
 			if rect.Empty() { // nothing moved: the previous frame lasts longer
-				g.Delay[len(g.Delay)-1] += max(1, delay/10)
+				parts[len(parts)-1].delay += delay
 				continue
 			}
 		}
-		sub := image.NewPaletted(rect, pal)
-		draw.Draw(sub, rect, cur, rect.Min, draw.Src)
-		g.Image = append(g.Image, sub)
-		g.Delay = append(g.Delay, max(2, delay/10))
-		g.Disposal = append(g.Disposal, gif.DisposalNone)
+		var buf bytes.Buffer
+		if err := enc.Encode(&buf, cur.SubImage(rect)); err != nil {
+			return err
+		}
+		parts = append(parts, part{rect, idat(buf.Bytes()), delay})
 		prev = cur
 	}
-	o, err := os.Create(out)
-	if err != nil {
+
+	var o bytes.Buffer
+	o.Write([]byte{0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a}) // the PNG signature
+	ihdr := binary.BigEndian.AppendUint32(nil, w)
+	ihdr = binary.BigEndian.AppendUint32(ihdr, h)
+	chunk(&o, "IHDR", append(ihdr, 8, 2, 0, 0, 0))                                                              // 8-bit RGB, as Go writes an opaque RGBA image
+	chunk(&o, "acTL", binary.BigEndian.AppendUint32(binary.BigEndian.AppendUint32(nil, uint32(len(parts))), 0)) // loop forever
+	seq := uint32(0)
+	for i, p := range parts {
+		fc := binary.BigEndian.AppendUint32(nil, seq)
+		for _, v := range []int{p.rect.Dx(), p.rect.Dy(), p.rect.Min.X, p.rect.Min.Y} {
+			fc = binary.BigEndian.AppendUint32(fc, uint32(v))
+		}
+		fc = binary.BigEndian.AppendUint16(fc, uint16(min(p.delay, 65535)))
+		fc = binary.BigEndian.AppendUint16(fc, 1000)
+		chunk(&o, "fcTL", append(fc, 0, 0)) // dispose: none, blend: source
+		seq++
+		if i == 0 {
+			chunk(&o, "IDAT", p.data)
+			continue
+		}
+		chunk(&o, "fdAT", append(binary.BigEndian.AppendUint32(nil, seq), p.data...))
+		seq++
+	}
+	chunk(&o, "IEND", nil)
+	if err := os.WriteFile(out, o.Bytes(), 0o644); err != nil {
 		return err
 	}
-	if err := gif.EncodeAll(o, g); err != nil {
-		o.Close()
-		return err
-	}
-	fmt.Printf("%d of %d frames → %s\n", len(g.Image), len(frames), out)
-	return o.Close()
+	fmt.Printf("%d of %d frames → %s (%d KB)\n", len(parts), len(frames), out, o.Len()/1024)
+	return nil
 }
 
-// palette: 40 grays (text, lines, surfaces) and a 6×6×6 colour cube.
-func palette() color.Palette {
-	var p color.Palette
-	for i := range 40 {
-		v := uint8(i * 255 / 39)
-		p = append(p, color.RGBA{v, v, v, 0xff})
-	}
-	for r := range 6 {
-		for g := range 6 {
-			for b := range 6 {
-				p = append(p, color.RGBA{uint8(r * 51), uint8(g * 51), uint8(b * 51), 0xff})
-			}
+// idat returns the concatenated IDAT data of a PNG.
+func idat(p []byte) []byte {
+	var d []byte
+	for p = p[8:]; len(p) >= 12; {
+		n := binary.BigEndian.Uint32(p)
+		if string(p[4:8]) == "IDAT" {
+			d = append(d, p[8:8+n]...)
 		}
+		p = p[12+n:]
 	}
-	return p
+	return d
+}
+
+func chunk(o *bytes.Buffer, typ string, data []byte) {
+	o.Write(binary.BigEndian.AppendUint32(nil, uint32(len(data))))
+	c := crc32.NewIEEE()
+	c.Write([]byte(typ))
+	c.Write(data)
+	o.WriteString(typ)
+	o.Write(data)
+	o.Write(binary.BigEndian.AppendUint32(nil, c.Sum32()))
 }
 
 // changed: the smallest rectangle that holds every pixel that differs.
-func changed(a, b *image.Paletted) image.Rectangle {
+func changed(a, b *image.RGBA) image.Rectangle {
 	r := image.Rectangle{}
 	for y := range h {
-		row := y * a.Stride
 		for x := range w {
-			if a.Pix[row+x] != b.Pix[row+x] {
+			i := y*a.Stride + x*4
+			if a.Pix[i] != b.Pix[i] || a.Pix[i+1] != b.Pix[i+1] || a.Pix[i+2] != b.Pix[i+2] {
 				r = r.Union(image.Rect(x, y, x+1, y+1))
 			}
 		}
